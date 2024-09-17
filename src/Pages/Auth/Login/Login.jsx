@@ -3,48 +3,39 @@ import accountBg from '../../../assets/logo/loginbg.png';
 import { IoBagHandleSharp } from "react-icons/io5";
 import { TiArrowRight } from "react-icons/ti";
 import { Link } from 'react-router-dom';
-const CreateAccount = () => {
+const Login = () => {
     return (
-
         <div className="bg-white">
             <div className="flex justify-center h-screen">
                 <div className="flex items-center w-full max-w-lg px-6 mx-auto lg:w-1/2">
                     <div className="flex-1">
 
-                        <div className="flex flex-col md:flex-row gap-3 justify-between mx-auto md:items-end">
-                            <div className='space-y-4'>
-                                <h2 className='text-4xl font-semibold'>Create account</h2>
-                                <p>Already have account? <span className='link-color'><Link to={"/login"}>Login</Link></span></p>
-                            </div>
 
-                            <div >
-                                <select className="select select-bordered w-fit max-w-xs">
-                                    <option disabled selected>Account Type</option>
-                                    <option>Employers</option>
-                                    <option>Hr Manager</option>
-                                </select>
-                            </div>
+                        <div className='space-y-4'>
+                            <h2 className='text-4xl font-semibold'>Sign In</h2>
+                            <p>Don't have account? <span className='link-color'><Link to={"/register"}>Create account</Link></span></p>
                         </div>
+
 
 
 
                         <div className="mt-8">
                             <form>
-                                <div className='flex gap-5'>
-                                    <input type="text" name="name" placeholder="Full Name" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
 
-                                    <input type="text" name="username" placeholder="Username" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                                </div>
                                 <div className='space-y-5 mt-5'>
                                     <input type="email" name="email" placeholder="Email Address" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
 
                                     <input type="password" name="password" placeholder="Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
 
-                                    <input type="password" name="confirmPassword" placeholder="Confirm Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <div className='flex justify-between'>
+                                        <div className='flex items-center gap-3'>
+                                            <input type="checkbox" className="checkbox" />
+                                            <p className='text-sm'>Remember me</p>
+                                        </div>
 
-                                    <div className='flex items-center gap-3'>
-                                        <input type="checkbox" className="checkbox" />
-                                        <p className='text-xs md:text-base'>I've read and agree with your <span className='link-color'>Terms of Services</span></p>
+                                        <Link
+                                            className='link-color text-sm'
+                                            to="/forget-password">Forget password?</Link>
                                     </div>
                                 </div>
 
@@ -52,7 +43,7 @@ const CreateAccount = () => {
 
                                 <div className="mt-6">
                                     <button className='btn w-full bg-[#0A65CC] text-white'>
-                                        Create Account < TiArrowRight className='text-2xl' />
+                                        Sign In < TiArrowRight className='text-2xl' />
                                     </button>
                                 </div>
 
@@ -145,10 +136,7 @@ const CreateAccount = () => {
 
             </div>
         </div>
-
-
-
     );
 };
 
-export default CreateAccount;
+export default Login;

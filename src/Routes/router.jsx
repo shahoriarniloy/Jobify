@@ -5,6 +5,7 @@ import Main from "../Layout/Main";
 import RouteNotFound from "../Pages/RouteNotFound";
 import Home from "../Pages/Home";
 import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
+import Login from "../Pages/Auth/Login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,9 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <CreateAccount />
+  }, {
+    path: "/login",
+    element: <Login />
   }
 
 ]);
