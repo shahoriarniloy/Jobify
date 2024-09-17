@@ -13,7 +13,11 @@ export default {
         yellowCastomize: '#F5CF82', 
         blueCastomize: '#629BAD', 
         redCastomize: '#C67265', 
+        baseCastomize: '#F2E3D1', 
         // 
+      },
+      fontFamily: {
+        noto: "'Noto Sans', sans-serif", // Add Noto Sans to the sans family
       },
     },
   },

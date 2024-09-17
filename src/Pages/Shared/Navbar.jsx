@@ -4,13 +4,13 @@ import logo from '../../assets/logo.png'
 const Navbar = () => {
     const navItem =
         <>
-            <li className='text-brownText'><Link to='/'>Home</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/'>Home</Link></li>
             <li className='text-brownText' ><Link to='/'>Find job</Link></li>
             <li className='text-brownText'><Link to='/'>Company Search</Link></li>
         </>
     return (
         <div>
-        <div className="navbar bg-transparent fixed top-0 left-0 right-0 z-50">
+        <div className="navbar bg-baseCastomize fixed top-0 left-0 right-0 z-50">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -33,6 +33,11 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
+            <div>
+             <div className="flex gap-5">
+               <button className="bg-white px-7 py-3 rounded-full text-greenCastomize font-noto">Log-in</button>    
+               <button className="bg-greenCastomize text-yellowCastomize px-7 py-3 rounded-full">Register Now</button> </div>    
+            </div>
             {/* {
   user? <>
       <span></span>
@@ -60,7 +65,8 @@ const Navbar = () => {
 } */}
             </div>
         </div>
-    </div>
+        </div>
+    
     );
 };
 
