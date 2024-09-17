@@ -20,7 +20,7 @@ const TopCompanies = () => {
   }, []);
 
   return (
-    <div className="p-8">
+    <div className="p-8 mt-16">
       <h1 className='text-[#593B34] noto text-3xl text-center mb-12'>Top Companies</h1>
       {error ? (
         <p className="text-red-500">Error: {error}</p>

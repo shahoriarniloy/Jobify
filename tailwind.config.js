@@ -7,17 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        brownlogo: '#693705', // 
+        brownlogo: '#693705', 
         brownText: '#593B34', 
         greenCastomize: '#1e6a6e',
         yellowCastomize: '#F5CF82', 
         blueCastomize: '#629BAD', 
         redCastomize: '#C67265', 
         baseCastomize: '#F2E3D1', 
-        // 
+        
       },
       fontFamily: {
-        noto: "'Noto Sans', sans-serif", // Add Noto Sans to the sans family
+        noto: "'Noto Sans', sans-serif", 
       },
     },
   },

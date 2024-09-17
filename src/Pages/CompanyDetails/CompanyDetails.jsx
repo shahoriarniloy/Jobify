@@ -30,7 +30,7 @@ const CompanyDetails = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="noto">
       <div className="relative">
         {/* Banner Image */}
         <div>
@@ -98,11 +98,11 @@ const CompanyDetails = () => {
             </div>
             <div className="flex items-center border-2 rounded p-3">
               <FaTwitter className="text-sky-500 mr-3" />
-              <p>Facebook</p>
+              <p>Twitter</p>
             </div>
             <div className="flex items-center border-2 rounded p-3">
               <FaPinterest className="text-red-600 mr-3" />
-              <p>Facebook</p>
+              <p>Pinterest</p>
             </div>
           </div>
         </div>
