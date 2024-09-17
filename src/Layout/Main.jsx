@@ -7,7 +7,10 @@ const Main = () => {
         <div className='roboto-regular'>
             
             <Navbar></Navbar>
-            <Outlet></Outlet>
+            <Outlet>
+
+                
+            </Outlet>
             <Footer></Footer>
         </div>
     );
