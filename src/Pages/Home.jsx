@@ -1,8 +1,9 @@
+import AdvanceJobSearch from "./AdvanceJobSearch";
 
 const Home = () => {
     return (
         <div>
-            <h1 className="text-red-600">This Is Home</h1>
+            <AdvanceJobSearch></AdvanceJobSearch>
             
         </div>
     );
