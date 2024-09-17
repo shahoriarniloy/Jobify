@@ -1,0 +1,202 @@
+[
+    {
+      "company_name": "TechWorld Solutions",
+      "company_logo": "https://example.com/logos/techworld.png",
+      "company_website": "https://techworld.com",
+      "company_type": "Private",
+      "industry": "Information Technology",
+      "founded_date": 2010,
+      "company_size": "201-500",
+      "company_description": "TechWorld Solutions is a leading provider of cutting-edge software solutions, empowering businesses through innovation.",
+      "address": "123 Innovation Drive",
+      "city": "San Francisco",
+      "state": "California",
+      "country": "USA",
+      "phone_number": "+1 415-555-0123",
+      "email": "info@techworld.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/techworld",
+        "twitter": "https://twitter.com/techworld"
+      }
+    },
+    {
+      "company_name": "GreenEarth Industries",
+      "company_logo": "https://example.com/logos/greenearth.png",
+      "company_website": "https://greenearth.com",
+      "company_type": "Public",
+      "industry": "Environmental Services",
+      "founded_date": 1998,
+      "company_size": "501-1000",
+      "company_description": "GreenEarth Industries leads the charge in sustainable solutions for businesses, specializing in eco-friendly waste management and energy solutions.",
+      "address": "456 Greenway Lane",
+      "city": "Austin",
+      "state": "Texas",
+      "country": "USA",
+      "phone_number": "+1 512-555-0198",
+      "email": "contact@greenearth.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/greenearth",
+        "facebook": "https://facebook.com/greenearth"
+      }
+    },
+    {
+      "company_name": "FinTech Innovations",
+      "company_logo": "https://example.com/logos/fintech.png",
+      "company_website": "https://fintechinnovations.com",
+      "company_type": "Private",
+      "industry": "Finance",
+      "founded_date": 2015,
+      "company_size": "51-200",
+      "company_description": "FinTech Innovations is a fast-growing startup revolutionizing financial technologies with AI-powered solutions for banking and investing.",
+      "address": "789 Finance Ave",
+      "city": "New York",
+      "state": "New York",
+      "country": "USA",
+      "phone_number": "+1 212-555-0345",
+      "email": "support@fintechinnovations.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/fintech",
+        "twitter": "https://twitter.com/fintech"
+      }
+    },
+    {
+      "company_name": "EduCare Global",
+      "company_logo": "https://example.com/logos/educare.png",
+      "company_website": "https://educareglobal.com",
+      "company_type": "Non-Profit",
+      "industry": "Education",
+      "founded_date": 2005,
+      "company_size": "201-500",
+      "company_description": "EduCare Global is dedicated to providing education to underprivileged communities through technology and innovation.",
+      "address": "123 Learning Blvd",
+      "city": "Chicago",
+      "state": "Illinois",
+      "country": "USA",
+      "phone_number": "+1 312-555-0789",
+      "email": "info@educareglobal.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/educareglobal",
+        "facebook": "https://facebook.com/educareglobal"
+      }
+    },
+    {
+      "company_name": "HealthFirst Medical",
+      "company_logo": "https://example.com/logos/healthfirst.png",
+      "company_website": "https://healthfirstmedical.com",
+      "company_type": "Private",
+      "industry": "Healthcare",
+      "founded_date": 2008,
+      "company_size": "1001-5000",
+      "company_description": "HealthFirst Medical provides comprehensive healthcare solutions with a focus on innovative patient care and medical research.",
+      "address": "987 Medical Park",
+      "city": "Los Angeles",
+      "state": "California",
+      "country": "USA",
+      "phone_number": "+1 323-555-0245",
+      "email": "info@healthfirstmedical.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/healthfirst",
+        "twitter": "https://twitter.com/healthfirst"
+      }
+    },
+    {
+      "company_name": "NextGen Robotics",
+      "company_logo": "https://example.com/logos/nextgen.png",
+      "company_website": "https://nextgenrobotics.com",
+      "company_type": "Private",
+      "industry": "Manufacturing",
+      "founded_date": 2012,
+      "company_size": "51-200",
+      "company_description": "NextGen Robotics is at the forefront of robotics development, creating machines that automate and optimize manufacturing processes.",
+      "address": "123 Automation Road",
+      "city": "Detroit",
+      "state": "Michigan",
+      "country": "USA",
+      "phone_number": "+1 313-555-0456",
+      "email": "info@nextgenrobotics.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/nextgenrobotics",
+        "facebook": "https://facebook.com/nextgenrobotics"
+      }
+    },
+    {
+      "company_name": "EcoEnergy Solutions",
+      "company_logo": "https://example.com/logos/ecoenergy.png",
+      "company_website": "https://ecoenergy.com",
+      "company_type": "Public",
+      "industry": "Renewable Energy",
+      "founded_date": 2000,
+      "company_size": "501-1000",
+      "company_description": "EcoEnergy Solutions provides innovative renewable energy solutions, including solar and wind power technologies.",
+      "address": "456 Energy Way",
+      "city": "Seattle",
+      "state": "Washington",
+      "country": "USA",
+      "phone_number": "+1 206-555-0127",
+      "email": "support@ecoenergy.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/ecoenergy",
+        "twitter": "https://twitter.com/ecoenergy"
+      }
+    },
+    {
+      "company_name": "ByteTech Software",
+      "company_logo": "https://example.com/logos/bytech.png",
+      "company_website": "https://bytetech.com",
+      "company_type": "Private",
+      "industry": "Software Development",
+      "founded_date": 2014,
+      "company_size": "201-500",
+      "company_description": "ByteTech Software delivers state-of-the-art custom software development services to enterprises worldwide.",
+      "address": "789 Code Ave",
+      "city": "Austin",
+      "state": "Texas",
+      "country": "USA",
+      "phone_number": "+1 512-555-0765",
+      "email": "info@bytetech.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/bytetech",
+        "twitter": "https://twitter.com/bytetech"
+      }
+    },
+    {
+      "company_name": "UrbanSpace Developers",
+      "company_logo": "https://example.com/logos/urbanspace.png",
+      "company_website": "https://urbanspacedevelopers.com",
+      "company_type": "Private",
+      "industry": "Real Estate",
+      "founded_date": 1995,
+      "company_size": "1001-5000",
+      "company_description": "UrbanSpace Developers is a leader in commercial and residential real estate development across the globe.",
+      "address": "123 Skyline Blvd",
+      "city": "New York",
+      "state": "New York",
+      "country": "USA",
+      "phone_number": "+1 212-555-0987",
+      "email": "info@urbanspace.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/urbanspace",
+        "facebook": "https://facebook.com/urbanspace"
+      }
+    },
+    {
+      "company_name": "AquaPure Technologies",
+      "company_logo": "https://example.com/logos/aquapure.png",
+      "company_website": "https://aquapuretech.com",
+      "company_type": "Private",
+      "industry": "Water Treatment",
+      "founded_date": 2011,
+      "company_size": "51-200",
+      "company_description": "AquaPure Technologies offers cutting-edge water purification and treatment solutions for residential and commercial use.",
+      "address": "456 Waterworks Drive",
+      "city": "Miami",
+      "state": "Florida",
+      "country": "USA",
+      "phone_number": "+1 305-555-0567",
+      "email": "info@aquapuretech.com",
+      "social_media_links": {
+        "linkedin": "https://linkedin.com/company/aquapure",
+        "facebook": "https://facebook.com/aquapure"
+      }
+    }
+  ]
