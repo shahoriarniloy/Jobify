@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo.png';
+import mobileLogo from '../../assets/mobileLogo.png';
+
 
 const Navbar = () => {
     const navItem =
         <>
             <li className='text-brownText font-noto font-semibold'><Link to='/'>Home</Link></li>
-            <li className='text-brownText' ><Link to='/'>Find job</Link></li>
-            <li className='text-brownText'><Link to='/'>Company Search</Link></li>
+            <li className='text-brownText font-noto font-semibold' ><Link to='/'>Find job</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/'>Company Search</Link></li>
         </>
     return (
         <div>
@@ -23,7 +25,8 @@ const Navbar = () => {
                 <div>
 
 
-                    <img className='h-20 w-52' src={logo} alt="" />
+                    <img className='h-20 w-52 hidden lg:block' src={logo} alt="" />
+                    <img className='h-16 w-20 block lg:hidden' src={mobileLogo} alt="Mobile Logo" />
 
                 </div>
             </div>
@@ -34,9 +37,9 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
             <div>
-             <div className="flex gap-5">
-               <button className="bg-white px-7 py-3 rounded-full text-greenCastomize font-noto">Log-in</button>    
-               <button className="bg-greenCastomize text-yellowCastomize px-7 py-3 rounded-full">Register Now</button> </div>    
+             <div className="flex gap-4 lg:gap-5">
+               <button className="bg-white  px-5 py-2 lg:px-7 lg:py-3 rounded-full text-greenCastomize font-noto">Log-in</button>    
+               <button className="bg-greenCastomize text-yellowCastomize px-5 py-2 lg:px-7 lg:py-3 rounded-full">Register Now</button> </div>    
             </div>
             {/* {
   user? <>
