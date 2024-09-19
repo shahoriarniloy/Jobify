@@ -8,11 +8,12 @@ const Navbar = () => {
         <>
             <li className='text-brownText font-noto font-semibold'><Link to='/'>Home</Link></li>
             <li className='text-brownText font-noto font-semibold' ><Link to='/'>Find job</Link></li>
-            <li className='text-brownText font-noto font-semibold'><Link to='/'>Company Search</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/'>Company Profile</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/'>About Us</Link></li>
         </>
     return (
         <div>
-        <div className="navbar bg-baseCastomize ">
+        <div className="navbar ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -25,7 +26,7 @@ const Navbar = () => {
                 <div>
 
 
-                    <img className='h-20 w-52 hidden lg:block' src={logo} alt="" />
+                    <img className='h-11 w-28 hidden lg:block' src={logo} alt="" />
                     <img className='h-16 w-20 block lg:hidden' src={mobileLogo} alt="Mobile Logo" />
 
                 </div>
