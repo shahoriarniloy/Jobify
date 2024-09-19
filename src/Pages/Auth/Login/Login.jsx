@@ -5,14 +5,14 @@ import { TiArrowRight } from "react-icons/ti";
 import { Link } from 'react-router-dom';
 const Login = () => {
     return (
-        <div className="bg-white">
+        <div className="bg-white noto">
             <div className="flex justify-center h-screen">
                 <div className="flex items-center w-full max-w-lg px-6 mx-auto lg:w-1/2">
                     <div className="flex-1">
 
 
                         <div className='space-y-4'>
-                            <h2 className='text-4xl font-semibold'>Sign In</h2>
+                            <h2 className='text-2xl font-semibold'>Sign In</h2>
                             <p>Don't have account? <span className='link-color'><Link to={"/register"}>Create account</Link></span></p>
                         </div>
 
