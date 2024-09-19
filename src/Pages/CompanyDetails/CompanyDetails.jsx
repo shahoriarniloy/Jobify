@@ -95,7 +95,7 @@ const CompanyDetails = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row md:mt-36 container mx-auto px-4">
+      <div className="flex flex-col md:flex-row md:mt-36  md:mb-48 container mx-auto px-4">
         <div className="md:w-1/2">
           <h2 className="font-bold my-5 text-xl md:text-2xl lg:text-3xl">
             Description
@@ -288,8 +288,8 @@ const CompanyDetails = () => {
 
       {/* Related Jobs section */}
       <section className="container mx-auto px-4 mt-10">
-        <h2 className="font-bold text-xl md:text-2xl lg:text-3xl">
-          Related Jobs
+        <h2 className="font-bold text-xl md:text-2xl lg:text-3xl md:mt-24 md:mb-12">
+        Open Position ({jobs?.length})
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {jobs.map((job) => (
