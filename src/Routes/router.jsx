@@ -8,6 +8,7 @@ import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
 
 import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
+import  About from "../Pages/About"
 
 
 export const router = createBrowserRouter([
@@ -25,14 +26,19 @@ export const router = createBrowserRouter([
         path: "company-details", 
         element: <CompanyDetails />,
       },
+      {
+        path: "/register",
+        element: <CreateAccount />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/about",
+        element: <About/>,
+      },
     ],
   },
-  {
-    path: "/register",
-    element: <CreateAccount />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
+  
 ]);

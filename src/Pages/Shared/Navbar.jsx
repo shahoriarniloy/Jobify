@@ -8,7 +8,8 @@ const Navbar = () => {
         <>
             <li className='text-brownText font-noto font-semibold'><Link to='/'>Home</Link></li>
             <li className='text-brownText font-noto font-semibold' ><Link to='/'>Find job</Link></li>
-            <li className='text-brownText font-noto font-semibold'><Link to='/'>Company Search</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/company-details'>Company Profile</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/about'>About Us</Link></li>
         </>
     return (
         <div>
@@ -38,8 +39,8 @@ const Navbar = () => {
             <div className="navbar-end">
             <div>
              <div className="flex gap-4 lg:gap-5">
-               <button className="bg-white  px-5 py-2 lg:px-7 lg:py-3 rounded-full text-greenCastomize font-noto">Log-in</button>    
-               <button className="bg-greenCastomize text-yellowCastomize px-5 py-2 lg:px-7 lg:py-3 rounded-full">Register Now</button> </div>    
+               <Link to='/login'><button className="bg-white  px-5 py-2 lg:px-7 lg:py-3 rounded-full text-greenCastomize font-noto">Log-in</button></Link>    
+               <Link to='/register'><button className="bg-greenCastomize text-yellowCastomize px-5 py-2 lg:px-7 lg:py-3 rounded-full">Register</button></Link> </div>    
             </div>
             {/* {
   user? <>

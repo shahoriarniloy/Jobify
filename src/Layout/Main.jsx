@@ -1,20 +1,14 @@
 import { Outlet } from 'react-router-dom';
-import Footer from '../Pages/Shared/Navbar';
-import Navbar from '../Pages/Shared/Footer';
-import useCurrentUser from '../Hooks/useCurrentUser';
+import Footer from '../Pages/Shared/Footer';
+import Navbar from '../Pages/Shared/Navbar';
 
 const Main = () => {
-    const { currentUser } = useCurrentUser();
-    if (!currentUser?.email) return <div className='flex justify-center items-center min-h-screen'><span className="loader"></span></div>
+
     return (
         <div className='roboto-regular'>
-
-            <Navbar></Navbar>
-            <Outlet>
-
-
-            </Outlet>
-            <Footer></Footer>
+            <Navbar />
+            <Outlet />
+            <Footer />
         </div>
     );
 };

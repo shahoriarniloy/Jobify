@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import bannerBg from "../../assets/image/CompanyDetails/bannerBg.png";
 import instagram_logo from "../../assets/image/CompanyDetails/instagram_logo.png";
 import {
   FaFacebookF,
@@ -22,7 +21,7 @@ const CompanyDetails = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const companyId = "66ea46139f898278478c9101";
+      const companyId = "66e9b2cdd3a959b9442eed96";
       try {
         const response = await fetch(
           `http://localhost:5000/companies/${companyId}`
@@ -57,37 +56,32 @@ const CompanyDetails = () => {
 
   return (
 
-    <div className="relative">
+    <div className="relative noto">
 
       <div className="relative">
-        {/* Banner Image */}
         <div>
           <img
             className="w-full h-56 object-cover md:h-72 lg:h-96"
-            src={bannerBg}
+            src={company.company_logo}
             alt="Banner"
           />
         </div>
 
-        {/* Company Details Section */}
         <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
           <div className="flex flex-col md:flex-row items-center">
-            {/* Company Logo */}
             <img
               src={instagram_logo}
               className="w-16 h-16 object-cover rounded-full"
               alt="Company Logo"
             />
 
-            {/* Company Information */}
             <div className="md:pl-4">
               <h3 className="font-bold text-xl md:text-2xl lg:text-3xl">
-                Twitter
+              {company?.company_name}
               </h3>
-              <p className="text-gray-500">Information Technology (IT)</p>
+              <p className="text-gray-500">{company?.industry}</p>
             </div>
 
-            {/* CTA Button */}
             <div className="mt-4 md:mt-0 md:ml-auto">
               <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                 View Open Position →
@@ -105,22 +99,20 @@ const CompanyDetails = () => {
           <p className="text-gray-500 mb-4">{company?.company_description}</p>
 
           <h2 className="font-bold my-5 text-xl md:text-2xl lg:text-3xl">
-            Company Benefits
-          </h2>
-          <p className="text-gray-500 mb-4">
-            Donec dignissim nunc eu tellus malesuada fermentum. Sed blandit in
-            magna at accumsan. Etiam imperdiet massa aliquam, consectetur leo
-            in, auctor neque.
-          </p>
-          <ul className="list-disc text-gray-500 ml-5">
-            <li>In hac habitasse platea dictumst.</li>
-            <li>
-              Sed aliquet, arcu eget pretium bibendum, odio enim rutrum arcu.
-            </li>
-            <li>Vestibulum id vestibulum odio.</li>
-          </ul>
+  Company Benefits
+</h2>
+<p className="text-gray-500 mb-4">
+  At TechWorld Solutions, we believe in creating a supportive and rewarding environment for our employees. We offer a range of benefits designed to support your personal and professional growth.
+</p>
+<ul className="list-disc text-gray-500 ml-5">
+  <li>Comprehensive health, dental, and vision insurance coverage.</li>
+  <li>Flexible work hours and remote work options.</li>
+  <li>401(k) retirement plan with company match.</li>
+  <li>Generous paid time off, including vacation, holidays, and sick leave.</li>
+  <li>Professional development programs and opportunities for career growth.</li>
+  <li>Employee wellness programs and gym membership discounts.</li>
+</ul>
 
-          {/* social Media  */}
           <div className="flex flex-wrap items-center gap-5 my-5">
             <p>Share profile:</p>
 
@@ -176,10 +168,8 @@ const CompanyDetails = () => {
           </div>
         </div>
 
-        {/* Right side  */}
 
         <div className="md:ml-10 md:w-1/2">
-          {/* Company Info */}
           <div className="md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
             <div>
               <FiCalendar className="text-2xl text-blue-500" />
@@ -206,7 +196,6 @@ const CompanyDetails = () => {
               <p className="font-bold text-sm">{company?.industry}</p>
             </div>
           </div>
-          {/* Contact Information */}
           <div className="md:p-8 border-2 rounded-lg md:my-6">
             <h2 className="font-bold text-xl md:text-2xl">
               Contact Information
@@ -238,7 +227,6 @@ const CompanyDetails = () => {
             </div>
           </div>
 
-          {/* Follow */}
           <div className="md:p-8 border-2 rounded-lg md:my-6">
             <h2 className="font-bold text-xl md:text-2xl">Follow us on:</h2>
             <div className="flex gap-3 my-4">
@@ -290,7 +278,6 @@ const CompanyDetails = () => {
         </div>
       </div>
 
-      {/* Related Jobs section */}
       <section className="container mx-auto px-4 mt-10">
         <h2 className="font-bold text-xl md:text-2xl lg:text-3xl md:mt-24 md:mb-12">
         Open Position ({jobs?.length})

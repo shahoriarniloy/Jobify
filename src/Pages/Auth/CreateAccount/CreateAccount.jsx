@@ -26,8 +26,6 @@ const CreateAccount = () => {
                             </div>
                         </div>
 
-
-
                         <div className="mt-8">
                             <form>
                                 <div className='flex gap-5'>
