@@ -150,7 +150,7 @@ const Reviews = () => {
       <h1 className="text-4xl text-center noto mt-16 font-bold leading-none text-brownText">
         Feedbacks
       </h1>
-      <div className="grid lg:grid-cols-4 md:grid-cols-4 grid-cols-1 gap-6 mx-4 mt-8">
+      <div className="grid lg:grid-cols-4 md:grid-cols-4 grid-cols-1 gap-2 mx-4 mt-8">
         <div className="flex flex-col p-8 shadow-sm rounded-xl lg:p-12 dark:bg-gray-50 dark:text-gray-800 mx-auto">
           <div className="w-full">
             <div className="flex flex-col items-center py-6 space-y-3">

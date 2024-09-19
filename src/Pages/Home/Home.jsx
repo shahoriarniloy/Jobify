@@ -1,9 +1,10 @@
-import TopCompanies from "./TopCompanies";
-
+import SearchBar from "../AdvancedSearch/SearchBar";
+import TopCompanies from "./TopCompanies"
 const Home = () => {
     return (
         <div>
-            <h1 className="text-red-600">This Is Home</h1>
+            <SearchBar></SearchBar>
+ 
             <TopCompanies></TopCompanies>
             
         </div>

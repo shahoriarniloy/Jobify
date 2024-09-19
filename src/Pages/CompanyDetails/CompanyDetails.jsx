@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import bannerBg from "../../assets/image/CompanyDetails/bannerBg.png";
 import instagram_logo from "../../assets/image/CompanyDetails/instagram_logo.png";
 import {
   FaFacebookF,
@@ -63,7 +62,7 @@ const CompanyDetails = () => {
         <div>
           <img
             className="w-full h-56 object-cover md:h-72 lg:h-96"
-            src={company.company_bg}
+            src={company.company_logo}
             alt="Banner"
           />
         </div>
