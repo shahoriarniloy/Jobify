@@ -1,8 +1,10 @@
+import SearchBar from "./AdvanceSearch/SearchBar";
+
 
 const Home = () => {
     return (
         <div>
-            <h1 className="text-red-600">This Is Home</h1>
+           <SearchBar></SearchBar>
             
         </div>
     );
