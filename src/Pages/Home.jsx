@@ -1,9 +1,10 @@
-import AdvanceJobSearch from "./AdvanceJobSearch";
+import SearchBar from "./AdvanceSearch/SearchBar";
+
 
 const Home = () => {
     return (
         <div>
-            <AdvanceJobSearch></AdvanceJobSearch>
+           <SearchBar></SearchBar>
             
         </div>
     );
