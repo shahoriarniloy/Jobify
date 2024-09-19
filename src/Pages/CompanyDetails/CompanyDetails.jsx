@@ -122,9 +122,9 @@ const CompanyDetails = () => {
           <div className="flex flex-wrap items-center gap-5 my-5">
             <p>Share profile:</p>
 
-            {company.social_media_links?.facebook && (
+            {company?.social_media_links?.facebook && (
               <a
-                href={company.social_media_links.facebook}
+                href={company?.social_media_links?.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center border-2 rounded p-3"
@@ -134,9 +134,9 @@ const CompanyDetails = () => {
               </a>
             )}
 
-            {company.social_media_links?.twitter && (
+            {company?.social_media_links?.twitter && (
               <a
-                href={company.social_media_links.twitter}
+                href={company?.social_media_links?.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center border-2 rounded p-3"
@@ -146,9 +146,9 @@ const CompanyDetails = () => {
               </a>
             )}
 
-            {company.social_media_links?.linkedin && (
+            {company?.social_media_links?.linkedin && (
               <a
-                href={company.social_media_links.linkedin}
+                href={company?.social_media_links?.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center border-2 rounded p-3"
@@ -158,9 +158,9 @@ const CompanyDetails = () => {
               </a>
             )}
 
-            {company.social_media_links?.pinterest && (
+            {company?.social_media_links?.pinterest && (
               <a
-                href={company.social_media_links.pinterest}
+                href={company?.social_media_links?.pinterest}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center border-2 rounded p-3"
@@ -238,9 +238,9 @@ const CompanyDetails = () => {
           <div className="md:p-8 border-2 rounded-lg md:my-6">
             <h2 className="font-bold text-xl md:text-2xl">Follow us on:</h2>
             <div className="flex gap-3 my-4">
-              {company.social_media_links?.facebook && (
+              {company?.social_media_links?.facebook && (
                 <a
-                  href={company.social_media_links.facebook}
+                  href={company?.social_media_links?.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-4 bg-blue-100 rounded text-blue-600 hover:bg-blue-600 hover:text-white"
@@ -249,9 +249,9 @@ const CompanyDetails = () => {
                 </a>
               )}
 
-              {company.social_media_links?.twitter && (
+              {company?.social_media_links?.twitter && (
                 <a
-                  href={company.social_media_links.twitter}
+                  href={company?.social_media_links?.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-4 bg-blue-100 rounded text-blue-600 hover:bg-blue-600 hover:text-white"
@@ -260,9 +260,9 @@ const CompanyDetails = () => {
                 </a>
               )}
 
-              {company.social_media_links?.instagram && (
+              {company?.social_media_links?.instagram && (
                 <a
-                  href={company.social_media_links.instagram}
+                  href={company?.social_media_links?.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-4 bg-blue-100 rounded text-blue-600 hover:bg-blue-600 hover:text-white"
@@ -271,9 +271,9 @@ const CompanyDetails = () => {
                 </a>
               )}
 
-              {company.social_media_links?.youtube && (
+              {company?.social_media_links?.youtube && (
                 <a
-                  href={company.social_media_links.youtube}
+                  href={company?.social_media_links?.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-4 bg-blue-100 rounded text-blue-600 hover:bg-blue-600 hover:text-white"
