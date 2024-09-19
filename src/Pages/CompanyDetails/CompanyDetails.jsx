@@ -56,7 +56,9 @@ const CompanyDetails = () => {
   }, []);
 
   return (
+
     <div className="relative">
+
       <div className="relative">
         {/* Banner Image */}
         <div>
@@ -122,6 +124,7 @@ const CompanyDetails = () => {
           <div className="flex flex-wrap items-center gap-5 my-5">
             <p>Share profile:</p>
 
+
             {company?.social_media_links?.facebook && (
               <a
                 href={company?.social_media_links?.facebook}
@@ -169,6 +172,7 @@ const CompanyDetails = () => {
                 <p>Pinterest</p>
               </a>
             )}
+
           </div>
         </div>
 
