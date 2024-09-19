@@ -242,7 +242,7 @@ const Reviews = () => {
                 </div>
               ))
             ) : (
-              <p className='text-center'>No reviews available.</p>
+              <p className='text-center'>No reviews Available Yet.</p>
             )}
           </div>
         </div>
