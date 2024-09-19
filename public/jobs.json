@@ -1,0 +1,112 @@
+[
+  {
+    "company_name": "Freepik",
+    "company_website": "https://www.freepik.com",
+    "company_icon": "https://example.com/icons/freepik.png",
+    "location": "Remote",
+    "position": "Visual Designer",
+    "job_type": "Full-time",
+    "salary_min": "$50K",
+    "salary_max": "$70K",
+    "featured": false
+  },
+  {
+    "company_name": "Instagram",
+    "company_website": "https://www.instagram.com",
+    "company_icon": "https://example.com/icons/instagram.png",
+    "location": "New York, USA",
+    "position": "Front-End Developer",
+    "job_type": "Full-time",
+    "salary_min": "$80K",
+    "salary_max": "$100K",
+    "featured": true
+  },
+  {
+    "company_name": "Upwork",
+    "company_website": "https://www.upwork.com",
+    "company_icon": "https://example.com/icons/upwork.png",
+    "location": "Remote",
+    "position": "Freelance Software Engineer",
+    "job_type": "Contract",
+    "salary_min": "$40",
+    "salary_max": "$60 per hour",
+    "featured": false
+  },
+  {
+    "company_name": "Facebook",
+    "company_website": "https://www.facebook.com",
+    "company_icon": "https://example.com/icons/facebook.png",
+    "location": "San Francisco, USA",
+    "position": "Back-End Developer",
+    "job_type": "Full-time",
+    "salary_min": "$90K",
+    "salary_max": "$120K",
+    "featured": true
+  },
+  {
+    "company_name": "Microsoft",
+    "company_website": "https://www.microsoft.com",
+    "company_icon": "https://example.com/icons/microsoft.png",
+    "location": "Seattle, USA",
+    "position": "Software Engineer",
+    "job_type": "Full-time",
+    "salary_min": "$100K",
+    "salary_max": "$130K",
+    "featured": false
+  },
+  {
+    "company_name": "Google",
+    "company_website": "https://www.google.com",
+    "company_icon": "https://example.com/icons/google.png",
+    "location": "Mountain View, USA",
+    "position": "DevOps Engineer",
+    "job_type": "Full-time",
+    "salary_min": "$110K",
+    "salary_max": "$140K",
+    "featured": true
+  },
+  {
+    "company_name": "Amazon",
+    "company_website": "https://www.amazon.com",
+    "company_icon": "https://example.com/icons/amazon.png",
+    "location": "Seattle, USA",
+    "position": "Cloud Engineer",
+    "job_type": "Full-time",
+    "salary_min": "$95K",
+    "salary_max": "$125K",
+    "featured": false
+  },
+  {
+    "company_name": "LinkedIn",
+    "company_website": "https://www.linkedin.com",
+    "company_icon": "https://example.com/icons/linkedin.png",
+    "location": "Sunnyvale, USA",
+    "position": "Product Manager",
+    "job_type": "Full-time",
+    "salary_min": "$120K",
+    "salary_max": "$150K",
+    "featured": true
+  },
+  {
+    "company_name": "Spotify",
+    "company_website": "https://www.spotify.com",
+    "company_icon": "https://example.com/icons/spotify.png",
+    "location": "Stockholm, Sweden",
+    "position": "UX/UI Designer",
+    "job_type": "Full-time",
+    "salary_min": "$85K",
+    "salary_max": "$105K",
+    "featured": false
+  },
+  {
+    "company_name": "Netflix",
+    "company_website": "https://www.netflix.com",
+    "company_icon": "https://example.com/icons/netflix.png",
+    "location": "Los Gatos, USA",
+    "position": "Data Scientist",
+    "job_type": "Full-time",
+    "salary_min": "$115K",
+    "salary_max": "$145K",
+    "featured": false
+  }
+]
