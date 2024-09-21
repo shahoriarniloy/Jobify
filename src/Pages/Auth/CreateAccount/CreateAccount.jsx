@@ -13,14 +13,14 @@ const CreateAccount = () => {
 
                         <div className="flex flex-col md:flex-row gap-3 justify-between mx-auto md:items-end">
                             <div className='space-y-4'>
-                                <h2 className='text-4xl font-semibold'>Create account</h2>
+                                <h2 className='text-4xl font-semibold mt-12'>Create account</h2>
                                 <p>Already have account? <span className='link-color'><Link to={"/login"}>Login</Link></span></p>
                             </div>
 
                             <div >
                                 <select className="select select-bordered w-fit max-w-xs">
                                     <option disabled selected>Account Type</option>
-                                    <option>Employers</option>
+                                    <option>Job Seeker</option>
                                     <option>Hr Manager</option>
                                 </select>
                             </div>

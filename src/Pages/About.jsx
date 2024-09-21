@@ -199,7 +199,7 @@ const Reviews = () => {
             <button
               type="button"
               onClick={handleFeedbackSubmit}
-              className="py-4 my-8 font-semibold rounded-md dark:text-gray-50 dark:bg-violet-600 w-full"
+              className="py-4 my-8 font-semibold rounded-md dark:text-gray-50 brownlogo w-full"
             >
               Leave feedback
             </button>
