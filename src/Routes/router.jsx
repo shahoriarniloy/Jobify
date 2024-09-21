@@ -9,6 +9,7 @@ import Login from "../Pages/Auth/Login/Login";
 
 import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
 import  About from "../Pages/About"
+import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
 
 
 export const router = createBrowserRouter([
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <About/>,
+      },
+      {
+        path: "/advanced-search",
+        element: <AdvancedSearch/>,
       },
     ],
   },

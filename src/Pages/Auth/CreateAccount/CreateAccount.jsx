@@ -1,4 +1,3 @@
-import React from 'react';
 import accountBg from '../../../assets/logo/loginbg.png';
 import { IoBagHandleSharp } from "react-icons/io5";
 import { TiArrowRight } from "react-icons/ti";
@@ -13,14 +12,14 @@ const CreateAccount = () => {
 
                         <div className="flex flex-col md:flex-row gap-3 justify-between mx-auto md:items-end">
                             <div className='space-y-4'>
-                                <h2 className='text-4xl font-semibold'>Create account</h2>
+                                <h2 className='text-4xl font-semibold mt-12'>Create account</h2>
                                 <p>Already have account? <span className='link-color'><Link to={"/login"}>Login</Link></span></p>
                             </div>
 
                             <div >
                                 <select className="select select-bordered w-fit max-w-xs">
                                     <option disabled selected>Account Type</option>
-                                    <option>Employers</option>
+                                    <option>Job Seeker</option>
                                     <option>Hr Manager</option>
                                 </select>
                             </div>
@@ -42,7 +41,7 @@ const CreateAccount = () => {
 
                                     <div className='flex items-center gap-3'>
                                         <input type="checkbox" className="checkbox" />
-                                        <p className='text-xs md:text-base'>I've read and agree with your <span className='link-color'>Terms of Services</span></p>
+                                        <p className='text-xs md:text-base'>I have read and agree with your <span className='link-color'>Terms of Services</span></p>
                                     </div>
                                 </div>
 
