@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import{ useContext } from 'react';
 import { userDataContext } from './../Pages/Auth/CreateAccount/AuthContext';
 
 const useCurrentUser = () => {

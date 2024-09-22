@@ -1,4 +1,3 @@
-import React from 'react';
 import accountBg from '../../../assets/logo/loginbg.png';
 import { IoBagHandleSharp } from "react-icons/io5";
 import { TiArrowRight } from "react-icons/ti";
@@ -42,7 +41,7 @@ const CreateAccount = () => {
 
                                     <div className='flex items-center gap-3'>
                                         <input type="checkbox" className="checkbox" />
-                                        <p className='text-xs md:text-base'>I've read and agree with your <span className='link-color'>Terms of Services</span></p>
+                                        <p className='text-xs md:text-base'>I have read and agree with your <span className='link-color'>Terms of Services</span></p>
                                     </div>
                                 </div>
 

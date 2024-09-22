@@ -5,15 +5,16 @@ import mobileLogo from '../../assets/mobileLogo.png';
 const Navbar = () => {
     const navItem =
         <>
-            <li className='text-brownText font-noto font-semibold'><Link to='/'>Home</Link></li>
-            {/* <li className='text-brownText font-noto font-semibold'><Link to='/'>Find Job</Link></li> */}
-            <li className='text-brownText font-noto font-semibold'><Link to='/company-details'>Company Profile</Link></li>
-            <li className='text-brownText font-noto font-semibold'><Link to='/about'>About Us</Link></li>
+            <li className='text-white font-noto font-semibold'><Link to='/'>Home</Link></li>
+            <li className='text-white font-noto font-semibold'><Link to='/advanced-search'>Find Job</Link></li>
+            {/* <li className='text-white font-noto font-semibold'><Link to='/'>Find Job</Link></li> */}
+            <li className='text-white font-noto font-semibold'><Link to='/company-details'>Company Profile</Link></li>
+            <li className='text-white font-noto font-semibold'><Link to='/about'>About Us</Link></li>
         </>
 
     return (
         <div>
-            <div className="navbar bg-gradient-to-r from-[#e1bd91] to-[#dc944c] fixed top-0 left-0 right-0 z-50">
+            <div className="navbar bg-gradient-to-r from-blue-100 to-blue-700 fixed top-0 left-0 right-0 z-50">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -29,7 +30,7 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="text-brownText gap-7 menu-horizontal px-1">
+                    <ul className="text-white gap-7 menu-horizontal px-1">
                         {navItem}
                     </ul>
                 </div>

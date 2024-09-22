@@ -5,7 +5,7 @@ import Navbar from '../Pages/Shared/Navbar';
 const Main = () => {
 
     return (
-        <div className='roboto-regular'>
+        <div className='roboto-regular bg-[#f1f2f4]'>
             <Navbar />
             <Outlet />
             <Footer />
