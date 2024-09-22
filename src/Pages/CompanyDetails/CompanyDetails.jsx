@@ -24,7 +24,7 @@ const CompanyDetails = () => {
       const companyId = "66e9b2cdd3a959b9442eed96";
       try {
         const response = await fetch(
-          `http://localhost:5000/companies/${companyId}`
+          `https://jobify-server-steel.vercel.app/companies/${companyId}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -44,7 +44,7 @@ const CompanyDetails = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch("http://localhost:5000/jobs");
+        const response = await fetch("https://jobify-server-steel.vercel.app/jobs");
         const data = await response.json();
         setJobs(data);
       } catch (error) {
