@@ -204,7 +204,7 @@ const AdvancedSearch = () => {
       </div>
 
       {showAdvancedFilters && (
-        <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-1 px-24 py-8 rounded-lg mt-4 bg-white">
+        <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-1 px-24 py-8 rounded-lg mt-4 bg-white shadow-xl">
           <div className="mb-4">
             <h3 className="font-medium">Experience</h3>
             {[
@@ -322,6 +322,26 @@ const AdvancedSearch = () => {
         Jobs
       </h2>
 
+      <div className="flex justify-between">
+      <div className="flex items-center justify-center gap-4 mt-4">
+        <label
+          htmlFor="itemsPerPage"
+          className="text-sm font-medium text-blue-900"
+        >
+          Number of Jobs Page:
+        </label>
+        <select
+          id="itemsPerPage"
+          value={itemsPerPage}
+          onChange={handleItemsPerPage}
+          className="px-4 py-2 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+        >
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+      </div>
+
       <div className="view-toggle flex justify-end mt-1 gap-4">
         <button
           onClick={() => setViewMode("list")}
@@ -336,6 +356,7 @@ const AdvancedSearch = () => {
           <FaTh className="mr-2" /> Grid View
         </button>
       </div>
+      </div>
 
       {viewMode === "list" ? (
         <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800 mt-4">
@@ -346,6 +367,7 @@ const AdvancedSearch = () => {
                   <th className="p-3">Job Title</th>
                   <th className="p-3">Company</th>
                   <th className="p-3">Location</th>
+                  <th className="p-3">Details</th>
                   <th className="p-3">Bookmark</th>
                 </tr>
               </thead>
@@ -358,6 +380,7 @@ const AdvancedSearch = () => {
                     <td className="p-3">{job.title}</td>
                     <td className="p-3">{job.company}</td>
                     <td className="p-3">{job.location}</td>
+                    <td className="p-3"><button>Details</button></td>
                     <td className="p-3">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -414,7 +437,7 @@ const AdvancedSearch = () => {
                   type="button"
                   className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-gradient-to-r from-blue-500 to-blue-700 dark:text-gray-50"
                 >
-                  Read more
+                  Details
                 </button>
               </div>
             </div>
@@ -452,24 +475,7 @@ const AdvancedSearch = () => {
         </button>
       </div>
 
-      <div className="flex items-center justify-center gap-4 mt-4">
-        <label
-          htmlFor="itemsPerPage"
-          className="text-sm font-medium text-blue-900"
-        >
-          Number of Products Per Page:
-        </label>
-        <select
-          id="itemsPerPage"
-          value={itemsPerPage}
-          onChange={handleItemsPerPage}
-          className="px-4 py-2 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
-        >
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-        </select>
-      </div>
+     
     </div>
   );
 };

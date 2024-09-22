@@ -1,16 +1,21 @@
 import { Link } from "react-router-dom";
 import logo from '../../assets/logo.png';
 import mobileLogo from '../../assets/mobileLogo.png';
+import useCurrentUser from '../../Hooks/useCurrentUser'; 
 
 const Navbar = () => {
-    const navItem =
+    const { currentUser, logout } = useCurrentUser(); 
+    // console.log(currentUser.name);
+
+
+    const navItem = (
         <>
             <li className='text-white font-noto font-semibold'><Link to='/'>Home</Link></li>
             <li className='text-white font-noto font-semibold'><Link to='/advanced-search'>Find Job</Link></li>
-            {/* <li className='text-white font-noto font-semibold'><Link to='/'>Find Job</Link></li> */}
             <li className='text-white font-noto font-semibold'><Link to='/company-details'>Company Profile</Link></li>
             <li className='text-white font-noto font-semibold'><Link to='/about'>About Us</Link></li>
         </>
+    );
 
     return (
         <div>
@@ -18,7 +23,9 @@ const Navbar = () => {
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+                            </svg>
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                             {navItem}
@@ -35,11 +42,27 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <div>
-                        <div className="flex gap-4 lg:gap-5">
-                            <Link to='/login'><button className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-full text-greenCastomize font-noto">Log-in</button></Link>
-                            <Link to='/register'><button className="bg-greenCastomize text-yellowCastomize px-5 py-2 lg:px-7 lg:py-3 rounded-full">Register</button></Link>
-                        </div>
+                    <div className="flex gap-4 lg:gap-5">
+                        {currentUser ? (
+                            <>
+                                <span className="text-white font-noto font-semibold">{currentUser.name}</span>
+                                <button
+                                    onClick={logout}
+                                    className="bg-red-600 text-white px-5 py-2 lg:px-7 lg:py-3 rounded-full"
+                                >
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to='/login'>
+                                    <button className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-full text-greenCastomize font-noto">Log-in</button>
+                                </Link>
+                                <Link to='/register'>
+                                    <button className="bg-greenCastomize text-yellowCastomize px-5 py-2 lg:px-7 lg:py-3 rounded-full">Register</button>
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
