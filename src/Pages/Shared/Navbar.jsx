@@ -6,7 +6,7 @@ const Navbar = () => {
     const navItem =
         <>
             <li className=''><Link to='/'>Home</Link></li>
-            <li className=''><Link to='/'>Find Job</Link></li>
+            <li className=''><Link to='/advanced-search'>Find Job</Link></li>
             <li className=''><Link to='/'>Employers</Link></li>
             <li className=''><Link to='/'>Candidates</Link></li>
             <li className=''><Link to='/'>Pricing Plans</Link></li>
@@ -17,7 +17,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <div className="navbar bg-gray-50 py-2">
+            <div className="navbar bg-[#F1F2F4] fixed top-0 left-0 right-0 z-50">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
