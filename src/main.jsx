@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import { router } from './Routes/router';
-import AuthContext from './Pages/Auth/CreateAccount/AuthContext';
+import AuthProvider from './Pages/Auth/CreateAccount/AuthContext';
 import { ToastContainer } from 'react-toastify';
 
 
@@ -14,9 +14,9 @@ import { ToastContainer } from 'react-toastify';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthContext>
+    <AuthProvider>
       <RouterProvider router={router} />
       <ToastContainer />
-    </AuthContext>
+    </AuthProvider>
   </StrictMode>,
 )
