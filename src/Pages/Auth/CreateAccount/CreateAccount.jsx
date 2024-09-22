@@ -154,7 +154,6 @@ const Register = () => {
                                 <h3 className='text-[20px] font-bold'>1,75,324</h3>
                                 <p>Live Job</p>
                             </div>
-                            {/* Repeat similar blocks for additional stats if needed */}
                         </div>
                     </div>
                 </div>

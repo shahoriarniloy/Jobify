@@ -13,39 +13,34 @@ import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { LuPhoneCall } from "react-icons/lu";
 import { TfiEmail } from "react-icons/tfi";
-import JobCardGrid from "../../components/JobCardGrid/JobCardGrid";
+import axiosSecure from "../../Hooks/UseAxiosSecure";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
-  const [jobs, setJobs] = useState([]);
+  const { companyId } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const companyId = "66e9b2cdd3a959b9442eed96";
+    const fetchCompanyData = async () => {
       try {
-        const response = await fetch(
-          `https://jobify-server-steel.vercel.app/companies/${companyId}`
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const jsonData = await response.json();
-        setCompany(jsonData);
-        console.log(jsonData);
+        const response = await axiosSecure.get(`/companies/${companyId}`);
+        setCompany(response.data);
+        console.log(response.data);
       } catch (error) {
-        console.error("Error fetching the JSON data:", error);
+        console.error("Error fetching company data:", error);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchCompanyData();
+  }, [companyId]);
+
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch("https://jobify-server-steel.vercel.app/jobs");
-        const data = await response.json();
-        setJobs(data);
+        const response = await axiosSecure.get("/jobs");
+        setJobs(response.data);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
@@ -55,9 +50,8 @@ const CompanyDetails = () => {
   }, []);
 
   return (
-
     <div className="relative noto">
-
+      {/* Company Banner and Info */}
       <div className="relative">
         <div>
           <img
@@ -66,7 +60,6 @@ const CompanyDetails = () => {
             alt="Banner"
           />
         </div>
-
         <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
           <div className="flex flex-col md:flex-row items-center">
             <img
@@ -74,49 +67,49 @@ const CompanyDetails = () => {
               className="w-16 h-16 object-cover rounded-full"
               alt="Company Logo"
             />
-
             <div className="md:pl-4">
               <h3 className="font-bold text-xl md:text-2xl lg:text-3xl">
-              {company?.company_name}
+                {company?.company_name}
               </h3>
               <p className="text-gray-500">{company?.industry}</p>
             </div>
-
             <div className="mt-4 md:mt-0 md:ml-auto">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                View Open Position →
-              </button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+  <Link to={`/company/${companyId}/jobs`}>View Open Position →</Link>
+</button>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Description and Social Media Links */}
       <div className="flex flex-col md:flex-row md:mt-36  md:mb-48 container mx-auto px-4">
         <div className="md:w-1/2">
-          <h2 className="font-bold my-5 text-xl md:text-2xl lg:text-3xl">
+          <h2 className="font-bold md:mt-24 mt-64 lg:mt-4 sm:mt-56 text-xl md:text-2xl lg:text-3xl">
             Description
           </h2>
           <p className="text-gray-500 mb-4">{company?.company_description}</p>
 
           <h2 className="font-bold my-5 text-xl md:text-2xl lg:text-3xl">
-  Company Benefits
-</h2>
-<p className="text-gray-500 mb-4">
-  At TechWorld Solutions, we believe in creating a supportive and rewarding environment for our employees. We offer a range of benefits designed to support your personal and professional growth.
-</p>
-<ul className="list-disc text-gray-500 ml-5">
-  <li>Comprehensive health, dental, and vision insurance coverage.</li>
-  <li>Flexible work hours and remote work options.</li>
-  <li>401(k) retirement plan with company match.</li>
-  <li>Generous paid time off, including vacation, holidays, and sick leave.</li>
-  <li>Professional development programs and opportunities for career growth.</li>
-  <li>Employee wellness programs and gym membership discounts.</li>
-</ul>
+            Company Benefits
+          </h2>
+          <p className="text-gray-500 mb-4">
+            At TechWorld Solutions, we believe in creating a supportive and
+            rewarding environment for our employees. We offer a range of
+            benefits designed to support your personal and professional growth.
+          </p>
+          <ul className="list-disc text-gray-500 ml-5">
+            <li>Comprehensive health, dental, and vision insurance coverage.</li>
+            <li>Flexible work hours and remote work options.</li>
+            <li>401(k) retirement plan with company match.</li>
+            <li>Generous paid time off, including vacation, holidays, and sick leave.</li>
+            <li>Professional development programs and opportunities for career growth.</li>
+            <li>Employee wellness programs and gym membership discounts.</li>
+          </ul>
 
+          {/* Social Media Links */}
           <div className="flex flex-wrap items-center gap-5 my-5">
             <p>Share profile:</p>
-
-
             {company?.social_media_links?.facebook && (
               <a
                 href={company?.social_media_links?.facebook}
@@ -128,7 +121,6 @@ const CompanyDetails = () => {
                 <p>Facebook</p>
               </a>
             )}
-
             {company?.social_media_links?.twitter && (
               <a
                 href={company?.social_media_links?.twitter}
@@ -140,7 +132,6 @@ const CompanyDetails = () => {
                 <p>Twitter</p>
               </a>
             )}
-
             {company?.social_media_links?.linkedin && (
               <a
                 href={company?.social_media_links?.linkedin}
@@ -152,7 +143,6 @@ const CompanyDetails = () => {
                 <p>LinkedIn</p>
               </a>
             )}
-
             {company?.social_media_links?.pinterest && (
               <a
                 href={company?.social_media_links?.pinterest}
@@ -164,11 +154,10 @@ const CompanyDetails = () => {
                 <p>Pinterest</p>
               </a>
             )}
-
           </div>
         </div>
 
-
+        {/* Company Info */}
         <div className="md:ml-10 md:w-1/2">
           <div className="md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
             <div>
@@ -218,76 +207,22 @@ const CompanyDetails = () => {
               </div>
             </div>
             <hr />
-            <div className="flex items-center my-5">
+            <div className="flex items-center mt-5">
               <TfiEmail className="text-3xl text-blue-500" />
               <div className="ml-4">
-                <p className="text-gray-500">Email address</p>
-                <p className="text-black font-bold">{company?.email}</p>
+                <p className="text-gray-500">Email</p>
+                <p className="text-black font-bold">{company?.email_address}</p>
               </div>
-            </div>
-          </div>
-
-          <div className="md:p-8 border-2 rounded-lg md:my-6">
-            <h2 className="font-bold text-xl md:text-2xl">Follow us on:</h2>
-            <div className="flex gap-3 my-4">
-              {company?.social_media_links?.facebook && (
-                <a
-                  href={company?.social_media_links?.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-blue-100 rounded text-blue-600 hover:bg-blue-600 hover:text-white"
-                >
-                  <FaFacebookF />
-                </a>
-              )}
-
-              {company?.social_media_links?.twitter && (
-                <a
-                  href={company?.social_media_links?.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-blue-100 rounded text-blue-600 hover:bg-blue-600 hover:text-white"
-                >
-                  <FaTwitter />
-                </a>
-              )}
-
-              {company?.social_media_links?.instagram && (
-                <a
-                  href={company?.social_media_links?.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-blue-100 rounded text-blue-600 hover:bg-blue-600 hover:text-white"
-                >
-                  <FaInstagram />
-                </a>
-              )}
-
-              {company?.social_media_links?.youtube && (
-                <a
-                  href={company?.social_media_links?.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-blue-100 rounded text-blue-600 hover:bg-blue-600 hover:text-white"
-                >
-                  <FaYoutube />
-                </a>
-              )}
             </div>
           </div>
         </div>
       </div>
 
-      <section className="container mx-auto px-4 mt-10">
-        <h2 className="font-bold text-xl md:text-2xl lg:text-3xl md:mt-24 md:mb-12">
-        Open Position ({jobs?.length})
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {jobs.map((job) => (
-            <JobCardGrid key={job._id} job={job} />
-          ))}
-        </div>
-      </section>
+      {/* Jobs Section */}
+      {/* <section className="my-20">
+        <h2 className="font-bold text-3xl text-center mb-10">Job List</h2>
+        <JobCardGrid jobs={jobs} />
+      </section> */}
     </div>
   );
 };

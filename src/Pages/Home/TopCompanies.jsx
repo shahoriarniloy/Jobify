@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import axiosSecure from '../../Hooks/UseAxiosSecure'; 
+import axiosSecure from '../../Hooks/UseAxiosSecure';
+import { Link } from 'react-router-dom'; 
 
 const TopCompanies = () => {
   const [companies, setCompanies] = useState([]);
@@ -41,14 +42,12 @@ const TopCompanies = () => {
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2 text-brownText">{company.company_name}</h3>
                 <p className="text-gray-700 mb-4">{company.company_description}</p>
-                <a
-                  href={company.company_website}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to={`/company-details/${company._id}`} 
                   className="text-blueCastomize hover:underline"
                 >
-                  Visit Website
-                </a>
+                  View Company Details
+                </Link>
               </div>
             </div>
           ))}

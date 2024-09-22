@@ -3,7 +3,6 @@ import { LuDot } from "react-icons/lu";
 
 const JobCardGrid = ({ job }) => {
   const {
-    company_icon,
     company_name,
     featured,
     location,
