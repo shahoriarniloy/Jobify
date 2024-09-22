@@ -38,6 +38,7 @@ const CompanyDetails = () => {
     };
 
     fetchData();
+    
   }, []);
 
   useEffect(() => {
