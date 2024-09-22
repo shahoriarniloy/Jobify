@@ -465,9 +465,9 @@ const AdvancedSearch = () => {
           onChange={handleItemsPerPage}
           className="px-4 py-2 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
         >
-          <option value="2">2</option>
           <option value="10">10</option>
           <option value="20">20</option>
+          <option value="30">30</option>
         </select>
       </div>
     </div>
