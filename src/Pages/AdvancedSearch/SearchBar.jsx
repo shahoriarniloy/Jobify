@@ -106,7 +106,7 @@ const SearchBar = () => {
                             Search
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     );
