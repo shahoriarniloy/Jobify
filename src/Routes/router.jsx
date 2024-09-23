@@ -8,7 +8,11 @@ import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
 
 import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
-import  About from "../Pages/About"
+import About from "../Pages/About"
+import DashboardLayout from "../Pages/Dashboard/DashboardLayout";
+import EmployeeHome from "../Pages/Dashboard/Employee/EmployeeHome";
+import AppliedJobs from "../Pages/Dashboard/Employee/AppliedJobs";
+import FavoriteJobs from "../Pages/Dashboard/Employee/FavoriteJobs";
 
 
 export const router = createBrowserRouter([
@@ -23,7 +27,7 @@ export const router = createBrowserRouter([
 
       },
       {
-        path: "company-details", 
+        path: "company-details",
         element: <CompanyDetails />,
       },
       {
@@ -36,9 +40,33 @@ export const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About/>,
+        element: <About />,
       },
+
+
+      // Dashboard Layout
+
+      {
+        path: "/dashboard",
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: "/dashboard/overview",
+            element: <EmployeeHome />
+          },
+          {
+            path:"/dashboard/applied-jobs",
+            element:<AppliedJobs/>
+          }
+          ,
+          {
+            path:"/dashboard/favorite-jobs",
+            element:<FavoriteJobs/>
+          }
+
+        ]
+      }
     ],
   },
-  
+
 ]);

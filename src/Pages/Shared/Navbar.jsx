@@ -10,6 +10,7 @@ const Navbar = () => {
             <li className='text-brownText font-noto font-semibold' ><Link to='/'>Find job</Link></li>
             <li className='text-brownText font-noto font-semibold'><Link to='/company-details'>Company Profile</Link></li>
             <li className='text-brownText font-noto font-semibold'><Link to='/about'>About Us</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/dashboard'>Dashboard</Link></li>
         </>
     return (
         <div>
