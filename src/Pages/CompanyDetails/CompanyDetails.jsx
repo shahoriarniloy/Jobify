@@ -16,10 +16,15 @@ import { TfiEmail } from "react-icons/tfi";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import JobCardGrid from "../../components/JobCardGrid/JobCardGrid";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
   const { companyId } = useParams();
+  const [jobs, setJobs] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -35,19 +40,32 @@ const CompanyDetails = () => {
     fetchCompanyData();
   }, [companyId]);
 
-
+  // get job card for pagination
   useEffect(() => {
-    const fetchJobs = async () => {
+    const fetchJobDataPagination = async () => {
       try {
-        const response = await axiosSecure.get("/jobs");
+        const response = await axiosSecure.get(`/jobs?page=${page}&limit=6`); // Sending page and limit
         setJobs(response.data);
+        setTotalPages(response.data.totalPages);
+        // console.log("Fetched jobs data:", response.data);
       } catch (error) {
-        console.error("Error fetching jobs:", error);
+        console.error("Error fetching job data:", error);
       }
     };
+    fetchJobDataPagination();
+  }, [page]);
 
-    fetchJobs();
-  }, []);
+  const handleNext = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
 
   return (
     <div className="relative noto">
@@ -74,9 +92,11 @@ const CompanyDetails = () => {
               <p className="text-gray-500">{company?.industry}</p>
             </div>
             <div className="mt-4 md:mt-0 md:ml-auto">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-  <Link to={`/company/${companyId}/jobs`}>View Open Position →</Link>
-</button>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                <Link to={`/company/${companyId}/jobs`}>
+                  View Open Position →
+                </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -99,11 +119,19 @@ const CompanyDetails = () => {
             benefits designed to support your personal and professional growth.
           </p>
           <ul className="list-disc text-gray-500 ml-5">
-            <li>Comprehensive health, dental, and vision insurance coverage.</li>
+            <li>
+              Comprehensive health, dental, and vision insurance coverage.
+            </li>
             <li>Flexible work hours and remote work options.</li>
             <li>401(k) retirement plan with company match.</li>
-            <li>Generous paid time off, including vacation, holidays, and sick leave.</li>
-            <li>Professional development programs and opportunities for career growth.</li>
+            <li>
+              Generous paid time off, including vacation, holidays, and sick
+              leave.
+            </li>
+            <li>
+              Professional development programs and opportunities for career
+              growth.
+            </li>
             <li>Employee wellness programs and gym membership discounts.</li>
           </ul>
 
@@ -211,7 +239,7 @@ const CompanyDetails = () => {
               <TfiEmail className="text-3xl text-blue-500" />
               <div className="ml-4">
                 <p className="text-gray-500">Email</p>
-                <p className="text-black font-bold">{company?.email_address}</p>
+                <p className="text-black font-bold">{company?.email}</p>
               </div>
             </div>
           </div>
@@ -219,10 +247,39 @@ const CompanyDetails = () => {
       </div>
 
       {/* Jobs Section */}
-      {/* <section className="my-20">
-        <h2 className="font-bold text-3xl text-center mb-10">Job List</h2>
-        <JobCardGrid jobs={jobs} />
-      </section> */}
+      <section className="container mx-auto">
+        <div>
+          {/* header */}
+          <div className="flex justify-between mb-12">
+            <h3 className="font-bold text-xl">Open Position </h3>
+            <div className="">
+              <button
+                onClick={handlePrev}
+                disabled={page === 1}
+                className="btn bg-blue-100 h-12 w-12"
+              >
+                <FaArrowLeft className="text-blue-400" />
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={page === totalPages}
+                className="btn bg-blue-100 ml-4 h-12 w-12"
+              >
+                <FaArrowRight className="text-blue-400" />
+              </button>
+            </div>
+          </div>
+
+          {/* cards */}
+          <div className="grid grid-cols-3 gap-6">
+            {Array.isArray(jobs.jobs) && jobs.jobs.length > 0 ? (
+              jobs.jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
+            ) : (
+              <p>No jobs available</p>
+            )}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

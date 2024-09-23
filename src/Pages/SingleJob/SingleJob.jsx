@@ -1,5 +1,6 @@
 import socialLogo from "../../assets/image/CompanyDetails/instagram_logo.png";
 import {
+  FaArrowLeft,
   FaArrowRight,
   FaFacebookF,
   FaLink,
@@ -13,10 +14,14 @@ import { useEffect, useState } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
+import JobCardGrid from "../../components/JobCardGrid/JobCardGrid";
 
 const SingleJob = () => {
   const [job, setJob] = useState([]);
   const [company, setCompany] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const jobId = "66f04efdd3a959b944c22130";
 
@@ -29,12 +34,13 @@ const SingleJob = () => {
     responsibilities,
   } = job;
 
+  // get job by id
   useEffect(() => {
     const fetchJobData = async () => {
       try {
-        const response = await axiosSecure.get(`/jobs/${jobId}`);
+        const response = await axiosSecure.get(`/job/${jobId}`);
         setJob(response.data);
-        console.log("Fetched job data:", response.data);
+        // console.log("Fetched job data:", response.data);
       } catch (error) {
         console.error("Error fetching job data:", error);
       }
@@ -42,18 +48,46 @@ const SingleJob = () => {
     fetchJobData();
   }, [jobId]); // Add jobId as a dependency in case it changes
 
+  // get company by id
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
         const response = await axiosSecure.get(`/companies/${company_id}`);
         setCompany(response.data);
-        console.log("Fetched company data:", response.data);
+        // console.log("Fetched company data:", response.data);
       } catch (error) {
         console.error("Error fetching job data:", error);
       }
     };
     fetchCompanyData();
   }, [company_id]); // Add jobId as a dependency in case it changes
+
+  // get job card for pagination
+  useEffect(() => {
+    const fetchJobDataPagination = async () => {
+      try {
+        const response = await axiosSecure.get(`/jobs?page=${page}&limit=6`); // Sending page and limit
+        setJobs(response.data);
+        setTotalPages(response.data.totalPages);
+        // console.log("Fetched jobs data:", response.data);
+      } catch (error) {
+        console.error("Error fetching job data:", error);
+      }
+    };
+    fetchJobDataPagination();
+  }, [page]);
+
+  const handleNext = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
 
   // Optionally handle the job data rendering
   if (!job) {
@@ -63,7 +97,7 @@ const SingleJob = () => {
   return (
     <div>
       {/* Header */}
-      <div className="container mx-auto md:mt-24 pt-5 flex justify-between">
+      <div className="container mx-auto md:mt-24 pt-5 mb-9 flex justify-between">
         {/* left side */}
         <div className="flex gap-5">
           <div>
@@ -264,6 +298,42 @@ const SingleJob = () => {
             </div>
           </div>
         </section>
+      </section>
+      <hr className="text-gray-500 md:mb-24" />
+
+      {/* Related jobs pagination */}
+      <section className="container mx-auto">
+        <div>
+          {/* header */}
+          <div className="flex justify-between mb-12">
+            <h3 className="font-bold text-xl">Related Jobs</h3>
+            <div className="">
+              <button
+                onClick={handlePrev}
+                disabled={page === 1}
+                className="btn bg-blue-100 h-12 w-12"
+              >
+                <FaArrowLeft className="text-blue-400" />
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={page === totalPages}
+                className="btn bg-blue-100 ml-4 h-12 w-12"
+              >
+                <FaArrowRight className="text-blue-400" />
+              </button>
+            </div>
+          </div>
+
+          {/* cards */}
+          <div className="grid grid-cols-3 gap-6">
+            {Array.isArray(jobs.jobs) && jobs.jobs.length > 0 ? (
+              jobs.jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
+            ) : (
+              <p>No jobs available</p>
+            )}
+          </div>
+        </div>
       </section>
     </div>
   );
