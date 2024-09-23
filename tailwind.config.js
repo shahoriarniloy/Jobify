@@ -11,7 +11,7 @@ export default {
         brownText: '#593B34', 
         greenCastomize: '#1e6a6e',
         yellowCastomize: '#F5CF82', 
-        blueCastomize: '#629BAD', 
+        blueCastomize: '#0a65cc', 
         redCastomize: '#C67265', 
         baseCastomize: '#F2E3D1', 
         

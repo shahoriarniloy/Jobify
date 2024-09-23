@@ -8,9 +8,9 @@ import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
 
 import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
-import  About from "../Pages/About"
+import About from "../Pages/About";
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
-
+import AuthLayout from "../Layout/AuthLayout/AuthLayout";
 
 export const router = createBrowserRouter([
   {
@@ -21,12 +21,25 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-
       },
       {
         path: "company-details", 
         element: <CompanyDetails />,
       },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/advanced-search",
+        element: <AdvancedSearch />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <AuthLayout />,  // Use AuthLayout for auth-related routes
+    children: [
       {
         path: "/register",
         element: <CreateAccount />,
@@ -35,15 +48,6 @@ export const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
-      {
-        path: "/about",
-        element: <About/>,
-      },
-      {
-        path: "/advanced-search",
-        element: <AdvancedSearch/>,
-      },
     ],
   },
-  
 ]);
