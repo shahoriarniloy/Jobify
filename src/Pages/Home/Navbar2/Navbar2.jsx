@@ -15,9 +15,9 @@ const Navbar2 = () => {
                     <Link to="/login">
                         <button className="border-2 border-blue-100 px-4 py-1.5 text-blueCastomize rounded-md">Sign In</button>
                     </Link>
-                    <Link to="/post-job">
+                    {/* <Link to="/post-job">
                         <button className="bg-blueCastomize text-white px-4 py-1.5 rounded-md">Post a Job</button>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </div>
