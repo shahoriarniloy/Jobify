@@ -10,6 +10,9 @@ import Login from "../Pages/Auth/Login/Login";
 import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
 import  About from "../Pages/About"
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
+import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs";
+import BookmarkedJobs from "../Pages/AdvancedSearch/BookmarkedJobs";
+import SingleJob from "../Pages/SingleJob/SingleJob";
 
 
 export const router = createBrowserRouter([
@@ -24,8 +27,12 @@ export const router = createBrowserRouter([
 
       },
       {
-        path: "company-details", 
+        path: "company-details/:companyId", 
         element: <CompanyDetails />,
+      },
+      {
+        path: "/company/:companyId/jobs", 
+        element: <CompanyJobs />,
       },
       {
         path: "/register",
@@ -38,6 +45,18 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <About/>,
+      },
+      {
+        path: "/advanced-search",
+        element: <AdvancedSearch/>,
+      },
+      {
+        path: "/bookmarked-jobs",
+        element: <BookmarkedJobs/>,
+      },
+      {
+        path: "/job",
+        element: <SingleJob/> ,
       },
     ],
   },

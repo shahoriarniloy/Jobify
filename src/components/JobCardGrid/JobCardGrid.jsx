@@ -2,16 +2,8 @@ import { CiLocationOn } from "react-icons/ci";
 import { LuDot } from "react-icons/lu";
 
 const JobCardGrid = ({ job }) => {
-  const {
-    company_icon,
-    company_name,
-    featured,
-    location,
-    position,
-    job_type,
-    salary_min,
-    salary_max,
-  } = job;
+  const { company_name, featured, location, position, job_type, salaryRange } =
+    job;
   return (
     <div>
       <div className="md:p-8 p-4 border-2 rounded-lg ">
@@ -43,9 +35,7 @@ const JobCardGrid = ({ job }) => {
             <p className="text-gray-400">
               <LuDot />
             </p>
-            <p className="text-gray-400">${salary_min}</p>
-            <p className="text-gray-400">-</p>
-            <p className="text-gray-400">${salary_max}</p>
+            <p className="text-gray-400">{salaryRange}</p>
           </div>
         </div>
       </div>
