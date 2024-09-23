@@ -16,10 +16,18 @@ import { PiBriefcase, PiWallet } from "react-icons/pi";
 
 const SingleJob = () => {
   const [job, setJob] = useState([]);
+  const [company, setCompany] = useState([]);
 
   const jobId = "66f04efdd3a959b944c22130";
 
-  const { title, jobType, deadline, jobDescription, responsibilities } = job;
+  const {
+    company_id,
+    title,
+    jobType,
+    deadline,
+    jobDescription,
+    responsibilities,
+  } = job;
 
   useEffect(() => {
     const fetchJobData = async () => {
@@ -33,6 +41,19 @@ const SingleJob = () => {
     };
     fetchJobData();
   }, [jobId]); // Add jobId as a dependency in case it changes
+
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        const response = await axiosSecure.get(`/companies/${company_id}`);
+        setCompany(response.data);
+        console.log("Fetched company data:", response.data);
+      } catch (error) {
+        console.error("Error fetching job data:", error);
+      }
+    };
+    fetchCompanyData();
+  }, [company_id]); // Add jobId as a dependency in case it changes
 
   // Optionally handle the job data rendering
   if (!job) {
@@ -159,7 +180,7 @@ const SingleJob = () => {
 
           <div className="md:p-8 border-2 rounded-lg">
             <h2 className=" mb-6 font-bold text-xl md:text-2xl">
-            Job Overview
+              Job Overview
             </h2>
             <div className=" grid grid-cols-3 gap-5 md:gap-10">
               <div>
@@ -196,6 +217,49 @@ const SingleJob = () => {
                 <PiBriefcase className="text-2xl text-blue-500" />
                 <p className="text-gray-500 mt-2">EXPERIENCE</p>
                 <p className="font-bold text-sm">{job?.experience}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* company details */}
+          <div className="md:p-8 border-2 rounded-lg my-6">
+            {/* header */}
+            <div className="flex gap-4 mb-8">
+              <img
+                className="w-14 h-14 rounded-md"
+                src={company?.company_logo}
+                alt=""
+              />
+              <div className=" my-auto">
+                <h3 className="font-bold mb-2">{company?.company_name}</h3>
+                <p className="text-gray-500 text-xs">{company?.industry}</p>
+              </div>
+            </div>
+            {/* details */}
+            <div>
+              <div className="justify-between flex mb-4">
+                <p className="text-gray-500 text-sm">Founded in:</p>
+                <p className="text-sm">{company?.founded_date}</p>
+              </div>
+              <div className="justify-between flex mb-4">
+                <p className="text-gray-500 text-sm">Organization type:</p>
+                <p className="text-sm">{company?.company_type} Company</p>
+              </div>
+              <div className="justify-between flex mb-4">
+                <p className="text-gray-500 text-sm">Company size:</p>
+                <p className="text-sm">{company?.company_size} Employers</p>
+              </div>
+              <div className="justify-between flex mb-4">
+                <p className="text-gray-500 text-sm">Phone:</p>
+                <p className="text-sm">{company?.phone_number}</p>
+              </div>
+              <div className="justify-between flex mb-4">
+                <p className="text-gray-500 text-sm">Email:</p>
+                <p className="text-sm">{company?.email}</p>
+              </div>
+              <div className="justify-between flex ">
+                <p className="text-gray-500 text-sm">Email:</p>
+                <p className="text-sm">{company?.company_website}</p>
               </div>
             </div>
           </div>
