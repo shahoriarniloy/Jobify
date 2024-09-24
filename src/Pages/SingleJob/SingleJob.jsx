@@ -15,6 +15,12 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import JobCardGrid from "../../components/JobCardGrid/JobCardGrid";
+import {
+  Description,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
 
 const SingleJob = () => {
   const [job, setJob] = useState([]);
@@ -22,6 +28,7 @@ const SingleJob = () => {
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  let [isOpen, setIsOpen] = useState(false);
 
   const jobId = "66f04efdd3a959b944c22130";
 
@@ -116,15 +123,15 @@ const SingleJob = () => {
             <div className="flex ">
               <p className="flex items-center gap-2 ">
                 <FaLink className="text-blue-400" />
-                https://instagram.com
+                {company?.company_website}
               </p>
-              <p className="flex items-center gap-2 mx-2">
+              <p className="flex items-center gap-2 mx-3">
                 <FiPhone className="text-blue-400" />
-                https://instagram.com
+                {company?.phone_number}
               </p>
               <p className="flex items-center gap-2 mx-2">
                 <TfiEmail className="text-blue-400" />
-                https://instagram.com
+                {company?.email}
               </p>
             </div>
           </div>
@@ -137,8 +144,15 @@ const SingleJob = () => {
               <IoBookmarkOutline className="text-blue-600" />
             </div>
             <div className="items-center">
-              <button className="flex items-center gap-3 px-16 py-4 rounded-md bg-blue-700 text-white ">
-                Apply now <FaArrowRight />{" "}
+              <button
+                className={`flex items-center gap-3 px-16 py-4 rounded-md ${
+                  new Date() > new Date(deadline)
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-700"
+                } text-white`}
+                disabled={new Date() > new Date(deadline)}
+              >
+                Apply now <FaArrowRight />
               </button>
             </div>
           </div>
