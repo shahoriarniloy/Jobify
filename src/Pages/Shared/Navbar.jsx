@@ -1,10 +1,16 @@
-import { useState } from "react";
+
+import { BN, US } from "country-flag-icons/react/3x2";
+import { BiPhoneCall } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import Navbar2 from "../Home/Navbar2/Navbar2";
+
+import { useState } from "react";
 import logo from '../../assets/logo.png';
 import mobileLogo from '../../assets/mobileLogo.png';
 import useCurrentUser from '../../Hooks/useCurrentUser';
-import { AiFillHome, AiFillInfoCircle } from 'react-icons/ai'; // Updated import
+import { AiFillHome, AiFillInfoCircle } from 'react-icons/ai'; 
 import { FaBriefcase } from 'react-icons/fa';
+
 
 
 const Navbar = () => {
@@ -14,16 +20,24 @@ const Navbar = () => {
 
     const navItem = (
         <>
-            <li className='text-white font-noto font-semibold'><Link to='/'>Home</Link></li>
-            <li className='text-white font-noto font-semibold'><Link to='/advanced-search'>Find Job</Link></li>
-            <li className='text-white font-noto font-semibold'><Link to='/company-details'>Company Profile</Link></li>
-            <li className='text-white font-noto font-semibold'><Link to='/about'>About Us</Link></li>
+
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/advanced-search'>Find Job</Link></li>
+            <li><Link to='/'>Employers</Link></li>
+            <li><Link to='/'>Candidates</Link></li>
+            <li><Link to='/'>Pricing Plans</Link></li>
+            <li><Link to='/'>Customer Support</Link></li>
+            <li><Link to='/company-details'>Company Profile</Link></li>
+            <li><Link to='/about'>About Us</Link></li>
+
+         
         </>
     );
 
     return (
         <div>
-            <div className="navbar bg-gradient-to-r from-blue-100 to-blue-700 fixed top-0 left-0 right-0 z-50">
+            {/* First Navbar */}
+            <div className="navbar bg-[#F1F2F4]">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -35,16 +49,35 @@ const Navbar = () => {
                             {navItem}
                         </ul>
                     </div>
-                    <div>
-                        <img className='h-20 w-52 hidden lg:block' src={logo} alt="Logo" />
-                        <img className='h-16 w-20 block lg:hidden' src={mobileLogo} alt="Mobile Logo" />
-                    </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="text-white gap-7 menu-horizontal px-1">
+                    <ul className="text-[#5E6670] gap-7 menu-horizontal px-1">
                         {navItem}
                     </ul>
                 </div>
+
+                <div className="navbar-end flex items-center gap-4">
+                    <div className="flex gap-2">
+                        <span className="text-gray-700 mt-1"><BiPhoneCall /></span> {/* Phone Icon */}
+                        <span className="text-gray-700">+1 234 567 890</span> {/* Phone Number */}
+                    </div>
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="text-gray-700 px-3 py-1 rounded-full cursor-pointer flex items-center gap-1">
+                            <US title="United States" className="w-5 h-5" /> EN
+                        </label>
+                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32">
+                            <li>
+                                <button className="flex items-center gap-2">
+                                    <US title="United States" className="w-5 h-5" /> EN
+                                </button>
+                            </li>
+                            <li>
+                                <button className="flex items-center gap-2">
+                                    <BN title="Bangladesh" className="w-5 h-5" /> BN
+                                </button>
+                            </li>
+                        </ul>
+\
                 <div className="navbar-end">
                     <div className="flex gap-4 lg:gap-5">
                         {currentUser ? (
@@ -67,9 +100,13 @@ const Navbar = () => {
                                 </Link>
                             </>
                         )}
+
                     </div>
                 </div>
             </div>
+
+            {/* Second Navbar */}
+            <Navbar2 />
         </div>
     );
 };
