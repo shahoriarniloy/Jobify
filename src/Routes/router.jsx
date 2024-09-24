@@ -10,7 +10,14 @@ import Login from "../Pages/Auth/Login/Login";
 import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
 import About from "../Pages/About";
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
+
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
+
+import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs";
+import BookmarkedJobs from "../Pages/AdvancedSearch/BookmarkedJobs";
+import SingleJob from "../Pages/SingleJob/SingleJob";
+
+
 
 export const router = createBrowserRouter([
   {
@@ -23,12 +30,19 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "company-details", 
+        path: "company-details/:companyId", 
         element: <CompanyDetails />,
       },
       {
+
         path: "/about",
         element: <About />,
+        path: "/company/:companyId/jobs", 
+        element: <CompanyJobs />,
+      },
+      {
+        path: "/register",
+        element: <CreateAccount />,
       },
       {
         path: "/advanced-search",
@@ -38,7 +52,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <AuthLayout />,  // Use AuthLayout for auth-related routes
+    element: <AuthLayout />,  
     children: [
       {
         path: "/register",
@@ -47,6 +61,14 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/bookmarked-jobs",
+        element: <BookmarkedJobs/>,
+      },
+      {
+        path: "/job",
+        element: <SingleJob/> ,
       },
     ],
   },
