@@ -16,6 +16,7 @@ import AuthLayout from "../Layout/AuthLayout/AuthLayout";
 import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs";
 import BookmarkedJobs from "../Pages/AdvancedSearch/BookmarkedJobs";
 import SingleJob from "../Pages/SingleJob/SingleJob";
+import FindCompany from "../Pages/Company/FindCompany";
 
 
 
@@ -37,6 +38,8 @@ export const router = createBrowserRouter([
 
         path: "/about",
         element: <About />,
+      },
+      {
         path: "/company/:companyId/jobs", 
         element: <CompanyJobs />,
       },
@@ -47,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "/advanced-search",
         element: <AdvancedSearch />,
+      },
+      {
+        path: "/companies",
+        element: <FindCompany />,
       },
     ],
   },

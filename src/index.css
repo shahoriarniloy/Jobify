@@ -112,6 +112,27 @@
     font-weight: 900;
     font-style: italic;
   }
+
+
+
+
+  .nav-link {
+    padding: 10px 15px; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.active-nav {
+    background-color: #007BFF; 
+    color: white; 
+    border-radius: 5px; 
+    font-weight: bold; 
+}
+
+.nav-link:hover {
+    background-color: #0056b3; 
+    color: white; 
+    border-radius: 5px; 
+}
   
 
 @keyframes rotate {

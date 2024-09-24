@@ -1,42 +1,40 @@
-
 import { BN, US } from "country-flag-icons/react/3x2";
 import { BiPhoneCall } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom"; // Use NavLink
 import Navbar2 from "../Home/Navbar2/Navbar2";
 
-import { useState } from "react";
-import logo from '../../assets/logo.png';
-import mobileLogo from '../../assets/mobileLogo.png';
-import useCurrentUser from '../../Hooks/useCurrentUser';
-import { AiFillHome, AiFillInfoCircle } from 'react-icons/ai'; 
-import { FaBriefcase } from 'react-icons/fa';
-
-
-
 const Navbar = () => {
-    const { currentUser, logout } = useCurrentUser(); 
-    // console.log(currentUser.name);
-
-
     const navItem = (
         <>
-
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/advanced-search'>Find Job</Link></li>
-            <li><Link to='/'>Employers</Link></li>
-            <li><Link to='/'>Candidates</Link></li>
-            <li><Link to='/'>Pricing Plans</Link></li>
-            <li><Link to='/'>Customer Support</Link></li>
-            <li><Link to='/company-details'>Company Profile</Link></li>
-            <li><Link to='/about'>About Us</Link></li>
-
-         
+            <li>
+                <NavLink to='/' end className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Home</NavLink>
+            </li>
+            <li>
+                <NavLink to='/advanced-search' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Find Job</NavLink>
+            </li>
+            <li>
+                <NavLink to='/companies' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Find Company</NavLink>
+            </li>
+            {/* <li>
+                <NavLink to='/candidates' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Candidates</NavLink>
+            </li>
+            <li>
+                <NavLink to='/pricing-plans' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Pricing Plans</NavLink>
+            </li>
+            <li>
+                <NavLink to='/customer-support' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Customer Support</NavLink>
+            </li>
+            <li>
+                <NavLink to='/company-details' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Company Profile</NavLink>
+            </li>
+            <li>
+                <NavLink to='/about' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>About Us</NavLink>
+            </li> */}
         </>
     );
 
     return (
         <div>
-            {/* First Navbar */}
             <div className="navbar bg-[#F1F2F4]">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -58,8 +56,8 @@ const Navbar = () => {
 
                 <div className="navbar-end flex items-center gap-4">
                     <div className="flex gap-2">
-                        <span className="text-gray-700 mt-1"><BiPhoneCall /></span> {/* Phone Icon */}
-                        <span className="text-gray-700">+1 234 567 890</span> {/* Phone Number */}
+                        <span className="text-gray-700 mt-1"><BiPhoneCall /></span>
+                        <span className="text-gray-700">+1 234 567 890</span>
                     </div>
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="text-gray-700 px-3 py-1 rounded-full cursor-pointer flex items-center gap-1">
@@ -77,35 +75,10 @@ const Navbar = () => {
                                 </button>
                             </li>
                         </ul>
-\
-                <div className="navbar-end">
-                    <div className="flex gap-4 lg:gap-5">
-                        {currentUser ? (
-                            <>
-                                <span className="text-white font-noto font-semibold">{currentUser.name}</span>
-                                <button
-                                    onClick={logout}
-                                    className="bg-red-600 text-white px-5 py-2 lg:px-7 lg:py-3 rounded-full"
-                                >
-                                    Logout
-                                </button>
-                            </>
-                        ) : (
-                            <>
-                                <Link to='/login'>
-                                    <button className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-full text-greenCastomize font-noto">Log-in</button>
-                                </Link>
-                                <Link to='/register'>
-                                    <button className="bg-greenCastomize text-yellowCastomize px-5 py-2 lg:px-7 lg:py-3 rounded-full">Register</button>
-                                </Link>
-                            </>
-                        )}
-
                     </div>
                 </div>
             </div>
 
-            {/* Second Navbar */}
             <Navbar2 />
         </div>
     );
