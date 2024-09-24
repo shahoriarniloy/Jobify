@@ -77,7 +77,6 @@ const BookmarkedJobs = () => {
                                     )}
                                 </button>
 
-                                {/* Delete Bookmark Button */}
                                 <FaTrash 
                                     className="ml-4 text-red-500 cursor-pointer hover:text-red-700" 
                                     onClick={() => handleDeleteBookmark(job._id)} 

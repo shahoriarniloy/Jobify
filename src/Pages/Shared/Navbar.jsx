@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from '../../assets/logo.png';
 import mobileLogo from '../../assets/mobileLogo.png';
 import useCurrentUser from '../../Hooks/useCurrentUser';
-import { AiFillHome, AiFillInfoCircle } from 'react-icons/ai'; // Updated import
+import { AiFillHome, AiFillInfoCircle } from 'react-icons/ai'; 
 import { FaBriefcase } from 'react-icons/fa';
 
 
