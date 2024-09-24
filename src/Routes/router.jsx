@@ -12,6 +12,7 @@ import  About from "../Pages/About"
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
 import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs";
 import BookmarkedJobs from "../Pages/AdvancedSearch/BookmarkedJobs";
+import SingleJob from "../Pages/SingleJob/SingleJob";
 
 
 export const router = createBrowserRouter([
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "/bookmarked-jobs",
         element: <BookmarkedJobs/>,
+      },
+      {
+        path: "/job",
+        element: <SingleJob/> ,
       },
     ],
   },
