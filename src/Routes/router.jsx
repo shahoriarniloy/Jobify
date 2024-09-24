@@ -11,6 +11,7 @@ import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
 import About from "../Pages/About";
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
         path: "/advanced-search",
         element: <AdvancedSearch />,
       },
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+      },
     ],
   },
   {
@@ -50,4 +55,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
+ 
 ]);
