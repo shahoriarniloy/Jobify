@@ -1,46 +1,19 @@
-
 import { BN, US } from "country-flag-icons/react/3x2";
 import { BiPhoneCall } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import Navbar2 from "../Home/Navbar2/Navbar2";
 
-import { useState } from "react";
-import logo from '../../assets/logo.png';
-import mobileLogo from '../../assets/mobileLogo.png';
-import useCurrentUser from '../../Hooks/useCurrentUser';
-import { AiFillHome, AiFillInfoCircle } from 'react-icons/ai'; 
-import { FaBriefcase } from 'react-icons/fa';
-
-
-
 const Navbar = () => {
-    const { currentUser, logout } = useCurrentUser(); 
     // console.log(currentUser.name);
-
 
     const navItem = (
         <>
-<<<<<<< HEAD
-            <li className="hover:text-blueCastomize  transition-colors duration-300"><Link to='/'>Home</Link></li>
-            <li className="hover:text-blueCastomize  transition-colors duration-300"><Link to='/advanced-search'>Find Job</Link></li>
-            <li className="hover:text-blueCastomize  transition-colors duration-300"><Link to='/'>Employers</Link></li>
-            <li className="hover:text-blueCastomize  transition-colors duration-300"><Link to='/dashboard'>Dashboard</Link></li>
-            {/* <li><Link to='/'>Candidates</Link></li> */}
-            {/* <li><Link to='/'>Pricing Plans</Link></li> */}
-            {/* <li><Link to='/'>Customer Support</Link></li> */}
-=======
-
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/advanced-search'>Find Job</Link></li>
-            <li><Link to='/'>Employers</Link></li>
-            <li><Link to='/'>Candidates</Link></li>
-            <li><Link to='/'>Pricing Plans</Link></li>
-            <li><Link to='/'>Customer Support</Link></li>
->>>>>>> 6b3554aec13d02b89debd06347ef9cfea338b62c
-            <li><Link to='/company-details'>Company Profile</Link></li>
-            <li><Link to='/about'>About Us</Link></li>
-
-         
+            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/'>Home</Link></li>
+            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/advanced-search'>Find Job</Link></li>
+            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/'>Employers</Link></li>
+            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/dashboard'>Dashboard</Link></li>
+            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/company-details'>Company Profile</Link></li>
+            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/about'>About Us</Link></li>
         </>
     );
 
@@ -87,30 +60,6 @@ const Navbar = () => {
                                 </button>
                             </li>
                         </ul>
-\
-                <div className="navbar-end">
-                    <div className="flex gap-4 lg:gap-5">
-                        {currentUser ? (
-                            <>
-                                <span className="text-white font-noto font-semibold">{currentUser.name}</span>
-                                <button
-                                    onClick={logout}
-                                    className="bg-red-600 text-white px-5 py-2 lg:px-7 lg:py-3 rounded-full"
-                                >
-                                    Logout
-                                </button>
-                            </>
-                        ) : (
-                            <>
-                                <Link to='/login'>
-                                    <button className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-full text-greenCastomize font-noto">Log-in</button>
-                                </Link>
-                                <Link to='/register'>
-                                    <button className="bg-greenCastomize text-yellowCastomize px-5 py-2 lg:px-7 lg:py-3 rounded-full">Register</button>
-                                </Link>
-                            </>
-                        )}
-
                     </div>
                 </div>
             </div>

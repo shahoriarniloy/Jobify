@@ -2,22 +2,16 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Main from "../Layout/Main";
 import RouteNotFound from "../Pages/RouteNotFound";
-
 import Home from "../Pages/Home/Home";
 import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
-
-import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
-import About from "../Pages/About";
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
-
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-
-import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs";
 import BookmarkedJobs from "../Pages/AdvancedSearch/BookmarkedJobs";
 import SingleJob from "../Pages/SingleJob/SingleJob";
-
+import PostJob from "../Pages/Dashboard/Company/PostJob";
+import MyJob from "../Pages/Dashboard/Company/MyJob";
 
 
 export const router = createBrowserRouter([
@@ -31,17 +25,6 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "company-details/:companyId", 
-        element: <CompanyDetails />,
-      },
-      {
-
-        path: "/about",
-        element: <About />,
-        path: "/company/:companyId/jobs", 
-        element: <CompanyJobs />,
-      },
-      {
         path: "/register",
         element: <CreateAccount />,
       },
@@ -49,9 +32,19 @@ export const router = createBrowserRouter([
         path: "/advanced-search",
         element: <AdvancedSearch />,
       },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,  // Dashboard as the main route
+    children: [
       {
-        path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        path: "postJob",
+        element: <PostJob></PostJob> ,// Nested under Dashboard
+      },
+      {
+        path: "myJob",
+        element: <MyJob></MyJob>,  // Nested under Dashboard
       },
     ],
   },
@@ -69,13 +62,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "/bookmarked-jobs",
-        element: <BookmarkedJobs/>,
+        element: <BookmarkedJobs />,
       },
       {
         path: "/job",
-        element: <SingleJob/> ,
+        element: <SingleJob />,
       },
     ],
   },
- 
 ]);
