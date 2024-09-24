@@ -8,10 +8,15 @@ import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
 
 import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
-import  About from "../Pages/About"
+import About from "../Pages/About";
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
+
+import AuthLayout from "../Layout/AuthLayout/AuthLayout";
+
 import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs";
 import BookmarkedJobs from "../Pages/AdvancedSearch/BookmarkedJobs";
+import SingleJob from "../Pages/SingleJob/SingleJob";
+
 
 
 export const router = createBrowserRouter([
@@ -23,16 +28,32 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-
       },
       {
         path: "company-details/:companyId", 
         element: <CompanyDetails />,
       },
       {
+
+        path: "/about",
+        element: <About />,
         path: "/company/:companyId/jobs", 
         element: <CompanyJobs />,
       },
+      {
+        path: "/register",
+        element: <CreateAccount />,
+      },
+      {
+        path: "/advanced-search",
+        element: <AdvancedSearch />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <AuthLayout />,  
+    children: [
       {
         path: "/register",
         element: <CreateAccount />,
@@ -42,18 +63,13 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/about",
-        element: <About/>,
-      },
-      {
-        path: "/advanced-search",
-        element: <AdvancedSearch/>,
-      },
-      {
         path: "/bookmarked-jobs",
         element: <BookmarkedJobs/>,
       },
+      {
+        path: "/job",
+        element: <SingleJob/> ,
+      },
     ],
   },
-  
 ]);
