@@ -104,7 +104,7 @@ const SingleJob = () => {
   return (
     <div>
       {/* Header */}
-      <div className="container mx-auto md:mt-24 pt-5 mb-9 flex justify-between">
+      <div className="container mx-auto mt-20 md:mt-24 pt-5 mb-9 md:flex justify-between">
         {/* left side */}
         <div className="flex gap-5">
           <div>
@@ -120,7 +120,7 @@ const SingleJob = () => {
                 {jobType}
               </p>
             </div>
-            <div className="flex ">
+            <div className="md:flex ">
               <p className="flex items-center gap-2 ">
                 <FaLink className="text-blue-400" />
                 {company?.company_website}
@@ -156,7 +156,7 @@ const SingleJob = () => {
               </button>
             </div>
           </div>
-          <div className=" my-3 text-right ">
+          <div className="my-3 md:text-right ">
             Job expire in: <span className="text-red-500">{deadline}</span>
           </div>
         </div>
@@ -230,7 +230,7 @@ const SingleJob = () => {
             <h2 className=" mb-6 font-bold text-xl md:text-2xl">
               Job Overview
             </h2>
-            <div className=" grid grid-cols-3 gap-5 md:gap-10">
+            <div className=" grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-10">
               <div>
                 <FiCalendar className="text-2xl text-blue-500" />
                 <p className="text-gray-500 mt-2">JOB POSTED:</p>
@@ -340,7 +340,7 @@ const SingleJob = () => {
           </div>
 
           {/* cards */}
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {Array.isArray(jobs.jobs) && jobs.jobs.length > 0 ? (
               jobs.jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
             ) : (
