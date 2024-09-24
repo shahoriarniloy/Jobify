@@ -1,9 +1,17 @@
-import React, { useContext } from 'react';
-import { userDataContext } from './../Pages/Auth/CreateAccount/AuthContext';
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Pages/Auth/CreateAccount/AuthContext"; 
 
 const useCurrentUser = () => {
-    const userInfo = useContext(userDataContext);
-    return userInfo;
+    const { user, logOut, loading } = useContext(AuthContext);
+    const [currentUser, setCurrentUser] = useState(null);
+
+    useEffect(() => {
+        if (!loading) {
+            setCurrentUser(user);
+        }
+    }, [user, loading]);
+
+    return { currentUser, logout: logOut };
 };
 
 export default useCurrentUser;
