@@ -21,6 +21,7 @@ const Navbar = () => {
     const navItem = (
         <>
 
+
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/advanced-search'>Find Job</Link></li>
             <li><Link to='/'>Employers</Link></li>
@@ -29,6 +30,8 @@ const Navbar = () => {
             <li><Link to='/'>Customer Support</Link></li>
             <li><Link to='/company-details'>Company Profile</Link></li>
             <li><Link to='/about'>About Us</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/dashboard'>Dashboard</Link></li>
+
 
          
         </>
@@ -36,7 +39,6 @@ const Navbar = () => {
 
     return (
         <div>
-            {/* First Navbar */}
             <div className="navbar bg-[#F1F2F4]">
                 <div className="navbar-start">
                     <div className="dropdown">
