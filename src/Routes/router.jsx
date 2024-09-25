@@ -8,7 +8,13 @@ import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
 
 import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
-import About from "../Pages/About";
+
+import About from "../Pages/About"
+import DashboardLayout from "../Pages/Dashboard/DashboardLayout";
+import EmployeeHome from "../Pages/Dashboard/Employee/EmployeeHome";
+import AppliedJobs from "../Pages/Dashboard/Employee/AppliedJobs";
+import FavoriteJobs from "../Pages/Dashboard/Employee/FavoriteJobs";
+
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
 
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
@@ -17,6 +23,7 @@ import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs";
 import BookmarkedJobs from "../Pages/AdvancedSearch/BookmarkedJobs";
 import SingleJob from "../Pages/SingleJob/SingleJob";
 import FindCompany from "../Pages/Company/FindCompany";
+
 
 
 
@@ -70,13 +77,42 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
       {
+
+        path: "/about",
+        element: <About />,
+
         path: "/bookmarked-jobs",
         element: <BookmarkedJobs/>,
       },
       {
         path: "/job",
         element: <SingleJob/> ,
+
       },
+
+
+
+      {
+        path: "/dashboard",
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: "/dashboard/overview",
+            element: <EmployeeHome />
+          },
+          {
+            path:"/dashboard/applied-jobs",
+            element:<AppliedJobs/>
+          }
+          ,
+          {
+            path:"/dashboard/favorite-jobs",
+            element:<FavoriteJobs/>
+          }
+
+        ]
+      }
     ],
   },
+
 ]);

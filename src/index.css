@@ -11,6 +11,20 @@
     font-weight: 600;
 }
 
+/* isActiveRoute style */
+.isActiveRoute{
+    border-left: 5px solid #0A65CC;
+    background-color: #e7f0fa;
+    color: #0A65CC;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left:15px ;
+    padding-top:8px ;
+    padding-bottom:8px ;
+}
+
+
 
 /* loader style */
 .loader {

@@ -15,21 +15,7 @@ const Navbar = () => {
             <li>
                 <NavLink to='/companies' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Find Company</NavLink>
             </li>
-            {/* <li>
-                <NavLink to='/candidates' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Candidates</NavLink>
-            </li>
-            <li>
-                <NavLink to='/pricing-plans' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Pricing Plans</NavLink>
-            </li>
-            <li>
-                <NavLink to='/customer-support' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Customer Support</NavLink>
-            </li>
-            <li>
-                <NavLink to='/company-details' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Company Profile</NavLink>
-            </li>
-            <li>
-                <NavLink to='/about' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>About Us</NavLink>
-            </li> */}
+            
         </>
     );
 
