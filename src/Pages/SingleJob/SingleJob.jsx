@@ -30,7 +30,7 @@ const SingleJob = () => {
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  let [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const jobId = "66f04efdd3a959b944c22130";
 
@@ -75,7 +75,9 @@ const SingleJob = () => {
   useEffect(() => {
     const fetchJobDataPagination = async () => {
       try {
-        const response = await axiosSecure.get(`/jobs?page=${page}&limit=6`); // Sending page and limit
+        const response = await axiosSecure.get(
+          `/jobs/pagination?page=${page}&limit=6`
+        ); // Sending page and limit
         setJobs(response.data);
         setTotalPages(response.data.totalPages);
         // console.log("Fetched jobs data:", response.data);
@@ -96,6 +98,16 @@ const SingleJob = () => {
     if (page > 1) {
       setPage(page - 1);
     }
+  };
+
+  // Function to open the modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   // Optionally handle the job data rendering
@@ -146,8 +158,9 @@ const SingleJob = () => {
               <IoBookmarkOutline className="text-blue-600" />
             </div>
             <div className="items-center">
+              {/* Apply Now button to open the modal */}
               <button
-                onClick={() => setIsOpen(true)}
+                onClick={openModal}
                 className={`flex items-center gap-3 px-16 py-4 rounded-md ${
                   new Date() > new Date(deadline)
                     ? "bg-gray-400 cursor-not-allowed"
@@ -158,12 +171,12 @@ const SingleJob = () => {
                 Apply now <FaArrowRight />
               </button>
 
-                {/* Modal */}
-                {/* <ApplyJobModal
-                isOpen={isOpen}
-                /> */}
-
-              
+              {/* Import and use Modal component */}
+              <ApplyJobModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                job={job}
+              />
             </div>
           </div>
           <div className="my-3 md:text-right ">

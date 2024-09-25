@@ -32,7 +32,7 @@ const JobCardGrid = ({ job }) => {
           {/* image section */}
           <div className="flex mb-6">
             <div>
-              <img className="w-14 h-14" src={company_logo} alt="icon" />
+              <img className="w-14 h-14 rounded-md" src={company_logo} alt="icon" />
             </div>
             <div className="ml-4 items-center gap-2">
               <div className="flex items-center">

@@ -1,0 +1,411 @@
+[33mcommit 95cc940614fe82f9cb466002f5560f333dbc16e7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mgias[m[33m, [m[1;31morigin/gias[m[33m)[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Wed Sep 25 07:04:50 2024 +0600
+
+    Morning Commit
+
+[33mcommit c1d8c4157ec3d15ecf3ba09fd47b57a83cf6ed7b[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Tue Sep 24 21:32:50 2024 +0600
+
+    Fix some respomsive error
+
+[33mcommit 5162223c9c10cbb80437d247724ec2c082ae3f66[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Tue Sep 24 12:26:15 2024 +0600
+
+    Fix : make apply btn conditionaly base on deadline
+
+[33mcommit c31b5aec6f7f00af65da76335a93382fffb238b2[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Tue Sep 24 01:07:59 2024 +0600
+
+    add: pagination to singale job and company details page
+
+[33mcommit 4aac58daf29819e440878f691d2df71b402d9d5a[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Mon Sep 23 22:51:08 2024 +0600
+
+    Add : company details
+
+[33mcommit 3d85278c0bd68db3576a3105dcaaeccf660a451f[m
+Merge: 536afca 50022c0
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Mon Sep 23 16:24:29 2024 +0600
+
+    Add: Job Overview, description
+
+[33mcommit 536afcaefc2aeb7e37d0cbc90eafe7349cc07a48[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Mon Sep 23 11:33:23 2024 +0600
+
+    update : searchbar
+
+[33mcommit 50022c01b9df9f28f7957cc645c2b7b1337ff6cd[m
+Merge: fa83f75 8bf0573
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Mon Sep 23 11:03:06 2024 +0600
+
+    Merge pull request #17 from shahoriarniloy/shahoriarniloy
+    
+    Shahoriarniloy
+
+[33mcommit 8bf0573e25760f81f9887325dfec79ab27fc2ae5[m
+Merge: f8b72bc fa83f75
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Mon Sep 23 11:02:52 2024 +0600
+
+    Merge branch 'development' into shahoriarniloy
+
+[33mcommit 1232b2b6cf89ef3007dcbe007d98080fe6727d03[m
+Merge: b77c262 fa83f75
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Mon Sep 23 09:52:21 2024 +0600
+
+    Resolved merge conflicts in UseAxiosSecure, SearchBar, CreateAccount, Navbar, and router files
+
+[33mcommit f8b72bce2217fc99ee30a97dff4c83b7762966e9[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Mon Sep 23 05:08:40 2024 +0600
+
+    Bookmark Jobs Get
+
+[33mcommit a774d008a786d5e477e52e6bc3b60888d428eb66[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Mon Sep 23 04:08:07 2024 +0600
+
+    Bookmark Jobs
+
+[33mcommit b77c26250c123ee2673d59bf4a4f22431621404e[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Sun Sep 22 19:37:23 2024 +0600
+
+    Add: Header
+
+[33mcommit fa83f756d303c27394095d0c4e9a113170676790[m
+Merge: 559d961 9407ee6
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Sun Sep 22 18:25:11 2024 +0600
+
+    Merge pull request #16 from shahoriarniloy/shahoriarniloy
+    
+    Firebase Authorization
+
+[33mcommit 9407ee6f9460bd853231831c8378a2a1cd066d6a[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Sun Sep 22 18:23:53 2024 +0600
+
+    Firebase Authorization
+
+[33mcommit 559d961ddeeb0f6047cbfb4c873341f87c8da0f8[m
+Merge: e4a8eb5 d400f3f
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Sun Sep 22 15:58:14 2024 +0600
+
+    Merge pull request #15 from shahoriarniloy/shahoriarniloy
+    
+    Shahoriarniloy
+
+[33mcommit d400f3f7be32447954228f52ec5eb095564594de[m
+Merge: c50af1d b2bf791
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Sun Sep 22 14:27:24 2024 +0600
+
+    Search & Advanced Search
+
+[33mcommit c50af1da65978815def575791920fd8323146f0e[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Sun Sep 22 14:23:20 2024 +0600
+
+    Search & Advanced Search
+
+[33mcommit ada6e6d64925b419f1911d17414ed5d01f6fbbd4[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Sat Sep 21 14:39:47 2024 +0600
+
+    Search & Advanced Search
+
+[33mcommit 73edc15463ad40a8632b54f60623b456533bbdc2[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Sun Sep 22 08:53:32 2024 +0600
+
+    Create : Single job page
+
+[33mcommit e4a8eb594e26f9553d8b817c651ba169761966f0[m
+Merge: ffa17dc ec8e3cc
+Author: Md. Abdullah Az Zahur (Gias) <160333614+Abdullah-Az-Zahur@users.noreply.github.com>
+Date:   Sun Sep 22 08:44:24 2024 +0600
+
+    Merge pull request #13 from shahoriarniloy/company-details-page
+    
+    Pull from development
+
+[33mcommit ec8e3cc602ea30695ee47ba61c233a6f3e98ee49[m[33m ([m[1;31morigin/company-details-page[m[33m, [m[1;32mcompany-details-page[m[33m)[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Sun Sep 22 08:42:33 2024 +0600
+
+    Pull from development
+
+[33mcommit ffa17dc22591625315140d02e4dee62fec6abbbc[m
+Merge: 16f590f b2bf791
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Sat Sep 21 14:43:19 2024 +0600
+
+    Merge pull request #12 from shahoriarniloy/shahoriarniloy
+    
+    First Week
+
+[33mcommit b2bf79169845d35dc5116b96dcd294a641052ea6[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Sat Sep 21 14:39:47 2024 +0600
+
+    First Week
+
+[33mcommit 16f590faf1aec56a40fe5ad4775e61c51441112b[m[33m ([m[1;32mAbdullah-Az-Zahur[m[33m)[m
+Merge: 4411e0f 8255919
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Fri Sep 20 00:27:10 2024 +0600
+
+    Merge pull request #11 from shahoriarniloy/shahoriarniloy
+    
+    Shahoriarniloy
+
+[33mcommit 82559192f8133f0d392381164aca48db8fc75799[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Fri Sep 20 00:20:54 2024 +0600
+
+    Modified UI
+
+[33mcommit b5f3cf091b7fe52ee9763d2376902b2c642475f8[m
+Merge: e09b4cc 4411e0f
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Fri Sep 20 00:18:45 2024 +0600
+
+    Modified UI
+
+[33mcommit e09b4cc2f32ef1d9eb0d1bbe4882ff2370f43d75[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Thu Sep 19 22:32:09 2024 +0600
+
+    About
+
+[33mcommit 4411e0f3376def24278ef54986cab3f7a253257c[m
+Merge: 9325035 ceee440
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Thu Sep 19 20:48:08 2024 +0600
+
+    Merge pull request #10 from shahoriarniloy/abumahid
+    
+    Abumahid
+
+[33mcommit ceee440b810ea719226642c8d4d1eb81b4dcc94e[m
+Merge: 9fcf284 9325035
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Thu Sep 19 20:47:54 2024 +0600
+
+    Merge branch 'development' into abumahid
+
+[33mcommit 932503570c1d2aaf8bc0b84a02de28c99981517b[m
+Merge: c6ac2f3 18e2c34
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Thu Sep 19 12:01:15 2024 +0600
+
+    Merge pull request #7 from shahoriarniloy/company-details-page
+    
+    Company details page
+
+[33mcommit 18e2c347c2b8e84dd25198d0af9a20ec0ec602f6[m
+Merge: 9a36514 c6ac2f3
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Thu Sep 19 12:00:39 2024 +0600
+
+    Merge branch 'development' into company-details-page
+
+[33mcommit 9a36514a6213e40efc6521271410d46881ae6621[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Thu Sep 19 11:45:12 2024 +0600
+
+    fix : some bugs
+
+[33mcommit d13df1267697707298c8fc9f77b9c29caa27494f[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Thu Sep 19 07:51:55 2024 +0600
+
+    fix: bugs 1
+
+[33mcommit 917e887b9c03c10f92cfc0dd7f3769c4533a59a5[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Thu Sep 19 07:29:51 2024 +0600
+
+    Update : make data dynamic based on specific company
+
+[33mcommit c1fdf520f9d8852ef4a462fce0cb2314545b6a39[m
+Merge: 0f9d412 4ab3d3c
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Wed Sep 18 11:35:41 2024 +0600
+
+    Add: card
+
+[33mcommit 0f9d412aafabbfe67951c6445830820d15fc77e9[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Wed Sep 18 11:26:17 2024 +0600
+
+    Add: job card component
+
+[33mcommit 9fcf284f0d660e63a73c8b303b62a95e554fd8d5[m[33m ([m[1;31morigin/abumahid[m[33m)[m
+Merge: 113f7ff ac5c157
+Author: md-maruf-billa <157400283+md-maruf-billa@users.noreply.github.com>
+Date:   Wed Sep 18 10:11:32 2024 +0600
+
+    Merge branch 'abumahid' of https://github.com/shahoriarniloy/Jobify into abumahid
+
+[33mcommit 113f7ff31e07c33f525c37b6e9ac176463f08ce2[m
+Author: md-maruf-billa <157400283+md-maruf-billa@users.noreply.github.com>
+Date:   Wed Sep 18 10:09:14 2024 +0600
+
+    add: added google signin methode
+
+[33mcommit c6ac2f3e4a11522aafd0ad0a29a932e73488b746[m
+Merge: 6471557 3c69881
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Wed Sep 18 00:12:50 2024 +0600
+
+    Resolved merge conflicts in package-lock.json, router.jsx, and tailwind.config.js
+
+[33mcommit 64715570053fc8ad9b0a53d3cf675a9bb1049d45[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 23:58:20 2024 +0600
+
+    Fixed Conflicts
+
+[33mcommit 3c69881b69073ca0fb318b747d81f45257cb289b[m
+Merge: 2a8f622 ac5c157
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 23:49:59 2024 +0600
+
+    Merge pull request #6 from shahoriarniloy/abumahid
+    
+    Create Company
+
+[33mcommit ac5c157538e7d7961f7a68120859eb0ac444ec77[m
+Merge: fdf0223 2a8f622
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 23:49:46 2024 +0600
+
+    Merge branch 'development' into abumahid
+
+[33mcommit 2a8f6221948c29f020a717286ebb596a905be246[m
+Merge: 02c4d6c 4ab3d3c
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 23:39:36 2024 +0600
+
+    Merge pull request #5 from shahoriarniloy/company-details-page
+    
+    Merge pull request #4 from shahoriarniloy/development
+
+[33mcommit 4ab3d3cd41ba83de5072b47a15a26459409a5cc2[m
+Merge: 5c0c7c1 02c4d6c
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 23:37:32 2024 +0600
+
+    Merge pull request #4 from shahoriarniloy/development
+    
+    Development
+
+[33mcommit 02c4d6c388adb1e6566e48e68a7558cb652143fd[m
+Merge: 1d9eb88 5c0c7c1
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 22:29:32 2024 +0600
+
+    Merge branch 'company-details-page' into development
+
+[33mcommit 1d9eb88fe13264e962fbf641fea287d41f6e36a7[m
+Merge: 38ec85d 0c155fa
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 22:16:53 2024 +0600
+
+    Merge pull request #2 from shahoriarniloy/top-companies
+    
+    Created Top Companies Section for Home
+
+[33mcommit 0c155fa565f1780fd00960ce9638da68c36eca19[m[33m ([m[1;31morigin/top-companies[m[33m)[m
+Merge: b9ed6df 38ec85d
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 22:12:42 2024 +0600
+
+    Resolved merge conflict in Home.jsx
+
+[33mcommit 5c0c7c1cc8899d80da59d481a15b16505634dc28[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Tue Sep 17 21:55:48 2024 +0600
+
+    Add: description section
+
+[33mcommit b9ed6dfd45a9e91881e4af7e6a5cf10a21942ec0[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 21:51:36 2024 +0600
+
+    Created Top Companies Section for Home
+
+[33mcommit 38ec85d2d08eb06c49f68c44a243c118e76fd1aa[m
+Merge: b8e06f2 2442b02
+Author: Shahoriar Azad Niloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 21:16:43 2024 +0600
+
+    Merge pull request #1 from shahoriarniloy/nevbar
+    
+    added basic navbar and colour scheme
+
+[33mcommit fdf0223e4ca69dfed1a0657529e0d32abd8ff22f[m
+Author: md-maruf-billa <157400283+md-maruf-billa@users.noreply.github.com>
+Date:   Tue Sep 17 20:48:24 2024 +0600
+
+    add : added login page with responsive but not added functionalaty
+
+[33mcommit 8d964432e3c54042868a5295b83e95b0a18b1479[m
+Author: md-maruf-billa <157400283+md-maruf-billa@users.noreply.github.com>
+Date:   Tue Sep 17 20:38:23 2024 +0600
+
+    add: added create account page with responsive
+
+[33mcommit 2442b02bbae009801f0d2c23f304d0b33d9f1e65[m[33m ([m[1;31morigin/nevbar[m[33m)[m
+Author: bella908 <mumtahina efa8@gmail.com>
+Date:   Tue Sep 17 20:06:02 2024 +0600
+
+    responsive
+
+[33mcommit 6e623bed72a5f823ef69a3b54d4d5310097f5eaf[m
+Author: bella908 <mumtahina efa8@gmail.com>
+Date:   Tue Sep 17 18:46:51 2024 +0600
+
+    added logo and custom text
+
+[33mcommit 35d7e7ce59159a25062d846578ae478faba6a8e0[m
+Author: bella908 <mumtahina efa8@gmail.com>
+Date:   Tue Sep 17 15:44:39 2024 +0600
+
+    added basic navbar and colour scheme
+
+[33mcommit 524130541d60948076d8e6490ca146c22e58e4a1[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Tue Sep 17 14:51:38 2024 +0600
+
+    Add: Banner
+
+[33mcommit c817f3be0c587e9b0c2870453d1373d880dba6c9[m
+Author: Abdullah-Az-Zahur <abdullah.az.zahur@gmail.com>
+Date:   Tue Sep 17 13:49:52 2024 +0600
+
+    Creat : Company details page
+
+[33mcommit b8e06f276a29cd7319162b8e8f824a2b4723cf4d[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 02:57:52 2024 +0600
+
+    New Branch Created
+
+[33mcommit d0aef15a1cef113b9924a6e2d7bf6957809f3eba[m[33m ([m[1;32mmain[m[33m)[m
+Author: shahoriarniloy <niloyshahoriar@gmail.com>
+Date:   Tue Sep 17 02:51:07 2024 +0600
+
+    Basic React Router & Tailwind Configuration
