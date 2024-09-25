@@ -37,11 +37,11 @@ const Navbar2 = () => {
                                             <ul className="py-1 text-gray-700">
                                                 <li>
                                                     <Link 
-                                                        to="/profile" 
+                                                        to="/dashboard/overview" 
                                                         className="block px-4 py-2 hover:bg-gray-100"
                                                         onClick={() => setIsMenuOpen(false)}
                                                     >
-                                                        View Profile
+                                                        Dashboard
                                                     </Link>
                                                 </li>
                                                 <li>

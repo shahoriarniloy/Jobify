@@ -62,6 +62,11 @@ export const router = createBrowserRouter([
         path: "/companies",
         element: <FindCompany />,
       },
+      {
+        path: "/job/:id",
+        element: <SingleJob/> ,
+
+      },
     ],
   },
   {
@@ -80,15 +85,14 @@ export const router = createBrowserRouter([
 
         path: "/about",
         element: <About />,
+      },
+
+      {
 
         path: "/bookmarked-jobs",
         element: <BookmarkedJobs/>,
       },
-      {
-        path: "/job",
-        element: <SingleJob/> ,
-
-      },
+     
 
 
 
@@ -107,7 +111,7 @@ export const router = createBrowserRouter([
           ,
           {
             path:"/dashboard/favorite-jobs",
-            element:<FavoriteJobs/>
+            element:<BookmarkedJobs/>
           }
 
         ]

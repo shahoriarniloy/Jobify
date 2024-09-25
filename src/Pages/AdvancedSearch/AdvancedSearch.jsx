@@ -6,6 +6,7 @@ import { FaTh, FaList } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Bookmark from './Bookmark';
+import { Link } from "react-router-dom";
 
 
 
@@ -385,8 +386,11 @@ const AdvancedSearch = () => {
                     <td className="p-3">{job.title}</td>
                     <td className="p-3">{job.company}</td>
                     <td className="p-3">{job.salaryRange}</td>
-                    <td className="p-3"><button>Details</button></td>
-                    <td> <Bookmark jobId={job._id} /></td>
+                    <td className="p-3">
+    <Link to={`/job/${job._id}`}>
+        <button>Details</button>
+    </Link>
+</td>                    <td> <Bookmark jobId={job._id} /></td>
                     {/* <td className="p-3">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -426,12 +430,12 @@ const AdvancedSearch = () => {
                   <p>Salary: {job.salaryRange}</p>
                   <Bookmark jobId={job._id} />
                 </div>
-                <button
-                  type="button"
-                  className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-gradient-to-r from-blue-500 to-blue-700 dark:text-gray-50"
-                >
-                  Details
-                </button>
+                <Link
+    to={`/job/${job._id}`} // Ensure jobs._id is correct
+    className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-gradient-to-r from-blue-500 to-blue-700 dark:text-gray-50"
+  >
+    Details
+  </Link>
               </div>
             </div>
           ))}

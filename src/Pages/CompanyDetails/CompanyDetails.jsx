@@ -40,32 +40,30 @@ const CompanyDetails = () => {
     fetchCompanyData();
   }, [companyId]);
 
-  // get job card for pagination
-  useEffect(() => {
-    const fetchJobDataPagination = async () => {
-      try {
-        const response = await axiosSecure.get(`/jobs/pagination?page=${page}&limit=6`); // Sending page and limit
-        setJobs(response.data);
-        setTotalPages(response.data.totalPages);
-        // console.log("Fetched jobs data:", response.data);
-      } catch (error) {
-        console.error("Error fetching job data:", error);
-      }
-    };
-    fetchJobDataPagination();
-  }, [page]);
+  // useEffect(() => {
+  //   const fetchJobDataPagination = async () => {
+  //     try {
+  //       const response = await axiosSecure.get(`/jobs/pagination?page=${page}&limit=6`); 
+  //       setJobs(response.data);
+  //       setTotalPages(response.data.totalPages);
+  //     } catch (error) {
+  //       console.error("Error fetching job data:", error);
+  //     }
+  //   };
+  //   fetchJobDataPagination();
+  // }, [page]);
 
-  const handleNext = () => {
-    if (page < totalPages) {
-      setPage(page + 1);
-    }
-  };
+  // const handleNext = () => {
+  //   if (page < totalPages) {
+  //     setPage(page + 1);
+  //   }
+  // };
 
-  const handlePrev = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  };
+  // const handlePrev = () => {
+  //   if (page > 1) {
+  //     setPage(page - 1);
+  //   }
+  // };
 
   return (
     <div className="relative noto">
@@ -103,7 +101,7 @@ const CompanyDetails = () => {
       </div>
 
       {/* Description and Social Media Links */}
-      <div className="flex flex-col md:flex-row md:mt-36  md:mb-48 container mx-auto px-4">
+      <div className="flex flex-col md:flex-row md:mt-36  md:mb-48 container mx-auto px-4 gap-6">
         <div className="md:w-1/2">
           <h2 className="font-bold md:mt-24 mt-64 lg:mt-4 sm:mt-56 text-xl md:text-2xl lg:text-3xl">
             Description
@@ -187,7 +185,7 @@ const CompanyDetails = () => {
 
         {/* Company Info */}
         <div className="md:ml-10 md:w-1/2">
-          <div className="md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
+          <div className=" p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
             <div>
               <FiCalendar className="text-2xl text-blue-500" />
               <p className="text-gray-500 mt-2">Founded in:</p>
@@ -213,7 +211,7 @@ const CompanyDetails = () => {
               <p className="font-bold text-sm">{company?.industry}</p>
             </div>
           </div>
-          <div className="md:p-8 border-2 rounded-lg md:my-6">
+          <div className="p-4 md:p-8 border-2 rounded-lg md:my-6">
             <h2 className="font-bold text-xl md:text-2xl">
               Contact Information
             </h2>
@@ -247,9 +245,8 @@ const CompanyDetails = () => {
       </div>
 
       {/* Jobs Section */}
-      <section className="container mx-auto">
+      {/* <section className="container mx-auto">
         <div>
-          {/* header */}
           <div className="flex justify-between mb-12">
             <h3 className="font-bold text-xl">Open Position </h3>
             <div className="">
@@ -270,7 +267,6 @@ const CompanyDetails = () => {
             </div>
           </div>
 
-          {/* cards */}
           <div className="grid grid-cols-3 gap-6">
             {Array.isArray(jobs.jobs) && jobs.jobs.length > 0 ? (
               jobs.jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
@@ -279,7 +275,7 @@ const CompanyDetails = () => {
             )}
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };
