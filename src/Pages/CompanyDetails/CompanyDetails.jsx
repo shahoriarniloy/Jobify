@@ -44,7 +44,7 @@ const CompanyDetails = () => {
   useEffect(() => {
     const fetchJobDataPagination = async () => {
       try {
-        const response = await axiosSecure.get(`/jobs?page=${page}&limit=6`); // Sending page and limit
+        const response = await axiosSecure.get(`/jobs/pagination?page=${page}&limit=6`); // Sending page and limit
         setJobs(response.data);
         setTotalPages(response.data.totalPages);
         // console.log("Fetched jobs data:", response.data);
