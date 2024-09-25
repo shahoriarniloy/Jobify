@@ -1,4 +1,6 @@
 import socialLogo from "../../assets/image/CompanyDetails/instagram_logo.png";
+import ApplyJobModal from "../../components/Modal/ApplyJobModal";
+
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -145,6 +147,7 @@ const SingleJob = () => {
             </div>
             <div className="items-center">
               <button
+                onClick={() => setIsOpen(true)}
                 className={`flex items-center gap-3 px-16 py-4 rounded-md ${
                   new Date() > new Date(deadline)
                     ? "bg-gray-400 cursor-not-allowed"
@@ -154,6 +157,13 @@ const SingleJob = () => {
               >
                 Apply now <FaArrowRight />
               </button>
+
+                {/* Modal */}
+                {/* <ApplyJobModal
+                isOpen={isOpen}
+                /> */}
+
+              
             </div>
           </div>
           <div className="my-3 md:text-right ">
