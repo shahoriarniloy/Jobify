@@ -1,4 +1,6 @@
 import socialLogo from "../../assets/image/CompanyDetails/instagram_logo.png";
+import ApplyJobModal from "../../components/Modal/ApplyJobModal";
+
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -15,6 +17,12 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import JobCardGrid from "../../components/JobCardGrid/JobCardGrid";
+import {
+  Description,
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
 
 const SingleJob = () => {
   const [job, setJob] = useState([]);
@@ -22,6 +30,7 @@ const SingleJob = () => {
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const jobId = "66f04efdd3a959b944c22130";
 
@@ -66,7 +75,9 @@ const SingleJob = () => {
   useEffect(() => {
     const fetchJobDataPagination = async () => {
       try {
-        const response = await axiosSecure.get(`/jobs?page=${page}&limit=6`); // Sending page and limit
+        const response = await axiosSecure.get(
+          `/jobs/pagination?page=${page}&limit=6`
+        ); // Sending page and limit
         setJobs(response.data);
         setTotalPages(response.data.totalPages);
         // console.log("Fetched jobs data:", response.data);
@@ -89,6 +100,16 @@ const SingleJob = () => {
     }
   };
 
+  // Function to open the modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   // Optionally handle the job data rendering
   if (!job) {
     return <div>Loading job details...</div>;
@@ -97,7 +118,7 @@ const SingleJob = () => {
   return (
     <div>
       {/* Header */}
-      <div className="container mx-auto md:mt-24 pt-5 mb-9 flex justify-between">
+      <div className="container mx-auto mt-20 md:mt-24 pt-5 mb-9 md:flex justify-between">
         {/* left side */}
         <div className="flex gap-5">
           <div>
@@ -113,18 +134,18 @@ const SingleJob = () => {
                 {jobType}
               </p>
             </div>
-            <div className="flex ">
+            <div className="md:flex ">
               <p className="flex items-center gap-2 ">
                 <FaLink className="text-blue-400" />
-                https://instagram.com
+                {company?.company_website}
               </p>
-              <p className="flex items-center gap-2 mx-2">
+              <p className="flex items-center gap-2 mx-3">
                 <FiPhone className="text-blue-400" />
-                https://instagram.com
+                {company?.phone_number}
               </p>
               <p className="flex items-center gap-2 mx-2">
                 <TfiEmail className="text-blue-400" />
-                https://instagram.com
+                {company?.email}
               </p>
             </div>
           </div>
@@ -137,12 +158,28 @@ const SingleJob = () => {
               <IoBookmarkOutline className="text-blue-600" />
             </div>
             <div className="items-center">
-              <button className="flex items-center gap-3 px-16 py-4 rounded-md bg-blue-700 text-white ">
-                Apply now <FaArrowRight />{" "}
+              {/* Apply Now button to open the modal */}
+              <button
+                onClick={openModal}
+                className={`flex items-center gap-3 px-16 py-4 rounded-md ${
+                  new Date() > new Date(deadline)
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-700"
+                } text-white`}
+                disabled={new Date() > new Date(deadline)}
+              >
+                Apply now <FaArrowRight />
               </button>
+
+              {/* Import and use Modal component */}
+              <ApplyJobModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                job={job}
+              />
             </div>
           </div>
-          <div className=" my-3 text-right ">
+          <div className="my-3 md:text-right ">
             Job expire in: <span className="text-red-500">{deadline}</span>
           </div>
         </div>
@@ -216,7 +253,7 @@ const SingleJob = () => {
             <h2 className=" mb-6 font-bold text-xl md:text-2xl">
               Job Overview
             </h2>
-            <div className=" grid grid-cols-3 gap-5 md:gap-10">
+            <div className=" grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-10">
               <div>
                 <FiCalendar className="text-2xl text-blue-500" />
                 <p className="text-gray-500 mt-2">JOB POSTED:</p>
@@ -326,7 +363,7 @@ const SingleJob = () => {
           </div>
 
           {/* cards */}
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {Array.isArray(jobs.jobs) && jobs.jobs.length > 0 ? (
               jobs.jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
             ) : (

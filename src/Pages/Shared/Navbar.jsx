@@ -8,18 +8,27 @@ const Navbar = () => {
 
     const navItem = (
         <>
-            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/'>Home</Link></li>
-            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/advanced-search'>Find Job</Link></li>
-            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/'>Employers</Link></li>
-            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/dashboard'>Dashboard</Link></li>
-            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/company-details'>Company Profile</Link></li>
-            <li className="hover:text-blueCastomize transition-colors duration-300"><Link to='/about'>About Us</Link></li>
+
+
+
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/advanced-search'>Find Job</Link></li>
+            <li><Link to='/'>Employers</Link></li>
+            <li><Link to='/'>Candidates</Link></li>
+            <li><Link to='/'>Pricing Plans</Link></li>
+            <li><Link to='/'>Customer Support</Link></li>
+            <li><Link to='/company-details'>Company Profile</Link></li>
+            <li><Link to='/about'>About Us</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/dashboard'>Dashboard</Link></li>
+
+
+         
+
         </>
     );
 
     return (
         <div>
-            {/* First Navbar */}
             <div className="navbar bg-[#F1F2F4]">
                 <div className="navbar-start">
                     <div className="dropdown">
