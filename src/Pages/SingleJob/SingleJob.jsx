@@ -5,12 +5,13 @@ import socialLogo from "../../assets/image/CompanyDetails/instagram_logo.png";
 import { FaLink, FaArrowRight } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { TfiEmail } from "react-icons/tfi";
-import { IoBookmarkOutline } from "react-icons/io5";
+// import { IoBookmarkOutline } from "react-icons/io5";
 import { FiCalendar } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
+import Bookmark from "../AdvancedSearch/Bookmark";
 
 const SingleJob = () => {
   const [job, setJob] = useState(null); 
@@ -80,7 +81,8 @@ const SingleJob = () => {
         <div className="flex flex-col">
           <div className="flex items-center gap-3 mb-3">
             <div className="p-5 bg-blue-100 rounded-md">
-              <IoBookmarkOutline className="text-blue-600" />
+            <Bookmark jobId={job._id} />
+              {/* <IoBookmarkOutline className="text-blue-600" /> */}
             </div>
             <div className="items-center">
               <button

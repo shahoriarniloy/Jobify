@@ -42,7 +42,7 @@ const BookmarkedJobs = () => {
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div className="flex flex-col gap-4 pt-2">
+        <div className="flex flex-col gap-2 pt-2">
             {bookmarkedJobs.map(job => {
                 const isDeadlineExpired = new Date(job.deadline) < new Date(); 
                 return (

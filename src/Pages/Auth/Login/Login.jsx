@@ -46,7 +46,6 @@ const Login = () => {
         }
     };
     
-
     const handleGoogleSignIn = async () => {
         setLoading(true);
         setError("");
@@ -55,14 +54,30 @@ const Login = () => {
             const userInfo = {
                 email: result.user.email,
                 name: result.user.displayName || 'Guest',
-                photoURL: result.user.photoURL
+                photoURL: result.user.photoURL,
+                role: 'Job Seeker'
             };
-            setUser(userInfo); 
-            toast.success("Signed in with Google");
-            navigate('/'); 
+
+            // Save user info to the database
+            const response = await fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userInfo),
+            });
+
+            const data = await response.json();
+
+            if (data.insertedId) {
+                // User successfully inserted or already exists
+                toast.success("Signed in with Google");
+                navigate('/'); 
+            } else {
+                toast.error(data.message); // Handle existing user message
+            }
         } catch (error) {
-            toast.success("Signed in with Google");
-            navigate('/'); 
+            toast.error("Error signing in with Google");
         } finally {
             setLoading(false);
         }
