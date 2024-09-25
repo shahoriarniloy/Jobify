@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const PostJob = () => {
   const [jobData, setJobData] = useState({
-    tittle: '',
+    title: '',
     company: '',
     experience: '',
     salaryRange: '',
@@ -49,7 +49,7 @@ const PostJob = () => {
 
         // Optionally clear the form fields after successful submission
         setJobData({
-          tittle: '',
+          title: '',
           company: '',
           experience: '',
           salaryRange: '',
@@ -93,8 +93,8 @@ const PostJob = () => {
                   <label htmlFor="tittle">Job Title</label>
                   <input
                     type="text"
-                    name="tittle"
-                    value={jobData.tittle}
+                    name="title"
+                    value={jobData.title}
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                     placeholder="Add job title, role, vacancies etc"
