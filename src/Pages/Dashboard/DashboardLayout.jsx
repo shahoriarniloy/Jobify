@@ -1,6 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
 
-// Icons
 import { FiLayers } from "react-icons/fi";
 import { BsBagCheck } from "react-icons/bs";
 import { CiBookmark } from "react-icons/ci";

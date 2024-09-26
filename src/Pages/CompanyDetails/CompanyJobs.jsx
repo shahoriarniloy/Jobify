@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase } from "react-icons/pi";
 import { FiGlobe } from "react-icons/fi";
 import { LuPhoneCall } from "react-icons/lu";
 import { TfiEmail } from "react-icons/tfi";
+import {  FaArrowRight } from "react-icons/fa";
+
+import ApplyJobModal from "../../components/Modal/ApplyJobModal";
 
 const CompanyJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [company, setCompany] = useState(null);
   const { companyId } = useParams();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   useEffect(() => {
     const fetchJobsAndCompany = async () => {
@@ -28,8 +33,16 @@ const CompanyJobs = () => {
     fetchJobsAndCompany();
   }, [companyId]);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto px-4 lg:px-12 md:px-8">
       {company && (
         <>
           <h1 className="font-bold text-3xl mb-2 pt-8 text-center animate-fadeIn">{company.company_name}</h1>
@@ -57,18 +70,40 @@ const CompanyJobs = () => {
                 key={job._id} 
                 className={`border rounded-lg p-4 shadow-lg bg-white transition-transform duration-300 hover:scale-105 animate-fadeIn delay-${index * 100}`}
               >
-                <h3 className="font-bold text-xl">{job.title}</h3>
-                <p className="text-gray-700"><strong>Location:</strong> {job.location}</p>
+                <h3 className="font-bold text-xl mb-4">{job.title}</h3>
+                <p className="text-gray-500"><strong>Location:</strong> {job.location}</p>
                 <p className="text-gray-500"><strong>Education:</strong> {job.education}</p>
                 <p className="text-gray-500"><strong>Experience:</strong> {job.experience}</p>
                 <p className="text-gray-500"><strong>Job Level:</strong> {job.jobLevel}</p>
                 <p className="text-gray-500"><strong>Job Type:</strong> {job.jobType}</p>
-                <p className="font-bold"><strong>Salary Range:</strong> {job.salaryRange}</p>
-                <p className="text-gray-500"><strong>Vacancy:</strong> {job.vacancy}</p>
-                <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded transition duration-300 hover:bg-blue-600">
-                  Apply Now
-                </button>
-              </div>
+                <p className=" text-gray-500"><strong>Salary Range:</strong> {job.salaryRange}</p>
+                <p className="text-gray-500 mb-4"><strong>Vacancy:</strong> {job.vacancy}</p>
+                <ApplyJobModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                job={job}
+              />
+                <div className="flex gap-3"> 
+  <button
+    onClick={openModal}
+    className={`flex items-center justify-center gap-3 w-40 px-4 py-2 rounded-md font-semibold text-white ${
+      new Date() > new Date(job.deadline) 
+        ? "bg-gray-400 cursor-not-allowed" 
+        : "bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800"
+    }`}
+    disabled={new Date() > new Date(job.deadline)}
+  >
+    Apply now <FaArrowRight />
+  </button>
+
+  <Link
+    to={`/job/${job._id}`}
+    className="flex items-center justify-center gap-3 w-40 px-4 py-2 rounded-md font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800"
+  >
+    Details
+  </Link>
+</div>
+          </div>
             ))}
           </div>
         </div>

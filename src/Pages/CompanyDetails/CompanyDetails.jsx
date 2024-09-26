@@ -66,7 +66,7 @@ const CompanyDetails = () => {
   // };
 
   return (
-    <div className="relative noto">
+    <div className="relative ">
       {/* Company Banner and Info */}
       <div className="relative">
         <div>

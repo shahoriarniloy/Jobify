@@ -27,9 +27,10 @@ const SingleJob = () => {
       try {
         const response = await axiosSecure.get(`/single-job/${id}`);
         setJob(response.data);
-        setCompany(response.data.company); // Assuming the company data is part of the job response
-        // Check if user has already applied after fetching job data
+
+        setCompany(response.data.company); 
         await checkIfApplied(response.data._id, currentUser.email);
+
       } catch (error) {
         console.error("Error fetching job data:", error);
       }
@@ -57,7 +58,7 @@ const SingleJob = () => {
   };
 
   const handleApplicationSuccess = () => {
-    setHasApplied(true); // Update the hasApplied state when the application is successful
+    setHasApplied(true); 
   };
 
   const openModal = () => {

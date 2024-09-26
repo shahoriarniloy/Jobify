@@ -124,7 +124,7 @@ const Reviews = () => {
         </section>
       </div>
 
-      <h1 className="text-4xl text-center noto mt-16 font-bold text-brownText">
+      <h1 className="text-4xl text-center  mt-16 font-bold text-brownText">
         Feedbacks
       </h1>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 mx-4 mt-8">

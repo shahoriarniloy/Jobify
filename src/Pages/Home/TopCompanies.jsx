@@ -22,7 +22,7 @@ const TopCompanies = () => {
 
   return (
     <div className="px-2 ">
-      <h1 className='t noto text-3xl text-center mb-12'>Top Companies</h1>
+      <h1 className=' text-3xl text-center mb-12'>Top Companies</h1>
       {error ? (
         <p className="text-redCastomize">Error: {error}</p>
       ) : (
