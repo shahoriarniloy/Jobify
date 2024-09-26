@@ -46,7 +46,7 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="min-h-screen sm:mt-12 mt-4 pt-24 px-8">
+        <div className="min-h-screen sm:mx-12 mt-16 pt-8 p-8">
             <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:px-24 md:px-16">
                 <div className="lg:w-3/4">
                     <div className="lg:text-left md:text-left text-center lg:w-2/3 md:w-2/3 mb-6">
@@ -64,7 +64,7 @@ const SearchBar = () => {
                                 <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
                                 <input
                                     type="text"
-                                    placeholder="Job title, Keyword..."
+                                    placeholder="Job title, Company Name..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
