@@ -15,7 +15,6 @@ import EmployeeHome from "../Pages/Dashboard/Employee/EmployeeHome";
 import AppliedJobs from "../Pages/Dashboard/Employee/AppliedJobs";
 import FavoriteJobs from "../Pages/Dashboard/Employee/FavoriteJobs";
 
-import About from "../Pages/About";
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
 
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
