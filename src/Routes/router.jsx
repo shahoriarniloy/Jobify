@@ -2,6 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Main from "../Layout/Main";
 import RouteNotFound from "../Pages/RouteNotFound";
+
+import Home from "../Pages/Home";
+import Candidates from "../Pages/Candidates/Candidates";
+
 import Home from "../Pages/Home/Home";
 import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
@@ -29,6 +33,7 @@ import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs"
 
 
 
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -37,7 +42,12 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Home></Home>,
+      },
+      {
+        path: "/candidates",
+        element: <Candidates></Candidates>,
+       
       },
       {
         path: "company-details/:companyId", 
@@ -139,6 +149,7 @@ export const router = createBrowserRouter([
           },
 
         ]
+
       }
     ],
   },
