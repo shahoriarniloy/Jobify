@@ -1,9 +1,8 @@
-import React from 'react';
 
 const AppliedJobs = () => {
     return (
         <div>
-            ami applied jobs
+            Applied Jobs will be here
         </div>
     );
 };

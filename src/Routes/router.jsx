@@ -13,17 +13,19 @@ import About from "../Pages/About"
 import DashboardLayout from "../Pages/Dashboard/DashboardLayout";
 import EmployeeHome from "../Pages/Dashboard/Employee/EmployeeHome";
 import AppliedJobs from "../Pages/Dashboard/Employee/AppliedJobs";
-import FavoriteJobs from "../Pages/Dashboard/Employee/FavoriteJobs";
+// import FavoriteJobs from "../Pages/Dashboard/Employee/FavoriteJobs";
 
-import About from "../Pages/About";
 
 import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import BookmarkedJobs from "../Pages/AdvancedSearch/BookmarkedJobs";
 import SingleJob from "../Pages/SingleJob/SingleJob";
+import FindCompany from "../Pages/Company/FindCompany";
+
 import PostJob from "../Pages/Dashboard/Company/PostJob";
 import MyJob from "../Pages/Dashboard/Company/MyJob";
+import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs"
 
 
 
@@ -38,6 +40,19 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "company-details/:companyId", 
+        element: <CompanyDetails />,
+      },
+      {
+
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/company/:companyId/jobs", 
+        element: <CompanyJobs />,
+      },
+      {
         path: "/register",
         element: <CreateAccount />,
       },
@@ -45,22 +60,31 @@ export const router = createBrowserRouter([
         path: "/advanced-search",
         element: <AdvancedSearch />,
       },
-    ],
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,  // Dashboard as the main route
-    children: [
       {
-        path: "postJob",
-        element: <PostJob></PostJob> ,// Nested under Dashboard
+        path: "/companies",
+        element: <FindCompany />,
       },
       {
-        path: "myJob",
-        element: <MyJob></MyJob>,  // Nested under Dashboard
+        path: "/job/:id",
+        element: <SingleJob/> ,
+
       },
     ],
   },
+  // {
+  //   path: "/dashboard",
+  //   element: <Dashboard />, 
+  //   children: [
+  //     {
+  //       path: "/postJob",
+  //       element: <PostJob></PostJob> ,
+  //     },
+  //     {
+  //       path: "/myJob",
+  //       element: <MyJob></MyJob>, 
+  //     },
+  //   ],
+  // },
   {
     path: "/",
     element: <AuthLayout />,  
@@ -77,17 +101,14 @@ export const router = createBrowserRouter([
 
         path: "/about",
         element: <About />,
+      },
+
+      {
 
         path: "/bookmarked-jobs",
         element: <BookmarkedJobs />,
       },
-      {
-        path: "/job",
-
-        element: <SingleJob/> ,
-
-
-      },
+     
 
 
 
@@ -106,8 +127,16 @@ export const router = createBrowserRouter([
           ,
           {
             path:"/dashboard/favorite-jobs",
-            element:<FavoriteJobs/>
-          }
+            element:<BookmarkedJobs/>
+          },
+          {
+            path: "/dashboard/postJob",
+            element: <PostJob></PostJob> ,
+          },
+          {
+            path: "/dashboard/myJob",
+            element: <MyJob></MyJob>,  
+          },
 
         ]
       }

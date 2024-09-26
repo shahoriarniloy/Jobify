@@ -32,7 +32,7 @@ const CompanyJobs = () => {
     <div className="container mx-auto px-4">
       {company && (
         <>
-          <h1 className="font-bold text-3xl mb-2 pt-32 text-center animate-fadeIn">{company.company_name}</h1>
+          <h1 className="font-bold text-3xl mb-2 pt-8 text-center animate-fadeIn">{company.company_name}</h1>
           <div className="border-2 rounded-lg p-6 flex gap-5 justify-center text-center animate-fadeIn">
             <div className="flex justify-center items-center">
               <BiStopwatch className="text-2xl text-blue-500" />
@@ -48,7 +48,7 @@ const CompanyJobs = () => {
         </>
       )}
 
-      <div className="flex justify-center lg:flex-row flex-col mt-10">
+      <div className="flex justify-center lg:flex-row flex-col mt-6">
         <div className="container mx-auto">
           <h2 className="font-bold text-2xl mb-6 animate-fadeIn">Open Positions</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-6">

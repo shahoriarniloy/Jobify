@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import useCurrentUser from "../../Hooks/useCurrentUser"; 
 import axiosSecure from "../../Hooks/UseAxiosSecure"; 
-import { FaBriefcase, FaClock, FaDollarSign } from 'react-icons/fa'; 
+import { FaBriefcase, FaClock, FaDollarSign, FaTrash } from 'react-icons/fa'; 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BookmarkedJobs = () => {
     const { currentUser } = useCurrentUser();
@@ -27,10 +29,20 @@ const BookmarkedJobs = () => {
         fetchBookmarkedJobs();
     }, [currentUser]);
 
+    const handleDeleteBookmark = async (jobId) => {
+        try {
+            await axiosSecure.delete(`/bookmarks/${currentUser.email}/${jobId}`);
+            setBookmarkedJobs(prevJobs => prevJobs.filter(job => job._id !== jobId));
+            toast.success("Bookmark Deleted")
+        } catch (error) {
+            console.error("Error deleting bookmark:", error);
+        }
+    };
+
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div className="flex flex-col gap-4 pt-24">
+        <div className="flex flex-col gap-2 pt-2">
             {bookmarkedJobs.map(job => {
                 const isDeadlineExpired = new Date(job.deadline) < new Date(); 
                 return (
@@ -54,7 +66,7 @@ const BookmarkedJobs = () => {
                                 </div>
                             </div>
 
-                            <div className="card-actions justify-end mt-6">
+                            <div className="card-actions justify-end mt-6 flex items-center">
                                 <button 
                                     className={`btn ${isDeadlineExpired ? 'btn-disabled' : 'btn-primary'}`} 
                                     disabled={isDeadlineExpired}
@@ -64,6 +76,12 @@ const BookmarkedJobs = () => {
                                         <span className="ml-2">→</span> 
                                     )}
                                 </button>
+
+                                <FaTrash 
+                                    className="ml-4 text-red-500 cursor-pointer hover:text-red-700" 
+                                    onClick={() => handleDeleteBookmark(job._id)} 
+                                    title="Remove Bookmark"
+                                />
                             </div>
                         </div>
                     </div>

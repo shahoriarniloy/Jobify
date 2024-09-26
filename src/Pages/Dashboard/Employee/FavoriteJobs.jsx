@@ -3,7 +3,7 @@ import React from 'react';
 const FavoriteJobs = () => {
     return (
         <div>
-            ami favorite jobs
+             favorite jobs
             
         </div>
     );

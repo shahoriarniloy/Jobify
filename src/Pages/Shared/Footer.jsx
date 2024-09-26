@@ -15,7 +15,7 @@ const Footer = () => {
                     </div>
 
                     {/* Navigation Links */}
-                    <div className="flex gap-16">
+                    <div className="flex lg:flex-row md:flex-row flex-col gap-16">
                         <nav>
                             <h6 className="footer-title font-semibold mb-3">Services</h6>
                             <ul>
