@@ -5,13 +5,27 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
+import axiosSecure from "../../Hooks/UseAxiosSecure";
 
-const ApplyJobModal = ({ isOpen, onClose, job }) => {
+const ApplyJobModal = ({
+  isOpen,
+  onClose,
+  job,
+  user,
+  onApplicationSuccess,
+}) => {
   const { title } = job;
   const [resume, setResume] = useState(null);
   const [coverLetter, setCoverLetter] = useState("");
+
+  const application = {
+    coverLetter: coverLetter,
+    job_id: job?._id,
+    company_id: job?.company_id,
+    user_email: user?.email,
+  };
 
   const handleResumeChange = (e) => {
     const file = e.target.files[0];
@@ -22,15 +36,33 @@ const ApplyJobModal = ({ isOpen, onClose, job }) => {
     setCoverLetter(e.target.value);
   };
 
-  const handleApply = () => {
-    Swal.fire({
-      icon: "success",
-      title: "Application Submitted!",
-      text: "Your application has been successfully submitted.",
-      confirmButtonText: "OK",
-    }).then(() => {
-      onClose();
-    });
+  const handleApply = async () => {
+    try {
+      // Send application data to the backend
+      const response = await axiosSecure.post("/apply_job", application);
+
+      if (response.status === 201) {
+        // Call the onApplicationSuccess callback to update the application status
+        onApplicationSuccess();
+
+        Swal.fire({
+          icon: "success",
+          title: "Application Submitted!",
+          text: "Your application has been successfully submitted.",
+          confirmButtonText: "OK",
+        }).then(() => {
+          onClose(); // Close the modal after successful submission
+        });
+      }
+    } catch (error) {
+      console.error("Error applying for job:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Submission Failed",
+        text: "There was an error submitting your application.",
+        confirmButtonText: "OK",
+      });
+    }
   };
 
   return (
