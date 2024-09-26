@@ -58,7 +58,6 @@ const Login = () => {
                 role: 'Job Seeker'
             };
 
-            // Save user info to the database
             const response = await fetch('http://localhost:5000/users', {
                 method: 'POST',
                 headers: {
@@ -68,13 +67,18 @@ const Login = () => {
             });
 
             const data = await response.json();
+            console.log(data);
+            console.log(data.insertedId);
+            console.log(data.message);
 
-            if (data.insertedId) {
-                // User successfully inserted or already exists
-                toast.success("Signed in with Google");
-                navigate('/'); 
-            } else {
-                toast.error(data.message); // Handle existing user message
+
+            if (data.insertedId || data.messege === 'User already exists') {
+                toast.success(data.messege === 'User already exists' ? 'User already exists' : 'Signed in with Google');
+                navigate('/');
+            }
+            
+             else {
+                toast.error(data.message); 
             }
         } catch (error) {
             toast.error("Error signing in with Google");
@@ -85,7 +89,7 @@ const Login = () => {
     
 
     return (
-        <div className="bg-white noto">
+        <div className="bg-white ">
             <Helmet>
                 <title>Login</title>
             </Helmet>

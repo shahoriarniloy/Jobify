@@ -184,36 +184,39 @@ const AdvancedSearch = () => {
       {viewMode === "list" ? (
   <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800 mt-4">
     <div className="overflow-x-auto">
-      <table className="min-w-full text-xs">
-        <thead className="dark:bg-gray-300">
-          <tr className="text-left">
-            <th className="p-3">Company Name</th>
-            <th className="p-3">Industry</th>
-            <th className="p-3">Size</th>
-            <th className="p-3">Details</th>
-            {/* <th className="p-3">Bookmark</th> */}
-          </tr>
-        </thead>
-        <tbody>
-          {(filteredCompanies.length > 0 ? filteredCompanies : companies).map((company) => (
-            <tr
-              key={company._id}
-              className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
-            >
-              <td className="p-3">{company.company_name}</td>
-              <td className="p-3">{company.industry}</td>
-              <td className="p-3">{company.company_size}</td>
-              <td className="p-3"> <Link to={`/company-details/${company._id}`}>
-    <button className="bg-blue-500 text-white px-3 py-1 rounded">Details</button>
-  </Link></td>
-              
-              {/* <td>
-                <Bookmark companyId={company._id} />
-              </td> */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="overflow-x-auto"> 
+  <table className="min-w-full text-xs sm:text-sm">
+    <thead className="dark:bg-gray-300">
+      <tr className="text-left">
+        <th className="p-3">Company Name</th>
+        <th className="p-3 hidden md:table-cell">Industry</th>
+        <th className="p-3">Size</th>
+        <th className="p-3">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {(filteredCompanies.length > 0 ? filteredCompanies : companies).map((company) => (
+        <tr
+          key={company._id}
+          className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+        >
+          <td className="p-3">
+            <span className="block text-sm font-semibold ">{company.company_name}</span> 
+            <span className="block text-xs text-gray-500 md:hidden">{company.industry}</span> 
+          </td>
+          <td className="p-3 hidden md:table-cell">{company.industry}</td> 
+          <td className="p-3">{company.company_size}</td>
+          <td className="p-3">
+            <Link to={`/company-details/${company._id}`}>
+              <button className="bg-blue-500 text-white px-3 py-1 rounded">Details</button>
+            </Link>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
     </div>
   </div>
 ) : (
@@ -225,12 +228,12 @@ const AdvancedSearch = () => {
       >
         <div className="flex flex-col justify-between p-6 space-y-8">
           <div className="space-y-2">
-            <h2 className="text-3xl font-semibold tracking-wide">
+            <h2 className="text-3xl font-semibold tracking-wide h-24">
               {company.company_name}
             </h2>
-            <p className="text-blue-500">{company.industry}</p>
+            <p className="text-blue-500 h-6">{company.industry}</p>
 
-            <p> {company.company_description}</p>
+            <p className="h-24"> {company.company_description}</p>
             {/* <Bookmark companyId={company._id} /> */}
           </div>
           <Link to={`/company-details/${company._id}`}>

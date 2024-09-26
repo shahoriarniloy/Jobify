@@ -367,50 +367,43 @@ const AdvancedSearch = () => {
       {viewMode === "list" ? (
         <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800 mt-4">
           <div className="overflow-x-auto">
-            <table className="min-w-full text-xs">
-              <thead className="dark:bg-gray-300">
-                <tr className="text-left">
-                  <th className="p-3">Job Title</th>
-                  <th className="p-3">Company</th>
-                  <th className="p-3">Salary</th>
-                  <th className="p-3">Details</th>
-                  <th className="p-3">Bookmark</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(filteredJobs.length > 0 ? filteredJobs : jobs).map((job) => (
-                  <tr
-                    key={job._id}
-                    className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
-                  >
-                    <td className="p-3">{job.title}</td>
-                    <td className="p-3">{job.company}</td>
-                    <td className="p-3">{job.salaryRange}</td>
-                    <td className="p-3">
-    <Link to={`/job/${job._id}`}>
-        <button>Details</button>
-    </Link>
-</td>                    <td> <Bookmark jobId={job._id} /></td>
-                    {/* <td className="p-3">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        className="w-5 h-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M5 3h14a2 2 0 012 2v16l-9-4-9 4V5a2 2 0 012-2z"
-                        />
-                      </svg>
-                    </td> */}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="overflow-x-auto"> 
+  <table className="min-w-full text-xs sm:text-sm">
+    <thead className="dark:bg-gray-300">
+      <tr className="text-left">
+        <th className="p-3">Job Title</th>
+        <th className="p-3 hidden md:table-cell">Company</th> 
+        <th className="p-3 hidden md:table-cell">Salary</th> 
+        <th className="p-3">Details</th>
+        <th className="p-3 hidden lg:table-cell">Bookmark</th> 
+      </tr>
+    </thead>
+    <tbody>
+      {(filteredJobs.length > 0 ? filteredJobs : jobs).map((job) => (
+        <tr
+          key={job._id}
+          className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+        >
+          <td className="p-3">
+            <span className="block text-sm font-semibold">{job.title}</span> 
+            <span className="block text-xs text-gray-500 md:hidden">{job.company}</span> 
+          </td>
+          <td className="p-3 hidden md:table-cell">{job.company}</td> 
+          <td className="p-3 hidden md:table-cell">{job.salaryRange}</td> 
+          <td className="p-3">
+            <Link to={`/job/${job._id}`}>
+              <button className="text-blue-600 hover:underline">Details</button>
+            </Link>
+          </td>
+          <td className="p-3 hidden lg:table-cell">
+            <Bookmark jobId={job._id} />
+          </td> 
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
           </div>
         </div>
       ) : (
@@ -421,17 +414,28 @@ const AdvancedSearch = () => {
               className="max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800"
             >
               <div className="flex flex-col justify-between p-6 space-y-8">
-                <div className="space-y-2">
-                  <h2 className="text-3xl font-semibold tracking-wide">
+                <div className="space-y-2 flex flex-col">
+                  <div className="h-24">
+                    <h2 className="text-3xl font-semibold tracking-wide">
                     {job.title}
                   </h2>
+                  </div>
+                  <div className="h-6">
                   <p className="text-blue-500">{job.company}</p>
 
+
+                  </div>
+                  <div className="h-6">
                   <p>Salary: {job.salaryRange}</p>
+
+
+                  </div>
+                  
+
                   <Bookmark jobId={job._id} />
                 </div>
                 <Link
-    to={`/job/${job._id}`} // Ensure jobs._id is correct
+    to={`/job/${job._id}`} 
     className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-gradient-to-r from-blue-500 to-blue-700 dark:text-gray-50"
   >
     Details

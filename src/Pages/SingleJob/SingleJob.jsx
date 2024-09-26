@@ -24,7 +24,7 @@ const SingleJob = () => {
       try {
         const response = await axiosSecure.get(`/single-job/${id}`);
         setJob(response.data);
-        setCompany(response.data.company); // Assuming the company data is part of the job response
+        setCompany(response.data.company); 
       } catch (error) {
         console.error("Error fetching job data:", error);
       }
