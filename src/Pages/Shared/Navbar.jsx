@@ -3,19 +3,28 @@ import { BiPhoneCall } from "react-icons/bi";
 import { NavLink } from "react-router-dom"; // Use NavLink
 import Navbar2 from "../Home/Navbar2/Navbar2";
 
+
 const Navbar = () => {
+    const { currentUser, logout } = useCurrentUser();
+    // console.log(currentUser.name);
+
+
     const navItem = (
         <>
-            <li>
-                <NavLink to='/' end className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Home</NavLink>
-            </li>
-            <li>
-                <NavLink to='/advanced-search' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Find Job</NavLink>
-            </li>
-            <li>
-                <NavLink to='/companies' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Find Company</NavLink>
-            </li>
-            
+
+
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/advanced-search'>Find Job</Link></li>
+            <li><Link to='/'>Employers</Link></li>
+            <li><Link to='/'>Candidates</Link></li>
+            <li><Link to='/'>Pricing Plans</Link></li>
+            <li><Link to='/'>Customer Support</Link></li>
+            <li><Link to='/company-details'>Company Profile</Link></li>
+            <li><Link to='/about'>About Us</Link></li>
+            <li className='text-brownText font-noto font-semibold'><Link to='/dashboard'>Dashboard</Link></li>
+
+
+
         </>
     );
 
@@ -61,11 +70,37 @@ const Navbar = () => {
                                 </button>
                             </li>
                         </ul>
+                        <div className="navbar-end">
+                            <div className="flex gap-4 lg:gap-5">
+                                {currentUser ? (
+                                    <>
+                                        <span className="text-white font-noto font-semibold">{currentUser.name}</span>
+                                        <button
+                                            onClick={logout}
+                                            className="bg-red-600 text-white px-5 py-2 lg:px-7 lg:py-3 rounded-full"
+                                        >
+                                            Logout
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link to='/login'>
+                                            <button className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-full text-greenCastomize font-noto">Log-in</button>
+                                        </Link>
+                                        <Link to='/register'>
+                                            <button className="bg-greenCastomize text-yellowCastomize px-5 py-2 lg:px-7 lg:py-3 rounded-full">Register</button>
+                                        </Link>
+                                    </>
+                                )}
+
+                            </div>
+                        </div>
                     </div>
+
+                    {/* Second Navbar */}
+                    <Navbar2 />
                 </div>
             </div>
-
-            <Navbar2 />
         </div>
     );
 };
