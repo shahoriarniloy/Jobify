@@ -14,7 +14,7 @@ import Footer from '../Shared/Footer';
 const DashboardLayout = () => {
     const { currentUser } = useCurrentUser(); 
     const { role, loading: roleLoading, error: roleError } = useUserRole(currentUser?.email); 
-    console.log(role);
+    // console.log(role);
 
     if (roleLoading) return <div>Loading role...</div>;
     if (roleError) return <div>Error fetching role: {roleError}</div>;
@@ -80,6 +80,13 @@ const DashboardLayout = () => {
                                             isActive ? 'isActiveRoute' : 'flex items-center pl-5 py-2 text-[#767F8C] gap-2'
                                         }>
                                         <CiBookmark className='text-xl' /> My Jobs
+                                    </NavLink>
+                                    <NavLink
+                                        to="/dashboard/candidates"
+                                        className={({ isActive }) =>
+                                            isActive ? 'isActiveRoute' : 'flex items-center pl-5 py-2 text-[#767F8C] gap-2'
+                                        }>
+                                        <CiBookmark className='text-xl' /> Candidates
                                     </NavLink>
 
                                 </>

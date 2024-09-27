@@ -26,7 +26,7 @@ const CompanyJobs = () => {
         const companyResponse = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(companyResponse.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       }
     };
 

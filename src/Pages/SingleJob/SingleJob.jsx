@@ -5,33 +5,66 @@ import socialLogo from "../../assets/image/CompanyDetails/instagram_logo.png";
 import { FaLink, FaArrowRight } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { TfiEmail } from "react-icons/tfi";
-// import { IoBookmarkOutline } from "react-icons/io5";
 import { FiCalendar } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import Bookmark from "../AdvancedSearch/Bookmark";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 
 const SingleJob = () => {
-  const [job, setJob] = useState(null); 
+  const [job, setJob] = useState(null);
   const [company, setCompany] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { id } = useParams(); 
+  const [hasApplied, setHasApplied] = useState(false);
+  const { id } = useParams();
+  const { currentUser } = useCurrentUser();
 
+  // Fetch job data and check if user has applied
   useEffect(() => {
     const fetchJobData = async () => {
       try {
         const response = await axiosSecure.get(`/single-job/${id}`);
         setJob(response.data);
-        setCompany(response.data.company); 
+        setCompany(response.data.company); // Assuming company data is part of the job response
+
+        // Check if the user has already applied for the job
+        await checkIfApplied(response.data._id);
       } catch (error) {
-        console.error("Error fetching job data:", error);
+        // console.error("Error fetching job data:", error);
       }
     };
-    fetchJobData();
-  }, [id]); 
 
+    fetchJobData();
+  }, [id, currentUser?.email]);
+
+  // Check if the user has already applied for the job
+  const checkIfApplied = async (jobId, userEmail) => {
+    try {
+      const response = await axiosSecure.get("/check_application", {
+        params: {
+          job_id: jobId,
+          user_email: userEmail,
+        },
+      });
+
+      if (response.data.applied) {
+        setHasApplied(true);
+      } else {
+        setHasApplied(false);
+      }
+    } catch (error) {
+      // console.error("Error checking application status:", error);
+    }
+  };
+
+  // Handle application success
+  const handleApplicationSuccess = () => {
+    setHasApplied(true); // Update the state to reflect that the user has applied
+  };
+
+  // Open and close modal functions
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -40,8 +73,9 @@ const SingleJob = () => {
     setIsModalOpen(false);
   };
 
+  // If job data is not yet loaded
   if (!job) {
-    return <div>Loading Job Details...</div>; 
+    return <div>Loading Job Details...</div>;
   }
 
   return (
@@ -49,7 +83,11 @@ const SingleJob = () => {
       <div className="flex flex-col md:flex-row justify-between gap-4">
         <div className="flex gap-4">
           <div>
-            <img className="rounded-full h-16 w-16" src={socialLogo} alt="Company Logo" />
+            <img
+              className="rounded-full h-16 w-16"
+              src={socialLogo}
+              alt="Company Logo"
+            />
           </div>
           <div className="flex flex-col my-auto">
             <div className="flex items-center">
@@ -81,23 +119,27 @@ const SingleJob = () => {
         <div className="flex flex-col">
           <div className="flex items-center gap-3 mb-3">
             <div className="p-5 bg-blue-100 rounded-md">
-            <Bookmark jobId={job._id} />
-              {/* <IoBookmarkOutline className="text-blue-600" /> */}
+              <Bookmark jobId={job._id} />
             </div>
             <div className="items-center">
               <button
                 onClick={openModal}
                 className={`flex items-center gap-3 px-4 py-2 rounded-md ${
-                  new Date() > new Date(job.deadline) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-700"
+                  hasApplied || new Date() > new Date(job.deadline)
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-700"
                 } text-white`}
-                disabled={new Date() > new Date(job.deadline)}
+                disabled={hasApplied || new Date() > new Date(job.deadline)}
               >
-                Apply now <FaArrowRight />
+                {hasApplied ? "Already Applied" : "Apply now"} <FaArrowRight />
               </button>
+
               <ApplyJobModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 job={job}
+                user={currentUser}
+                onApplicationSuccess={handleApplicationSuccess} // Pass the success callback
               />
             </div>
           </div>

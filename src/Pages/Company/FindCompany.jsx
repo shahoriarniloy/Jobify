@@ -22,12 +22,12 @@ const AdvancedSearch = () => {
   const [totalCompanies, setTotalCompanies] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  console.log("Total Companies:", totalCompanies);
-  console.log("item per page:", itemsPerPage);
+  // console.log("Total Companies:", totalCompanies);
+  // console.log("item per page:", itemsPerPage);
   const noOfPages = Math.ceil(totalCompanies / itemsPerPage);
-  console.log("no of page:", noOfPages);
+  // console.log("no of page:", noOfPages);
   const pages = [...Array(noOfPages).keys()];
-  console.log("Total Companies:", totalCompanies);
+  // console.log("Total Companies:", totalCompanies);
 
   const [viewMode, setViewMode] = useState("grid");
 
@@ -39,12 +39,12 @@ const AdvancedSearch = () => {
         const response = await axiosSecure.get(
           `/companies?page=${currentPage}&size=${itemsPerPage}`
         ); 
-        console.log(response.data);
+        // console.log(response.data);
         setCompanies(response.data.Companies);
         setTotalCompanies(response.data.totalCompanies);
-        console.log(totalCompanies);
+        // console.log(totalCompanies);
       } catch (err) {
-        console.error("Error fetching Companies:", err);
+        // console.error("Error fetching Companies:", err);
       }
     };
 
@@ -58,7 +58,7 @@ const AdvancedSearch = () => {
 
     setShowAdvancedFilters(false);
 
-    console.log("Search Term:", searchTerm);
+    // console.log("Search Term:", searchTerm);
 
     try {
       const response = await axiosSecure.get(
@@ -71,8 +71,8 @@ const AdvancedSearch = () => {
       );
       setFilteredCompanies(response.data.Companies);
 
-      console.log("Companies", response.data);
-      console.log("try:", response.data.Companies);
+      // console.log("Companies", response.data);
+      // console.log("try:", response.data.Companies);
       setTotalCompanies(response.data.totalCompanies);
       if (!response.data.totalCompanies) {
         toast.info("No matching data found");
@@ -80,7 +80,7 @@ const AdvancedSearch = () => {
 
       console.log(response.data);
     } catch (err) {
-      console.error("Error fetching Companies:", err);
+      // console.error("Error fetching Companies:", err);
       setError("Failed to fetch Companies. Please try again later.");
     }
   };

@@ -1,0 +1,197 @@
+[
+  {
+    "_id": "1",
+    "candidate_name": "John Doe",
+    "image": "https://i.ibb.co/rZp63QV/1.jpg",
+    "designation": "Software Engineer",
+    "biography_description": "A highly skilled software engineer with 5+ years of experience in developing web and mobile applications.",
+    "date_of_birth": "1990-04-25",
+    "resume_link": "https://example.com/resumes/johndoe.pdf",
+    "cover_letter": "I am writing to express my interest in the Software Engineer position at your esteemed company. With over 5 years of experience in web and mobile application development, I have honed my skills in technologies such as JavaScript, React, and Node.js. I am passionate about building high-quality software and look forward to contributing to your team's success. I would appreciate the opportunity to discuss how my skills align with your company’s needs. Thank you for considering my application.",
+    "nationality": "American",
+    "marital_status": "Single",
+    "gender": "Male",
+    "experience": [
+      {
+        "position": "Senior Software Engineer",
+        "company": "Tech Innovations",
+        "duration": "3 years"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BSc in Computer Science",
+        "institution": "University of California",
+        "year_of_completion": "2012"
+      }
+    ],
+    "website": "https://johndoe.com",
+    "phone_no": "+1-234-567-8901",
+    "location": "San Francisco, CA, USA",
+    "email_address": "johndoe@example.com",
+    "social_links": {
+      "facebook": "https://facebook.com/johndoe",
+      "twitter": "https://twitter.com/johndoe",
+      "linkedin": "https://linkedin.com/in/johndoe",
+      "github": "https://github.com/johndoe",
+      "instagram": "https://instagram.com/johndoe",
+      "youtube": "https://youtube.com/johndoe"
+    }
+  },
+  {
+    "_id": "2",
+    "candidate_name": "Jane Smith",
+    "image": "https://i.ibb.co/k0FZTt8/2.jpg",
+    "designation": "Product Manager",
+    "biography_description": "Experienced product manager with a strong focus on agile methodologies and team leadership.",
+    "date_of_birth": "1988-11-13",
+    "resume_link": "https://example.com/resumes/janesmith.pdf",
+    "cover_letter": "I am thrilled to apply for the Product Manager position at your organization. With a strong background in agile project management and a passion for leading cross-functional teams, I have successfully launched multiple high-impact products over the past 3 years. I believe my experience and commitment to customer-centric innovation align perfectly with your company's vision. I would love to further discuss how I can contribute to your product development efforts. Thank you for your time and consideration.",
+    "nationality": "British",
+    "marital_status": "Married",
+    "gender": "Female",
+    "experience": [
+      {
+        "position": "Lead Product Manager",
+        "company": "InnovateX",
+        "duration": "3 years"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MBA",
+        "institution": "Harvard Business School",
+        "year_of_completion": "2014"
+      }
+    ],
+    "website": "https://janesmith.com",
+    "phone_no": "+44-1234-567-890",
+    "location": "London, UK",
+    "email_address": "janesmith@example.com",
+    "social_links": {
+      "facebook": "https://facebook.com/janesmith",
+      "twitter": "https://twitter.com/janesmith",
+      "linkedin": "https://linkedin.com/in/janesmith",
+      "github": "https://github.com/janesmith",
+      "instagram": "https://instagram.com/janesmith",
+      "youtube": "https://youtube.com/janesmith"
+    }
+  },
+  {
+    "_id": "3",
+    "candidate_name": "Robert Johnson",
+    "image": "https://i.ibb.co/7vY2LZ1/3.jpg",
+    "designation": "Data Scientist",
+    "biography_description": "Data scientist with expertise in machine learning, data analysis, and predictive modeling.",
+    "date_of_birth": "1992-07-18",
+    "resume_link": "https://example.com/resumes/robertjohnson.pdf",
+    "cover_letter": "I am writing to express my enthusiasm for the Data Scientist role at your company. With a Master’s degree in Data Science and 4 years of hands-on experience in predictive modeling, machine learning, and big data analytics, I am confident in my ability to provide data-driven insights that align with your organizational goals. I am eager to bring my skills in data analysis and modeling to your team and help drive impactful decision-making. I look forward to the opportunity to discuss how I can contribute. Thank you.",
+    "nationality": "Canadian",
+    "marital_status": "Single",
+    "gender": "Male",
+    "experience": [
+      {
+        "position": "Data Scientist",
+        "company": "Data Insights",
+        "duration": "4 years"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc in Data Science",
+        "institution": "University of Toronto",
+        "year_of_completion": "2016"
+      }
+    ],
+    "website": "https://robertjohnson.com",
+    "phone_no": "+1-416-789-1234",
+    "location": "Toronto, Canada",
+    "email_address": "robertjohnson@example.com",
+    "social_links": {
+      "facebook": "https://facebook.com/robertjohnson",
+      "twitter": "https://twitter.com/robertjohnson",
+      "linkedin": "https://linkedin.com/in/robertjohnson",
+      "github": "https://github.com/robertjohnson",
+      "instagram": "https://instagram.com/robertjohnson",
+      "youtube": "https://youtube.com/robertjohnson"
+    }
+  },
+  {
+    "_id": "4",
+    "candidate_name": "Emily Davis",
+    "image": "https://i.ibb.co/C5sM8z7/4.jpg",
+    "designation": "UX/UI Designer",
+    "biography_description": "Creative UX/UI designer with a passion for creating user-centric designs.",
+    "date_of_birth": "1991-09-05",
+    "resume_link": "https://example.com/resumes/emilydavis.pdf",
+    "cover_letter": "As an experienced UX/UI designer with a passion for enhancing user experiences through innovative designs, I am excited to apply for this position at your company. Over the past 5 years, I have worked on diverse projects that focus on user-centric design principles, improving user interactions and satisfaction. I am confident that my creative skills and design expertise can help elevate your product offerings. I would be thrilled to discuss how I can contribute to your design team. Thank you for your time and consideration.",
+    "nationality": "Australian",
+    "marital_status": "Single",
+    "gender": "Female",
+    "experience": [
+      {
+        "position": "UX/UI Designer",
+        "company": "Creative Minds",
+        "duration": "5 years"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BSc in Graphic Design",
+        "institution": "University of Sydney",
+        "year_of_completion": "2013"
+      }
+    ],
+    "website": "https://emilydavis.com",
+    "phone_no": "+61-2-1234-5678",
+    "location": "Sydney, Australia",
+    "email_address": "emilydavis@example.com",
+    "social_links": {
+      "facebook": "https://facebook.com/emilydavis",
+      "twitter": "https://twitter.com/emilydavis",
+      "linkedin": "https://linkedin.com/in/emilydavis",
+      "github": "https://github.com/emilydavis",
+      "instagram": "https://instagram.com/emilydavis",
+      "youtube": "https://youtube.com/emilydavis"
+    }
+  },
+  {
+    "_id": "5",
+    "candidate_name": "Michael Brown",
+    "image": "https://i.ibb.co/NmMv0Fh/5.jpg",
+    "designation": "Project Manager",
+    "biography_description": "Experienced project manager with a proven track record of successfully managing large projects.",
+    "date_of_birth": "1985-01-12",
+    "resume_link": "https://example.com/resumes/michaelbrown.pdf",
+    "cover_letter": "I am excited to apply for the Project Manager position at your organization. With 6 years of experience leading diverse projects across industries, I have developed a strong ability to manage timelines, resources, and teams effectively. My commitment to project success and my ability to adapt quickly to evolving business needs make me a perfect fit for your team. I look forward to the opportunity to bring my leadership and project management skills to your company. Thank you for your consideration.",
+    "nationality": "American",
+    "marital_status": "Married",
+    "gender": "Male",
+    "experience": [
+      {
+        "position": "Project Manager",
+        "company": "Global Solutions",
+        "duration": "6 years"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MBA",
+        "institution": "Stanford University",
+        "year_of_completion": "2010"
+      }
+    ],
+    "website": "https://michaelbrown.com",
+    "phone_no": "+1-987-654-3210",
+    "location": "New York, NY, USA",
+    "email_address": "michaelbrown@example.com",
+    "social_links": {
+      "facebook": "https://facebook.com/michaelbrown",
+      "twitter": "https://twitter.com/michaelbrown",
+      "linkedin": "https://linkedin.com/in/michaelbrown",
+      "github": "https://github.com/michaelbrown",
+      "instagram": "https://instagram.com/michaelbrown",
+      "youtube": "https://youtube.com/michaelbrown"
+    }
+  }
+]

@@ -19,7 +19,7 @@ const Reviews = () => {
         const response = await axiosSecure.get('/reviews');
         setReviews(response.data);
       } catch (error) {
-        console.error('Error fetching reviews:', error);
+        // console.error('Error fetching reviews:', error);
         setError(error.message);
       }
     };
@@ -47,14 +47,14 @@ const Reviews = () => {
 
     try {
       const response = await axiosSecure.post('/reviews', newReview);
-      console.log(response.data);
+      // console.log(response.data);
       toast.success('Your review has been posted successfully!');
       setReviews([...reviews, newReview]); 
       setRating(0);
       setFeedback('');
       setUsername('');
     } catch (error) {
-      console.error('Error posting review:', error);
+      // console.error('Error posting review:', error);
       toast.error('Failed to post the review.');
     }
   };

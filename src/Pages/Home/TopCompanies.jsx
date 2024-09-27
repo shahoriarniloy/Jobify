@@ -12,7 +12,7 @@ const TopCompanies = () => {
         const response = await axiosSecure.get('/companies/top');
         setCompanies(response.data);
       } catch (error) {
-        console.error('Error fetching companies:', error);
+        // console.error('Error fetching companies:', error);
         setError(error.message);
       }
     };
