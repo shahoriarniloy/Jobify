@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
                 setLoading(false);
             })
             .catch((error) => {
-                console.error(error);
+                // console.error(error);
                 setLoading(false);
             });
     };
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
                 setUser(null);
                 setLoading(false);
             }
-            console.log('User state changed:', currentUser);
+            // console.log('User state changed:', currentUser);
         });
 
         return () => {

@@ -15,7 +15,7 @@ const Navbar2 = () => {
 
     return (
         <div>
-            <div className="navbar bg-white shadow-md py-2">
+            <div className="navbar bg-white shadow-md pt-2">
                 <div className="navbar-start">
                     <div className="flex items-center text-[#0a65cc] gap-2 px-24">
                         <PiBag className="w-6 h-6" /> 
@@ -26,7 +26,9 @@ const Navbar2 = () => {
                     <div className="flex gap-4 lg:gap-5 items-center">
                         {currentUser ? (
                             <>
-                                <div className="relative">
+                                <div className="relative flex items-center gap-4">
+                                    {currentUser.name}
+                                    
                                     <img
                                         src={currentUser.photoURL || 'https://via.placeholder.com/150'}
                                         alt="User Profile"
@@ -34,8 +36,9 @@ const Navbar2 = () => {
                                         onClick={toggleMenu}
                                     />
                                     
+                                    
                                     {isMenuOpen && (
-                                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
+                                        <div className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg">
                                             <ul className="py-1 text-gray-700">
                                                 <li>
                                                     <Link 
@@ -48,11 +51,20 @@ const Navbar2 = () => {
                                                 </li>
                                                 <li>
                                                     <Link 
-                                                        to="/bookmarked-jobs" 
+                                                        to="/dashboard/favorite-jobs" 
                                                         className="block px-4 py-2 hover:bg-gray-100"
                                                         onClick={() => setIsMenuOpen(false)}
                                                     >
                                                         Bookmarks
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link 
+                                                        to="/candidates" 
+                                                        className="block px-4 py-2 hover:bg-gray-100"
+                                                        onClick={() => setIsMenuOpen(false)}
+                                                    >
+                                                        Candidates
                                                     </Link>
                                                 </li>
                                                 <li>

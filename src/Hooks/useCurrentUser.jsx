@@ -7,9 +7,11 @@ const useCurrentUser = () => {
 
     useEffect(() => {
         if (!loading) {
+            // console.log(user);
             setCurrentUser(user);
+            // console.log('current user',currentUser);
         }
-    }, [user, loading]);
+    }, [currentUser,user, loading]);
 
     return { currentUser, logout: logOut };
 };

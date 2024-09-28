@@ -5,10 +5,14 @@ import Navbar from '../Pages/Shared/Navbar';
 const Main = () => {
 
     return (
-        <div className='roboto-regular bg-[#f1f2f4]'>
+        <div className='roboto-regular bg-[#f1f2f4] '>
             <Navbar />
-            <Outlet />
-            <Footer />
+            <div className='lg:px-24 '>
+               <Outlet />
+            </div>
+            <Footer /> 
+
+            
         </div>
     );
 };

@@ -6,6 +6,7 @@ import { FaTh, FaList } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import TopCompanies from "../Home/TopCompanies";
 
 
 
@@ -22,12 +23,12 @@ const AdvancedSearch = () => {
   const [totalCompanies, setTotalCompanies] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  console.log("Total Companies:", totalCompanies);
-  console.log("item per page:", itemsPerPage);
+  // console.log("Total Companies:", totalCompanies);
+  // console.log("item per page:", itemsPerPage);
   const noOfPages = Math.ceil(totalCompanies / itemsPerPage);
-  console.log("no of page:", noOfPages);
+  // console.log("no of page:", noOfPages);
   const pages = [...Array(noOfPages).keys()];
-  console.log("Total Companies:", totalCompanies);
+  // console.log("Total Companies:", totalCompanies);
 
   const [viewMode, setViewMode] = useState("grid");
 
@@ -39,12 +40,12 @@ const AdvancedSearch = () => {
         const response = await axiosSecure.get(
           `/companies?page=${currentPage}&size=${itemsPerPage}`
         ); 
-        console.log(response.data);
+        // console.log(response.data);
         setCompanies(response.data.Companies);
         setTotalCompanies(response.data.totalCompanies);
-        console.log(totalCompanies);
+        // console.log(totalCompanies);
       } catch (err) {
-        console.error("Error fetching Companies:", err);
+        // console.error("Error fetching Companies:", err);
       }
     };
 
@@ -58,7 +59,7 @@ const AdvancedSearch = () => {
 
     setShowAdvancedFilters(false);
 
-    console.log("Search Term:", searchTerm);
+    // console.log("Search Term:", searchTerm);
 
     try {
       const response = await axiosSecure.get(
@@ -71,8 +72,8 @@ const AdvancedSearch = () => {
       );
       setFilteredCompanies(response.data.Companies);
 
-      console.log("Companies", response.data);
-      console.log("try:", response.data.Companies);
+      // console.log("Companies", response.data);
+      // console.log("try:", response.data.Companies);
       setTotalCompanies(response.data.totalCompanies);
       if (!response.data.totalCompanies) {
         toast.info("No matching data found");
@@ -80,7 +81,7 @@ const AdvancedSearch = () => {
 
       console.log(response.data);
     } catch (err) {
-      console.error("Error fetching Companies:", err);
+      // console.error("Error fetching Companies:", err);
       setError("Failed to fetch Companies. Please try again later.");
     }
   };
@@ -159,9 +160,9 @@ const AdvancedSearch = () => {
           onChange={handleItemsPerPage}
           className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
         >
+          <option value="5">5</option>
           <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
+          <option value="15">15</option>
         </select>
       </div>
 
@@ -184,36 +185,39 @@ const AdvancedSearch = () => {
       {viewMode === "list" ? (
   <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800 mt-4">
     <div className="overflow-x-auto">
-      <table className="min-w-full text-xs">
-        <thead className="dark:bg-gray-300">
-          <tr className="text-left">
-            <th className="p-3">Company Name</th>
-            <th className="p-3">Industry</th>
-            <th className="p-3">Size</th>
-            <th className="p-3">Details</th>
-            {/* <th className="p-3">Bookmark</th> */}
-          </tr>
-        </thead>
-        <tbody>
-          {(filteredCompanies.length > 0 ? filteredCompanies : companies).map((company) => (
-            <tr
-              key={company._id}
-              className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
-            >
-              <td className="p-3">{company.company_name}</td>
-              <td className="p-3">{company.industry}</td>
-              <td className="p-3">{company.company_size}</td>
-              <td className="p-3"> <Link to={`/company-details/${company._id}`}>
-    <button className="bg-blue-500 text-white px-3 py-1 rounded">Details</button>
-  </Link></td>
-              
-              {/* <td>
-                <Bookmark companyId={company._id} />
-              </td> */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="overflow-x-auto"> 
+  <table className="min-w-full text-xs sm:text-sm">
+    <thead className="dark:bg-gray-300">
+      <tr className="text-left">
+        <th className="p-3">Company Name</th>
+        <th className="p-3 hidden md:table-cell">Industry</th>
+        <th className="p-3">Size</th>
+        <th className="p-3">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {(filteredCompanies.length > 0 ? filteredCompanies : companies).map((company) => (
+        <tr
+          key={company._id}
+          className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+        >
+          <td className="p-3">
+            <span className="block text-sm font-semibold ">{company.company_name}</span> 
+            <span className="block text-xs text-gray-500 md:hidden">{company.industry}</span> 
+          </td>
+          <td className="p-3 hidden md:table-cell">{company.industry}</td> 
+          <td className="p-3">{company.company_size}</td>
+          <td className="p-3">
+            <Link to={`/company-details/${company._id}`}>
+              <button className="bg-blue-500 text-white px-3 py-1 rounded">Details</button>
+            </Link>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
     </div>
   </div>
 ) : (
@@ -225,12 +229,12 @@ const AdvancedSearch = () => {
       >
         <div className="flex flex-col justify-between p-6 space-y-8">
           <div className="space-y-2">
-            <h2 className="text-3xl font-semibold tracking-wide">
+            <h2 className="text-3xl font-semibold tracking-wide h-24">
               {company.company_name}
             </h2>
-            <p className="text-blue-500">{company.industry}</p>
+            <p className="text-blue-500 h-6">{company.industry}</p>
 
-            <p> {company.company_description}</p>
+            <p className="h-24"> {company.company_description}</p>
             {/* <Bookmark companyId={company._id} /> */}
           </div>
           <Link to={`/company-details/${company._id}`}>
@@ -272,6 +276,9 @@ const AdvancedSearch = () => {
           Next
         </button>
       </div>
+
+      <TopCompanies></TopCompanies>
+
 
      
     </div>

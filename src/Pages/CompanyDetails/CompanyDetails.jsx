@@ -31,9 +31,9 @@ const CompanyDetails = () => {
       try {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
-        console.error("Error fetching company data:", error);
+        // console.error("Error fetching company data:", error);
       }
     };
 
@@ -66,7 +66,7 @@ const CompanyDetails = () => {
   // };
 
   return (
-    <div className="relative noto">
+    <div className="relative ">
       {/* Company Banner and Info */}
       <div className="relative">
         <div>
