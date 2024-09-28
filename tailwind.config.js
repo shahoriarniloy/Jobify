@@ -21,6 +21,16 @@ export default {
       animation: {
         fadeIn: 'fadeIn 0.5s ease-in-out forwards',
       },
+      btnGr:{
+        width: '100%',
+          padding: '12px 24px',
+          background: 'linear-gradient(to right, #4299e1, #2b6cb0)',
+          borderRadius: '0.375rem',
+          color: 'white',
+          fontWeight: '600',
+          fontSize: '1rem',
+          transition: 'background-color 300ms ease-in-out',
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },

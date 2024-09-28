@@ -1,6 +1,6 @@
 import { BN, US } from "country-flag-icons/react/3x2";
 import { BiPhoneCall } from "react-icons/bi";
-import { NavLink } from "react-router-dom"; // Use NavLink
+import { NavLink } from "react-router-dom"; 
 import Navbar2 from "../Home/Navbar2/Navbar2";
 
 const Navbar = () => {
@@ -14,6 +14,9 @@ const Navbar = () => {
             </li>
             <li>
                 <NavLink to='/companies' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Find Company</NavLink>
+            </li>
+            <li>
+                <NavLink to='/about' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>About Us</NavLink>
             </li>
             
         </>

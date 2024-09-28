@@ -135,7 +135,7 @@ const AdvancedSearch = () => {
   };
 
   return (
-    <div className="p-4   pt-24 mx-8">
+    <div className="p-4   pt-24 mx-8 ">
       <div className="w-full bg-white rounded-lg  p-6 flex-1">
         <form
           className="flex flex-col sm:flex-row gap-4 sm:gap-2"

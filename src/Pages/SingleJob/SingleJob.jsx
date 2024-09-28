@@ -79,7 +79,7 @@ const SingleJob = () => {
   }
 
   return (
-    <div className="container mx-auto mt-0 md:mt-16 pt-5 mb-9 px-4 sm:px-8 md:px-16 lg:px-24">
+    <div className="container mx-auto mt-0 md:mt-16  mb-9 px-4 sm:px-8 md:px-16 ">
       <div className="flex flex-col md:flex-row justify-between gap-4">
         <div className="flex gap-4">
           <div>

@@ -6,6 +6,7 @@ import { FaTh, FaList } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import TopCompanies from "../Home/TopCompanies";
 
 
 
@@ -159,9 +160,9 @@ const AdvancedSearch = () => {
           onChange={handleItemsPerPage}
           className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
         >
+          <option value="5">5</option>
           <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
+          <option value="15">15</option>
         </select>
       </div>
 
@@ -275,6 +276,9 @@ const AdvancedSearch = () => {
           Next
         </button>
       </div>
+
+      <TopCompanies></TopCompanies>
+
 
      
     </div>
