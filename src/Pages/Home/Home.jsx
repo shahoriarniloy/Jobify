@@ -1,7 +1,7 @@
 
 
 import SearchBar from "../AdvancedSearch/SearchBar";
-import TopCompanies from "./TopCompanies"
+// import TopCompanies from "./TopCompanies"
 const Home = () => {
     return (
         <div>
