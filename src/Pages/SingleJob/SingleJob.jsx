@@ -5,20 +5,21 @@ import socialLogo from "../../assets/image/CompanyDetails/instagram_logo.png";
 import { FaLink, FaArrowRight } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { TfiEmail } from "react-icons/tfi";
-// import { IoBookmarkOutline } from "react-icons/io5";
 import { FiCalendar } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
-import Bookmark from "../AdvancedSearch/Bookmark";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import RelatedJobs from "../../components/RelatedJobs/RelatedJobs";
 
 const SingleJob = () => {
   const [job, setJob] = useState(null);
   const [company, setCompany] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
   const { id } = useParams();
   const { currentUser } = useCurrentUser();
 
@@ -28,8 +29,12 @@ const SingleJob = () => {
         const response = await axiosSecure.get(`/single-job/${id}`);
         setJob(response.data);
         setCompany(response.data.company); // Assuming the company data is part of the job response
+
         // Check if user has already applied after fetching job data
         await checkIfApplied(response.data._id, currentUser.email);
+
+        // Check if user has already bookmarked this job
+        await checkIfBookmarked(response.data._id, currentUser.email);
       } catch (error) {
         console.error("Error fetching job data:", error);
       }
@@ -53,6 +58,45 @@ const SingleJob = () => {
       }
     } catch (error) {
       console.error("Error checking application status:", error);
+    }
+  };
+
+  const checkIfBookmarked = async (jobId, userEmail) => {
+    try {
+      const response = await axiosSecure.get("/check_bookmark", {
+        params: {
+          job_id: jobId,
+          user_email: userEmail,
+        },
+      });
+
+      setIsBookmarked(response.data.bookmarked);
+    } catch (error) {
+      console.error("Error checking bookmark status:", error);
+    }
+  };
+
+  const toggleBookmark = async () => {
+    try {
+      if (isBookmarked) {
+        // Remove bookmark
+        await axiosSecure.delete(`/remove-bookmark`, {
+          data: {
+            userEmail: currentUser.email,
+            jobId: job._id,
+          },
+        });
+        setIsBookmarked(false);
+      } else {
+        // Add bookmark
+        await axiosSecure.post(`/add-bookmark`, {
+          userEmail: currentUser.email,
+          jobId: job._id,
+        });
+        setIsBookmarked(true);
+      }
+    } catch (error) {
+      console.error("Error toggling bookmark:", error);
     }
   };
 
@@ -112,10 +156,17 @@ const SingleJob = () => {
 
         <div className="flex flex-col">
           <div className="flex items-center gap-3 mb-3">
-            <div className="p-5 bg-blue-100 rounded-md">
-              <Bookmark jobId={job._id} />
-              {/* <IoBookmarkOutline className="text-blue-600" /> */}
+            <div
+              className="px-2 py-1 bg-blue-100 rounded-md cursor-pointer"
+              onClick={toggleBookmark}
+            >
+              {isBookmarked ? (
+                <span className="text-blue-600">Bookmarked</span>
+              ) : (
+                <span className="text-blue-600">Bookmark</span>
+              )}
             </div>
+
             <div className="items-center">
               <button
                 onClick={openModal}
@@ -128,6 +179,8 @@ const SingleJob = () => {
               >
                 {hasApplied ? "Already Applied" : "Apply now"} <FaArrowRight />
               </button>
+
+              {/* Modal */}
               <ApplyJobModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
@@ -200,6 +253,9 @@ const SingleJob = () => {
           </div>
         </section>
       </section>
+
+      {/* Related Jobs */}
+      <RelatedJobs title={"Related Jobs"} job={job} />
     </div>
   );
 };
