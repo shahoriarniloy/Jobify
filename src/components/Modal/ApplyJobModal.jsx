@@ -55,7 +55,7 @@ const ApplyJobModal = ({
         });
       }
     } catch (error) {
-      console.error("Error applying for job:", error);
+      // console.error("Error applying for job:", error);
       Swal.fire({
         icon: "error",
         title: "Submission Failed",

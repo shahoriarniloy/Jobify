@@ -21,7 +21,7 @@ const SearchBar = () => {
                 const companiesResponse = await axiosSecure.get('/companies/count');
                 setTotalCompanies(companiesResponse.data.totalCompanies);
             } catch (error) {
-                console.error('Error fetching totals:', error);
+                // console.error('Error fetching totals:', error);
             }
         };
 
@@ -41,12 +41,12 @@ const SearchBar = () => {
             });
             setJobs(response.data);
         } catch (error) {
-            console.error('Error fetching jobs:', error);
+            // console.error('Error fetching jobs:', error);
         }
     };
 
     return (
-        <div className="min-h-screen sm:mt-12 mt-4 pt-24 px-8">
+        <div className=" sm:mt-12 mt-4 pt-12 px-8 pb-12">
             <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:px-24 md:px-16">
                 <div className="lg:w-3/4">
                     <div className="lg:text-left md:text-left text-center lg:w-2/3 md:w-2/3 mb-6">

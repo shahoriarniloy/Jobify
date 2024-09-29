@@ -7,6 +7,8 @@ import { Helmet } from "react-helmet";
 import auth from "../Firebase/firebase.config";
 import { AuthContext } from "../../Auth/CreateAccount/AuthContext";
 import accountBg from '../../../assets/logo/loginbg.png'; 
+import axiosSecure from "../../../Hooks/UseAxiosSecure";
+
 
 const Login = () => {
     const location = useLocation();
@@ -57,26 +59,22 @@ const Login = () => {
                 photoURL: result.user.photoURL,
                 role: 'Job Seeker'
             };
-
-            // Save user info to the database
-            const response = await fetch('http://localhost:5000/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userInfo),
-            });
-
-            const data = await response.json();
-
-            if (data.insertedId) {
-                // User successfully inserted or already exists
-                toast.success("Signed in with Google");
-                navigate('/'); 
+    
+            const response = await axiosSecure.post('/users', userInfo);
+            const data = response.data;
+    
+            // console.log(data);
+            // console.log(data.insertedId);
+            // console.log(data.message);
+    
+            if (data.insertedId || data.messege === 'User already exists') {
+                toast.success(data.message === 'User already exists' ? 'User already exists' : 'Signed in with Google');
+                navigate('/');
             } else {
-                toast.error(data.message); // Handle existing user message
+                toast.error(data.message);
             }
         } catch (error) {
+            console.error("Error signing in with Google:", error);
             toast.error("Error signing in with Google");
         } finally {
             setLoading(false);
@@ -85,7 +83,7 @@ const Login = () => {
     
 
     return (
-        <div className="bg-white noto">
+        <div className="bg-white ">
             <Helmet>
                 <title>Login</title>
             </Helmet>
@@ -94,7 +92,7 @@ const Login = () => {
                     <div className="flex-1">
                         <div className='space-y-4'>
                             <h2 className='text-2xl font-semibold'>Sign In</h2>
-                            <p>Don't have an account? <span className='link-color'><Link to={"/signup"}>Create account</Link></span></p>
+                            <p>Don't have an account? <span className='link-color'><Link to={"/register"}>Create account</Link></span></p>
                         </div>
                         <div className="mt-8">
                             <form onSubmit={handleLogin}>

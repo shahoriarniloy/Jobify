@@ -17,7 +17,8 @@ const Register = () => {
     const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
     const location = useLocation();
     const navigate = useNavigate();
-    const { updateUserProfile } = useContext(AuthContext);
+    const { updateUserProfile, signInUser, setUser } = useContext(AuthContext);
+
     const [registerError, setRegisterError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
@@ -31,7 +32,7 @@ const Register = () => {
             const result = await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(result.user, { displayName: name });
 
-            const userInfo = { name, email, role };
+            const userInfo = { name, email, role: "Job Seeker" };
             const userResponse = await axiosSecure.post('/users', userInfo);
 
             if (userResponse.status !== 200) {
@@ -41,7 +42,7 @@ const Register = () => {
             navigate(location?.state ? location.state : '/');
             toast.success("Registered successfully");
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             setRegisterError(error.message);
         }
     };
@@ -129,9 +130,9 @@ const Register = () => {
                         </form>
                         <p className='text-center mt-8'>or</p>
                         <div className="flex flex-col gap-3 justify-between mt-4">
-                            <button className="bg-[#1877F2] flex gap-x-3 text-sm items-center justify-center text-white rounded-lg hover:bg-[#1877F2]/80 duration-300 transition-colors border border-transparent px-6 py-2.5">
+                            {/* <button className="bg-[#1877F2] flex gap-x-3 text-sm items-center justify-center text-white rounded-lg hover:bg-[#1877F2]/80 duration-300 transition-colors border border-transparent px-6 py-2.5">
                                 <span>Sign in with Facebook</span>
-                            </button>
+                            </button> */}
                             <button className="bg-white flex items-center text-gray-700 justify-center gap-x-3 text-sm rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-6 py-2.5">
                                 <span>Sign in with Google</span>
                             </button>

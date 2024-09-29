@@ -12,7 +12,7 @@ const TopCompanies = () => {
         const response = await axiosSecure.get('/companies/top');
         setCompanies(response.data);
       } catch (error) {
-        console.error('Error fetching companies:', error);
+        // console.error('Error fetching companies:', error);
         setError(error.message);
       }
     };
@@ -21,12 +21,12 @@ const TopCompanies = () => {
   }, []);
 
   return (
-    <div className="px-2 ">
-      <h1 className='t noto text-3xl text-center mb-12'>Top Companies</h1>
+    <div className=" mt-6">
+      <h1 className=' text-3xl text-center mb-12'>Top Companies</h1>
       {error ? (
         <p className="text-redCastomize">Error: {error}</p>
       ) : (
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {companies.map((company) => (
             <div
               key={company.company_name}

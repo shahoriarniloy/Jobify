@@ -23,11 +23,13 @@ const SingleJob = () => {
   const { id } = useParams();
   const { currentUser } = useCurrentUser();
 
+  // Fetch job data and check if user has applied
   useEffect(() => {
     const fetchJobData = async () => {
       try {
         const response = await axiosSecure.get(`/single-job/${id}`);
         setJob(response.data);
+
         setCompany(response.data.company); // Assuming the company data is part of the job response
 
         // Check if user has already applied after fetching job data
@@ -35,13 +37,16 @@ const SingleJob = () => {
 
         // Check if user has already bookmarked this job
         await checkIfBookmarked(response.data._id, currentUser.email);
+
       } catch (error) {
-        console.error("Error fetching job data:", error);
+        // console.error("Error fetching job data:", error);
       }
     };
+
     fetchJobData();
   }, [id, currentUser?.email]);
 
+  // Check if the user has already applied for the job
   const checkIfApplied = async (jobId, userEmail) => {
     try {
       const response = await axiosSecure.get("/check_application", {
@@ -57,9 +62,10 @@ const SingleJob = () => {
         setHasApplied(false);
       }
     } catch (error) {
-      console.error("Error checking application status:", error);
+      // console.error("Error checking application status:", error);
     }
   };
+
 
   const checkIfBookmarked = async (jobId, userEmail) => {
     try {
@@ -101,9 +107,10 @@ const SingleJob = () => {
   };
 
   const handleApplicationSuccess = () => {
-    setHasApplied(true); // Update the hasApplied state when the application is successful
+    setHasApplied(true); // Update the state to reflect that the user has applied
   };
 
+  // Open and close modal functions
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -112,12 +119,13 @@ const SingleJob = () => {
     setIsModalOpen(false);
   };
 
+  // If job data is not yet loaded
   if (!job) {
     return <div>Loading Job Details...</div>;
   }
 
   return (
-    <div className="container mx-auto mt-0 md:mt-16 pt-5 mb-9 px-4 sm:px-8 md:px-16 lg:px-24">
+    <div className="container mx-auto mt-0 md:mt-16  mb-9 px-4 sm:px-8 md:px-16 ">
       <div className="flex flex-col md:flex-row justify-between gap-4">
         <div className="flex gap-4">
           <div>
@@ -156,6 +164,7 @@ const SingleJob = () => {
 
         <div className="flex flex-col">
           <div className="flex items-center gap-3 mb-3">
+
             <div
               className="px-2 py-1 bg-blue-100 rounded-md cursor-pointer"
               onClick={toggleBookmark}
@@ -165,6 +174,7 @@ const SingleJob = () => {
               ) : (
                 <span className="text-blue-600">Bookmark</span>
               )}
+
             </div>
 
             <div className="items-center">
@@ -180,13 +190,14 @@ const SingleJob = () => {
                 {hasApplied ? "Already Applied" : "Apply now"} <FaArrowRight />
               </button>
 
-              {/* Modal */}
+           
+
               <ApplyJobModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 job={job}
                 user={currentUser}
-                onApplicationSuccess={handleApplicationSuccess} // Pass the callback function
+                onApplicationSuccess={handleApplicationSuccess} // Pass the success callback
               />
             </div>
           </div>
