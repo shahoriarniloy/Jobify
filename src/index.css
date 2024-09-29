@@ -6,7 +6,211 @@
 
 
 /*  custom color */
-.link-color{
+.link-color {
     color: #0A65CC;
     font-weight: 600;
+}
+
+/* isActiveRoute style */
+.isActiveRoute{
+    border-left: 5px solid #0A65CC;
+    background-color: #e7f0fa;
+    color: #0A65CC;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left:15px ;
+    padding-top:8px ;
+    padding-bottom:8px ;
+}
+
+
+
+/* loader style */
+.loader {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    position: relative;
+    border: 3px solid;
+    border-color: #de3500 #0000 #fff #0000;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: 1s rotate linear infinite;
+}
+
+.loader:before,
+.loader:after {
+    content: '';
+    top: 0;
+    left: 0;
+    position: absolute;
+    border: 10px solid transparent;
+    border-bottom-color: #fff;
+    transform: translate(-10px, 19px) rotate(-35deg);
+}
+
+.loader:after {
+    border-color: #de3500 #0000 #0000 #0000;
+    transform: translate(32px, 3px) rotate(-35deg);
+}
+
+.roboto-thin {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  .roboto-light {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .roboto-medium {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .roboto-black {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+  .roboto-thin-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  .roboto-light-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .roboto-regular-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .roboto-medium-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .roboto-bold-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  .roboto-black-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+
+
+
+
+  .nav-link {
+    padding: 10px 15px; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+.active-nav {
+    background-color: #007BFF; 
+    color: white; 
+    border-radius: 5px; 
+    font-weight: bold; 
+}
+
+.nav-link:hover {
+    background-color: #0056b3; 
+    color: white; 
+    border-radius: 5px; 
+}
+
+/* .btn-gradient {
+  width: 100%; 
+  padding: 12px 24px; 
+  background: linear-gradient(to right, #4299e1, #2b6cb0); 
+  border-radius: 0.375rem; 
+  color: white; 
+  font-weight: 600; 
+  font-size: 1rem; 
+  transition: background-color 300ms ease-in-out; 
+}
+
+   */
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out;
+}
+@keyframes shine-move {
+  from {
+    background-position: top left;
+  }
+  to {
+    background-position: bottom right;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 1s ease-in-out;
+}
+.animate-slideIn {
+  animation: slideIn 1s ease-in-out;
 }
