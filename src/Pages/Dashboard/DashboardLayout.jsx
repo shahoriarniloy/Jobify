@@ -6,10 +6,8 @@ import { CiBookmark } from "react-icons/ci";
 import { LuBellRing } from "react-icons/lu";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout } from "react-icons/md";
-import Navbar from '../Shared/Navbar';
 import useUserRole from '../../Hooks/useUserRole'; 
 import useCurrentUser from '../../Hooks/useCurrentUser'; 
-import Footer from '../Shared/Footer';
 
 const DashboardLayout = () => {
     const { currentUser } = useCurrentUser(); 
@@ -21,7 +19,7 @@ const DashboardLayout = () => {
 
     return (
         <div >
-            <Navbar />
+          
 
             <div className='mb-3 border-y-2'>
                 <div className='container mx-auto flex flex-col lg:flex-row'> 
@@ -117,7 +115,6 @@ const DashboardLayout = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 };

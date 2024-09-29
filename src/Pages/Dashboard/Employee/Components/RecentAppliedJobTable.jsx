@@ -2,7 +2,7 @@ import React from 'react';
 import { CiLocationOn } from "react-icons/ci";
 import { MdAttachMoney } from "react-icons/md";
 import { IoCheckmarkSharp } from "react-icons/io5";
-import ButtonCommon from '../../../Shared/ButtonCommon';
+import ButtonCommon from '../../../../Shared/ButtonCommon';
 
 const RecentAppliedJobTable = () => {
     return (

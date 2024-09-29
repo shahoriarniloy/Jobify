@@ -10,27 +10,33 @@ import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
-import Bookmark from "../AdvancedSearch/Bookmark";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import RelatedJobs from "../../components/RelatedJobs/RelatedJobs";
+import Bookmark from "./Bookmark";
 
 const SingleJob = () => {
   const [job, setJob] = useState(null);
   const [company, setCompany] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
   const { id } = useParams();
   const { currentUser } = useCurrentUser();
 
-  // Fetch job data and check if user has applied
   useEffect(() => {
     const fetchJobData = async () => {
       try {
         const response = await axiosSecure.get(`/single-job/${id}`);
         setJob(response.data);
-        setCompany(response.data.company); // Assuming company data is part of the job response
+        console.log(job);
 
-        // Check if the user has already applied for the job
-        await checkIfApplied(response.data._id);
+        setCompany(response.data.company); 
+
+        await checkIfApplied(response.data._id, currentUser.email);
+
+        await checkIfBookmarked(response.data._id, currentUser.email);
+
       } catch (error) {
         // console.error("Error fetching job data:", error);
       }
@@ -39,7 +45,6 @@ const SingleJob = () => {
     fetchJobData();
   }, [id, currentUser?.email]);
 
-  // Check if the user has already applied for the job
   const checkIfApplied = async (jobId, userEmail) => {
     try {
       const response = await axiosSecure.get("/check_application", {
@@ -59,12 +64,49 @@ const SingleJob = () => {
     }
   };
 
-  // Handle application success
+
+  // const checkIfBookmarked = async (jobId, userEmail) => {
+  //   try {
+  //     const response = await axiosSecure.get("/check_bookmarks", {
+  //       params: {
+  //         job_id: jobId,
+  //         userEmail: userEmail,
+  //       },
+  //     });
+
+  //     setIsBookmarked(response.data.bookmarked);
+  //     console.log(isBookmarked);
+  //   } catch (error) {
+  //     console.error("Error checking bookmark status:", error);
+  //   }
+  // };
+
+  // const toggleBookmark = async () => {
+  //   try {
+  //     if (isBookmarked) {
+  //       await axiosSecure.delete(`/remove-bookmark`, {
+  //         data: {
+  //           userEmail: currentUser.email,
+  //           jobId: job._id,
+  //         },
+  //       });
+  //       setIsBookmarked(false);
+  //     } else {
+  //       await axiosSecure.post(`/add-bookmark`, {
+  //         userEmail: currentUser.email,
+  //         jobId: job._id,
+  //       });
+  //       setIsBookmarked(true);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error toggling bookmark:", error);
+  //   }
+  // };
+
   const handleApplicationSuccess = () => {
-    setHasApplied(true); // Update the state to reflect that the user has applied
+    setHasApplied(true); 
   };
 
-  // Open and close modal functions
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -73,7 +115,6 @@ const SingleJob = () => {
     setIsModalOpen(false);
   };
 
-  // If job data is not yet loaded
   if (!job) {
     return <div>Loading Job Details...</div>;
   }
@@ -118,9 +159,20 @@ const SingleJob = () => {
 
         <div className="flex flex-col">
           <div className="flex items-center gap-3 mb-3">
-            <div className="p-5 bg-blue-100 rounded-md">
-              <Bookmark jobId={job._id} />
+
+            <div
+              className="px-2 py-1 bg-blue-100 rounded-md cursor-pointer"
+              
+            >
+              {/* {isBookmarked ? (
+                <span className="text-blue-600">Bookmarked</span>
+              ) : (
+                <span className="text-blue-600">Bookmark</span>
+              )} */}
+
+<Bookmark jobId={job._id} />
             </div>
+
             <div className="items-center">
               <button
                 onClick={openModal}
@@ -134,12 +186,14 @@ const SingleJob = () => {
                 {hasApplied ? "Already Applied" : "Apply now"} <FaArrowRight />
               </button>
 
+           
+
               <ApplyJobModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 job={job}
                 user={currentUser}
-                onApplicationSuccess={handleApplicationSuccess} // Pass the success callback
+                onApplicationSuccess={handleApplicationSuccess} 
               />
             </div>
           </div>
@@ -206,6 +260,9 @@ const SingleJob = () => {
           </div>
         </section>
       </section>
+      
+
+      <RelatedJobs title={"Related Jobs"} job={job} />
     </div>
   );
 };

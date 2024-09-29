@@ -5,38 +5,63 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
 
 const JobCardGrid = ({ job }) => {
-  const [company, setCompany] = useState([]);
+  const [companyData, setCompanyData] = useState(null);
 
-  const { company_id, featured, location, title, jobType, salaryRange } = job;
+  const {
+    company_id,
+    company,
+    company_logo,
+    featured,
+    location,
+    title,
+    jobType,
+    salaryRange,
+  } = job;
 
-  const { company_name, company_logo } = company;
+  console.log("Job Data:", job); // Check job data
 
-  // get company by id
+  // Only fetch company data if it's missing from the job object
   useEffect(() => {
+    if (!company_id || company) return; // No need to fetch if company info is already present
+
     const fetchCompanyData = async () => {
       try {
+        console.log('Fetching company info for:', company_id);
         const response = await axiosSecure.get(`/companies/${company_id}`);
-        setCompany(response.data);
-        // console.log("Fetched company data:", response.data);
+        setCompanyData(response.data);
+        console.log("Fetched company data:", response.data);
       } catch (error) {
-        // console.error("Error fetching job data:", error);
+        console.error("Error fetching company data:", error);
       }
     };
+
     fetchCompanyData();
-  }, [company_id]);
+  }, [company_id, company]);
+
+  const companyName = companyData?.company_name || company;
+  const companyLogo = companyData?.company_logo || company_logo;
+
+  console.log("Company Name:", companyName); 
+  console.log("Company Logo:", companyLogo); 
 
   return (
     <div>
       <Link>
-        <div className="md:p-8 p-4 border-2 rounded-lg ">
-          {/* image section */}
+        <div className="md:p-8 p-4 border-2 rounded-lg">
+          {/* Image section */}
           <div className="flex mb-6">
-            <div>
-              <img className="w-14 h-14 rounded-md" src={company_logo} alt="icon" />
-            </div>
+            {/* <div>
+              <img
+                className="w-14 h-14 rounded-md"
+                src={companyLogo } 
+                alt={companyName }
+              />
+            </div> */}
             <div className="ml-4 items-center gap-2">
               <div className="flex items-center">
-                <p className="font-semibold">{company_name}</p>{" "}
+                <p className="font-semibold">
+                  {companyName || "Unknown Company"}
+                </p>
                 {featured && (
                   <p className="text-xs text-red-400 bg-red-100 font-semibold my-auto py-1 px-3 rounded-full ml-2">
                     Featured
@@ -49,8 +74,8 @@ const JobCardGrid = ({ job }) => {
               </div>
             </div>
           </div>
-          {/* position */}
-          <div className="">
+          {/* Position section */}
+          <div>
             <p className="text-lg font-semibold">{title}</p>
             <div className="flex items-center gap-1 mt-1">
               <p className="text-gray-400">{jobType}</p>

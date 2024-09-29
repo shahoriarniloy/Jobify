@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useCurrentUser from "../../Hooks/useCurrentUser"; 
-import axiosSecure from "../../Hooks/UseAxiosSecure"; 
+import useCurrentUser from "../../../Hooks/useCurrentUser"; 
+import axiosSecure from "../../../Hooks/UseAxiosSecure"; 
 import { FaBriefcase, FaClock, FaDollarSign, FaTrash } from 'react-icons/fa'; 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

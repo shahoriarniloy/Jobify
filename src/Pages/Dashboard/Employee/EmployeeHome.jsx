@@ -1,6 +1,6 @@
 import React from 'react';
 import InformationCard from './Components/InformationCard';
-import ButtonWithIcon from '../../Shared/ButtonWithIcon';
+import ButtonWithIcon from '../../../Shared/ButtonWithIcon';
 import RecentAppliedJobTable from './Components/RecentAppliedJobTable';
 
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import axiosSecure from "../../Hooks/UseAxiosSecure";
+import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase } from "react-icons/pi";
 import { FiGlobe } from "react-icons/fi";
@@ -8,7 +8,7 @@ import { LuPhoneCall } from "react-icons/lu";
 import { TfiEmail } from "react-icons/tfi";
 import {  FaArrowRight } from "react-icons/fa";
 
-import ApplyJobModal from "../../components/Modal/ApplyJobModal";
+import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 
 const CompanyJobs = () => {
   const [jobs, setJobs] = useState([]);

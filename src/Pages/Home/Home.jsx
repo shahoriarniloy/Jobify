@@ -1,6 +1,6 @@
 
 
-import SearchBar from "../AdvancedSearch/SearchBar";
+import SearchBar from "./SearchBar";
 // import TopCompanies from "./TopCompanies"
 const Home = () => {
     return (
