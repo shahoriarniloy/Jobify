@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import JobCardGrid from "../JobCardGrid/JobCardGrid";
+import axiosSecure from "../../Hooks/UseAxiosSecure";
 
-const RelatedJobs = ({ job, title }) => {
+const OpenPosition = ({ id, title }) => {
   const [jobs, setJobs] = useState([]); // Store fetched jobs
   const [page, setPage] = useState(1); // Track the current page
   const [totalPages, setTotalPages] = useState(1); // Total pages available
+  const [error, setError] = useState(null); // State to handle errors
 
-  const { jobType } = job; // Get jobType from props
   console.log(jobs);
 
   // Fetch job data for pagination
@@ -16,16 +16,18 @@ const RelatedJobs = ({ job, title }) => {
     const fetchJobDataPagination = async () => {
       try {
         const response = await axiosSecure.get(
-          `/RelatedJobs?page=${page}&limit=6&type=${jobType}` // Fetch jobs by jobType, page, and limit
+          `/OpenPosition?page=${page}&limit=6&companyId=${id}` // Fetch jobs by company id, page, and limit
         );
         setJobs(response.data.jobs); // Set jobs to the response data
         setTotalPages(response.data.totalPages); // Set total pages based on response
+        setError(null); // Clear any previous errors
       } catch (error) {
         console.error("Error fetching job data:", error); // Log error if fetching fails
+        setError("Error fetching job data. Please try again."); // Set error message
       }
     };
     fetchJobDataPagination(); // Call the function to fetch data
-  }, [jobType, page]); // Dependency on jobType and page
+  }, [id, page]); // Dependency on company name and page
 
   // Function to handle Next button click
   const handleNext = () => {
@@ -72,7 +74,7 @@ const RelatedJobs = ({ job, title }) => {
 
           {/* Job Cards */}
           <div className="grid md:grid-cols-3 gap-6">
-            {jobs.length > 0 ? (
+            {jobs?.length > 0 ? (
               jobs.map((job) => <JobCardGrid key={job._id} job={job} />) // Map jobs to JobCardGrid
             ) : (
               <p>No jobs available</p> // Show message if no jobs are available
@@ -84,4 +86,4 @@ const RelatedJobs = ({ job, title }) => {
   );
 };
 
-export default RelatedJobs;
+export default OpenPosition;

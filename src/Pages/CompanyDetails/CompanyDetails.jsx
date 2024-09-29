@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import JobCardGrid from "../../components/JobCardGrid/JobCardGrid";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import OpenPosition from "../../components/OpenPosition/OpenPosition";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
@@ -26,12 +27,15 @@ const CompanyDetails = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const { _id } = company;
+  
+
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching company data:", error);
       }
@@ -43,7 +47,7 @@ const CompanyDetails = () => {
   // useEffect(() => {
   //   const fetchJobDataPagination = async () => {
   //     try {
-  //       const response = await axiosSecure.get(`/jobs/pagination?page=${page}&limit=6`); 
+  //       const response = await axiosSecure.get(`/jobs/pagination?page=${page}&limit=6`);
   //       setJobs(response.data);
   //       setTotalPages(response.data.totalPages);
   //     } catch (error) {
@@ -276,6 +280,10 @@ const CompanyDetails = () => {
           </div>
         </div>
       </section> */}
+
+      {/* Open Position */}
+        <OpenPosition title={"Open Position"} id={_id} />
+      
     </div>
   );
 };
