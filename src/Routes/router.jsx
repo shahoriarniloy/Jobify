@@ -29,7 +29,6 @@ import FindCompany from "../Pages/FindCompany/FindCompany";
 import PostJob from "../Pages/Dashboard/Company/PostJob";
 import MyJob from "../Pages/Dashboard/Company/MyJob";
 import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs"
-import CompanyMessages from "../Pages/Dashboard/Company/CompanyMessages";
 import Messages from "../Pages/Dashboard/Employee/Messages";
 import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
 
@@ -151,11 +150,7 @@ export const router = createBrowserRouter([
             element: <Candidates></Candidates>,
            
           },
-          {
-            path: "/dashboard/company/messages",
-            element: <CompanyMessages></CompanyMessages>,
-           
-          },
+          
           {
             path: "/dashboard/messages",
             element: <Messages></Messages>,
