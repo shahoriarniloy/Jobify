@@ -6,7 +6,7 @@ import Footer from '../../Shared/Footer';
 const AuthLayout = () => {
     return (
         <div className=''>
-             <Navbar></Navbar>
+             {/* <Navbar></Navbar> */}
              <Navbar2></Navbar2>
             <div className="auth-container lg:px-24 md:px-12 px-4">
            

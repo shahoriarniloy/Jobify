@@ -7,9 +7,9 @@ const useCurrentUser = () => {
 
     useEffect(() => {
         if (!loading) {
-            // console.log(user);
+            console.log(user);
             setCurrentUser(user);
-            // console.log('current user',currentUser);
+            console.log('current user',currentUser);
         }
     }, [currentUser,user, loading]);
 

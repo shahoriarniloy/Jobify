@@ -45,23 +45,18 @@ const JobCardGrid = ({ job }) => {
   console.log("Company Logo:", companyLogo); 
 
   return (
-    <div>
-      <Link>
-        <div className="md:p-8 p-4 border-2 rounded-lg">
-          {/* Image section */}
-          <div className="flex mb-6">
-            {/* <div>
-              <img
-                className="w-14 h-14 rounded-md"
-                src={companyLogo } 
-                alt={companyName }
-              />
-            </div> */}
-            <div className="ml-4 items-center gap-2">
-              <div className="flex items-center">
-                <p className="font-semibold">
-                  {companyName || "Unknown Company"}
-                </p>
+    <div className="flex justify-center"> 
+      <Link to="#" className=""> 
+        <div className="md:p-8 p-4 border-2 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <div className="flex mb-6 items-center">
+            {/* <img
+              className="w-14 h-14 rounded-md mr-4"
+              src={companyLogo}
+              alt={companyName}
+            /> */}
+            <div className="ml-4 flex-grow">
+              <div className="flex items-center justify-between">
+                <p className="font-bold text-lg truncate">{companyName}</p>
                 {featured && (
                   <p className="text-xs text-red-400 bg-red-100 font-semibold my-auto py-1 px-3 rounded-full ml-2">
                     Featured
@@ -74,7 +69,6 @@ const JobCardGrid = ({ job }) => {
               </div>
             </div>
           </div>
-          {/* Position section */}
           <div>
             <p className="text-lg font-semibold">{title}</p>
             <div className="flex items-center gap-1 mt-1">
