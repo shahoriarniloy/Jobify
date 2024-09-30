@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import JobCardGrid from "../JobCardGrid/JobCardGrid";
+import { Link } from "react-router-dom";
 
 const RelatedJobs = ({ job, title }) => {
     const [jobs, setJobs] = useState([]); 

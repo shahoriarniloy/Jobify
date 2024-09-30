@@ -1,0 +1,32 @@
+/* Custom styles for ReactQuill */
+.quill-wrapper {
+    position: relative;
+  }
+  
+  .custom-quill-editor .ql-container {
+    border: none; /* Removes the border from the text area */
+    min-height: 150px; /* Adjust the height as necessary */
+  }
+  
+  .custom-quill-editor .ql-toolbar {
+    border: none; /* Removes toolbar border */
+    position: absolute;
+    bottom: 0; /* Moves toolbar to the bottom */
+    left: 0;
+    width: 100%;
+    z-index: 10; /* Bring the toolbar above other elements */
+  }
+  
+  .custom-quill-editor .ql-editor {
+    min-height: 150px; /* Customize the height of the editor area */
+    padding-bottom: 2rem; /* Add padding for spacing above the toolbar */
+  }
+  
+  /* Change toolbar icon color to gray-400 */
+.custom-quill-editor .ql-toolbar .ql-stroke {
+  stroke: #9CA3AF; /* Gray-400 color */
+}
+
+.custom-quill-editor .ql-toolbar .ql-fill {
+  fill: #9CA3AF; /* Gray-400 color */
+}

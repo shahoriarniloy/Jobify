@@ -1,4 +1,7 @@
 import Swal from "sweetalert2";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import Quill's CSS for styling
+import '../../Styles/TextEditorTools/CustomReactQuill.css'
 import {
   Description,
   Dialog,
@@ -90,15 +93,22 @@ const ApplyJobModal = ({
             /> */}
 
             <Description className="font-semibold">Cover Letter</Description>
-            <textarea
-              name=""
-              id=""
-              rows="5"
-              placeholder="Write down your biography here. Let the employers know who you are..."
-              value={coverLetter}
-              onChange={handleCoverLetterChange}
-              className="w-full border rounded p-2"
-            />
+            {/* Replacing textarea with ReactQuill */}
+            <div className="quill-wrapper relative border rounded-lg">
+              <ReactQuill
+                value={coverLetter}
+                onChange={handleCoverLetterChange}
+                placeholder="Write down your biography here. Let the employers know who you are..."
+                modules={{
+                  toolbar: [
+                    ["bold", "italic", "underline"], // Formatting options
+                    [{ list: "ordered" }, { list: "bullet" }], // Lists
+                    ["link"], // Link insertion
+                  ],
+                }}
+                className="custom-quill-editor"
+              />
+            </div>
 
             <div className="flex justify-between">
               <button
