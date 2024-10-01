@@ -11,11 +11,11 @@ const RelatedJobs = ({ job, title }) => {
     const [limit, setLimit] = useState(6); 
   
     const jobTitle = job?.title || ''; // Corrected to use 'title'
-    console.log(job);
+   
   
     useEffect(() => {
         if (jobTitle) {
-          console.log('Job Title being sent:', jobTitle); // Log job title before API call
+          // console.log('Job Title being sent:', jobTitle); // Log job title before API call
           const fetchJobDataPagination = async () => {
             try {
               const response = await axiosSecure.get(
