@@ -35,8 +35,8 @@ const ApplyJobModal = ({
     setResume(file);
   };
 
-  const handleCoverLetterChange = (e) => {
-    setCoverLetter(e.target.value);
+  const handleCoverLetterChange = (value) => {
+    setCoverLetter(value);
   };
 
   const handleApply = async () => {

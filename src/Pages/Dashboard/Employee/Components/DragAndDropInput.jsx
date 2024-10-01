@@ -31,7 +31,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
     onDrop,
     accept: "image/*",
     maxFiles: 1,
-    noClick: true,
+    noClick: false, // Allow clicking on the drop area to open the file dialog
   });
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
         URL.revokeObjectURL(preview);
       }
     };
-  }, [file]);
+  }, [file, preview]);
 
   const handleReplaceClick = () => {
     setPreview(null); // Clear the preview
@@ -60,8 +60,9 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
         {...getRootProps()}
         className={`p-6 rounded-md cursor-pointer transition ${isDragActive ? "bg-blue-100 border-blue-400" : "bg-gray-400"}`}
         style={{ minHeight: "150px" }}
+        onClick={() => fileInputRef.current.click()} // Ensure the file input opens on click
       >
-        <input {...getInputProps()} ref={fileInputRef} />
+        <input {...getInputProps()} ref={fileInputRef} style={{ display: "none" }} />
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         {preview ? (
           <img src={preview} alt="Preview" className="w-full h-auto mt-2" style={{ maxHeight: "150px", objectFit: "cover" }} />

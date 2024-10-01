@@ -5,7 +5,7 @@ import ReactQuill from "react-quill";
 
 const CompanyInfo = () => {
   const [companyName, setCompanyName] = useState("");
-  const [aboutUs, setAboutUs] = useState("");
+  const [aboutUs, setAboutUs] = useState(""); // Keep the rich text here
   const [logoFile, setLogoFile] = useState(null);
   const [bannerFile, setBannerFile] = useState(null);
 
@@ -13,8 +13,9 @@ const CompanyInfo = () => {
     setCompanyName(e.target.value);
   };
 
-  const handleAboutUsChange = (e) => {
-    setAboutUs(e.target.value);
+  // Store rich text value in state
+  const handleAboutUsChange = (value) => {
+    setAboutUs(value); // Keep rich text format
   };
 
   const handleLogoUpload = (file) => {
@@ -25,10 +26,16 @@ const CompanyInfo = () => {
     setBannerFile(file);
   };
 
+  // Convert rich text to plain text only when submitting the form
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Convert rich text to plain text during submission
+    const doc = new DOMParser().parseFromString(aboutUs, "text/html");
+    const plainTextAboutUs = doc.body.innerText || ""; // Extract plain text
+
     console.log("Company Name:", companyName);
-    console.log("About Us:", aboutUs);
+    console.log("About Us (Plain Text):", plainTextAboutUs); // Log the plain text
     console.log("Logo File:", logoFile);
     console.log("Banner File:", bannerFile);
   };
@@ -77,8 +84,8 @@ const CompanyInfo = () => {
           <h3 className="text-lg font-medium mb-2">About us</h3>
           <div className="quill-wrapper relative border rounded-lg">
             <ReactQuill
-              value={aboutUs}
-              onChange={handleAboutUsChange}
+              value={aboutUs} // Keep rich text in state
+              onChange={handleAboutUsChange} // Update with rich text
               placeholder="Write down your biography here. Let the employers know who you are..."
               modules={{
                 toolbar: [
@@ -87,7 +94,9 @@ const CompanyInfo = () => {
                   ["link"],
                 ],
               }}
+              formats={["bold", "italic", "underline", "list", "bullet", "link"]} // Enable formats
               className="custom-quill-editor"
+              style={{ direction: "ltr" }} // Force left-to-right (LTR) direction
             />
           </div>
         </section>
