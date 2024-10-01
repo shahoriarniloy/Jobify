@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { GoArrowRight, GoBookmark } from "react-icons/go";
 import { MdOutlineLocationOn } from 'react-icons/md';
@@ -6,7 +6,7 @@ import CandidateModal from './CandidateModal'; // Import the modal component
 
 const CandidateCard = ({ candidate }) => {
     const { candidate_name, image, designation, experience, location } = candidate;
-    const [isModalOpen, setModalOpen] = useState(false); // State to manage modal visibility
+    const [isModalOpen, setModalOpen] = useState(false); 
 
     const handleOpenModal = () => {
         setModalOpen(true);

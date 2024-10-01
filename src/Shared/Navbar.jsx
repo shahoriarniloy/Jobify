@@ -1,7 +1,7 @@
 import { BN, US } from "country-flag-icons/react/3x2";
 import { BiPhoneCall } from "react-icons/bi";
-import { NavLink } from "react-router-dom"; // Use NavLink
-import Navbar2 from "../Home/Navbar2/Navbar2";
+import { NavLink } from "react-router-dom"; 
+// import Navbar2 from "../Home/Navbar2/Navbar2";
 
 const Navbar = () => {
     const navItem = (
@@ -15,12 +15,18 @@ const Navbar = () => {
             <li>
                 <NavLink to='/companies' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Find Company</NavLink>
             </li>
+            <li>
+                <NavLink to='/about' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>About Us</NavLink>
+            </li>
+            <li>
+                <NavLink to='/dashboard/messages' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Messages</NavLink>
+            </li>
             
         </>
     );
 
     return (
-        <div>
+        <div className="lg:px-24 md:px-12 px-4">
             <div className="navbar bg-[#F1F2F4]">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -41,7 +47,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="navbar-end flex items-center gap-4">
-                    <div className="flex gap-2">
+                    <div className="lg:flex md:flex gap-2  hidden">
                         <span className="text-gray-700 mt-1"><BiPhoneCall /></span>
                         <span className="text-gray-700">+1 234 567 890</span>
                     </div>
@@ -65,7 +71,7 @@ const Navbar = () => {
                 </div>
             </div>
 
-            <Navbar2 />
+            {/* <Navbar2 /> */}
         </div>
     );
 };

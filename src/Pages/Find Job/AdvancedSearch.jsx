@@ -23,12 +23,12 @@ const AdvancedSearch = () => {
   const [totalJobs, setTotalJobs] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  console.log("Total jobs:", totalJobs);
-  console.log("item per page:", itemsPerPage);
+  // console.log("Total jobs:", totalJobs);
+  // console.log("item per page:", itemsPerPage);
   const noOfPages = Math.ceil(totalJobs / itemsPerPage);
-  console.log("no of page:", noOfPages);
+  // console.log("no of page:", noOfPages);
   const pages = [...Array(noOfPages).keys()];
-  console.log("Total Jobs:", totalJobs);
+  // console.log("Total Jobs:", totalJobs);
 
   const [viewMode, setViewMode] = useState("grid");
 
@@ -46,12 +46,12 @@ const AdvancedSearch = () => {
         const response = await axiosSecure.get(
           `/jobs?page=${currentPage}&size=${itemsPerPage}`
         ); 
-        console.log(response.data);
+        // console.log(response.data);
         setJobs(response.data.jobs);
         setTotalJobs(response.data.totalJobs);
-        console.log(totalJobs);
+        // console.log(totalJobs);
       } catch (err) {
-        console.error("Error fetching jobs:", err);
+        // console.error("Error fetching jobs:", err);
       }
     };
 
@@ -65,9 +65,9 @@ const AdvancedSearch = () => {
 
     setShowAdvancedFilters(false);
 
-    console.log("Search Term:", searchTerm);
-    console.log("Location:", location);
-    console.log("Filters:", filters);
+    // console.log("Search Term:", searchTerm);
+    // console.log("Location:", location);
+    // console.log("Filters:", filters);
 
     try {
       const response = await axiosSecure.get(
@@ -86,16 +86,16 @@ const AdvancedSearch = () => {
       );
       setFilteredJobs(response.data.jobs);
 
-      console.log("jobs", response.data);
-      console.log("try:", response.data.jobs);
+      // console.log("jobs", response.data);
+      // console.log("try:", response.data.jobs);
       setTotalJobs(response.data.totalJobs);
       if (!response.data.totalJobs) {
         toast.info("No matching data found");
       }
 
-      console.log(response.data);
+      // console.log(response.data);
     } catch (err) {
-      console.error("Error fetching jobs:", err);
+      // console.error("Error fetching jobs:", err);
       setError("Failed to fetch jobs. Please try again later.");
     }
   };
@@ -135,7 +135,7 @@ const AdvancedSearch = () => {
   };
 
   return (
-    <div className="p-4   pt-24 mx-8">
+    <div className="p-4   pt-24 mx-8 ">
       <div className="w-full bg-white rounded-lg  p-6 flex-1">
         <form
           className="flex flex-col sm:flex-row gap-4 sm:gap-2"
