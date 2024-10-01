@@ -9,7 +9,8 @@ import FoundingInfo from "./Tabs/FoundingInfo/FoundingInfo";
 import SocialMediaProfile from "./Tabs/SocialMediaProfile/SocialMediaProfile";
 import AccountSetting from "./Tabs/AccountSetting/AccountSetting";
 
-const EmployerSettings = () => {
+
+const EmployeeSettings = () => {
   const [tabIndex, setTabIndex] = useState(0);
   return (
     <div>
@@ -54,4 +55,4 @@ const EmployerSettings = () => {
   );
 };
 
-export default EmployerSettings;
+export default EmployeeSettings;

@@ -31,7 +31,8 @@ import MyJob from "../Pages/Dashboard/Company/MyJob";
 import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs"
 import Messages from "../Pages/Dashboard/Employee/Messages";
 import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
-import EmployerSettings from "../Pages/Dashboard/Employee/EmployerSettings/EmployerSettings";
+import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
+
 
 
 
@@ -165,8 +166,8 @@ export const router = createBrowserRouter([
           },
 
           {
-            path: "/dashboard/settings",
-            element: <EmployerSettings/> ,
+            path: "/dashboard/EmployeeSettings",
+            element: <EmployeeSettings/> ,
            
           },
 
