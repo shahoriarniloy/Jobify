@@ -41,31 +41,39 @@ const CompanyInfo = () => {
   };
 
   return (
-    <div>
-      <h2 className="font-bold mt-8 mb-2">Logo & Banner Image</h2>
+    <div className="p-4 md:p-8">
+      <h2 className="font-bold mt-8 mb-4 text-xl">Logo & Banner Image</h2>
 
       <form onSubmit={handleSubmit}>
         {/* Image Upload section */}
-        <section className="flex gap-6">
+        <section className="flex flex-col md:flex-row md:gap-6 gap-4">
           {/* Logo Upload Section */}
-          <div className="w-2/6">
-            <DragAndDropInput type="logo" label="Upload Logo" file={logoFile} onFileUpload={handleLogoUpload} />
-            <p className="gap-2 ">
-              <span className="text-gray-400">Maximum 3.5 MB</span>
-            </p>
+          <div className="md:w-2/6">
+            <DragAndDropInput
+              type="logo"
+              label="Upload Logo"
+              file={logoFile}
+              onFileUpload={handleLogoUpload}
+            />
+            <p className="text-gray-400 mt-2">Maximum 3.5 MB</p>
           </div>
+
           {/* Banner Upload Section */}
           <div className="w-full">
-            <DragAndDropInput type="banner" label="Upload Banner" file={bannerFile} onFileUpload={handleBannerUpload} />
-            <p className="gap-2 ">
-              <span className="text-gray-400">Maximum 4.3 MB</span>
-            </p>
+            <DragAndDropInput
+              type="banner"
+              label="Upload Banner"
+              file={bannerFile}
+              onFileUpload={handleBannerUpload}
+            />
+            <p className="text-gray-400 mt-2">Maximum 4.3 MB</p>
           </div>
         </section>
-        <hr className="my-2" />
+
+        <hr className="my-4" />
 
         {/* Company name input */}
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           <label htmlFor="textInput" className="text-lg font-medium mb-2">
             Company Name
           </label>
@@ -80,7 +88,7 @@ const CompanyInfo = () => {
         </div>
 
         {/* About us */}
-        <section className="mt-2">
+        <section className="mt-4">
           <h3 className="text-lg font-medium mb-2">About us</h3>
           <div className="quill-wrapper relative border rounded-lg">
             <ReactQuill
@@ -101,7 +109,12 @@ const CompanyInfo = () => {
           </div>
         </section>
 
-        <button type="submit" className="btn bg-blue-600 text-white md:mt-8">Save Change</button>
+        <button
+          type="submit"
+          className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"
+        >
+          Save Changes
+        </button>
       </form>
     </div>
   );
