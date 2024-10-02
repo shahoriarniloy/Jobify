@@ -31,6 +31,9 @@ import MyJob from "../Pages/Dashboard/Company/MyJob";
 import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs"
 import Messages from "../Pages/Dashboard/Employee/Messages";
 import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
+import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
+
+
 
 
 
@@ -159,6 +162,12 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/messages/:otherPartyEmail",
             element: <MessageDetail></MessageDetail>,
+           
+          },
+
+          {
+            path: "/dashboard/EmployeeSettings",
+            element: <EmployeeSettings/> ,
            
           },
 
