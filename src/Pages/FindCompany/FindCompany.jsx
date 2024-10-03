@@ -79,7 +79,7 @@ if (!response.data.totalCompanies) {
 toast.info("No matching data found");
 }
 
-console.log(response.data);
+// console.log(response.data);
 } catch (err) {
 // console.error("Error fetching Companies:", err);
 setError("Failed to fetch Companies. Please try again later.");

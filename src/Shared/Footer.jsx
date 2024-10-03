@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <div className="mt-8">
+        <div className="mt-8 mb-0">
             <footer className="footer bg-black p-10 text-white">
                 <div className="flex justify-between items-start">
                     {/* Logo and Branding Section */}

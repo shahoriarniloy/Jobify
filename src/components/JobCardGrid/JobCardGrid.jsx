@@ -26,12 +26,12 @@ const JobCardGrid = ({ job }) => {
 
     const fetchCompanyData = async () => {
       try {
-        console.log('Fetching company info for:', company_id);
+        // console.log('Fetching company info for:', company_id);
         const response = await axiosSecure.get(`/companies/${company_id}`);
         setCompanyData(response.data);
-        console.log("Fetched company data:", response.data);
+        // console.log("Fetched company data:", response.data);
       } catch (error) {
-        console.error("Error fetching company data:", error);
+        // console.error("Error fetching company data:", error);
       }
     };
 

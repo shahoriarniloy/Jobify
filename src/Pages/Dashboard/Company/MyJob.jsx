@@ -20,7 +20,7 @@ const JobTable = () => {
     }
   }, [id, loading]); 
 
-  console.log(jobs)
+  // console.log(jobs)
 
   if (loading) {
     return <div>Loading jobs...</div>; 

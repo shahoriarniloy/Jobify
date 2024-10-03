@@ -47,8 +47,9 @@ const ApplyJobModal = ({
     try {
       // Send application data to the backend
       const response = await axiosSecure.post("/apply_job", application);
+      console.log(response.data.data.acknowledged);
 
-      if (response.status === 201) {
+      if (response.data.data.acknowledged) {
         // Call the onApplicationSuccess callback to update the application status
         onApplicationSuccess();
 
@@ -59,6 +60,13 @@ const ApplyJobModal = ({
           confirmButtonText: "OK",
         }).then(() => {
           onClose(); // Close the modal after successful submission
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Submission Failed",
+          text: "There was an error submitting your application.",
+          confirmButtonText: "OK",
         });
       }
     } catch (error) {

@@ -20,7 +20,7 @@ const OpenPosition = ({ companyId, title }) => {
         setTotalPages(response.data.totalPages);
         setError(null);
       } catch (error) {
-        console.error("Error fetching job data:", error);
+        // console.error("Error fetching job data:", error);
         setError("Error fetching job data. Please try again.");
       }
     };

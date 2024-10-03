@@ -18,7 +18,7 @@ const Navbar2 = () => {
     };
 
     return (
-        <div>
+        <div className="">
             <div className="navbar bg-white shadow-md pt-2">
                 <div className="navbar-start">
                     <div className="flex items-center text-[#0a65cc] gap-2 lg:pl-24 md:pl-12 pl-12">
@@ -45,7 +45,7 @@ const Navbar2 = () => {
                                             <ul className="py-1 text-gray-700">
                                                 <li>
                                                     <Link
-                                                        to="/dashboard/overview"
+                                                        to="/dashboard/favorite-jobs"
                                                         className="block px-4 py-2 hover:bg-gray-100"
                                                         onClick={() => setIsMenuOpen(false)}
                                                     >

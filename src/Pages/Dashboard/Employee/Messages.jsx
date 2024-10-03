@@ -13,7 +13,7 @@ const Messages = () => {
 
       try {
         const response = await axiosSecure.get(`/conversations?email=${currentUser.email}`);
-        console.log("Fetched messages:", response.data);
+        // console.log("Fetched messages:", response.data);
         const allMessages = response.data;
 
         const groupedMessages = {};
@@ -44,7 +44,7 @@ const Messages = () => {
 
         setConversations(Object.values(groupedMessages));
       } catch (error) {
-        console.error("Error fetching messages:", error);
+        // console.error("Error fetching messages:", error);
       }
     };
 
