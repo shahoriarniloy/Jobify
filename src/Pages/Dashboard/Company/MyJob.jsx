@@ -10,23 +10,17 @@ const JobTable = () => {
   useEffect(() => {
     if (!loading && id) { 
       const fetchJobs = async () => {
-        try {
+        
           const response = await axiosSecure.get(`/company-jobs/${id}`);
-          const data = response.data;
-          
-          if (Array.isArray(data)) { 
-            setJobs(data);
-          } else {
-            setError('Unexpected response format'); 
-          }
-        } catch (error) {
-          setError('Error fetching jobs: ' + error.message);
-        }
+          setJobs(response?.data);
+        
       };
 
       fetchJobs(); 
     }
   }, [id, loading]); 
+
+  console.log(jobs)
 
   if (loading) {
     return <div>Loading jobs...</div>; 
