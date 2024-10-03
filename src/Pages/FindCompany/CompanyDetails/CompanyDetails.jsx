@@ -126,13 +126,18 @@ const CompanyDetails = () => {
               </h3>
               <p className="text-gray-500">{company?.industry}</p>
               <div className="flex justify-start">
-              <button
-                  onClick={handleOpenModal}
-                  className="p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600"
-                  title="Message"
-                >
-                  <FaComment className="text-xl" />
-                </button>
+
+      
+              {company.email !== currentUser.email && (
+  <button
+    onClick={handleOpenModal}
+    className="p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600"
+    title="Message"
+  >
+    <FaComment className="text-xl" />
+  </button>
+)}
+
           <MessageModal
             isOpen={isModalOpen}
             onClose={() => setModalOpen(false)}

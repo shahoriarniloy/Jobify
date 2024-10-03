@@ -48,7 +48,7 @@ const CompanyInfo = () => {
         {/* Image Upload section */}
         <section className="flex flex-col md:flex-row md:gap-6 gap-4">
           {/* Logo Upload Section */}
-          <div className="md:w-2/6">
+          <div className="md:w-2/6 ">
             <DragAndDropInput
               type="logo"
               label="Upload Logo"
@@ -90,7 +90,7 @@ const CompanyInfo = () => {
         {/* About us */}
         <section className="mt-4">
           <h3 className="text-lg font-medium mb-2">About us</h3>
-          <div className="quill-wrapper relative border rounded-lg">
+          <div className="quill-wrapper relative border rounded-lg bg-white ">
             <ReactQuill
               value={aboutUs} // Keep rich text in state
               onChange={handleAboutUsChange} // Update with rich text
@@ -103,7 +103,7 @@ const CompanyInfo = () => {
                 ],
               }}
               formats={["bold", "italic", "underline", "list", "bullet", "link"]} // Enable formats
-              className="custom-quill-editor"
+              className="custom-quill-editor "
               style={{ direction: "ltr" }} // Force left-to-right (LTR) direction
             />
           </div>
