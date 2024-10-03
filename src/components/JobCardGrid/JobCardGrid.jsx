@@ -18,7 +18,7 @@ const JobCardGrid = ({ job }) => {
     salaryRange,
   } = job;
 
-  console.log("Job Data:", job); // Check job data
+  // console.log("Job Data:", job); // Check job data
 
   // Only fetch company data if it's missing from the job object
   useEffect(() => {
@@ -41,8 +41,7 @@ const JobCardGrid = ({ job }) => {
   const companyName = companyData?.company_name || company;
   const companyLogo = companyData?.company_logo || company_logo;
 
-  console.log("Company Name:", companyName); 
-  console.log("Company Logo:", companyLogo); 
+   
 
   return (
     <div className="flex justify-center"> 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import JobCardGrid from "../JobCardGrid/JobCardGrid";
+import { Link } from "react-router-dom";
 
 const RelatedJobs = ({ job, title }) => {
     const [jobs, setJobs] = useState([]); 
@@ -10,11 +11,11 @@ const RelatedJobs = ({ job, title }) => {
     const [limit, setLimit] = useState(6); 
   
     const jobTitle = job?.title || ''; // Corrected to use 'title'
-    console.log(job);
+   
   
     useEffect(() => {
         if (jobTitle) {
-          console.log('Job Title being sent:', jobTitle); // Log job title before API call
+          // console.log('Job Title being sent:', jobTitle); // Log job title before API call
           const fetchJobDataPagination = async () => {
             try {
               const response = await axiosSecure.get(
