@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import axiosSecure from '../../../Hooks/UseAxiosSecure';
+import useCurrentUser from '../../../Hooks/useCurrentUser';
 
 const PostJob = () => {
+  const {currentUser} = useCurrentUser();
   const [jobData, setJobData] = useState({
     title: '',
     company: '',
@@ -16,6 +18,7 @@ const PostJob = () => {
     jobLevel: '',
     jobDescription: '',
     responsibilities: [],
+    
   });
 
   const handleChange = (e) => {
@@ -23,6 +26,7 @@ const PostJob = () => {
     setJobData({
       ...jobData,
       [name]: value,
+      hrEmail:currentUser?.email,
     });
   };
 
@@ -166,19 +170,34 @@ const PostJob = () => {
                   </div>
                 </div>
 
-                <div className="md:col-span-2">
-                  <label htmlFor="jobLevel">Job Level</label>
-                  <select
-                    name="jobLevel"
-                    value={jobData.jobLevel}
-                    onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                  >
-                    <option value="">Select Job Level</option>
-                    <option value="Entry Level">Entry Level</option>
-                    <option value="Mid Level">Mid Level</option>
-                    <option value="Expert Level">Expert Level</option>
-                  </select>
+                <div className="md:col-span-5 flex gap-4">
+                  <div>
+                    <label htmlFor="jobLevel">Job Level</label>
+                    <select
+                      name="jobLevel"
+                      value={jobData.jobLevel}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    >
+                      <option value="">Select Job Level</option>
+                      <option value="Entry Level">Entry Level</option>
+                      <option value="Mid Level">Mid Level</option>
+                      <option value="Expert Level">Expert Level</option>
+                    </select>
+                  </div>
+
+
+                  <div>
+                    <label htmlFor="deadline">Application Deadline</label>
+                    <input
+                      type="date"
+                      name="deadline"
+                      value={jobData.deadline}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    />
+                  </div>
+
                 </div>
 
                 <div className="md:col-span-5">

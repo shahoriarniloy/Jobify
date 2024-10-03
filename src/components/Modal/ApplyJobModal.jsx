@@ -17,59 +17,48 @@ const ApplyJobModal = ({
   onClose,
   job,
   user,
-  onApplicationSuccess,
-}) => {
+  onApplicationSuccess}) => {
   const { title } = job;
-  const [resume, setResume] = useState(null);
+  const jobID = job?._id;
   const [coverLetter, setCoverLetter] = useState(""); // Keep rich text
-
-  const handleResumeChange = (e) => {
-    const file = e.target.files[0];
-    setResume(file);
-  };
-
-  const handleCoverLetterChange = (value) => {
-    setCoverLetter(value); // Store rich text
-  };
-
-  const handleApply = async () => {
-    // Convert rich text to plain text before submitting
+ 
+  // convert to plain text
+  const plainText = () => {
     const doc = new DOMParser().parseFromString(coverLetter, "text/html");
     const plainTextCoverLetter = doc.body.innerText || ""; // Extract plain text
 
     const application = {
       coverLetter: plainTextCoverLetter, // Use plain text here
-      job_id: job?._id,
+      job_id: jobID,
       company_id: job?.company_id,
       user_email: user?.email,
     };
 
-    try {
-      // Send application data to the backend
-      const response = await axiosSecure.post("/apply_job", application);
-      console.log(response.data.data.acknowledged);
+    return application;
+  }
 
-      if (response.data.data.acknowledged) {
-        // Call the onApplicationSuccess callback to update the application status
-        onApplicationSuccess();
+  // already applied ?
 
-        Swal.fire({
-          icon: "success",
-          title: "Application Submitted!",
-          text: "Your application has been successfully submitted.",
-          confirmButtonText: "OK",
-        }).then(() => {
-          onClose(); // Close the modal after successful submission
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Submission Failed",
-          text: "There was an error submitting your application.",
-          confirmButtonText: "OK",
-        });
-      }
-    } catch (error) {
+
+
+
+  const handleApply = async () => {
+    const applicationData = plainText();
+
+    // Send application data to the backend
+    const {data} = await axiosSecure.post("/apply_job", applicationData);
+    
+    
+    if (data?.insertedId !== null) {
+      Swal.fire({
+        icon: "success",
+        title: "Application Submitted!",
+        text: "Your application has been successfully submitted.",
+        confirmButtonText: "OK",
+      }).then(() => {
+        onClose(); // Close the modal after successful submission
+      });
+    } else {
       Swal.fire({
         icon: "error",
         title: "Submission Failed",
@@ -77,6 +66,7 @@ const ApplyJobModal = ({
         confirmButtonText: "OK",
       });
     }
+
   };
 
   return (
@@ -106,7 +96,7 @@ const ApplyJobModal = ({
             <div className="quill-wrapper relative border rounded-lg">
               <ReactQuill
                 value={coverLetter} // Keep rich text
-                onChange={handleCoverLetterChange} // Update with rich text
+                onChange={e => setCoverLetter(e)} // Update with rich text
                 placeholder="Write your cover letter here..."
                 modules={{
                   toolbar: [
@@ -128,6 +118,7 @@ const ApplyJobModal = ({
               </button>
 
               <button
+              
                 className={`flex items-center gap-3 px-6 py-3 rounded-md bg-blue-700 text-white`}
                 onClick={handleApply}
               >

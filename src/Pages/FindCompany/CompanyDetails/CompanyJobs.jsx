@@ -9,12 +9,16 @@ import { TfiEmail } from "react-icons/tfi";
 import {  FaArrowRight } from "react-icons/fa";
 
 import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
+import UseCheckJobAlreadyApply from "../../../Hooks/UseCheckJobAlreadyApply";
 
 const CompanyJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [company, setCompany] = useState(null);
   const { companyId } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {verification} = UseCheckJobAlreadyApply(5);
+  console.log(jobs)
+
 
 
   useEffect(() => {
