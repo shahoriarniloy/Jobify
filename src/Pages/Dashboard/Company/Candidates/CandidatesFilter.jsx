@@ -14,19 +14,19 @@ const CandidatesFilter = () => {
     };
 
     const toggleRangeVisibility = () => {
-        setIsRangeVisible(!isRangeVisible); // Toggle the visibility
+        setIsRangeVisible(!isRangeVisible); 
     };
     const toggleLevelVisibility = () => {
-        setIsLevelVisible(!isLevelVisible); // Toggle the visibility
+        setIsLevelVisible(!isLevelVisible); 
     };
     const toggleExperienceVisibility = () => {
-        setIsExperienceVisible(!isExperienceVisible); // Toggle the visibility
+        setIsExperienceVisible(!isExperienceVisible); 
     };
     const toggleEducationVisibility = () => {
-        setIsEducationVisible(!isEducationVisible); // Toggle the visibility
+        setIsEducationVisible(!isEducationVisible); 
     };
     const toggleGenderVisibility = () => {
-        setIsGenderVisible(!isGenderVisible); // Toggle the visibility
+        setIsGenderVisible(!isGenderVisible);
     };
 
 
@@ -40,7 +40,7 @@ const CandidatesFilter = () => {
                     <MdArrowDropDown className={`transition-transform ${isRangeVisible ? 'rotate-180' : ''}`} />
                 </button>
             </div>
-            {isRangeVisible && ( // Render the range input only if isRangeVisible is true
+            {isRangeVisible && ( 
                 <input
                     type="range"
                     min={0}
@@ -51,7 +51,6 @@ const CandidatesFilter = () => {
                 />
             )}
             <hr />
-            {/* Candidate Level */}
             <div>
             <div className="flex items-center justify-between mt-4">
                 <h2 className='font-bold mb-4 text-lg'>
@@ -61,7 +60,7 @@ const CandidatesFilter = () => {
                     <MdArrowDropDown className={`transition-transform ${isLevelVisible ? 'rotate-180' : ''}`} />
                 </button>
             </div>
-            {isLevelVisible && ( // Render the range input only if isRangeVisible is true'
+            {isLevelVisible && ( 
             <div className=''>
                 <div className="form-control mb-2">
                     <label className="flex gap-2 cursor-pointer">
@@ -101,7 +100,7 @@ const CandidatesFilter = () => {
                     <MdArrowDropDown className={`transition-transform ${isExperienceVisible ? 'rotate-180' : ''}`} />
                 </button>
             </div>
-            {isExperienceVisible && ( // Render the range input only if isRangeVisible is true'
+            {isExperienceVisible && ( 
             <div className=''>
                 <div className="form-control">
                     <label className="flex gap-2 cursor-pointer  mb-2">
@@ -153,7 +152,6 @@ const CandidatesFilter = () => {
             </div>
             <hr />
 
-            {/* Education */}
 
             <div>
             <div className="flex items-center justify-between mt-4">
@@ -164,7 +162,7 @@ const CandidatesFilter = () => {
                     <MdArrowDropDown className={`transition-transform ${isEducationVisible ? 'rotate-180' : ''}`} />
                 </button>
             </div>
-            {isEducationVisible && ( // Render the range input only if isRangeVisible is true'
+            {isEducationVisible && ( 
             <div className=''>
                 <div className="form-control">
                     <label className="flex gap-2 cursor-pointer  mb-2">
@@ -213,7 +211,6 @@ const CandidatesFilter = () => {
             <hr />
 
 
-            {/* Gender */}
             <div>
             <div className="flex items-center justify-between mt-4">
                 <h2 className='font-bold mb-4 text-lg'>
@@ -223,7 +220,7 @@ const CandidatesFilter = () => {
                     <MdArrowDropDown className={`transition-transform ${isGenderVisible ? 'rotate-180' : ''}`} />
                 </button>
             </div>
-            {isGenderVisible && ( // Render the range input only if isRangeVisible is true'
+            {isGenderVisible && ( 
             <div className=''>
                 <div className="form-control ">
                     <label className="flex gap-2 cursor-pointer mb-2">

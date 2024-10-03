@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import axiosSecure from "../../Hooks/UseAxiosSecure";
+import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase } from "react-icons/pi";
 import { FiGlobe } from "react-icons/fi";
@@ -8,7 +8,7 @@ import { LuPhoneCall } from "react-icons/lu";
 import { TfiEmail } from "react-icons/tfi";
 import {  FaArrowRight } from "react-icons/fa";
 
-import ApplyJobModal from "../../components/Modal/ApplyJobModal";
+import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 
 const CompanyJobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -26,7 +26,7 @@ const CompanyJobs = () => {
         const companyResponse = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(companyResponse.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       }
     };
 

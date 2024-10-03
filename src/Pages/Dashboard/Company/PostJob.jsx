@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import axiosSecure from '../../../Hooks/UseAxiosSecure';
 
 const PostJob = () => {
   const [jobData, setJobData] = useState({
@@ -12,7 +13,7 @@ const PostJob = () => {
     jobType: '',
     vacancy: '',
     deadline: '',
-    jobLevel: '', 
+    jobLevel: '',
     jobDescription: '',
     responsibilities: [],
   });
@@ -31,26 +32,20 @@ const PostJob = () => {
 
     const newJobData = {
       ...rest,
-      responsibilities: responsibilities.split('\n'), 
-      posted: new Date().toISOString().split('T')[0], 
+      responsibilities: responsibilities.split('\n'),
+      posted: new Date().toISOString().split('T')[0],
     };
 
     try {
-      const response = await fetch('http://localhost:5000/postJob', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newJobData),
-      });
-
-      if (response.ok) {
+      const response = await axiosSecure.post('/postJob', newJobData);
+      if (response?.status == 200) {
         Swal.fire({
           icon: 'success',
           title: 'Job posted successfully!',
           text: 'The job listing has been created and posted on the platform.',
         });
 
+        // Reset job data
         setJobData({
           title: '',
           company: '',
@@ -73,7 +68,7 @@ const PostJob = () => {
         });
       }
     } catch (error) {
-      console.error('Error:', error);
+      // console.error('Error:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',

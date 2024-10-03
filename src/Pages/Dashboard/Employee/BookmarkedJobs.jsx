@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useCurrentUser from "../../Hooks/useCurrentUser"; 
-import axiosSecure from "../../Hooks/UseAxiosSecure"; 
+import useCurrentUser from "../../../Hooks/useCurrentUser"; 
+import axiosSecure from "../../../Hooks/UseAxiosSecure"; 
 import { FaBriefcase, FaClock, FaDollarSign, FaTrash } from 'react-icons/fa'; 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,7 +19,7 @@ const BookmarkedJobs = () => {
                     const jobResponses = await Promise.all(jobPromises);
                     setBookmarkedJobs(jobResponses.map(res => res.data));
                 } catch (error) {
-                    console.error("Error fetching bookmarked jobs:", error);
+                    // console.error("Error fetching bookmarked jobs:", error);
                 } finally {
                     setLoading(false);
                 }
@@ -35,7 +35,7 @@ const BookmarkedJobs = () => {
             setBookmarkedJobs(prevJobs => prevJobs.filter(job => job._id !== jobId));
             toast.success("Bookmark Deleted")
         } catch (error) {
-            console.error("Error deleting bookmark:", error);
+            // console.error("Error deleting bookmark:", error);
         }
     };
 

@@ -17,7 +17,7 @@ const Bookmark = ({ jobId }) => {
           const bookmarkedJobs = response.data.map(bookmark => bookmark.jobId);
           setIsBookmarked(bookmarkedJobs.includes(jobId));
         } catch (error) {
-          console.error('Error fetching bookmarks:', error);
+          // console.error('Error fetching bookmarks:', error);
         }
       }
     };
@@ -35,14 +35,14 @@ const Bookmark = ({ jobId }) => {
         userEmail: currentUser.email, 
         jobId,
       });
-      console.log('Bookmark added:', response.data);
+      // console.log('Bookmark added:', response.data);
       toast.success('Job bookmarked successfully!');
       setIsBookmarked(true); 
     } catch (error) {
       if (error.response && error.response.status === 400) {
         toast.info('Job already bookmarked.');
       } else {
-        console.error('Error adding bookmark:', error);
+        // console.error('Error adding bookmark:', error);
         toast.error('Failed to bookmark job.');
       }
     }

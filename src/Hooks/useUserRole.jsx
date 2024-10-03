@@ -12,7 +12,7 @@ const useUserRole = () => {
     useEffect(() => {
         const fetchRole = async () => {
             if (user?.email) {
-                console.log("email",user.email);
+                // console.log("email",user.email);
                 try {
                     const response = await axiosSecure.get(`/user-role?email=${user.email}`);
                     setRole(response.data.role); // Assuming the response contains the role in the data

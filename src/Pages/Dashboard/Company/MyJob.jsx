@@ -1,36 +1,37 @@
 import { useEffect, useState } from 'react';
-import useUserRole from '../../../Hooks/useUserRole'; // Adjust this import based on your folder structure
+import useUserRole from '../../../Hooks/useUserRole';
+import axiosSecure from '../../../Hooks/UseAxiosSecure'; 
 
 const JobTable = () => {
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState(null);
-  const { id, loading, error: roleError } = useUserRole(); // Access the user ID from your hook
+  const { id, loading, error: roleError } = useUserRole(); 
 
   useEffect(() => {
-    if (!loading && id) { // Ensure we have the id before making the request
-      fetch(`http://localhost:5000/company-jobs/${id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (Array.isArray(data)) { // Check if the data is an array
-            setJobs(data);
-          } else {
-            setError('Unexpected response format'); // Handle unexpected response
-          }
-        })
-        .catch((error) => setError('Error fetching jobs: ' + error.message));
+    if (!loading && id) { 
+      const fetchJobs = async () => {
+        
+          const response = await axiosSecure.get(`/company-jobs/${id}`);
+          setJobs(response?.data);
+        
+      };
+
+      fetchJobs(); 
     }
-  }, [id, loading]); // Re-run effect if id or loading status changes
+  }, [id, loading]); 
+
+  console.log(jobs)
 
   if (loading) {
-    return <div>Loading jobs...</div>; // Display loading state while fetching data
+    return <div>Loading jobs...</div>; 
   }
 
   if (roleError || error) {
-    return <div>Error: {roleError || error}</div>; // Display any errors
+    return <div>Error: {roleError || error}</div>; 
   }
 
   if (jobs.length === 0) {
-    return <div>No jobs available for this company.</div>; // Handle case when no jobs are found
+    return <div>No jobs available for this company.</div>; 
   }
 
   return (
@@ -48,7 +49,8 @@ const JobTable = () => {
           {jobs.map((job) => (
             <tr key={job._id} className="border-b">
               <td className="px-4 py-2">{job.title}</td>
-              {/* <td className="px-4 py-2">
+              {/* Uncomment if you want to display job status
+              <td className="px-4 py-2">
                 <span
                   className={`${
                     job.status === "Open" ? "text-green-500" : "text-red-500"
