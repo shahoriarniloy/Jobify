@@ -18,9 +18,9 @@ const MessageDetail = () => {
     try {
       const response = await axiosSecure.get(`/individual-messages?email=${currentUser.email}&otherPartyEmail=${otherPartyEmail}`);
       setMessages(response.data);
-      console.log('messages', response.data);
+      // console.log('messages', response.data);
     } catch (error) {
-      console.error("Error fetching messages:", error);
+      // console.error("Error fetching messages:", error);
     }
   };
 
@@ -46,7 +46,7 @@ const MessageDetail = () => {
       setNewMessage("");
       fetchMessages();  
     } catch (error) {
-      console.error("Error sending message:", error);
+      // console.error("Error sending message:", error);
     }
   };
 

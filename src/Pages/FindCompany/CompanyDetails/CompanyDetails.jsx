@@ -24,7 +24,7 @@ const CompanyDetails = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
-  console.log(companyId);
+  // console.log(companyId);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -32,7 +32,7 @@ const CompanyDetails = () => {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
       } catch (error) {
-        console.error("Error fetching company data:", error);
+        // console.error("Error fetching company data:", error);
       }
     };
 
@@ -70,7 +70,7 @@ const CompanyDetails = () => {
 
     try {
         await axiosSecure.post(`/sendMessage`, messageData);
-        console.log("Message sent successfully:", messageData);
+        // console.log("Message sent successfully:", messageData);
         
         setMessages(prevMessages => [
             ...prevMessages,
@@ -85,7 +85,7 @@ const CompanyDetails = () => {
 
         setNewMessage(""); ; 
     } catch (error) {
-        console.error("Error sending message:", error);
+        // console.error("Error sending message:", error);
     }
 };
 

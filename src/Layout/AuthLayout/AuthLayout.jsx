@@ -4,8 +4,10 @@ import Navbar2 from '../../Shared/Navbar2';
 import Footer from '../../Shared/Footer';
 
 const AuthLayout = () => {
+
+    // bg-[#F1F2F4]
     return (
-        <div className=' bg-[#F1F2F4]'>
+        <div className=' bg-white'>
              {/* <Navbar></Navbar> */}
              <Navbar2></Navbar2>
             <div className="auth-container lg:px-24 md:px-12 px-4">

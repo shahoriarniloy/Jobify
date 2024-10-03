@@ -31,6 +31,9 @@ import MyJob from "../Pages/Dashboard/Company/MyJob";
 import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs"
 import Messages from "../Pages/Dashboard/Employee/Messages";
 import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
+
+import JobTable from "../Pages/Dashboard/Company/MyJob";
+
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
 
 
@@ -84,22 +87,13 @@ export const router = createBrowserRouter([
         element: <Candidates/> ,
 
       },
+      {
+        path:"/myjobs",
+        element:<JobTable/>
+      }
+
     ],
   },
-  // {
-  //   path: "/dashboard",
-  //   element: <Dashboard />, 
-  //   children: [
-  //     {
-  //       path: "/postJob",
-  //       element: <PostJob></PostJob> ,
-  //     },
-  //     {
-  //       path: "/myJob",
-  //       element: <MyJob></MyJob>, 
-  //     },
-  //   ],
-  // },
   {
     path: "/",
     element: <AuthLayout />,  

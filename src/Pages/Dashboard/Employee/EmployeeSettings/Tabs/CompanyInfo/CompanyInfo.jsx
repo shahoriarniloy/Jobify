@@ -26,18 +26,16 @@ const CompanyInfo = () => {
     setBannerFile(file);
   };
 
-  // Convert rich text to plain text only when submitting the form
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Convert rich text to plain text during submission
     const doc = new DOMParser().parseFromString(aboutUs, "text/html");
     const plainTextAboutUs = doc.body.innerText || ""; // Extract plain text
 
-    console.log("Company Name:", companyName);
-    console.log("About Us (Plain Text):", plainTextAboutUs); // Log the plain text
-    console.log("Logo File:", logoFile);
-    console.log("Banner File:", bannerFile);
+    // console.log("Company Name:", companyName);
+    // console.log("About Us (Plain Text):", plainTextAboutUs);
+    // console.log("Logo File:", logoFile);
+    // console.log("Banner File:", bannerFile);
   };
 
   return (
@@ -45,9 +43,7 @@ const CompanyInfo = () => {
       <h2 className="font-bold mt-8 mb-4 text-xl">Logo & Banner Image</h2>
 
       <form onSubmit={handleSubmit}>
-        {/* Image Upload section */}
         <section className="flex flex-col md:flex-row md:gap-6 gap-4">
-          {/* Logo Upload Section */}
           <div className="md:w-2/6 ">
             <DragAndDropInput
               type="logo"
@@ -58,7 +54,6 @@ const CompanyInfo = () => {
             <p className="text-gray-400 mt-2">Maximum 3.5 MB</p>
           </div>
 
-          {/* Banner Upload Section */}
           <div className="w-full">
             <DragAndDropInput
               type="banner"
@@ -72,7 +67,6 @@ const CompanyInfo = () => {
 
         <hr className="my-4" />
 
-        {/* Company name input */}
         <div className="flex flex-col">
           <label htmlFor="textInput" className="text-lg font-medium mb-2">
             Company Name
@@ -87,13 +81,12 @@ const CompanyInfo = () => {
           />
         </div>
 
-        {/* About us */}
         <section className="mt-4">
           <h3 className="text-lg font-medium mb-2">About us</h3>
           <div className="quill-wrapper relative border rounded-lg bg-white ">
             <ReactQuill
-              value={aboutUs} // Keep rich text in state
-              onChange={handleAboutUsChange} // Update with rich text
+              value={aboutUs} 
+              onChange={handleAboutUsChange} 
               placeholder="Write down your biography here. Let the employers know who you are..."
               modules={{
                 toolbar: [
@@ -102,9 +95,9 @@ const CompanyInfo = () => {
                   ["link"],
                 ],
               }}
-              formats={["bold", "italic", "underline", "list", "bullet", "link"]} // Enable formats
+              formats={["bold", "italic", "underline", "list", "bullet", "link"]} 
               className="custom-quill-editor "
-              style={{ direction: "ltr" }} // Force left-to-right (LTR) direction
+              style={{ direction: "ltr" }} 
             />
           </div>
         </section>

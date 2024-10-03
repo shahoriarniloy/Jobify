@@ -42,12 +42,12 @@ return (
         fixed top-0 left-0 w-[75%] max-w-[290px] bg-white z-40 min-h-screen p-6 lg:min-h-[60vh] transition-transform
         duration-300 ease-in-out lg:relative`}>
         <div className="space-y-2">
-          <NavLink to="/dashboard/overview" className={({ isActive })=>
+          {/* <NavLink to="/dashboard/overview" className={({ isActive })=>
             isActive ? 'isActiveRoute' : 'flex items-center pl-5 py-2 text-[#767F8C] gap-2'
             }
             >
             <FiLayers className="text-xl" /> Overview
-          </NavLink>
+          </NavLink> */}
 
           {role === "Job Seeker" && (
           <>
@@ -84,6 +84,12 @@ return (
 
           {role === "Employer" && (
           <>
+          <NavLink to="/dashboard/overview" className={({ isActive })=>
+            isActive ? 'isActiveRoute' : 'flex items-center pl-5 py-2 text-[#767F8C] gap-2'
+            }
+            >
+            <FiLayers className="text-xl" /> Overview
+          </NavLink>
             <NavLink to="/dashboard/postJob" className={({ isActive })=>
               isActive ? 'isActiveRoute' : 'flex items-center pl-5 py-2 text-[#767F8C] gap-2'
               }
