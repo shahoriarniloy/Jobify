@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import useUserRole from '../../../Hooks/useUserRole';
 import axiosSecure from '../../../Hooks/UseAxiosSecure'; 
+import useCurrentUser from '../../../Hooks/useCurrentUser';
 
 const JobTable = () => {
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState(null);
+  const {currentUser} = useCurrentUser();
   const { id, loading, error: roleError } = useUserRole(); 
 
   useEffect(() => {
     if (!loading && id) { 
       const fetchJobs = async () => {
         
-          const response = await axiosSecure.get(`/company-jobs/${id}`);
+          const response = await axiosSecure.get(`/company-jobs?email=${currentUser?.email}`);
           setJobs(response?.data);
         
       };
