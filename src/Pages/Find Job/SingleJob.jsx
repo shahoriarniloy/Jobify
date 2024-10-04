@@ -29,14 +29,11 @@ const SingleJob = () => {
       try {
         const response = await axiosSecure.get(`/single-job/${id}`);
         setJob(response.data);
-        console.log(job);
-
-        setCompany(response.data.company); 
+        setCompany(response.data.company);
 
         await checkIfApplied(response.data._id, currentUser.email);
 
         await checkIfBookmarked(response.data._id, currentUser.email);
-
       } catch (error) {
         // console.error("Error fetching job data:", error);
       }
@@ -63,7 +60,6 @@ const SingleJob = () => {
       // console.error("Error checking application status:", error);
     }
   };
-
 
   // const checkIfBookmarked = async (jobId, userEmail) => {
   //   try {
@@ -104,7 +100,7 @@ const SingleJob = () => {
   // };
 
   const handleApplicationSuccess = () => {
-    setHasApplied(true); 
+    setHasApplied(true);
   };
 
   const openModal = () => {
@@ -159,18 +155,14 @@ const SingleJob = () => {
 
         <div className="flex flex-col">
           <div className="flex items-center gap-3 mb-3">
-
-            <div
-              className="px-2 py-1 bg-blue-100 rounded-md cursor-pointer"
-              
-            >
+            <div className="px-2 py-1 bg-blue-100 rounded-md cursor-pointer">
               {/* {isBookmarked ? (
                 <span className="text-blue-600">Bookmarked</span>
               ) : (
                 <span className="text-blue-600">Bookmark</span>
               )} */}
 
-<Bookmark jobId={job._id} />
+              <Bookmark jobId={job._id} />
             </div>
 
             <div className="items-center">
@@ -186,14 +178,12 @@ const SingleJob = () => {
                 {hasApplied ? "Already Applied" : "Apply now"} <FaArrowRight />
               </button>
 
-           
-
               <ApplyJobModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 job={job}
                 user={currentUser}
-                onApplicationSuccess={handleApplicationSuccess} 
+                onApplicationSuccess={handleApplicationSuccess}
               />
             </div>
           </div>
@@ -260,7 +250,6 @@ const SingleJob = () => {
           </div>
         </section>
       </section>
-      
 
       <RelatedJobs title={"Related Jobs"} job={job} />
     </div>
