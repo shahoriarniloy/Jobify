@@ -11,6 +11,7 @@ const RelatedJobs = ({ job, title }) => {
     const [limit, setLimit] = useState(6); 
   
     const jobTitle = job?.title || ''; // Corrected to use 'title'
+    
    
   
     useEffect(() => {
