@@ -1,32 +1,28 @@
 import { useEffect, useState } from 'react';
 import useUserRole from '../../../Hooks/useUserRole';
 import axiosSecure from '../../../Hooks/UseAxiosSecure'; 
+import useCurrentUser from '../../../Hooks/useCurrentUser';
 
 const JobTable = () => {
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState(null);
+  const {currentUser} = useCurrentUser();
   const { id, loading, error: roleError } = useUserRole(); 
 
   useEffect(() => {
     if (!loading && id) { 
       const fetchJobs = async () => {
-        try {
-          const response = await axiosSecure.get(`/company-jobs/${id}`);
-          const data = response.data;
-          
-          if (Array.isArray(data)) { 
-            setJobs(data);
-          } else {
-            setError('Unexpected response format'); 
-          }
-        } catch (error) {
-          setError('Error fetching jobs: ' + error.message);
-        }
+        
+          const response = await axiosSecure.get(`/company-jobs?email=${currentUser?.email}`);
+          setJobs(response?.data);
+        
       };
 
       fetchJobs(); 
     }
   }, [id, loading]); 
+
+  // console.log(jobs)
 
   if (loading) {
     return <div>Loading jobs...</div>; 

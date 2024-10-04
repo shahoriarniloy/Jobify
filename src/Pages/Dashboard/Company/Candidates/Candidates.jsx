@@ -6,13 +6,13 @@ const Candidates = () => {
     const [candidates, setCandidates] = useState([]);
 
     useEffect(() => {
-        fetch('candidates.json')
+        fetch('/candidates.json')
             .then(res => res.json())
             .then(data => setCandidates(data));
     }, []);
 
     return (
-        <div className="grid lg:grid-cols-[1fr_2fr] md:grid-cols-[1fr_2fr] grid-cols-1 m-10 gap-5">
+        <div className="flex lg:flex-row flex-col m-10 gap-5">
       
           <CandidatesFilter></CandidatesFilter>
 
@@ -26,6 +26,8 @@ const Candidates = () => {
                         />
                     ))
                 }
+
+                
             </div>
         </div>
     );

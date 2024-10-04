@@ -18,15 +18,15 @@ const CandidateCard = ({ candidate }) => {
 
     return (
         <div>
-            <div className="card card-side bg-base-100 shadow-xl mb-5" style={{ maxHeight: '250px' }}>
+            <div className="card card-side bg-base-100 shadow-xl mb-5" >
                 <figure>
-                    <img className='m-2 rounded-lg' src={image} alt={candidate_name} style={{ height: '100px', width: 'auto' }} />
+                    <img className=' rounded-lg' src={image} alt={candidate_name} style={{ height: '100px', width: 'auto' }} />
                 </figure>
-                <div className="card-body" style={{ padding: '10px' }}>
-                    <h2 className="card-title" style={{ fontSize: '1.2rem' }}>{candidate_name}</h2>
+                <div className="card-body p-4" >
+                    <h2 className="card-title" >{candidate_name}</h2>
                     <p>{designation}</p>
-                    <div className='md:flex lg:flex grid items-center mr-52'>
-                        <MdOutlineLocationOn className="mr-2" />
+                    {/* <div className='flex lg:flex-row flex-col items-center mr-52'>
+                        <MdOutlineLocationOn className="mr-2 text-2xl" />
                         <p className="mr-2">{location}</p>
                         <div className="candidate-experience flex items-center">
                             <BsCurrencyDollar className="mr-2" />
@@ -38,7 +38,7 @@ const CandidateCard = ({ candidate }) => {
                                 ))}
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="card-actions justify-center mr-5">
                     <GoBookmark className='mt-14' />

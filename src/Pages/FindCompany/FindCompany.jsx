@@ -79,7 +79,7 @@ if (!response.data.totalCompanies) {
 toast.info("No matching data found");
 }
 
-console.log(response.data);
+// console.log(response.data);
 } catch (err) {
 // console.error("Error fetching Companies:", err);
 setError("Failed to fetch Companies. Please try again later.");
@@ -210,7 +210,7 @@ if (currentPage < pages.length - 1) { setCurrentPage(currentPage + 1); } }; retu
           {/*
           <Bookmark companyId={company._id} /> */}
         </div>
-        <Link to={`/company-details/${company._id}`}> <button className="bg-blue-500 text-white px-3 py-1 rounded">
+        <Link to={`/company-details/${company.email}`}> <button className="bg-blue-500 text-white px-3 py-1 rounded">
         Details</button>
         </Link>
       </div>
