@@ -1,6 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    updateProfile,
+    onAuthStateChanged,
+    GoogleAuthProvider,
+    signInWithPopup
+} from "firebase/auth";
 import auth from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null);
@@ -23,7 +31,8 @@ const AuthProvider = ({ children }) => {
 
     const signInUser = (email, password) => {
         setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
+        return signInWithEmailAndPassword(auth, email, password)
+            .finally(() => setLoading(false));
     };
 
     const signInWithGoogle = () => {
@@ -37,22 +46,23 @@ const AuthProvider = ({ children }) => {
                     photoURL: user.photoURL
                 };
                 setUser(userInfo);
-                setLoading(false);
             })
             .catch((error) => {
-                // console.error(error);
-                setLoading(false);
-            });
+                console.error(error); // Consider logging the error for debugging
+            })
+            .finally(() => setLoading(false)); // Ensure loading state is reset
     };
 
     const logOut = () => {
         setLoading(true);
-        return signOut(auth);
+        return signOut(auth)
+            .then(() => setUser(null))
+            .finally(() => setLoading(false)); // Reset loading state after logout
     };
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setLoading(true);
+            setLoading(true); // Start loading
             if (currentUser) {
                 const userInfo = {
                     email: currentUser.email,
@@ -60,12 +70,10 @@ const AuthProvider = ({ children }) => {
                     photoURL: currentUser.photoURL
                 };
                 setUser(userInfo);
-                setLoading(false);
             } else {
                 setUser(null);
-                setLoading(false);
             }
-            // console.log('User state changed:', currentUser);
+            setLoading(false); // End loading after processing user state
         });
 
         return () => {

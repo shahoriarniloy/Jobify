@@ -5,12 +5,8 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { FaTh, FaList } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Bookmark from './Bookmark';
+import Bookmark from "./Bookmark";
 import { Link } from "react-router-dom";
-
-
-
-
 
 const AdvancedSearch = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -45,7 +41,7 @@ const AdvancedSearch = () => {
       try {
         const response = await axiosSecure.get(
           `/jobs?page=${currentPage}&size=${itemsPerPage}`
-        ); 
+        );
         // console.log(response.data);
         setJobs(response.data.jobs);
         setTotalJobs(response.data.totalJobs);
@@ -136,7 +132,7 @@ const AdvancedSearch = () => {
 
   return (
     <div className="p-4   pt-24 mx-8 ">
-      <div className="w-full bg-white rounded-lg  p-6 flex-1">
+      <div className="w-full bg-[#f6f8f8] rounded-lg  p-6 flex-1">
         <form
           className="flex flex-col sm:flex-row gap-4 sm:gap-2"
           onSubmit={handleSearch}
@@ -329,81 +325,92 @@ const AdvancedSearch = () => {
       </h2> */}
 
       <div className="flex justify-between items-center">
-      <div className="flex items-center justify-center lg:gap-4 md:gap-4 gap-2 mt-4">
-        <label
-          htmlFor="itemsPerPage"
-          className="text-sm font-medium text-blue-900 "
-        >
-          Number of Jobs Per Page:
-        </label>
-        <select
-          id="itemsPerPage"
-          value={itemsPerPage}
-          onChange={handleItemsPerPage}
-          className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
-        >
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-        </select>
-      </div>
+        <div className="flex items-center justify-center lg:gap-4 md:gap-4 gap-2 mt-4">
+          <label
+            htmlFor="itemsPerPage"
+            className="text-sm font-medium text-blue-900 "
+          >
+            Number of Jobs Per Page:
+          </label>
+          <select
+            id="itemsPerPage"
+            value={itemsPerPage}
+            onChange={handleItemsPerPage}
+            className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+          >
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+          </select>
+        </div>
 
-      <div className="view-toggle flex justify-end mt-2 gap-4">
-        <button
-          onClick={() => setViewMode("list")}
-          className="flex items-center"
-        >
-          <FaList className="mr-2" /> 
-        </button>
-        <button
-          onClick={() => setViewMode("grid")}
-          className="flex items-center"
-        >
-          <FaTh className="mr-2" /> 
-        </button>
-      </div>
+        <div className="view-toggle flex justify-end mt-2 gap-4">
+          <button
+            onClick={() => setViewMode("list")}
+            className="flex items-center"
+          >
+            <FaList className="mr-2" />
+          </button>
+          <button
+            onClick={() => setViewMode("grid")}
+            className="flex items-center"
+          >
+            <FaTh className="mr-2" />
+          </button>
+        </div>
       </div>
 
       {viewMode === "list" ? (
         <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800 mt-4">
           <div className="overflow-x-auto">
-          <div className="overflow-x-auto"> 
-  <table className="min-w-full text-xs sm:text-sm">
-    <thead className="dark:bg-gray-300">
-      <tr className="text-left">
-        <th className="p-3">Job Title</th>
-        <th className="p-3 hidden md:table-cell">Company</th> 
-        <th className="p-3 hidden md:table-cell">Salary</th> 
-        <th className="p-3">Details</th>
-        <th className="p-3 hidden lg:table-cell">Bookmark</th> 
-      </tr>
-    </thead>
-    <tbody>
-      {(filteredJobs.length > 0 ? filteredJobs : jobs).map((job) => (
-        <tr
-          key={job._id}
-          className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
-        >
-          <td className="p-3">
-            <span className="block text-sm font-semibold">{job.title}</span> 
-            <span className="block text-xs text-gray-500 md:hidden">{job.company}</span> 
-          </td>
-          <td className="p-3 hidden md:table-cell">{job.company}</td> 
-          <td className="p-3 hidden md:table-cell">{job.salaryRange}</td> 
-          <td className="p-3">
-            <Link to={`/job/${job._id}`}>
-              <button className="text-blue-600 hover:underline">Details</button>
-            </Link>
-          </td>
-          <td className="p-3 hidden lg:table-cell">
-            <Bookmark jobId={job._id} />
-          </td> 
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-xs sm:text-sm">
+                <thead className="dark:bg-gray-300">
+                  <tr className="text-left">
+                    <th className="p-3">Job Title</th>
+                    <th className="p-3 hidden md:table-cell">Company</th>
+                    <th className="p-3 hidden md:table-cell">Salary</th>
+                    <th className="p-3">Details</th>
+                    <th className="p-3 hidden lg:table-cell">Bookmark</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(filteredJobs.length > 0 ? filteredJobs : jobs).map(
+                    (job) => (
+                      <tr
+                        key={job._id}
+                        className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+                      >
+                        <td className="p-3">
+                          <span className="block text-sm font-semibold">
+                            {job.title}
+                          </span>
+                          <span className="block text-xs text-gray-500 md:hidden">
+                            {job.company}
+                          </span>
+                        </td>
+                        <td className="p-3 hidden md:table-cell">
+                          {job.company}
+                        </td>
+                        <td className="p-3 hidden md:table-cell">
+                          {job.salaryRange}
+                        </td>
+                        <td className="p-3">
+                          <Link to={`/job/${job._id}`}>
+                            <button className="text-blue-600 hover:underline">
+                              Details
+                            </button>
+                          </Link>
+                        </td>
+                        <td className="p-3 hidden lg:table-cell">
+                          <Bookmark jobId={job._id} />
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       ) : (
@@ -417,29 +424,24 @@ const AdvancedSearch = () => {
                 <div className="space-y-2 flex flex-col">
                   <div className="h-24">
                     <h2 className="text-3xl font-semibold tracking-wide">
-                    {job.title}
-                  </h2>
+                      {job.title}
+                    </h2>
                   </div>
                   <div className="h-6">
-                  <p className="text-blue-500">{job.company}</p>
-
-
+                    <p className="text-blue-500">{job.company}</p>
                   </div>
                   <div className="h-6">
-                  <p>Salary: {job.salaryRange}</p>
-
-
+                    <p>Salary: {job.salaryRange}</p>
                   </div>
-                  
 
                   <Bookmark jobId={job._id} />
                 </div>
                 <Link
-    to={`/job/${job._id}`} 
-    className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-gradient-to-r from-blue-500 to-blue-700 dark:text-gray-50"
-  >
-    Details
-  </Link>
+                  to={`/job/${job._id}`}
+                  className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-gradient-to-r from-blue-500 to-blue-700 dark:text-gray-50"
+                >
+                  Details
+                </Link>
               </div>
             </div>
           ))}
@@ -475,8 +477,6 @@ const AdvancedSearch = () => {
           Next
         </button>
       </div>
-
-     
     </div>
   );
 };

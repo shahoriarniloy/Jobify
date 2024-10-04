@@ -6,8 +6,9 @@ import SideBar from "../../components/Sidebar/SideBar";
 const Dashboard = () => {
     return (
         <div className="flex h-screen">
+            
             <SideBar></SideBar>
-            <div className="flex-1 lg:p-6 md:p-6 p-2">
+            <div className="flex-1 lg:p-12 md:p-6 p-2">
                 
                 <Outlet></Outlet>
             </div>

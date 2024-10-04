@@ -26,13 +26,13 @@ const TopCompanies = () => {
       {error ? (
         <p className="text-redCastomize">Error: {error}</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-4">
           {companies.map((company) => (
             <div
               key={company.company_name}
-              className="border border-gray-200 rounded-lg text-center bg-white hover:shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out"
+              className="border border-gray-200 rounded-lg text-center bg-white hover:shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out "
             >
-              <div className="w-full h-48 overflow-hidden rounded-t-lg">
+              <div className="w-full h-48 overflow-hidden rounded-t-lg ">
                 <img
                   src={company.company_logo}
                   alt={`${company.company_name} Logo`}

@@ -1,23 +1,35 @@
 import { useEffect, useState } from "react";
-import useCurrentUser from "../../Hooks/useCurrentUser"; 
-import axiosSecure from "../../Hooks/UseAxiosSecure"; 
-import { FaBriefcase, FaClock, FaDollarSign, FaTrash } from 'react-icons/fa'; 
+import useCurrentUser from "../../../Hooks/useCurrentUser"; 
+import axiosSecure from "../../../Hooks/UseAxiosSecure"; 
+import { FaBriefcase, FaClock, FaDollarSign, FaTrash, FaCheckCircle } from 'react-icons/fa'; 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 
 const BookmarkedJobs = () => {
     const { currentUser } = useCurrentUser();
     const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchBookmarkedJobs = async () => {
             if (currentUser) {
                 try {
-                    const { data: bookmarks } = await axiosSecure.get(`/bookmarks/${currentUser.email}`);
-                    const jobPromises = bookmarks.map(bm => axiosSecure.get(`/jobs/${bm.jobId}`));
+                    const { data: bookmarks } = await axiosSecure.get(`/bookmarks?email=${currentUser.email}`);
+                    const jobPromises = bookmarks.map(async (bm) => {
+                        const { data: job } = await axiosSecure.get(`/jobs/${bm.jobId}`);
+                        const appliedResponse = await axiosSecure.get("/check_application", {
+                            params: {
+                                job_id: job._id,
+                                user_email: currentUser.email,
+                            },
+                        });
+                        job.hasApplied = appliedResponse.data.applied;  // Adding applied status to the job object
+                        return job;
+                    });
                     const jobResponses = await Promise.all(jobPromises);
-                    setBookmarkedJobs(jobResponses.map(res => res.data));
+                    setBookmarkedJobs(jobResponses);
                 } catch (error) {
                     // console.error("Error fetching bookmarked jobs:", error);
                 } finally {
@@ -33,10 +45,26 @@ const BookmarkedJobs = () => {
         try {
             await axiosSecure.delete(`/bookmarks/${currentUser.email}/${jobId}`);
             setBookmarkedJobs(prevJobs => prevJobs.filter(job => job._id !== jobId));
-            toast.success("Bookmark Deleted")
+            toast.success("Bookmark Deleted");
         } catch (error) {
             // console.error("Error deleting bookmark:", error);
         }
+    };
+
+    const handleApplicationSuccess = () => {
+        // When the job application is successful
+        setBookmarkedJobs(prevJobs => prevJobs.map(job => ({
+            ...job,
+            hasApplied: true,  // Set hasApplied to true when applied successfully
+        })));
+    };
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     if (loading) return <p>Loading...</p>;
@@ -44,7 +72,7 @@ const BookmarkedJobs = () => {
     return (
         <div className="flex flex-col gap-2 pt-2">
             {bookmarkedJobs.map(job => {
-                const isDeadlineExpired = new Date(job.deadline) < new Date(); 
+                const isDeadlineExpired = new Date(job.deadline) < new Date();
                 return (
                     <div key={job._id} className="h-fit p-6 bg-base-100 shadow-xl rounded-xl mx-24">
                         <div className="flex lg:flex-row md:flex-row flex-col justify-between items-center">
@@ -67,15 +95,31 @@ const BookmarkedJobs = () => {
                             </div>
 
                             <div className="card-actions justify-end mt-6 flex items-center">
-                                <button 
-                                    className={`btn ${isDeadlineExpired ? 'btn-disabled' : 'btn-primary'}`} 
-                                    disabled={isDeadlineExpired}
-                                >
-                                    {isDeadlineExpired ? 'Deadline Expired' : 'Apply Now'}
-                                    {!isDeadlineExpired && (
-                                        <span className="ml-2">→</span> 
-                                    )}
-                                </button>
+                                {!job.hasApplied ? (
+                                    <button title="Tap to Apply"
+                                        onClick={openModal}
+                                        className={`btn ${isDeadlineExpired ? 'btn-disabled' : 'btn-primary'}`} 
+                                        disabled={isDeadlineExpired}
+                                    >
+                                        {isDeadlineExpired ? 'Deadline Expired' : (
+                                            <>
+                                                <ApplyJobModal
+                                                    isOpen={isModalOpen}
+                                                    onClose={closeModal}
+                                                    job={job}
+                                                    user={currentUser}
+                                                    onApplicationSuccess={handleApplicationSuccess} 
+                                                />
+                                                <span className="ml-2">Apply Now →</span>
+                                            </>
+                                        )}
+                                    </button>
+                                ) : (
+                                    <div className="flex items-center">
+                                        <FaCheckCircle className="text-green-500 mr-2" />
+                                        <p className="text-green-400">Applied</p>
+                                    </div>
+                                )}
 
                                 <FaTrash 
                                     className="ml-4 text-red-500 cursor-pointer hover:text-red-700" 

@@ -1,7 +1,6 @@
 import { BN, US } from "country-flag-icons/react/3x2";
 import { BiPhoneCall } from "react-icons/bi";
-import { NavLink } from "react-router-dom"; 
-import Navbar2 from "../Home/Navbar2/Navbar2";
+import { NavLink } from "react-router-dom"; // Use NavLink
 
 const Navbar = () => {
     const navItem = (
@@ -16,6 +15,9 @@ const Navbar = () => {
                 <NavLink to='/companies' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Find Company</NavLink>
             </li>
             <li>
+                <NavLink to='/dashboard/messages' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>Messaging</NavLink>
+            </li>
+            <li>
                 <NavLink to='/about' className={({ isActive }) => isActive ? 'active-nav nav-link' : 'nav-link'}>About Us</NavLink>
             </li>
             
@@ -24,7 +26,7 @@ const Navbar = () => {
 
     return (
         <div>
-            <div className="navbar bg-[#F1F2F4]">
+            <div className="navbar bg-[#fcfcfcdf]">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -44,11 +46,11 @@ const Navbar = () => {
                 </div>
 
                 <div className="navbar-end flex items-center gap-4">
-                    <div className="flex gap-2">
+                    {/* <div className="flex gap-2">
                         <span className="text-gray-700 mt-1"><BiPhoneCall /></span>
                         <span className="text-gray-700">+1 234 567 890</span>
-                    </div>
-                    <div className="dropdown dropdown-end">
+                    </div> */}
+                    {/* <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="text-gray-700 px-3 py-1 rounded-full cursor-pointer flex items-center gap-1">
                             <US title="United States" className="w-5 h-5" /> EN
                         </label>
@@ -64,11 +66,9 @@ const Navbar = () => {
                                 </button>
                             </li>
                         </ul>
-                    </div>
+                    </div> */}
                 </div>
             </div>
-
-            <Navbar2 />
         </div>
     );
 };

@@ -1,11 +1,14 @@
 import Swal from "sweetalert2";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import Quill's CSS for styling
+import "../../Styles/TextEditorTools/CustomReactQuill.css";
 import {
   Description,
   Dialog,
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 
@@ -14,48 +17,48 @@ const ApplyJobModal = ({
   onClose,
   job,
   user,
-  onApplicationSuccess,
-}) => {
+  onApplicationSuccess}) => {
   const { title } = job;
-  const [resume, setResume] = useState(null);
-  const [coverLetter, setCoverLetter] = useState("");
+  const jobID = job?._id;
+  const [coverLetter, setCoverLetter] = useState(""); // Keep rich text
+ 
+  // convert to plain text
+  const plainText = () => {
+    const doc = new DOMParser().parseFromString(coverLetter, "text/html");
+    const plainTextCoverLetter = doc.body.innerText || ""; // Extract plain text
 
-  const application = {
-    coverLetter: coverLetter,
-    job_id: job?._id,
-    company_id: job?.company_id,
-    user_email: user?.email,
-  };
+    const application = {
+      coverLetter: plainTextCoverLetter, // Use plain text here
+      job_id: jobID,
+      company_id: job?.company_id,
+      user_email: user?.email,
+    };
 
-  const handleResumeChange = (e) => {
-    const file = e.target.files[0];
-    setResume(file);
-  };
+    return application;
+  }
 
-  const handleCoverLetterChange = (e) => {
-    setCoverLetter(e.target.value);
-  };
+  // already applied ?
+
+
+
 
   const handleApply = async () => {
-    try {
-      // Send application data to the backend
-      const response = await axiosSecure.post("/apply_job", application);
+    const applicationData = plainText();
 
-      if (response.status === 201) {
-        // Call the onApplicationSuccess callback to update the application status
-        onApplicationSuccess();
-
-        Swal.fire({
-          icon: "success",
-          title: "Application Submitted!",
-          text: "Your application has been successfully submitted.",
-          confirmButtonText: "OK",
-        }).then(() => {
-          onClose(); // Close the modal after successful submission
-        });
-      }
-    } catch (error) {
-      // console.error("Error applying for job:", error);
+    // Send application data to the backend
+    const {data} = await axiosSecure.post("/apply_job", applicationData);
+    
+    
+    if (data?.insertedId !== null) {
+      Swal.fire({
+        icon: "success",
+        title: "Application Submitted!",
+        text: "Your application has been successfully submitted.",
+        confirmButtonText: "OK",
+      }).then(() => {
+        onClose(); // Close the modal after successful submission
+      });
+    } else {
       Swal.fire({
         icon: "error",
         title: "Submission Failed",
@@ -63,6 +66,7 @@ const ApplyJobModal = ({
         confirmButtonText: "OK",
       });
     }
+
   };
 
   return (
@@ -79,37 +83,43 @@ const ApplyJobModal = ({
               Apply Job : {title}{" "}
             </DialogTitle>
 
+            {/* Resume upload can be uncommented if needed */}
             {/* <Description className="font-semibold">Choose Resume</Description>
             <input
               type="file"
-              name=""
-              id=""
-              accept=".pdf,.doc,.docx" 
+              accept=".pdf,.doc,.docx"
               onChange={handleResumeChange}
               className="w-full border rounded p-2"
             /> */}
 
             <Description className="font-semibold">Cover Letter</Description>
-            <textarea
-              name=""
-              id=""
-              rows="5"
-              placeholder="Write down your biography here. Let the employers know who you are..."
-              value={coverLetter}
-              onChange={handleCoverLetterChange}
-              className="w-full border rounded p-2"
-            />
+            <div className="quill-wrapper relative border rounded-lg">
+              <ReactQuill
+                value={coverLetter} // Keep rich text
+                onChange={e => setCoverLetter(e)} // Update with rich text
+                placeholder="Write your cover letter here..."
+                modules={{
+                  toolbar: [
+                    ["bold", "italic", "underline"],
+                    [{ list: "ordered" }, { list: "bullet" }],
+                    ["link"],
+                  ],
+                }}
+                className="custom-quill-editor"
+              />
+            </div>
 
             <div className="flex justify-between">
               <button
-                className="bg-blue-100 text-blue-500 font-bold px-4 py-2 rounded mr-2 "
+                className="bg-blue-100 text-blue-500 font-bold px-4 py-2 rounded mr-2"
                 onClick={onClose}
               >
                 Cancel
               </button>
 
               <button
-                className={`flex items-center gap-3 px-6 py-3 rounded-md ${"bg-blue-700"} text-white`}
+              
+                className={`flex items-center gap-3 px-6 py-3 rounded-md bg-blue-700 text-white`}
                 onClick={handleApply}
               >
                 Apply now <FaArrowRight />

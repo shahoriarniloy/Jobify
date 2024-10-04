@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axiosSecure from '../Hooks/UseAxiosSecure';
+import axiosSecure from '../../Hooks/UseAxiosSecure';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import useCurrentUser from "../Hooks/useCurrentUser";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 
 const Reviews = () => {
 const [reviews, setReviews] = useState([]);
@@ -24,7 +24,8 @@ try {
 const response = await axiosSecure.get(`/reviews?page=${page}&limit=3`);
 // console.log(response);
 // console.log(response.data);
-setReviews(response.data);
+setReviews(response.data.reviews);
+// console.log(reviews);
 setTotalPages(response.data.totalPages);
 setCurrentPage(response.data.currentPage);
 } catch (error) {
@@ -83,14 +84,15 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
   };
 
   return (
-  <div className='lg:px-32 mx-2 my-4 '>
+  <div className='  '>
     <section className="py-8">
   <div className="container mx-auto px-6 text-center">
-    <h2 className="text-4xl font-bold text-blue-600 animate-fadeIn">About Jobify</h2>
-    <p className="mt-4 text-lg max-w-2xl mx-auto ">
+    <h2 className="text-4xl font-bold text-blue-600 ">About Jobify</h2>
+    <p className="mt-4 text-lg  mx-auto ">
       Jobify is a cutting-edge platform designed to streamline the hiring process for both job seekers and employers. Our mission is to connect talented individuals with top-notch companies through a user-friendly interface and innovative technology.
     </p>
   </div>
+  
 </section>
 
 
@@ -99,12 +101,12 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
       <section className="">
   <div className="container mx-auto px-6 text-center">
     <h2 className="text-4xl font-bold text-blue-600">Why Choose Us?</h2>
-    <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+    <p className="mt-4 text-lg text-gray-600  mx-auto">
       We are a platform designed to make the hiring and job-seeking process effortless for everyone. Here’s
       why you should choose <strong>Jobify</strong>.
     </p>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-12 ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12 ">
       <div className=" p-6 bg-white rounded-lg shadow-lg   hover:scale-105 hover:shadow-2xl ">
         <h3 className="text-2xl font-semibold text-blue-600">Experienced Professionals</h3>
         <p className="mt-4 text-gray-600">
@@ -159,10 +161,10 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
 
       <h1 className="text-3xl text-center mt-8 font-bold mb-12">Feedbacks</h1>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6">
         <div className="p-8 shadow-sm rounded-xl bg-white">
           <h3>Your Rating:</h3>
-          <div className="flex flex-col py-4 space-y-3 h-36 w-64">
+          <div className="flex flex-col py-4 space-y-3 h-36">
             <div className="flex space-x-2">
               {[1, 2, 3, 4, 5].map((stars) => (
               <button key={stars} type="button" onClick={()=> handleRate(stars)} className="w-8 h-8 text-blue-500">
@@ -177,7 +179,7 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
           </div>
 
           <input type="text" value={username} onChange={(e)=> setUsername(e.target.value)} placeholder="Enter your
-          username" className="w-full rounded-md p-2 focus:ring focus:ring-opacity-75 dark:text-gray-700
+          username" className="w-3/4 rounded-md p-2 focus:ring focus:ring-opacity-75 dark:text-gray-700
           focus:ring-violet-600 dark:border-gray-300 mb-4" required />
           <textarea rows="3" value={feedback}
             onChange={(e)=> setFeedback(e.target.value)} placeholder="Your feedback" className="w-full rounded-md p-2 focus:ring focus:ring-opacity-75 dark:text-gray-700 focus:ring-violet-600 dark:border-gray-300" required></textarea>
@@ -186,6 +188,8 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
             Leave feedback
           </button>
         </div>
+      
+
 
         <div className="">
           <div className="grid grid-cols-1 ">

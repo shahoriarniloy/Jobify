@@ -1,34 +1,42 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import Main from "../Layout/Main";
-import RouteNotFound from "../Pages/RouteNotFound";
+import RouteNotFound from "./RouteNotFound";
 
-import Candidates from "../Pages/Candidates/Candidates";
+import Candidates from "../Pages/Dashboard/Company/Candidates/Candidates";
 
-import Home from "../Pages/Home";
+import Home from "../Pages/Home/Home";
 import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
 
 
-import CompanyDetails from "../Pages/CompanyDetails/CompanyDetails";
+import CompanyDetails from "../Pages/FindCompany/CompanyDetails/CompanyDetails";
 
-import About from "../Pages/About"
+import About from "../Pages/About/About"
 import DashboardLayout from "../Pages/Dashboard/DashboardLayout";
 import EmployeeHome from "../Pages/Dashboard/Employee/EmployeeHome";
 import AppliedJobs from "../Pages/Dashboard/Employee/AppliedJobs";
 // import FavoriteJobs from "../Pages/Dashboard/Employee/FavoriteJobs";
 
 
-import AdvancedSearch from "../Pages/AdvancedSearch/AdvancedSearch";
+import AdvancedSearch from "../Pages/Find Job/AdvancedSearch";
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import BookmarkedJobs from "../Pages/AdvancedSearch/BookmarkedJobs";
-import SingleJob from "../Pages/SingleJob/SingleJob";
-import FindCompany from "../Pages/Company/FindCompany";
+import BookmarkedJobs from "../Pages/Dashboard/Employee/BookmarkedJobs";
+import SingleJob from "../Pages/Find Job/SingleJob";
+import FindCompany from "../Pages/FindCompany/FindCompany";
 
 import PostJob from "../Pages/Dashboard/Company/PostJob";
 import MyJob from "../Pages/Dashboard/Company/MyJob";
-import CompanyJobs from "../Pages/CompanyDetails/CompanyJobs"
+import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs"
+import Messages from "../Pages/Dashboard/Employee/Messages";
+import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
+
+import JobTable from "../Pages/Dashboard/Company/MyJob";
+
+import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
+
+
 
 
 
@@ -54,7 +62,7 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/company/:companyId/jobs", 
+        path: "/company/:email/jobs", 
         element: <CompanyJobs />,
       },
       {
@@ -79,22 +87,13 @@ export const router = createBrowserRouter([
         element: <Candidates/> ,
 
       },
+      {
+        path:"/myjobs",
+        element:<JobTable/>
+      }
+
     ],
   },
-  // {
-  //   path: "/dashboard",
-  //   element: <Dashboard />, 
-  //   children: [
-  //     {
-  //       path: "/postJob",
-  //       element: <PostJob></PostJob> ,
-  //     },
-  //     {
-  //       path: "/myJob",
-  //       element: <MyJob></MyJob>, 
-  //     },
-  //   ],
-  // },
   {
     path: "/",
     element: <AuthLayout />,  
@@ -146,6 +145,23 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/candidates",
             element: <Candidates></Candidates>,
+           
+          },
+          
+          {
+            path: "/dashboard/messages",
+            element: <Messages></Messages>,
+           
+          },
+          {
+            path: "/dashboard/messages/:otherPartyEmail",
+            element: <MessageDetail></MessageDetail>,
+           
+          },
+
+          {
+            path: "/dashboard/EmployeeSettings",
+            element: <EmployeeSettings/> ,
            
           },
 

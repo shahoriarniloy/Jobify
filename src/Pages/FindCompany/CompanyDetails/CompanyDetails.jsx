@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import instagram_logo from "../../assets/image/CompanyDetails/instagram_logo.png";
+import instagram_logo from "../../../assets/image/CompanyDetails/instagram_logo.png";
 import {
   FaFacebookF,
   FaLinkedin,
@@ -11,26 +11,25 @@ import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { LuPhoneCall } from "react-icons/lu";
 import { TfiEmail } from "react-icons/tfi";
-import axiosSecure from "../../Hooks/UseAxiosSecure";
+import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import OpenPosition from "../../components/OpenPosition/OpenPosition";
+import OpenPosition from "../../../components/OpenPositions/OpenPositions";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
   const { companyId } = useParams();
-  // console.log(company);
 
   const { _id, email } = company;
 
-  // console.log(email);
+  console.log(email);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
-        // console.log(response.data);
+        console.log(response.data);
         // console.log(response.data);
       } catch (error) {
         // console.error("Error fetching company data:", error);
@@ -66,7 +65,8 @@ const CompanyDetails = () => {
             </div>
             <div className="mt-4 md:mt-0 md:ml-auto">
               <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                <Link to={`/company/${companyId}/jobs`}>
+                
+                <Link to={`/company/${company?.email}/jobs`}>
                   View Open Position →
                 </Link>
               </button>
@@ -218,7 +218,7 @@ const CompanyDetails = () => {
           </div>
         </div>
       </div>
-      <p>email:{company.email}</p>
+      {/* <p>email:{company.email}</p> */}
 
         <OpenPosition title={"Open Position"} email={company?.email} />
     </div>

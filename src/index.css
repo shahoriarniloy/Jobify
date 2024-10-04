@@ -11,6 +11,35 @@
     font-weight: 600;
 }
 
+.modal {
+  /* Style for the modal itself */
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 80%;
+  max-width: 500px; /* or whatever size you want */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-overlay {
+  /* Style for the overlay */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000; /* make sure it's on top of everything */
+}
+
+
+/* Add any additional styles for responsiveness and aesthetics */
+
+
 /* isActiveRoute style */
 .isActiveRoute{
     border-left: 5px solid #0A65CC;
@@ -160,6 +189,21 @@
 }
 
    */
+
+   /* Custom scrollbar styles (for webkit browsers) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker color on hover */
+}
+
 
 @keyframes rotate {
     100% {
