@@ -1,45 +1,48 @@
-import { useEffect, useState } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import JobCardGrid from "../JobCardGrid/JobCardGrid";
-import axiosSecure from "../../Hooks/UseAxiosSecure";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const OpenPosition = ({ id, title }) => {
+const OpenPosition = ({ email, title }) => {
   const [jobs, setJobs] = useState([]); // Store fetched jobs
   const [page, setPage] = useState(1); // Track the current page
   const [totalPages, setTotalPages] = useState(1); // Total pages available
   const [limit, setLimit] = useState(6); // Limit for fetching jobs
   const [error, setError] = useState(null); // State to handle errors
 
-
   // Fetch job data for pagination
   useEffect(() => {
     const fetchJobDataPagination = async () => {
       try {
-        const response = await axiosSecure.get(
-          `/OpenPosition?page=${page}&limit=6&companyId=${id}` 
+        console.log("Fetching jobs for email:", email);  // Debugging
+
+        const response = await axios.get(
+          `/OpenPosition?page=${page}&limit=${limit}&email=${email}` // Use email in the request
         );
-        setJobs(response.data.jobs); 
-        setTotalPages(response.data.totalPages); 
-        setError(null); 
+        setJobs(response.data.jobs); // Update the jobs state
+        setTotalPages(response.data.totalPages); // Update the total pages
+        setError(null); // Clear any errors
       } catch (error) {
-        // console.error("Error fetching job data:", error); 
-        setError("Error fetching job data. Please try again."); 
+        console.error("Error fetching job data:", error); 
+        setError("Error fetching job data. Please try again.");
       }
     };
-    fetchJobDataPagination(); 
-  }, [id, page, limit]); 
+    if (email) {
+      fetchJobDataPagination(); // Fetch jobs only if email is available
+    }
+  }, [email, page, limit]);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
-        setLimit(3); 
+        setLimit(3); // Change limit based on screen size
       } else {
-        setLimit(6); 
+        setLimit(6); // Default limit
       }
     };
 
-    handleResize(); 
-    window.addEventListener("resize", handleResize); 
+    handleResize(); // Call resize handler once initially
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -48,25 +51,25 @@ const OpenPosition = ({ id, title }) => {
 
   const handleNext = () => {
     if (page < totalPages) {
-      setPage(page + 1); 
+      setPage(page + 1); // Go to next page
     }
   };
 
   const handlePrev = () => {
     if (page > 1) {
-      setPage(page - 1); 
+      setPage(page - 1); // Go to previous page
     }
   };
 
   return (
     <div>
-      <section className=" flex flex-col-reverse lg:flex-col container mx-auto md:mt-20">
+      <section className="flex flex-col-reverse lg:flex-col container mx-auto md:mt-20">
         <div className="flex justify-between mt-5 mb-5 md:mb-12">
           <h3 className="font-bold text-xl">{title}</h3>
           <div>
             <button
               onClick={handlePrev}
-              disabled={page === 1} 
+              disabled={page === 1} // Disable if on the first page
               className="btn bg-blue-100 h-12 w-12"
             >
               <FaArrowLeft className="text-blue-400" />
@@ -74,7 +77,7 @@ const OpenPosition = ({ id, title }) => {
 
             <button
               onClick={handleNext}
-              disabled={page === totalPages} 
+              disabled={page === totalPages} // Disable if on the last page
               className="btn bg-blue-100 ml-4 h-12 w-12"
             >
               <FaArrowRight className="text-blue-400" />
@@ -84,9 +87,9 @@ const OpenPosition = ({ id, title }) => {
 
         <div className="grid md:grid-cols-3 gap-6">
           {jobs?.length > 0 ? (
-            jobs.map((job) => <JobCardGrid key={job._id} job={job} />) 
+            jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
           ) : (
-            <p>No jobs available</p> 
+            <p>No jobs available</p>
           )}
         </div>
       </section>

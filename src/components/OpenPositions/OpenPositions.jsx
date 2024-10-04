@@ -3,37 +3,40 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import JobCardGrid from "../JobCardGrid/JobCardGrid";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 
-const OpenPosition = ({ companyId, title }) => {
+const OpenPosition = ({ email, title }) => {
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(6);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchJobDataPagination = async () => {
+      if (!email) return; // Return early if no email
+
+      setLoading(true); // Set loading state before fetching
+      setError(null); // Reset error state
+
       try {
         const response = await axiosSecure.get(
-          `/OpenPosition?page=${page}&limit=6&companyId=${companyId}`
+          `/OpenPosition?page=${page}&limit=${limit}&email=${email}` 
         );
         setJobs(response.data.jobs);
         setTotalPages(response.data.totalPages);
-        setError(null);
       } catch (error) {
-        // console.error("Error fetching job data:", error);
         setError("Error fetching job data. Please try again.");
+      } finally {
+        setLoading(false); // Set loading state to false after fetching
       }
     };
+
     fetchJobDataPagination();
-  }, [companyId, page, limit]);
+  }, [email, page, limit]);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setLimit(3);
-      } else {
-        setLimit(6);
-      }
+      setLimit(window.innerWidth < 640 ? 3 : 6);
     };
 
     handleResize();
@@ -78,13 +81,20 @@ const OpenPosition = ({ companyId, title }) => {
             </button>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {jobs?.length > 0 ? (
-            jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
-          ) : (
-            <p>No jobs available</p>
-          )}
-        </div>
+
+        {loading ? ( // Show loading message or spinner
+          <p>Loading jobs...</p>
+        ) : error ? ( // Show error message if there is an error
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <div className="grid md:grid-cols-3 gap-6">
+            {jobs.length > 0 ? (
+              jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
+            ) : (
+              <p>No jobs available</p>
+            )}
+          </div>
+        )}
       </section>
     </div>
   );

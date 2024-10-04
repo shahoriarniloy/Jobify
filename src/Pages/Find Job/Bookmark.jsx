@@ -11,9 +11,10 @@ const Bookmark = ({ jobId }) => {
 
   useEffect(() => {
     const checkIfBookmarked = async () => {
-      if (currentUser) {
+      if (currentUser?.email) {
+        console.log(currentUser);
         try {
-          const response = await axiosSecure.get(`/bookmarks/${currentUser.email}`);
+          const response = await axiosSecure.get(`/bookmarks?email=${currentUser?.email}`);
           const bookmarkedJobs = response.data.map(bookmark => bookmark.jobId);
           setIsBookmarked(bookmarkedJobs.includes(jobId));
         } catch (error) {

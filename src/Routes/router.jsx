@@ -62,7 +62,7 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/company/:companyId/jobs", 
+        path: "/company/:email/jobs", 
         element: <CompanyJobs />,
       },
       {

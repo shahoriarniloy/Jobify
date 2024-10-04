@@ -6,7 +6,7 @@ import { PiBriefcase } from "react-icons/pi";
 import { FiGlobe } from "react-icons/fi";
 import { LuPhoneCall } from "react-icons/lu";
 import { TfiEmail } from "react-icons/tfi";
-import {  FaArrowRight } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 import UseCheckJobAlreadyApply from "../../../Hooks/UseCheckJobAlreadyApply";
@@ -14,28 +14,33 @@ import UseCheckJobAlreadyApply from "../../../Hooks/UseCheckJobAlreadyApply";
 const CompanyJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [company, setCompany] = useState(null);
-  const { companyId } = useParams();
+  const { email } = useParams();
+  console.log(email);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {verification} = UseCheckJobAlreadyApply(5);
-  console.log(jobs)
-
-
+  const { verification } = UseCheckJobAlreadyApply(5);
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchJobsAndCompany = async () => {
+      setLoading(true); 
+      setError(null); 
       try {
-        const jobsResponse = await axiosSecure.get(`/jobs/company/${companyId}`);
+        const jobsResponse = await axiosSecure.get(`/jobs/company/${email}`);
         setJobs(jobsResponse.data);
 
-        const companyResponse = await axiosSecure.get(`/companies/${companyId}`);
+        const companyResponse = await axiosSecure.get(`/companies/${email}`);
         setCompany(companyResponse.data);
       } catch (error) {
-        // console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error);
+        setError("Failed to load company or job data. Please try again later."); 
+      } finally {
+        setLoading(false); 
       }
     };
 
     fetchJobsAndCompany();
-  }, [companyId]);
+  }, [email]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -44,6 +49,9 @@ const CompanyJobs = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  if (loading) return <div>Loading...</div>; 
+  if (error) return <div>{error}</div>; 
 
   return (
     <div className="container mx-auto px-4 lg:px-12 md:px-8">
@@ -80,34 +88,34 @@ const CompanyJobs = () => {
                 <p className="text-gray-500"><strong>Experience:</strong> {job.experience}</p>
                 <p className="text-gray-500"><strong>Job Level:</strong> {job.jobLevel}</p>
                 <p className="text-gray-500"><strong>Job Type:</strong> {job.jobType}</p>
-                <p className=" text-gray-500"><strong>Salary Range:</strong> {job.salaryRange}</p>
+                <p className="text-gray-500"><strong>Salary Range:</strong> {job.salaryRange}</p>
                 <p className="text-gray-500 mb-4"><strong>Vacancy:</strong> {job.vacancy}</p>
                 <ApplyJobModal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                job={job}
-              />
+                  isOpen={isModalOpen}
+                  onClose={closeModal}
+                  job={job}
+                />
                 <div className="flex gap-3"> 
-  <button
-    onClick={openModal}
-    className={`flex items-center justify-center gap-3 w-40 px-4 py-2 rounded-md font-semibold text-white ${
-      new Date() > new Date(job.deadline) 
-        ? "bg-gray-400 cursor-not-allowed" 
-        : "bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800"
-    }`}
-    disabled={new Date() > new Date(job.deadline)}
-  >
-    Apply now <FaArrowRight />
-  </button>
+                  <button
+                    onClick={openModal}
+                    className={`flex items-center justify-center gap-3 w-40 px-4 py-2 rounded-md font-semibold text-white ${
+                      new Date() > new Date(job.deadline) 
+                        ? "bg-gray-400 cursor-not-allowed" 
+                        : "bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800"
+                    }`}
+                    disabled={new Date() > new Date(job.deadline)}
+                  >
+                    Apply now <FaArrowRight />
+                  </button>
 
-  <Link
-    to={`/job/${job._id}`}
-    className="flex items-center justify-center gap-3 w-40 px-4 py-2 rounded-md font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800"
-  >
-    Details
-  </Link>
-</div>
-          </div>
+                  <Link
+                    to={`/job/${job._id}`}
+                    className="flex items-center justify-center gap-3 w-40 px-4 py-2 rounded-md font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800"
+                  >
+                    Details
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
         </div>
