@@ -167,6 +167,19 @@ const PostJob = () => {
                         placeholder="Location"
                       />
                     </div>
+
+                    <div className="md:col-span-5">
+                  <label htmlFor="vacancy">Vacancy</label>
+                  <input
+                    type="number"
+                    name="vacancy"
+                    value={jobData.vacancy}
+                    onChange={handleChange}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    placeholder="Number of vacancies"
+                    min="1" 
+                  />
+                </div>
                   </div>
                 </div>
 

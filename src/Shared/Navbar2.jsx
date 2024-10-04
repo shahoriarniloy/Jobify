@@ -53,6 +53,15 @@ const Navbar2 = () => {
                                                     </Link>
                                                 </li>
                                                 <li>
+                                                    <Link
+                                                        to="/dashboard/overview"
+                                                        className="block px-4 py-2 hover:bg-gray-100"
+                                                        onClick={() => setIsMenuOpen(false)}
+                                                    >
+                                                        Favorite Jobs
+                                                    </Link>
+                                                </li>
+                                                <li>
                                                     <button
                                                         onClick={logout}
                                                         className="w-full text-left px-4 py-2 hover:bg-gray-100"

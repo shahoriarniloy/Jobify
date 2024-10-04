@@ -16,10 +16,20 @@ const BookmarkedJobs = () => {
         const fetchBookmarkedJobs = async () => {
             if (currentUser) {
                 try {
-                    const {data} = await axiosSecure.get(`/bookmarks?email=${currentUser?.email}`);
-                    
-                   console.log(data)
-                    setBookmarkedJobs(res);
+                    const { data: bookmarks } = await axiosSecure.get(`/bookmarks?email=${currentUser.email}`);
+                    const jobPromises = bookmarks.map(async (bm) => {
+                        const { data: job } = await axiosSecure.get(`/jobs/${bm.jobId}`);
+                        const appliedResponse = await axiosSecure.get("/check_application", {
+                            params: {
+                                job_id: job._id,
+                                user_email: currentUser.email,
+                            },
+                        });
+                        job.hasApplied = appliedResponse.data.applied;  // Adding applied status to the job object
+                        return job;
+                    });
+                    const jobResponses = await Promise.all(jobPromises);
+                    setBookmarkedJobs(jobResponses);
                 } catch (error) {
                     // console.error("Error fetching bookmarked jobs:", error);
                 } finally {
