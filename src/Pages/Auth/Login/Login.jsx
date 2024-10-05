@@ -74,7 +74,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                 toast.error(data.message);
             }
         } catch (error) {
-            console.error("Error signing in with Google:", error);
+            // console.error("Error signing in with Google:", error);
             toast.error("Error signing in with Google");
         } finally {
             setLoading(false);
