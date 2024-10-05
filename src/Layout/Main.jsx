@@ -16,7 +16,7 @@ const Main = () => {
         <div className='roboto-regular bg-white'>
             <Navbar2 />
             <Navbar />
-            <div className='lg:px-24 md:px-12 px-4'>
+            <div className='lg:px-24 md:px-12 px-4 min-h-[60vh]'>
                 <Outlet />
             </div>
             <Footer />

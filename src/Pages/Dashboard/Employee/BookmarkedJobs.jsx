@@ -21,7 +21,6 @@ const BookmarkedJobs = () => {
                    console.log(data)
                     setBookmarkedJobs(res);
                 } catch (error) {
-                    // console.error("Error fetching bookmarked jobs:", error);
                 } finally {
                     setLoading(false);
                 }
