@@ -58,7 +58,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
       <label className="block mb-2 font-bold">{label}</label>
       <div
         {...getRootProps()}
-        className={`p-6 rounded-md cursor-pointer transition ${isDragActive ? "bg-blue-100 border-blue-400" : "bg-white"}`}
+        className={`p-6 rounded-md cursor-pointer transition ${isDragActive ? "bg-blue-100 border-blue-400" : "bg-gray-300"}`}
         style={{ minHeight: "150px" }}
         onClick={() => fileInputRef.current.click()} // Ensure the file input opens on click
       >
