@@ -52,10 +52,9 @@ const BookmarkedJobs = () => {
     };
 
     const handleApplicationSuccess = () => {
-        // When the job application is successful
         setBookmarkedJobs(prevJobs => prevJobs.map(job => ({
             ...job,
-            hasApplied: true,  // Set hasApplied to true when applied successfully
+            hasApplied: true,  
         })));
     };
 

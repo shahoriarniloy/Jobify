@@ -82,13 +82,13 @@ const PostJob = () => {
   };
 
   return (
-    <div className="container max-w-screen-lg mx-auto pb-6">
+    <div className="container pb-6 mx-auto  w-full">
       <div>
         <h2 className="font-semibold text-3xl text-black mb-4">Post a Job</h2>
         <p className="text-stone-500 mb-6">Fill Up This Form to Post a Job on The Platform.</p>
         <div className="rounded p-6 mb-6">
           <div className="grid gap-6 text-sm grid-cols-1 lg:grid-cols-3">
-            <form className="lg:col-span-2" onSubmit={handleSubmit}>
+            <form className="lg:col-span-3" onSubmit={handleSubmit}>
               <div className="grid gap-6 text-sm grid-cols-1 md:grid-cols-5">
                 <div className="md:col-span-5">
                   <label htmlFor="title">Job Title</label>
