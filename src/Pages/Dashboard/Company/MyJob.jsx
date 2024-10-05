@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; 
 import useUserRole from '../../../Hooks/useUserRole';
 import axiosSecure from '../../../Hooks/UseAxiosSecure'; 
 import useCurrentUser from '../../../Hooks/useCurrentUser';
@@ -6,23 +7,23 @@ import useCurrentUser from '../../../Hooks/useCurrentUser';
 const JobTable = () => {
   const [jobs, setJobs] = useState([]);
   const [error, setError] = useState(null);
-  const {currentUser} = useCurrentUser();
+  const { currentUser } = useCurrentUser();
   const { id, loading, error: roleError } = useUserRole(); 
 
   useEffect(() => {
     if (!loading && id) { 
       const fetchJobs = async () => {
-        
+        try {
           const response = await axiosSecure.get(`/company-jobs?email=${currentUser?.email}`);
           setJobs(response?.data);
-        
+        } catch (err) {
+          setError(err.message || 'Failed to fetch jobs');
+        }
       };
 
       fetchJobs(); 
     }
-  }, [id, loading]); 
-
-  // console.log(jobs)
+  }, [id, loading, currentUser?.email]); 
 
   if (loading) {
     return <div>Loading jobs...</div>; 
@@ -51,24 +52,18 @@ const JobTable = () => {
           {jobs.map((job) => (
             <tr key={job._id} className="border-b">
               <td className="px-4 py-2">{job.title}</td>
-              {/* Uncomment if you want to display job status
-              <td className="px-4 py-2">
-                <span
-                  className={`${
-                    job.status === "Open" ? "text-green-500" : "text-red-500"
-                  }`}
-                >
-                  {job.status}
-                </span>
-              </td> */}
-              <td className="px-4 py-2 text-green-500"><button>Open</button></td>
+              <td className="px-4 py-2 text-green-500">
+                <button>Open</button>
+              </td>
               <td className="px-4 py-2">{job.applications || 0}</td>
               <td className="px-4 py-2">
-                <div className="">
-                  <button className="btn bg-blue-100 px-3 py-1 text-blue-700 rounded">
-                    View Applications
-                  </button>
-                </div>
+                <Link
+                  to={`/dashboard/job-candidates`} 
+                  state={{ jobId: job._id }} 
+                  className="btn bg-blue-100 px-3 py-1 text-blue-700 rounded"
+                >
+                  View Applications
+                </Link>
               </td>
             </tr>
           ))}
