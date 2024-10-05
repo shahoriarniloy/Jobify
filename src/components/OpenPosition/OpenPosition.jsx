@@ -14,7 +14,7 @@ const OpenPosition = ({ email, title }) => {
   useEffect(() => {
     const fetchJobDataPagination = async () => {
       try {
-        console.log("Fetching jobs for email:", email);  // Debugging
+        // console.log("Fetching jobs for email:", email);  // Debugging
 
         const response = await axios.get(
           `/OpenPosition?page=${page}&limit=${limit}&email=${email}` // Use email in the request
@@ -23,7 +23,7 @@ const OpenPosition = ({ email, title }) => {
         setTotalPages(response.data.totalPages); // Update the total pages
         setError(null); // Clear any errors
       } catch (error) {
-        console.error("Error fetching job data:", error); 
+        // console.error("Error fetching job data:", error); 
         setError("Error fetching job data. Please try again.");
       }
     };

@@ -19,18 +19,18 @@ import OpenPosition from "../../components/OpenPosition/OpenPosition";
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
   const { companyId } = useParams();
-  console.log(company);
+  // console.log(company);
 
   const { _id, email } = company;
 
-  console.log(email);
+  // console.log(email);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
-        console.log(response.data);
+        // console.log(response.data);
         // console.log(response.data);
       } catch (error) {
         // console.error("Error fetching company data:", error);
