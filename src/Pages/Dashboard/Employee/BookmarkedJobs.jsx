@@ -25,7 +25,7 @@ const BookmarkedJobs = () => {
                                 user_email: currentUser.email,
                             },
                         });
-                        job.hasApplied = appliedResponse.data.applied;  // Adding applied status to the job object
+                        job.hasApplied = appliedResponse.data.applied;  
                         return job;
                     });
                     const jobResponses = await Promise.all(jobPromises);

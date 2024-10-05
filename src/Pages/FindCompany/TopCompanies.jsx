@@ -43,7 +43,7 @@ const TopCompanies = () => {
                 <h3 className="text-xl font-semibold mb-2 text-brownText">{company.company_name}</h3>
                 <p className="text-gray-700 mb-4">{company.company_description}</p>
                 <Link
-                  to={`/company-details/${company._id}`} 
+                  to={`/company-details/${company.email}`} 
                   className="text-blueCastomize hover:underline"
                 >
                   View Company Details

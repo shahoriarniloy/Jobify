@@ -102,7 +102,7 @@ setCurrentPage(currentPage - 1);
 
 const handleNextPage = () => {
 if (currentPage < pages.length - 1) { setCurrentPage(currentPage + 1); } }; return ( <div className=" pt-24 ">
-  <div className="w-full bg-white rounded-lg  p-6 flex-1">
+  <div className="w-full bg-[#f6f8f8]  rounded-lg  p-6 flex-1">
     <form className="flex flex-col sm:flex-row gap-4 sm:gap-2" onSubmit={handleSearch}>
       <div className="relative flex-1">
         <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />

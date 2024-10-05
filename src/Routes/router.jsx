@@ -90,6 +90,10 @@ export const router = createBrowserRouter([
       {
         path:"/myjobs",
         element:<JobTable/>
+      },
+      {
+        path:"/appliedjobs",
+        element:<AppliedJobs/>
       }
 
     ],
