@@ -1,112 +1,133 @@
 import React, { useState } from "react";
+import { MdOutlineCancel } from "react-icons/md";
 import {
   FaFacebook,
   FaTwitter,
   FaInstagram,
+  FaLinkedin,
   FaYoutube,
-  FaPlusCircle,
-  FaTimes,
+  FaPinterest,
+  FaSnapchat,
+  FaTiktok,
 } from "react-icons/fa";
 
+// Social media options with icons
 const socialOptions = [
-  { name: "Facebook", icon: <FaFacebook /> },
-  { name: "Twitter", icon: <FaTwitter /> },
-  { name: "Instagram", icon: <FaInstagram /> },
-  { name: "YouTube", icon: <FaYoutube /> },
+  { name: "Facebook", icon: <FaFacebook />, value: "facebook" },
+  { name: "Twitter", icon: <FaTwitter />, value: "twitter" },
+  { name: "Instagram", icon: <FaInstagram />, value: "instagram" },
+  { name: "LinkedIn", icon: <FaLinkedin />, value: "linkedin" },
+  { name: "YouTube", icon: <FaYoutube />, value: "youtube" },
+  { name: "Pinterest", icon: <FaPinterest />, value: "pinterest" },
+  { name: "Snapchat", icon: <FaSnapchat />, value: "snapchat" },
+  { name: "TikTok", icon: <FaTiktok />, value: "tiktok" },
 ];
 
 const SocialMediaProfile = () => {
-  const [socialLinks, setSocialLinks] = useState([{ platform: "", url: "" }]);
+  const [fields, setFields] = useState([{ socialMedia: "", link: "" }]);
 
-  const handleChange = (index, field, value) => {
-    const updatedLinks = [...socialLinks];
-    updatedLinks[index][field] = value;
-    setSocialLinks(updatedLinks);
+  // Add new input field
+  const addField = () => {
+    setFields([...fields, { socialMedia: "", link: "" }]);
   };
 
-  const addNewSocialLink = () => {
-    setSocialLinks([...socialLinks, { platform: "", url: "" }]);
+  // Remove input field
+  const removeField = (index) => {
+    setFields(fields.filter((_, i) => i !== index));
   };
 
-  const deleteSocialLink = (index) => {
-    const updatedLinks = socialLinks.filter((_, i) => i !== index);
-    setSocialLinks(updatedLinks);
+  // Handle dropdown selection change
+  const handleSelectChange = (index, value) => {
+    const updatedFields = fields.map((field, i) =>
+      i === index ? { ...field, socialMedia: value } : field
+    );
+    setFields(updatedFields);
   };
 
-  const saveChanges = () => {
-    console.log("Social Media Links:", socialLinks);
+  // Handle input change (link)
+  const handleInputChange = (index, value) => {
+    const updatedFields = fields.map((field, i) =>
+      i === index ? { ...field, link: value } : field
+    );
+    setFields(updatedFields);
   };
 
-  const selectedPlatforms = socialLinks.map((link) => link.platform);
+  // Get options for each dropdown (hide already selected options)
+  const getAvailableOptions = (selectedSocialMedia) => {
+    return socialOptions.filter(
+      (option) =>
+        !fields.some(
+          (field) =>
+            field.socialMedia === option.value &&
+            field.socialMedia !== selectedSocialMedia
+        )
+    );
+  };
 
   return (
-    <div className="p-6 space-y-6 ">
-      {socialLinks.map((link, index) => (
-        <div key={index} className="flex items-center space-x-4">
-          {/* Dropdown and label */}
-          <div className="w-full space-y-1">
-            <label className="text-sm font-medium text-gray-700">
-              Social Link {index + 1}
-            </label>
-            <div className="relative flex items-center w-full ">
-              <select
-                value={link.platform}
-                onChange={(e) =>
-                  handleChange(index, "platform", e.target.value)
-                }
-                className="w-1/4 h-10 flex items-center pr-10 bg-white border rounded-l-md focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="">Select Social Media</option>
-                {socialOptions.map((option) => (
-                  <option
-                    key={option.name}
-                    value={option.name}
-                    disabled={selectedPlatforms.includes(option.name)}
-                  >
-                    {option.name}
-                  </option>
-                ))}
-              </select>
-              <span className="absolute left-4 text-lg ">
-                {socialOptions.find((opt) => opt.name === link.platform)?.icon}
-              </span>
+    <div>
+      <form action="">
+        {fields.map((field, index) => (
+          <div key={index}>
+            <label htmlFor={`Social Link ${index + 1}`}>{`Social Link ${
+              index + 1
+            }`}</label>
+            <div className="flex justify-between items-center my-2">
+              <div className="flex items-center border rounded w-full">
+                {/* Dropdown Menu */}
+                <select
+                  className="h-10 p-2 border-none"
+                  value={field.socialMedia}
+                  onChange={(e) => handleSelectChange(index, e.target.value)}
+                >
+                  <option value="">Select Social Media</option>
+                  {getAvailableOptions(field.socialMedia).map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+                <div className="border-l-2 border-gray-300 h-5"></div>
 
-              {/* Input for social media link */}
-              <input
-                type="text"
-                placeholder="Profile link/url..."
-                value={link.url}
-                onChange={(e) => handleChange(index, "url", e.target.value)}
-                className="w-3/4 h-10 px-4 py-2 bg-white border border-l-0 rounded-r-md focus:ring-blue-500 focus:border-blue-500"
-              />
+                {/* URL Input Field */}
+                <input
+                  type="url"
+                  placeholder="Profile link/url..."
+                  className="h-10 p-2 w-full"
+                  value={field.link}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
+                />
+              </div>
+
+              {/* Cancel/Remove Button */}
+              <button
+                type="button"
+                className="ml-3 text-xl bg-gray-100 p-3 rounded hover:bg-red-500 hover:text-white"
+                onClick={() => removeField(index)}
+              >
+                <MdOutlineCancel />
+              </button>
             </div>
           </div>
+        ))}
 
-          {/* Delete button */}
-          <button
-            onClick={() => deleteSocialLink(index)}
-            className="px-2 py-1 text-gray-400 hover:text-red-600"
-          >
-            <FaTimes />
-          </button>
-        </div>
-      ))}
+        {/* Add new social link button */}
+        <button
+          type="button"
+          className="mt-4 bg-blue-500 text-white p-2 rounded"
+          onClick={addField}
+        >
+          Add New Social Link
+        </button>
 
-      {/* Add New Social Link button - full width */}
-      <button
-        onClick={addNewSocialLink}
-        className="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200"
-      >
-        <FaPlusCircle className="mr-2" /> Add New Social Link
-      </button>
-
-      {/* Save Changes button - same size as old Add Social button */}
-      <button
-        onClick={saveChanges}
-        className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600"
-      >
-        Save Changes
-      </button>
+        {/* Save button */}
+        <button
+          type="button"
+          className="mt-4 bg-green-500 text-white p-2 rounded"
+        >
+          Save Changes
+        </button>
+      </form>
     </div>
   );
 };
