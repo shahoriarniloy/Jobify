@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import axiosSecure from '../../../Hooks/UseAxiosSecure';
 import useCurrentUser from '../../../Hooks/useCurrentUser';
 
@@ -275,13 +276,14 @@ const PostJob = () => {
                 </div>
 
                 <div className="md:col-span-5 text-right">
-                  <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Post Job
-                  </button>
-                </div>
+  <button
+    type="submit"
+    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center" 
+  >
+    <PaperAirplaneIcon className="h-5 w-5 mr-2" /> 
+    Post Job
+  </button>
+</div>
               </div>
             </form>
           </div>
