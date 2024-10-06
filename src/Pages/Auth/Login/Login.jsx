@@ -1,84 +1,37 @@
 import React, { useContext, useState } from 'react';
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../../Auth/CreateAccount/AuthContext";
-import accountBg from '../../../assets/logo/loginbg.png';
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
-import auth from '../firebase/firebase.config';
 
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
-    const location = useLocation();
-    const { signInUser, setUser } = useContext(AuthContext);
-    const navigate = useNavigate();
-
+    const { signInWithGoogle } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+    const location = useLocation();
+    const navigate = useNavigate();
     const from = location.state?.from?.pathname || "/";
-    const googleProvider = new GoogleAuthProvider();
+
+
+    
 
     const handleLogin = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError("");
-
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-
-        if (!email || !password) {
-            setError("Please fill in all fields.");
-            setLoading(false);
-            return;
-        }
-
-        try {
-            await signInUser(email, password);
-            toast.success("Signed In");
-            e.target.reset();
-            navigate('/');
-        } catch (error) {
-            setError("Invalid Credentials");
-            toast.error("Invalid Credentials");
-        } finally {
-            setLoading(false);
-        }
+        
     };
 
     const handleGoogleSignIn = async () => {
-        setLoading(true);
-        setError("");
-        try {
-            const result = await signInWithPopup(auth, googleProvider);
-            const userInfo = {
-                email: result.user.email,
-                name: result.user.displayName || 'Guest',
-                photoURL: result.user.photoURL,
-                role: 'Job Seeker'
-            };
+        signInWithGoogle()
+            .then((result) => {
+                toast.success('Signed in with Google');
 
-            const response = await axiosSecure.post('/users', userInfo);
-            const data = response.data;
+            })
+            .catch((error) => {
+                toast.warn('Sign in failed !');
+            })
+        setLoginModalOpen(false);
 
-            // console.log(data);
-            // console.log(data.insertedId);
-            // console.log(data.message);
-
-            if (data.insertedId || data.messege === 'User already exists') {
-                toast.success(data.message === 'User already exists' ? 'User already exists' : 'Signed in with Google');
-                navigate('/');
-            } else {
-                toast.error(data.message);
-            }
-        } catch (error) {
-            // console.error("Error signing in with Google:", error);
-            toast.error("Error signing in with Google");
-        } finally {
-            setLoading(false);
-        }
     };
 
 

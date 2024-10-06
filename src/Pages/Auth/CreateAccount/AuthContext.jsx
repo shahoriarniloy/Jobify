@@ -10,13 +10,14 @@ import {
     signInWithPopup
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const provider = new GoogleAuthProvider();
+    const googleProvider = new GoogleAuthProvider();
 
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
@@ -35,28 +36,14 @@ const AuthProvider = ({ children }) => {
             .finally(() => setLoading(false));
     };
 
-    const signInWithGoogle = () => {
-        setLoading(true);
-        return signInWithPopup(auth, provider)
-            .then((result) => {
-                const user = result.user;
-                const userInfo = {
-                    email: user.email,
-                    name: user.displayName || 'Guest',
-                    photoURL: user.photoURL
-                };
-                setUser(userInfo);
-            })
-            .catch((error) => {
-                console.error(error); // Consider logging the error for debugging
-            })
-            .finally(() => setLoading(false)); // Ensure loading state is reset
-    };
+    const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+                   
+
 
     const logOut = () => {
         setLoading(true);
         return signOut(auth);
-            
+
     };
 
     useEffect(() => {
@@ -67,7 +54,7 @@ const AuthProvider = ({ children }) => {
             } else {
                 setCurrentUser(null);
             }
-            setLoading(false); 
+            setLoading(false);
         });
 
         return () => unSubscribe();
