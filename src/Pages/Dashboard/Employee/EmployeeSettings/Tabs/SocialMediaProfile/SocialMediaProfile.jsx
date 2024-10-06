@@ -1,37 +1,44 @@
-import React, { useState, Fragment } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import { MdOutlineCancel } from "react-icons/md";
-import { FaChevronDown } from "react-icons/fa"; // Import down arrow icon
+import { Fragment, useState } from "react";
 import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  Transition,
+} from "@headlessui/react";
+import {
+  FaChevronDown,
   FaFacebook,
-  FaTwitter,
   FaInstagram,
   FaLinkedin,
-  FaYoutube,
   FaPinterest,
   FaSnapchat,
   FaTiktok,
+  FaTwitter,
+  FaYoutube,
 } from "react-icons/fa";
-
-// Social media options with icons
-const socialOptions = [
-  { name: "Facebook", icon: <FaFacebook />, value: "facebook" },
-  { name: "Twitter", icon: <FaTwitter />, value: "twitter" },
-  { name: "Instagram", icon: <FaInstagram />, value: "instagram" },
-  { name: "LinkedIn", icon: <FaLinkedin />, value: "linkedin" },
-  { name: "YouTube", icon: <FaYoutube />, value: "youtube" },
-  { name: "Pinterest", icon: <FaPinterest />, value: "pinterest" },
-  { name: "Snapchat", icon: <FaSnapchat />, value: "snapchat" },
-  { name: "TikTok", icon: <FaTiktok />, value: "tiktok" },
-];
+import { MdAddCircleOutline, MdOutlineCancel } from "react-icons/md";
 
 const SocialMediaProfile = () => {
+  const socialOptions = [
+    { name: "Facebook", icon: <FaFacebook />, value: "facebook" },
+    { name: "Twitter", icon: <FaTwitter />, value: "twitter" },
+    { name: "Instagram", icon: <FaInstagram />, value: "instagram" },
+    { name: "LinkedIn", icon: <FaLinkedin />, value: "linkedin" },
+    { name: "YouTube", icon: <FaYoutube />, value: "youtube" },
+    { name: "Pinterest", icon: <FaPinterest />, value: "pinterest" },
+    { name: "Snapchat", icon: <FaSnapchat />, value: "snapchat" },
+    { name: "TikTok", icon: <FaTiktok />, value: "tiktok" },
+  ];
+
   const [fields, setFields] = useState([{ socialMedia: "", link: "" }]);
   const [submittedLinks, setSubmittedLinks] = useState([]);
 
   // Add new input field
   const addField = () => {
-    setFields([...fields, { socialMedia: "", link: "" }]);
+    if (fields.length < socialOptions.length) {
+      setFields([...fields, { socialMedia: "", link: "" }]);
+    }
   };
 
   // Remove input field
@@ -74,7 +81,7 @@ const SocialMediaProfile = () => {
 
   return (
     <div>
-      <form action="">
+      <form>
         {fields.map((field, index) => (
           <div key={index}>
             <label htmlFor={`Social Link ${index + 1}`}>{`Social Link ${
@@ -87,8 +94,9 @@ const SocialMediaProfile = () => {
                   value={field.socialMedia}
                   onChange={(value) => handleSelectChange(index, value)}
                 >
-                  <div className="relative  w-2/5">
-                    <Listbox.Button className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
+                  <div className="relative w-2/5">
+                    <ListboxButton className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
+                      {/* Show Name */}
                       <span className="block truncate">
                         {field.socialMedia
                           ? socialOptions.find(
@@ -96,6 +104,8 @@ const SocialMediaProfile = () => {
                             )?.name
                           : "Select Social Media"}
                       </span>
+
+                      {/* Show Icon */}
                       {field.socialMedia && (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                           {
@@ -105,21 +115,23 @@ const SocialMediaProfile = () => {
                           }
                         </span>
                       )}
+
                       {/* Down Arrow Icon */}
                       <span className="absolute inset-y-0 right-0 flex items-center pr-3">
                         <FaChevronDown />
                       </span>
-                    </Listbox.Button>
+                    </ListboxButton>
+
                     <Transition
                       as={Fragment}
                       leave="transition ease-in duration-100"
                       leaveFrom="opacity-100"
                       leaveTo="opacity-0"
                     >
-                      <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+                      <ListboxOptions className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
                         {getAvailableOptions(field.socialMedia).map(
                           (option) => (
-                            <Listbox.Option
+                            <ListboxOption
                               key={option.value}
                               className={({ active }) =>
                                 `cursor-default select-none relative py-2 pl-10 pr-4 ${
@@ -142,13 +154,14 @@ const SocialMediaProfile = () => {
                                   </span>
                                 </div>
                               )}
-                            </Listbox.Option>
+                            </ListboxOption>
                           )
                         )}
-                      </Listbox.Options>
+                      </ListboxOptions>
                     </Transition>
                   </div>
                 </Listbox>
+
                 <div className="border-l-2 border-gray-300 h-5"></div>
 
                 {/* URL Input Field */}
@@ -160,7 +173,6 @@ const SocialMediaProfile = () => {
                   onChange={(e) => handleInputChange(index, e.target.value)}
                 />
               </div>
-
               {/* Cancel/Remove Button */}
               <button
                 type="button"
@@ -173,12 +185,18 @@ const SocialMediaProfile = () => {
           </div>
         ))}
 
-        {/* Add new social link button */}
+        {/* Add New Social Link Button */}
         <button
           type="button"
-          className="mt-4 bg-gray-100  p-2 rounded w-full"
+          className={`flex items-center justify-center gap-2 mt-4 font-semibold p-2 rounded w-full ${
+            fields.length === socialOptions.length
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-gray-100 hover:bg-blue-500 hover:text-white"
+          }`}
           onClick={addField}
+          disabled={fields.length === socialOptions.length}
         >
+          <MdAddCircleOutline />
           Add New Social Link
         </button>
 
