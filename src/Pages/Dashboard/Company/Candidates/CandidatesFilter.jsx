@@ -32,25 +32,7 @@ const CandidatesFilter = () => {
 
     return (
         <div className='border-2 rounded-lg p-4'>
-            <div className="flex items-center justify-between">
-                <h2 className='font-bold text-lg'>
-                    Location Radius: <span className='text-blue-600'>{radius} km</span>
-                </h2>
-                <button onClick={toggleRangeVisibility} className="focus:outline-none">
-                    <MdArrowDropDown className={`transition-transform ${isRangeVisible ? 'rotate-180' : ''}`} />
-                </button>
-            </div>
-            {isRangeVisible && ( 
-                <input
-                    type="range"
-                    min={0}
-                    max="100"
-                    value={radius}
-                    onChange={handleRadiusChange}
-                    className="range range-primary range-xs mt-2 mb-5"
-                />
-            )}
-            <hr />
+            
             <div>
             <div className="flex items-center justify-between mt-4">
                 <h2 className='font-bold mb-4 text-lg'>
