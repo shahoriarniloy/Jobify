@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import TopCompanies from "./TopCompanies";
+import { EyeIcon } from '@heroicons/react/24/outline';
+
 
 
 
@@ -170,7 +172,9 @@ if (currentPage < pages.length - 1) { setCurrentPage(currentPage + 1); } }; retu
               <th className="p-3">Company Name</th>
               <th className="p-3 hidden md:table-cell">Industry</th>
               <th className="p-3">Size</th>
-              <th className="p-3">Details</th>
+              <th className="p-3"> 
+  Details
+</th>
             </tr>
           </thead>
           <tbody>
@@ -184,7 +188,7 @@ if (currentPage < pages.length - 1) { setCurrentPage(currentPage + 1); } }; retu
               <td className="p-3">{company.company_size}</td>
               <td className="p-3">
                 <Link to={`/company-details/${company._id}`}> <button
-                  className="bg-blue-500 text-white px-3 py-1 rounded">Details</button>
+                  className=" px-3 py-1 rounded"><EyeIcon className="h-5 w-5 inline-block mr-1" /></button>
                 </Link>
               </td>
             </tr>
@@ -210,7 +214,7 @@ if (currentPage < pages.length - 1) { setCurrentPage(currentPage + 1); } }; retu
           {/*
           <Bookmark companyId={company._id} /> */}
         </div>
-        <Link to={`/company-details/${company.email}`}> <button className="bg-blue-500 text-white px-3 py-1 rounded">
+        <Link to={`/company-details/${company.email}`}> <button className="bg-blue-500 text-white px-3 py-1 rounded"><EyeIcon className="h-5 w-5 inline-block mr-1" />
         Details</button>
         </Link>
       </div>

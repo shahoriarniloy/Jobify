@@ -46,7 +46,7 @@ const Navbar2 = () => {
                                         <ul className="py-1 text-gray-700">
                                           <li>
                                             <Link
-                                              to="/dashboard/favorite-jobs"
+                                              to="/dashboard/overview"
                                               className="flex items-center px-4 py-2 hover:bg-gray-100"
                                               onClick={() => setIsMenuOpen(false)}
                                             >
@@ -56,7 +56,7 @@ const Navbar2 = () => {
                                           </li>
                                           <li>
                                             <Link
-                                              to="/dashboard/overview"
+                                              to="/favorite-jobs"
                                               className="flex items-center px-4 py-2 hover:bg-gray-100"
                                               onClick={() => setIsMenuOpen(false)}
                                             >
