@@ -32,7 +32,7 @@ import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs"
 import Messages from "../Pages/Dashboard/Employee/Messages";
 import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
 
-import JobTable from "../Pages/Dashboard/Company/MyJob";
+// import JobTable from "../Pages/Dashboard/Company/MyJob";
 
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
 import AppliedCandidates from "../Pages/Dashboard/Company/Candidates/AppliedCandidates";

@@ -1,6 +1,10 @@
 import  { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { DocumentTextIcon } from '@heroicons/react/24/outline';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+
+
 import axiosSecure from '../../../../Hooks/UseAxiosSecure';
 
 const AppliedCandidates = () => {
@@ -48,7 +52,12 @@ const AppliedCandidates = () => {
           </figure>
           <div className="card-body">
             <h2 className="card-title">{candidate.user.name}</h2>
-            <p>Email: {candidate.user.email}</p>
+            <p>
+  <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: '8px' }} />
+  Email: {candidate.user.email}
+</p>
+
+
             <div className="card-actions justify-end">
             <button className="btn btn-primary flex items-center" onClick={() => viewCV(candidate.user.email)}>
                 <DocumentTextIcon className="h-5 w-5 mr-2" />

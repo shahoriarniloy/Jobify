@@ -15,7 +15,7 @@ const JobTable = () => {
     if (!loading && id) { 
       const fetchJobs = async () => {
         try {
-          const response = await axiosSecure.get(`/company-jobs?email=${currentUser?.email}`);
+          const response = await axiosSecure.get(`/jobs/dashboard/company/${currentUser?.email}`); 
           setJobs(response?.data);
         } catch (err) {
           setError(err.message || 'Failed to fetch jobs');
@@ -56,7 +56,8 @@ const JobTable = () => {
               <td className="px-4 py-2 text-green-500">
                 <button>Open</button>
               </td>
-              <td className="px-4 py-2">{job.applications || 0}</td>
+              {/* Displaying the number of applications */}
+              <td className="px-4 py-2">{job.applicationsCount || 0}</td>
               
               <td className="px-4 py-2">
                 <Link
