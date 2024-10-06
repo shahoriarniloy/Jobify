@@ -87,14 +87,14 @@ const SocialMediaProfile = () => {
             <label htmlFor={`Social Link ${index + 1}`}>{`Social Link ${
               index + 1
             }`}</label>
-            <div className="flex justify-between items-center my-2">
-              <div className="flex items-center border rounded w-full">
+            <div className="flex justify-between items-center my-2 ">
+              <div className="md:flex items-center border rounded w-full ">
                 {/* Headless UI Dropdown Menu (Listbox) */}
                 <Listbox
                   value={field.socialMedia}
                   onChange={(value) => handleSelectChange(index, value)}
                 >
-                  <div className="relative w-2/5">
+                  <div className="relative md:w-2/5 w-full">
                     <ListboxButton className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
                       {/* Show Name */}
                       <span className="block truncate">
@@ -162,7 +162,11 @@ const SocialMediaProfile = () => {
                   </div>
                 </Listbox>
 
-                <div className="border-l-2 border-gray-300 h-5"></div>
+                {/* Vertical line for medium and larger screens */}
+                <div className="hidden md:block border-l-2 border-gray-300 h-5"></div>
+
+                {/* Horizontal line for small screens */}
+                <hr className="block md:hidden border-gray-300 w-full my-2" />
 
                 {/* URL Input Field */}
                 <input
