@@ -14,7 +14,7 @@ import auth from "../firebase/firebase.config";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const provider = new GoogleAuthProvider();
 
@@ -55,33 +55,26 @@ const AuthProvider = ({ children }) => {
 
     const logOut = () => {
         setLoading(true);
-        return signOut(auth)
-            .then(() => setUser(null))
-            .finally(() => setLoading(false)); // Reset loading state after logout
+        return signOut(auth);
+            
     };
 
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setLoading(true); // Start loading
-            if (currentUser) {
-                const userInfo = {
-                    email: currentUser.email,
-                    name: currentUser.displayName || 'Guest',
-                    photoURL: currentUser.photoURL
-                };
-                setUser(userInfo);
+        const unSubscribe = onAuthStateChanged(auth, (user) => {
+            setLoading(true);
+            if (user) {
+                setCurrentUser(user);
             } else {
-                setUser(null);
+                setCurrentUser(null);
             }
-            setLoading(false); // End loading after processing user state
+            setLoading(false); 
         });
 
-        return () => {
-            unSubscribe();
-        };
+        return () => unSubscribe();
+
     }, []);
 
-    const authInfo = { user, createUser, signInUser, signInWithGoogle, logOut, updateUserProfile, loading };
+    const authInfo = { currentUser, createUser, signInUser, signInWithGoogle, logOut, updateUserProfile, loading };
 
     return (
         <AuthContext.Provider value={authInfo}>

@@ -90,7 +90,11 @@ export const router = createBrowserRouter([
       {
         path:"/myjobs",
         element:<JobTable/>
-      }
+      },
+      {
+        path:"/favorite-jobs",
+        element:<BookmarkedJobs/>
+      },
 
     ],
   },
@@ -130,10 +134,7 @@ export const router = createBrowserRouter([
             element:<AppliedJobs/>
           }
           ,
-          {
-            path:"/dashboard/favorite-jobs",
-            element:<BookmarkedJobs/>
-          },
+          
           {
             path: "/dashboard/postJob",
             element: <PostJob></PostJob> ,
