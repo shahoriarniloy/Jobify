@@ -80,7 +80,7 @@ const SocialMediaProfile = () => {
   };
 
   return (
-    <div>
+    <div className="p-4 md:p-8">
       <form>
         {fields.map((field, index) => (
           <div key={index}>
