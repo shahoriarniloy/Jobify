@@ -5,6 +5,7 @@ import "react-phone-input-2/lib/style.css";
 import "./AccountSetting.css";
 import { TfiEmail } from "react-icons/tfi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { MdOutlineCancel } from "react-icons/md";
 
 const AccountSetting = () => {
   const [phone, setPhone] = useState("");
@@ -231,12 +232,35 @@ const AccountSetting = () => {
         </form>
 
         {/* Display Stored Password */}
-        {/* {storedPassword && (
+        {storedPassword && (
           <div className="mt-4">
             <h3 className="font-bold text-lg">Stored Password:</h3>
             <p className="text-gray-700">{storedPassword}</p>
           </div>
-        )} */}
+        )}
+      </section>
+
+      <hr className="my-8" />
+
+      {/* Delete Your Company */}
+      <section className="md:w-1/2">
+        <h2 className="font-bold  mb-4 text-xl">Delete Your Company</h2>
+        <p className="text-gray-400">
+          If you delete your Jobpilot account, you will no longer be able to get
+          information about the matched jobs, following employers, and job
+          alert, shortlisted jobs and more. You will be abandoned from all the
+          services of Jobpilot.com.
+        </p>
+
+        <button
+          type="button"
+          className=" btn btn-ghost  flex items-center text-red-600"
+        >
+          <span className="mr-2">
+            <MdOutlineCancel className="text-lg" />
+          </span>{" "}
+          Close Account
+        </button>
       </section>
     </div>
   );
