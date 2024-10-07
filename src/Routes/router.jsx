@@ -31,10 +31,12 @@ import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs"
 import Messages from "../Pages/Dashboard/Employee/Messages";
 import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
 
-import JobTable from "../Pages/Dashboard/Company/MyJob";
+// import JobTable from "../Pages/Dashboard/Company/MyJob";
 
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
 import EmployeeHome from "../Pages/Dashboard/Company/EmployeeHome";
+import JobTable from "../Pages/Dashboard/Company/MyJob";
+import AppliedCandidates from './../Pages/Dashboard/Company/Candidates/AppliedCandidates';
 
 
 
@@ -87,6 +89,7 @@ export const router = createBrowserRouter([
         element: <Candidates/> ,
 
       },
+      
       {
         path:"/myjobs",
         element:<JobTable/>
@@ -140,8 +143,12 @@ export const router = createBrowserRouter([
             element: <PostJob></PostJob> ,
           },
           {
-            path: "/dashboard/myJob",
+            path: "/dashboard/myjob",
             element: <MyJob></MyJob>,  
+          },
+          {
+            path: "/dashboard/job-candidates",
+            element: <AppliedCandidates></AppliedCandidates>,  
           },
           {
             path: "/dashboard/candidates",

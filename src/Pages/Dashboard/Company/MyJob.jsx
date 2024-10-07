@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; 
 import useUserRole from '../../../Hooks/useUserRole';
 import axiosSecure from '../../../Hooks/UseAxiosSecure';
 import useCurrentUser from '../../../Hooks/useCurrentUser';
@@ -44,24 +45,20 @@ const JobTable = () => {
           {jobs.map((job) => (
             <tr key={job._id} className="border-b">
               <td className="px-4 py-2">{job.title}</td>
-              {/* Uncomment if you want to display job status
+              <td className="px-4 py-2 text-green-500">
+                <button>Open</button>
+              </td>
+              <td className="px-4 py-2">{job.applicationsCount || 0}</td>
+              
               <td className="px-4 py-2">
-                <span
-                  className={`${
-                    job.status === "Open" ? "text-green-500" : "text-red-500"
-                  }`}
+                <Link
+                  to={`/dashboard/job-candidates`} 
+                  state={{ jobId: job._id }} 
+                  className="btn bg-blue-100 px-3 py-1 text-blue-700 rounded flex items-center"
                 >
-                  {job.status}
-                </span>
-              </td> */}
-              <td className="px-4 py-2 text-green-500"><button>Open</button></td>
-              <td className="px-4 py-2">{job.applications || 0}</td>
-              <td className="px-4 py-2">
-                <div className="">
-                  <button className="btn bg-blue-100 px-3 py-1 text-blue-700 rounded">
-                    View Applications
-                  </button>
-                </div>
+                  <ClipboardDocumentListIcon className="h-5 w-5 mr-2" /> 
+                  View Applications
+                </Link>
               </td>
             </tr>
           ))}

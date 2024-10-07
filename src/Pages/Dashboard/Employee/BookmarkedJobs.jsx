@@ -25,7 +25,7 @@ const BookmarkedJobs = () => {
                                 user_email: currentUser.email,
                             },
                         });
-                        job.hasApplied = appliedResponse.data.applied;  // Adding applied status to the job object
+                        job.hasApplied = appliedResponse.data.applied;  
                         return job;
                     });
                     const jobResponses = await Promise.all(jobPromises);
@@ -52,10 +52,9 @@ const BookmarkedJobs = () => {
     };
 
     const handleApplicationSuccess = () => {
-        // When the job application is successful
         setBookmarkedJobs(prevJobs => prevJobs.map(job => ({
             ...job,
-            hasApplied: true,  // Set hasApplied to true when applied successfully
+            hasApplied: true,  
         })));
     };
 

@@ -20,19 +20,23 @@ const Main = () => {
             <Navbar2 />
             <Navbar />
 
+
             <div className='lg:px-24 md:px-12 px-4'>
-                <Outlet />
+                <div className='lg:px-24 md:px-12 px-4 min-h-screen'>
+
+                    <Outlet />
+                </div>
+
+                <Footer />
+
+
+                <button
+                    onClick={goToMessages}
+                    className='fixed bottom-8 right-8 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition'
+                >
+                    <FaEnvelope size={24} />
+                </button>
             </div>
-
-            <Footer />
-
-
-            <button
-                onClick={goToMessages}
-                className='fixed bottom-8 right-8 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition'
-            >
-                <FaEnvelope size={24} />
-            </button>
         </div>
     );
 };

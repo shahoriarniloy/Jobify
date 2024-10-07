@@ -46,9 +46,9 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="container  mt-16 pt-8">
+        <div className="container  mt-16 pt-8  rounded-xl px-12 py-16">
             <div className="flex flex-col lg:flex-row justify-center items-center  ">
-                <div className=" flex lg:flex-row flex-col">
+                <div className=" flex lg:flex-row flex-col justify-center items-center">
 
                     <div className="flex-row">
                         <div className="lg:text-left md:text-left text-center ">
@@ -64,9 +64,9 @@ const SearchBar = () => {
 
                         <div>
 
-                            <div className="w-full bg-white rounded-lg shadow border border-[#e4e5e8] p-6 flex-1]">
-                                <form className="flex flex-col sm:flex-row gap-4 sm:gap-2" onSubmit={handleSearch}>
-                                    <div className="relative flex-1">
+                            <div className="w-full bg-white rounded-lg shadow-lg border border-[#e4e5e8] p-6 flex-1]">
+                                <form className="flex flex-col sm:flex-row gap-4 sm:gap-2 border rounded-lg" onSubmit={handleSearch}>
+                                    <div className="relative flex-1 ">
                                         <AiOutlineSearch
                                             className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
                                         <input type="text" placeholder="Job title, Company Name..." value={searchTerm}
@@ -136,7 +136,7 @@ const SearchBar = () => {
                         )}
                     </div>
 
-                    <div>
+                    <div className="w- flex justify-center items-center">
                         <img src="https://i.ibb.co.com/Z15WRhd/hiring-agency-candidates-job-interview.png" alt="" />
                     </div>
 
