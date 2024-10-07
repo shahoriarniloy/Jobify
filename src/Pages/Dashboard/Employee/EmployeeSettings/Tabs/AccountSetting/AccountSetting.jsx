@@ -72,6 +72,7 @@ const AccountSetting = () => {
               name="location"
               id="location"
               value={location}
+              required
               onChange={(e) => setLocation(e.target.value)}
               className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-2"
               placeholder=""
@@ -87,6 +88,7 @@ const AccountSetting = () => {
             <PhoneInput
               country={"bd"}
               value={phone}
+              required
               onChange={(phone) => setPhone(phone)}
               containerClass="w-full"
               inputClass="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border rounded-md h-10 pl-12 my-2"
@@ -107,6 +109,7 @@ const AccountSetting = () => {
                 name="email"
                 id="email"
                 value={email}
+                required
                 onChange={(e) => setEmail(e.target.value)}
                 className="border border-gray-300 p-2 pl-10 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-2"
                 placeholder="Email"
