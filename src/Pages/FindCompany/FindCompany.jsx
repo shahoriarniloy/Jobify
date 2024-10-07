@@ -190,7 +190,7 @@ const AdvancedSearch = () => {
                     : companies
                   ).map((company) => (
                     <tr
-                      key={company._id}
+                      key={company.email}
                       className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
                     >
                       <td className="p-3">
@@ -206,7 +206,7 @@ const AdvancedSearch = () => {
                       </td>
                       <td className="p-3">{company.company_size}</td>
                       <td className="p-3">
-                        <Link to={`/company-details/${company._id}`}>
+                        <Link to={`/company-details/${company.email}`}>
                           {" "}
                           <button className=" px-3 py-1 rounded">
                             <EyeIcon className="h-5 w-5 inline-block mr-1" />
@@ -221,11 +221,11 @@ const AdvancedSearch = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4  mt-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4  mt-4 gap-6 justify-center">
           {(filteredCompanies.length > 0 ? filteredCompanies : companies).map(
             (company) => (
               <div
-                key={company._id}
+                key={company.email}
                 className="max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800"
               >
                 <div className="flex flex-col justify-between p-6 space-y-8">
