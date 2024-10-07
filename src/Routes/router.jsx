@@ -9,15 +9,13 @@ import Home from "../Pages/Home/Home";
 import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
 
-
 import CompanyDetails from "../Pages/FindCompany/CompanyDetails/CompanyDetails";
 
-import About from "../Pages/About/About"
+import About from "../Pages/About/About";
 import DashboardLayout from "../Pages/Dashboard/DashboardLayout";
 import EmployeeHome from "../Pages/Dashboard/Employee/EmployeeHome";
 import AppliedJobs from "../Pages/Dashboard/Employee/AppliedJobs";
 // import FavoriteJobs from "../Pages/Dashboard/Employee/FavoriteJobs";
-
 
 import AdvancedSearch from "../Pages/Find Job/AdvancedSearch";
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
@@ -28,7 +26,7 @@ import FindCompany from "../Pages/FindCompany/FindCompany";
 
 import PostJob from "../Pages/Dashboard/Company/PostJob";
 import MyJob from "../Pages/Dashboard/Company/MyJob";
-import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs"
+import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs";
 import Messages from "../Pages/Dashboard/Employee/Messages";
 import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
 
@@ -36,11 +34,10 @@ import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
 
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
 import AppliedCandidates from "../Pages/Dashboard/Company/Candidates/AppliedCandidates";
-
-
-
-
-
+import Overview from "../Pages/Dashboard/Company/Overview";
+import PostStatus from "../Pages/Posts/PostStatus";
+import Posts from "../Pages/Posts/Posts";
+import Comments from "../Pages/Posts/Comments";
 
 export const router = createBrowserRouter([
   {
@@ -52,18 +49,17 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
       },
-      
+
       {
-        path: "company-details/:companyId", 
+        path: "company-details/:companyId",
         element: <CompanyDetails />,
       },
       {
-
         path: "/about",
         element: <About />,
       },
       {
-        path: "/company/:email/jobs", 
+        path: "/company/:email/jobs",
         element: <CompanyJobs />,
       },
       {
@@ -80,29 +76,35 @@ export const router = createBrowserRouter([
       },
       {
         path: "/job/:id",
-        element: <SingleJob/> ,
-
+        element: <SingleJob />,
       },
       {
         path: "/candidates",
-        element: <Candidates/> ,
-
-      },
-      
-      {
-        path:"/appliedjobs",
-        element:<AppliedJobs/>
-      },
-      {
-        path:"/favorite-jobs",
-        element:<BookmarkedJobs/>
+        element: <Candidates />,
       },
 
+      {
+        path: "/appliedjobs",
+        element: <AppliedJobs />,
+      },
+      {
+        path: "/favorite-jobs",
+        element: <BookmarkedJobs />,
+      },
+
+      {
+        path: "/posts",
+        element: <Posts />,
+      },
+      {
+        path: "/comments/:postId",
+        element: <Comments />,
+      },
     ],
   },
   {
     path: "/",
-    element: <AuthLayout />,  
+    element: <AuthLayout />,
     children: [
       {
         path: "/register",
@@ -113,15 +115,9 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
       {
-
         path: "/about",
         element: <About />,
       },
-
-      
-     
-
-
 
       {
         path: "/dashboard",
@@ -129,53 +125,48 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "/dashboard/overview",
-            element: <EmployeeHome />
+            element: <EmployeeHome />,
           },
           {
-            path:"/dashboard/applied-jobs",
-            element:<AppliedJobs/>
-          }
-          ,
-          
+            path: "/dashboard/company-overview",
+            element: <Overview />,
+          },
+          {
+            path: "/dashboard/applied-jobs",
+            element: <AppliedJobs />,
+          },
           {
             path: "/dashboard/postJob",
-            element: <PostJob></PostJob> ,
+            element: <PostJob></PostJob>,
           },
           {
             path: "/dashboard/myjob",
-            element: <MyJob></MyJob>,  
+            element: <MyJob></MyJob>,
           },
           {
             path: "/dashboard/job-candidates",
-            element: <AppliedCandidates></AppliedCandidates>,  
+            element: <AppliedCandidates></AppliedCandidates>,
           },
           {
             path: "/dashboard/candidates",
             element: <Candidates></Candidates>,
-           
           },
-          
+
           {
             path: "/dashboard/messages",
             element: <Messages></Messages>,
-           
           },
           {
             path: "/dashboard/messages/:otherPartyEmail",
             element: <MessageDetail></MessageDetail>,
-           
           },
 
           {
             path: "/dashboard/EmployeeSettings",
-            element: <EmployeeSettings/> ,
-           
+            element: <EmployeeSettings />,
           },
-
-        ]
-
-      }
+        ],
+      },
     ],
   },
-
 ]);

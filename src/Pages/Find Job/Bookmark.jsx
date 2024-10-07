@@ -1,21 +1,25 @@
-import { useState, useEffect } from 'react';
-import axiosSecure from '../../Hooks/UseAxiosSecure';
-import useCurrentUser from '../../Hooks/useCurrentUser'; 
+import { useState, useEffect } from "react";
+import axiosSecure from "../../Hooks/UseAxiosSecure";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const Bookmark = ({ jobId }) => {
-  const { currentUser } = useCurrentUser(); 
-  const [isBookmarked, setIsBookmarked] = useState(false); 
+  const { currentUser } = useCurrentUser();
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
     const checkIfBookmarked = async () => {
       if (currentUser?.email) {
-        console.log(currentUser);
+        // console.log(currentUser);
         try {
-          const response = await axiosSecure.get(`/bookmarks?email=${currentUser?.email}`);
-          const bookmarkedJobs = response.data.map(bookmark => bookmark.jobId);
+          const response = await axiosSecure.get(
+            `/bookmarks?email=${currentUser?.email}`
+          );
+          const bookmarkedJobs = response.data.map(
+            (bookmark) => bookmark.jobId
+          );
           setIsBookmarked(bookmarkedJobs.includes(jobId));
         } catch (error) {
           // console.error('Error fetching bookmarks:', error);
@@ -32,25 +36,28 @@ const Bookmark = ({ jobId }) => {
     }
 
     try {
-      const response = await axiosSecure.post('/bookmarks', {
-        userEmail: currentUser.email, 
+      const response = await axiosSecure.post("/bookmarks", {
+        userEmail: currentUser.email,
         jobId,
       });
       // console.log('Bookmark added:', response.data);
-      toast.success('Job bookmarked successfully!');
-      setIsBookmarked(true); 
+      toast.success("Job bookmarked successfully!");
+      setIsBookmarked(true);
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        toast.info('Job already bookmarked.');
+        toast.info("Job already bookmarked.");
       } else {
         // console.error('Error adding bookmark:', error);
-        toast.error('Failed to bookmark job.');
+        toast.error("Failed to bookmark job.");
       }
     }
   };
 
   return (
-    <button onClick={handleBookmark} style={{ color: isBookmarked ? 'blue' : 'currentColor' }}>
+    <button
+      onClick={handleBookmark}
+      style={{ color: isBookmarked ? "blue" : "currentColor" }}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

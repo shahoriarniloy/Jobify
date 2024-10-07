@@ -26,10 +26,10 @@ const AppliedJobs = () => {
             `/check-applied-jobs?email=${currentUser.email}`
           );
           setAppliedJobs(response.data);
-          console.log(response);
+          //   console.log(response);
         } catch (error) {
           setError("Error fetching applied jobs.");
-          console.error("Error fetching applied jobs:", error);
+          //   console.error("Error fetching applied jobs:", error);
         } finally {
           setLoading(false);
         }
@@ -68,7 +68,7 @@ const AppliedJobs = () => {
                   </div>
                 </div>
 
-                <div className="card-actions justify-end mt-6 flex items-center">
+                <div className="card-actions mt-6 flex items-center">
                   <div className="flex items-center">
                     <FaCheckCircle
                       className={`mr-2 ${

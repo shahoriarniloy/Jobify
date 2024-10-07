@@ -38,9 +38,9 @@ const AppliedCandidates = () => {
           `/appliedCandidates?job_id=${jobId}`
         );
         setCandidates(response.data);
-        console.log("Candidates fetched:", response.data);
+        // console.log("Candidates fetched:", response.data);
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         setError(err.response ? err.response.data.message : err.message);
       } finally {
         setLoading(false);
@@ -63,10 +63,10 @@ const AppliedCandidates = () => {
         applicationId,
       })
       .then((response) => {
-        console.log("Status updated:", response.data);
+        // console.log("Status updated:", response.data);
       })
       .catch((error) => {
-        console.error("Error updating status:", error);
+        // console.error("Error updating status:", error);
       });
   };
 
@@ -194,7 +194,7 @@ const AppliedCandidates = () => {
   );
 
   function viewCV(email) {
-    console.log(`View CV for ${email}`);
+    // console.log(`View CV for ${email}`);
   }
 };
 
