@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
-import { TrashIcon, PencilIcon } from "@heroicons/react/24/solid"; // Icons for remove and replace
-import axios from "axios"; // Import axios
+import { TrashIcon, PencilIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 
 const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
@@ -81,7 +81,6 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
             rows="4"
           ></textarea>
 
-          {/* Image Upload Section */}
           {!image && (
             <input
               type="file"
@@ -91,7 +90,6 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
             />
           )}
 
-          {/* Image Preview with Icons */}
           {image && (
             <div className="relative mt-2 w-40 h-40">
               <img
@@ -100,7 +98,6 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
                 className="w-full h-full object-cover rounded-md"
               />
               <div className="absolute top-1 right-1 flex space-x-2">
-                {/* Remove Image Icon */}
                 <button
                   type="button"
                   className="bg-red-500 p-1 rounded-full text-white"
@@ -109,7 +106,6 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
                   <TrashIcon className="h-5 w-5" />
                 </button>
 
-                {/* Replace Image Icon */}
                 <label
                   htmlFor="replace-image"
                   className="bg-blue-500 p-1 rounded-full text-white cursor-pointer"

@@ -24,7 +24,6 @@ const PostStatus = ({}) => {
         open={isModalOpen}
         onClose={closeModal}
         currentUser={currentUser}
-        // fetchPosts={fetchPosts}
       />
     </div>
   );

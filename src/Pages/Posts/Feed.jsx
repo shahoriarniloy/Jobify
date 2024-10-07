@@ -22,10 +22,8 @@ const Feed = ({ currentUser }) => {
 
   return (
     <div className="feed">
-      {/* Post Status Component */}
       <PostStatus currentUser={currentUser} fetchPosts={fetchPosts} />
 
-      {/* Render All Posts */}
       <div className="posts-list">
         {posts.map((post) => (
           <Post

@@ -253,6 +253,13 @@
   display: block;
 }
 
+.modal-box {
+  width: 75%;
+  height: 100vh; /* Full viewport height */
+  max-height: 100vh; /* Prevent overflowing */
+  overflow-y: auto; /* Allow scrolling if content is too long */
+}
+
 .steps {
   list-style-type: none;
   display: flex;

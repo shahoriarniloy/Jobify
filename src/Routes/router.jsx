@@ -36,6 +36,8 @@ import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/Emplo
 import AppliedCandidates from "../Pages/Dashboard/Company/Candidates/AppliedCandidates";
 import Overview from "../Pages/Dashboard/Company/Overview";
 import PostStatus from "../Pages/Posts/PostStatus";
+import Posts from "../Pages/Posts/Posts";
+import Comments from "../Pages/Posts/Comments";
 
 export const router = createBrowserRouter([
   {
@@ -89,9 +91,14 @@ export const router = createBrowserRouter([
         path: "/favorite-jobs",
         element: <BookmarkedJobs />,
       },
+
       {
-        path: "/post-status",
-        element: <PostStatus />,
+        path: "/posts",
+        element: <Posts />,
+      },
+      {
+        path: "/comments/:postId",
+        element: <Comments />,
       },
     ],
   },
