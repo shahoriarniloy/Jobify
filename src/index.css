@@ -1,14 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 /*  custom color */
 .link-color {
-    color: #0A65CC;
-    font-weight: 600;
+  color: #0a65cc;
+  font-weight: 600;
 }
 
 .modal {
@@ -36,145 +35,138 @@
   z-index: 1000; /* make sure it's on top of everything */
 }
 
-
 /* Add any additional styles for responsiveness and aesthetics */
 
-
 /* isActiveRoute style */
-.isActiveRoute{
-    border-left: 5px solid #0A65CC;
-    background-color: #e7f0fa;
-    color: #0A65CC;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding-left:15px ;
-    padding-top:8px ;
-    padding-bottom:8px ;
+.isActiveRoute {
+  border-left: 5px solid #0a65cc;
+  background-color: #e7f0fa;
+  color: #0a65cc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
-
-
 
 /* loader style */
 .loader {
-    width: 48px;
-    height: 48px;
-    display: inline-block;
-    position: relative;
-    border: 3px solid;
-    border-color: #de3500 #0000 #fff #0000;
-    border-radius: 50%;
-    box-sizing: border-box;
-    animation: 1s rotate linear infinite;
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+  border: 3px solid;
+  border-color: #de3500 #0000 #fff #0000;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: 1s rotate linear infinite;
 }
 
 .loader:before,
 .loader:after {
-    content: '';
-    top: 0;
-    left: 0;
-    position: absolute;
-    border: 10px solid transparent;
-    border-bottom-color: #fff;
-    transform: translate(-10px, 19px) rotate(-35deg);
+  content: "";
+  top: 0;
+  left: 0;
+  position: absolute;
+  border: 10px solid transparent;
+  border-bottom-color: #fff;
+  transform: translate(-10px, 19px) rotate(-35deg);
 }
 
 .loader:after {
-    border-color: #de3500 #0000 #0000 #0000;
-    transform: translate(32px, 3px) rotate(-35deg);
+  border-color: #de3500 #0000 #0000 #0000;
+  transform: translate(32px, 3px) rotate(-35deg);
 }
 
 .roboto-thin {
-    font-family: "Roboto", sans-serif;
-    font-weight: 100;
-    font-style: normal;
-  }
-  
-  .roboto-light {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-  }
-  
-  .roboto-regular {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .roboto-medium {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
-  
-  .roboto-bold {
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .roboto-black {
-    font-family: "Roboto", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-  }
-  
-  .roboto-thin-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 100;
-    font-style: italic;
-  }
-  
-  .roboto-light-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-  
-  .roboto-regular-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .roboto-medium-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-  }
-  
-  .roboto-bold-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  
-  .roboto-black-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-  }
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
 
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
 
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
 
-  .nav-link {
-    padding: 10px 15px; 
-    transition: background-color 0.3s, color 0.3s; 
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.nav-link {
+  padding: 10px 15px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .active-nav {
-    background-color: #007BFF; 
-    color: white; 
-    border-radius: 5px; 
-    font-weight: bold; 
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 .nav-link:hover {
-    background-color: #0056b3; 
-    color: white; 
-    border-radius: 5px; 
+  background-color: #0056b3;
+  color: white;
+  border-radius: 5px;
 }
 
 /* .btn-gradient {
@@ -190,25 +182,23 @@
 
    */
 
-   /* Custom scrollbar styles (for webkit browsers) */
 ::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color of the scrollbar thumb */
-  border-radius: 4px; /* Rounded corners for the scrollbar thumb */
+  background-color: #888;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Darker color on hover */
+  background-color: #555;
 }
 
-
 @keyframes rotate {
-    100% {
-        transform: rotate(360deg)
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fadeInUp {
@@ -257,4 +247,36 @@
 }
 .animate-slideIn {
   animation: slideIn 1s ease-in-out;
+}
+
+.modal.is-active {
+  display: block;
+}
+
+.modal-box {
+  width: 75%;
+  height: 100vh; /* Full viewport height */
+  max-height: 100vh; /* Prevent overflowing */
+  overflow-y: auto; /* Allow scrolling if content is too long */
+}
+
+.steps {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.step {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+}
+
+.step-highlight {
+  color: rgb(16, 148, 45);
+  font-weight: bold;
+}
+
+.step-error {
+  color: red;
 }

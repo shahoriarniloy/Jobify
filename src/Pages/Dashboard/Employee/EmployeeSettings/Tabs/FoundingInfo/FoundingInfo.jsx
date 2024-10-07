@@ -27,18 +27,18 @@ const FoundingInfo = () => {
     // Extract plain text from companyVision
     const companyVisionText = companyVision.replace(/<[^>]*>/g, ""); // Strip HTML tags
 
-    console.log({
-      organizationType,
-      industryType,
-      teamSize,
-      establishmentYear,
-      website,
-      companyVisionText, // Log plain text version of company vision
-    });
+    // console.log({
+    //   organizationType,
+    //   industryType,
+    //   teamSize,
+    //   establishmentYear,
+    //   website,
+    //   companyVisionText,
+    // });
   };
 
   return (
-    <div>
+    <div className="p-4 md:p-8">
       <form onSubmit={handleSubmit}>
         <div className="grid md:grid-cols-3 gap-4">
           {/* Organization Type */}

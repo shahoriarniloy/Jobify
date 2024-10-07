@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Bookmark from "./Bookmark";
 import { Link } from "react-router-dom";
+import { EyeIcon } from '@heroicons/react/24/outline';
+
 
 const AdvancedSearch = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -397,8 +399,8 @@ const AdvancedSearch = () => {
                         </td>
                         <td className="p-3">
                           <Link to={`/job/${job._id}`}>
-                            <button className="text-blue-600 hover:underline">
-                              Details
+                            <button className=" hover:underline">
+                            <EyeIcon className="h-5 w-5 inline-block mr-1" />
                             </button>
                           </Link>
                         </td>
@@ -440,7 +442,7 @@ const AdvancedSearch = () => {
                   to={`/job/${job._id}`}
                   className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-gradient-to-r from-blue-500 to-blue-700 dark:text-gray-50"
                 >
-                  Details
+                  <EyeIcon className="h-5 w-5 inline-block mr-1" />Details
                 </Link>
               </div>
             </div>

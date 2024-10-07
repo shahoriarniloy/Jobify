@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axiosSecure from '../../Hooks/UseAxiosSecure';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import { FaFacebook, FaGithub } from "react-icons/fa";
 
 const Reviews = () => {
 const [reviews, setReviews] = useState([]);
@@ -16,6 +17,49 @@ const [currentPage, setCurrentPage] = useState(1);
 const [totalPages, setTotalPages] = useState(1);
 
 const { currentUser } = useCurrentUser();
+
+const teamMembers = [
+  {
+      name: "Shahoriar Azad Niloy",
+      role: "Team Leader, Developer",
+      email: "niloyshahoriar@gmail.com",
+      facebook: "https://www.facebook.com/shahoriarniloy/",
+      github: "https://github.com/shahoriarniloy",
+      imageUrl: "https://i.ibb.co/tq6BdhB/459635328-1531076374210966-5827006199608069936-n.jpg"
+  },
+  {
+      name: "Mumtahina Mahbub Efa",
+      role: "Developer",
+      email: "mumtahinaefa8@gmail.com",
+      facebook: "https://www.facebook.com/share/2zLeJux621QpVnm8/?mibextid=LQQJ4d",
+      github: "https://github.com/Bella908",
+      imageUrl: "https://i.ibb.co/KKdG923/458968663-1737661743672221-6606888850658979638-n.jpg"
+  },
+  {
+      name: "Indra Ghosh",
+      role: "Developer",
+      email: "indraghosh0802@gmail.com",
+      facebook: "https://www.facebook.com/indra.priya.564?mibextid=ZbWKwL",
+      github: "https://github.com/indraghosh02",
+      imageUrl: "https://i.ibb.co/Fwmn9yQ/461014362-1441578429848823-6777233053187165958-n.jpg"
+  },
+  {
+      name: "Md. Abdullah Az Zahur",
+      role: "Developer",
+      email: "abdullah.az.zahur@gmail.com",
+      facebook: "https://www.facebook.com/abdullahaazzahur.giyas",
+      github: "https://github.com/Abdullah-Az-Zahur",
+      imageUrl: "https://i.ibb.co/L1BnDrS/459298118-814495080572951-1002648524559915351-n.png"
+  },
+  {
+      name: "Md Abumahid Islam (Maruf)",
+      role: "Developer",
+      email: "dev.abumahid@gmail.com",
+      facebook: "https://www.facebook.com/profile.php?id=100027753881743",
+      github: "https://github.com/md-maruf-billa",
+      imageUrl: "https://i.ibb.co/c1dTRp2/459216252-1492857254695253-6783292354464325140-n.jpg"
+  }
+];
 
 
 useEffect(() => {
@@ -86,8 +130,8 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
   return (
   <div className='  '>
     <section className="py-8">
-  <div className="container mx-auto px-6 text-center">
-    <h2 className="text-4xl font-bold text-blue-600 ">About Jobify</h2>
+  <div className="container mx-auto px-6 text-center mb-12">
+    <h2 className="text-4xl font-bold text-black ">About Jobify</h2>
     <p className="mt-4 text-lg  mx-auto ">
       Jobify is a cutting-edge platform designed to streamline the hiring process for both job seekers and employers. Our mission is to connect talented individuals with top-notch companies through a user-friendly interface and innovative technology.
     </p>
@@ -100,7 +144,7 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
 
       <section className="">
   <div className="container mx-auto px-6 text-center">
-    <h2 className="text-4xl font-bold text-blue-600">Why Choose Us?</h2>
+    <h2 className="text-4xl font-bold text-black">Why Choose Us?</h2>
     <p className="mt-4 text-lg text-gray-600  mx-auto">
       We are a platform designed to make the hiring and job-seeking process effortless for everyone. Here’s
       why you should choose <strong>Jobify</strong>.
@@ -108,7 +152,7 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12 ">
       <div className=" p-6 bg-white rounded-lg shadow-lg   hover:scale-105 hover:shadow-2xl ">
-        <h3 className="text-2xl font-semibold text-blue-600">Experienced Professionals</h3>
+        <h3 className="text-2xl font-semibold text-black">Experienced Professionals</h3>
         <p className="mt-4 text-gray-600">
           Our team is comprised of industry experts with years of experience in recruitment and technology,
           ensuring you receive the best possible support.
@@ -116,7 +160,7 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
       </div>
 
       <div className=" p-6 bg-white rounded-lg shadow-lg   hover:scale-105 hover:shadow-2xl">
-        <h3 className="text-2xl font-semibold text-blue-600">Cutting-Edge Technology</h3>
+        <h3 className="text-2xl font-semibold text-black">Cutting-Edge Technology</h3>
         <p className="mt-4 text-gray-600">
           We use advanced algorithms and AI-powered tools to match candidates with the right job opportunities,
           making the process faster and more efficient.
@@ -124,7 +168,7 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
       </div>
 
       <div className=" p-6 bg-white rounded-lg shadow-lg   hover:scale-105 hover:shadow-2xl">
-        <h3 className="text-2xl font-semibold text-blue-600">User-Centric Approach</h3>
+        <h3 className="text-2xl font-semibold text-black">User-Centric Approach</h3>
         <p className="mt-4 text-gray-600">
           At Jobify, we prioritize user experience, ensuring our platform is easy to navigate and tailored to
           meet the needs of both job seekers and employers.
@@ -132,7 +176,7 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
       </div>
 
       <div className=" p-6 bg-white rounded-lg shadow-lg   hover:scale-105 hover:shadow-2xl">
-        <h3 className="text-2xl font-semibold text-blue-600">Innovation & Growth</h3>
+        <h3 className="text-2xl font-semibold text-black">Innovation & Growth</h3>
         <p className="mt-4 text-gray-600">
           We continuously update our platform with the latest features to stay ahead of industry trends and meet
           the evolving needs of the market.
@@ -140,7 +184,7 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
       </div>
 
       <div className=" p-6 bg-white rounded-lg shadow-lg   hover:scale-105 hover:shadow-2xl">
-        <h3 className="text-2xl font-semibold text-blue-600">Trusted by Industry Leaders</h3>
+        <h3 className="text-2xl font-semibold text-black">Trusted by Industry Leaders</h3>
         <p className="mt-4 text-gray-600">
           Top companies and organizations trust us to provide them with high-quality candidates, making Jobify a
           trusted partner in the recruitment process.
@@ -148,7 +192,7 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
       </div>
 
       <div className=" p-6 bg-white rounded-lg shadow-lg   hover:scale-105 hover:shadow-2xl">
-        <h3 className="text-2xl font-semibold text-blue-600">Comprehensive Job Solutions</h3>
+        <h3 className="text-2xl font-semibold text-black">Comprehensive Job Solutions</h3>
         <p className="mt-4 text-gray-600">
           Whether you're an employer or a job seeker, we offer solutions tailored to your needs, helping you find
           the best match quickly and effectively.
@@ -157,6 +201,38 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
     </div>
   </div>
 </section>
+
+
+<div className="container mx-auto my-16">
+            <h2 className="text-4xl font-bold text-center mb-12">Our Team</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                {teamMembers.map((member, index) => (
+                    <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300 ease-in-out text-center">
+                        <img
+                            src={member.imageUrl}
+                            alt={member.name}
+                            className="w-full h-56 object-cover rounded-lg mb-4"
+                        />
+                        <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
+                        <p className="text-gray-600 mb-2">{member.role}</p>
+                        {/* <p>Email: <a href={`mailto:${member.email}`} className="text-black">{member.email}</a></p>
+                        <p>Phone: {member.phone}</p> */}
+                        <div className="flex justify-center space-x-4 mt-4">
+                            {member.facebook && (
+                                <a href={member.facebook} target="_blank" rel="noopener noreferrer" className="text-black">
+                                    <FaFacebook className="text-2xl" /> 
+                                </a>
+                            )}
+                            {member.github && (
+                                <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-gray-800">
+                                    <FaGithub className="text-2xl" /> 
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
 
 
       <h1 className="text-3xl text-center mt-8 font-bold mb-12">Feedbacks</h1>
@@ -238,3 +314,12 @@ if (currentPage < totalPages) { setCurrentPage((prevPage)=> prevPage + 1);
   };
 
   export default Reviews;
+
+
+  // https://i.ibb.co.com/tq6BdhB/459635328-1531076374210966-5827006199608069936-n.jpg
+
+  // https://i.ibb.co.com/KKdG923/458968663-1737661743672221-6606888850658979638-n.jpg
+  // https://i.ibb.co.com/Fwmn9yQ/461014362-1441578429848823-6777233053187165958-n.jpg
+
+  // https://i.ibb.co.com/L1BnDrS/459298118-814495080572951-1002648524559915351-n.png
+  // https://i.ibb.co.com/c1dTRp2/459216252-1492857254695253-6783292354464325140-n.jpg
