@@ -14,7 +14,6 @@ import CompanyDetails from "../Pages/FindCompany/CompanyDetails/CompanyDetails";
 
 import About from "../Pages/About/About"
 import DashboardLayout from "../Pages/Dashboard/DashboardLayout";
-import EmployeeHome from "../Pages/Dashboard/Employee/EmployeeHome";
 import AppliedJobs from "../Pages/Dashboard/Employee/AppliedJobs";
 // import FavoriteJobs from "../Pages/Dashboard/Employee/FavoriteJobs";
 
@@ -35,6 +34,7 @@ import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
 import JobTable from "../Pages/Dashboard/Company/MyJob";
 
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
+import EmployeeHome from "../Pages/Dashboard/Company/EmployeeHome";
 
 
 

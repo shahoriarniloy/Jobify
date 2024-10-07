@@ -1,7 +1,7 @@
 import React from 'react';
-import InformationCard from './Components/InformationCard';
+import InformationCard from '../Employee/Components/InformationCard';
 import ButtonWithIcon from '../../../Shared/ButtonWithIcon';
-import RecentAppliedJobTable from './Components/RecentAppliedJobTable';
+import RecentAppliedJobTable from '../Employee/Components/RecentAppliedJobTable';
 
 
 const EmployeeHome = () => {

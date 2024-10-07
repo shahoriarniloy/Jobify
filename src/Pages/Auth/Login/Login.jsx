@@ -8,7 +8,7 @@ import axiosSecure from "../../../Hooks/UseAxiosSecure";
 
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
-    const { signInWithGoogle } = useContext(AuthContext);
+    const { signInWithGoogle,loading } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
@@ -74,11 +74,11 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button>
                             </div>
-                            {error && <p className="text-red-500 text-sm">{error}</p>}
+                        
                         </div>
                         <div className="mt-6">
                             <button className='btn w-full bg-[#0A65CC] text-white'>
-                                {loading ? "Logging in..." : "Sign In"}
+                                {loading ? <ButtonLoader/> : "Sign In"}
                             </button>
                         </div>
                     </form>

@@ -37,12 +37,25 @@ const AuthProvider = ({ children }) => {
     };
 
     const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
-                   
+
 
 
     const logOut = () => {
         setLoading(true);
-        return signOut(auth);
+        signOut(auth)
+            .then(res => {
+                toast.success('Successfully Log Out !', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+               
+            })
 
     };
 

@@ -43,27 +43,6 @@ const Navbar = () => {
                 </div>
 
                 <div className="navbar-end flex items-center gap-4">
-                    {/* <div className="flex gap-2">
-                        <span className="text-gray-700 mt-1"><BiPhoneCall /></span>
-                        <span className="text-gray-700">+1 234 567 890</span>
-                    </div> */}
-                    {/* <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="text-gray-700 px-3 py-1 rounded-full cursor-pointer flex items-center gap-1">
-                            <US title="United States" className="w-5 h-5" /> EN
-                        </label>
-                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32">
-                            <li>
-                                <button className="flex items-center gap-2">
-                                    <US title="United States" className="w-5 h-5" /> EN
-                                </button>
-                            </li>
-                            <li>
-                                <button className="flex items-center gap-2">
-                                    <BN title="Bangladesh" className="w-5 h-5" /> BN
-                                </button>
-                            </li>
-                        </ul>
-                    </div> */}
                 </div>
             </div>
         </div>

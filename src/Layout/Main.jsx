@@ -9,7 +9,6 @@ import Loader from '../Shared/Loader';
 const Main = () => {
     const navigate = useNavigate();
     const { loading } = useCurrentUser();
-    console.log(loading)
     const goToMessages = () => {
         navigate('/dashboard/messages');
     };

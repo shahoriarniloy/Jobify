@@ -7,35 +7,26 @@ import { Modal } from 'react-responsive-modal';
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
 import useUserRole from "../Hooks/useUserRole";
-import { toast } from "react-toastify";
+import { FaRegHeart } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+
 
 const Navbar2 = () => {
     const { currentUser, logOut } = useCurrentUser();
+    const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [signUpModalOpen, setSignUpModalOpen] = useState(false);
     const { role } = useUserRole();
-    const navigate = useNavigate();
-
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
     const handelLogOut = () => {
         logOut()
-            .then(res => {
-                toast.success('Successfully Log Out !', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                navigate("/");
-            })
+        navigate("/")
+
 
     }
 
@@ -65,34 +56,41 @@ const Navbar2 = () => {
                                             <ul className="py-1 text-gray-700">
 
                                                 {
-                                                    role == "Job Seeker" ? <>
+                                                    role == "Job Seeker" && <>
                                                         <li>
                                                             <Link
                                                                 to="/favorite-jobs"
-                                                                className="block px-4 py-2 hover:bg-gray-100"
+                                                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                                                 onClick={() => setIsMenuOpen(false)}
                                                             >
+                                                                <FaRegHeart />
                                                                 Favorite Jobs
                                                             </Link>
                                                         </li>
                                                     </>
-                                                        :
 
+                                                }
+                                                {
+                                                    role == "Employer" && <>
                                                         <li>
                                                             <Link
                                                                 to="/dashboard/overview"
-                                                                className="block px-4 py-2 hover:bg-gray-100"
+                                                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                                                 onClick={() => setIsMenuOpen(false)}
                                                             >
+                                                                <MdOutlineDashboardCustomize />
                                                                 Dashboard
                                                             </Link>
                                                         </li>
+                                                    </>
                                                 }
+
                                                 <li>
                                                     <button
                                                         onClick={handelLogOut}
-                                                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                                                        className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2 w-full"
                                                     >
+                                                        <MdLogout />
                                                         Logout
                                                     </button>
                                                 </li>
