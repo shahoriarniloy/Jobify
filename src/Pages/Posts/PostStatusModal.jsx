@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import { TrashIcon, PencilIcon } from "@heroicons/react/24/solid";
+import { HiOutlineEmojiHappy } from "react-icons/hi";
 import axios from "axios";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
 const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const emojiPickerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target)
+      ) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -73,13 +94,40 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-4">Create a Post</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="What's on your mind?"
-            className="w-full p-3 border rounded-md resize-none"
-            rows="4"
-          ></textarea>
+          <div className="relative">
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="What's on your mind?"
+              className="w-full p-3 border rounded-md resize-none"
+              rows="4"
+            ></textarea>
+
+            <button
+              type="button"
+              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              className="absolute right-2 top-2 text-gray-500 hover:text-blue-500"
+              aria-label="Emoji Picker"
+            >
+              <HiOutlineEmojiHappy size={24} />
+            </button>
+
+            {showEmojiPicker && (
+              <div
+                ref={emojiPickerRef}
+                className="absolute bottom-12 right-0 z-10 h-full max-w-screen"
+              >
+                <Picker
+                  data={data}
+                  perLine={5}
+                  onEmojiSelect={(emoji) => {
+                    setContent(content + emoji.native);
+                    setShowEmojiPicker(false);
+                  }}
+                />
+              </div>
+            )}
+          </div>
 
           {!image && (
             <input
