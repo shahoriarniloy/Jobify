@@ -12,9 +12,8 @@ const Candidates = () => {
     }, []);
 
     return (
-        <div className="flex lg:flex-row flex-col m-10 gap-5">
+        <div className="flex lg:flex-row flex-col  gap-2 w-full justify-between">
       
-          <CandidatesFilter></CandidatesFilter>
 
     
             <div>
@@ -29,6 +28,8 @@ const Candidates = () => {
 
                 
             </div>
+            <CandidatesFilter></CandidatesFilter>
+
         </div>
     );
 };

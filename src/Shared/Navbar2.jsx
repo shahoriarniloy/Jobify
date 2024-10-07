@@ -5,6 +5,7 @@ import { useState } from 'react';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import Login from "../Pages/Auth/Login/Login";
+import { HomeIcon, StarIcon, BriefcaseIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'; 
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
 
 const Navbar2 = () => {
@@ -41,36 +42,49 @@ const Navbar2 = () => {
                                     />
 
                                     {isMenuOpen && (
-                                        <div className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"> {/* Set z-index here */}
-                                            <ul className="py-1 text-gray-700">
-                                                <li>
-                                                    <Link
-                                                        to="/dashboard/favorite-jobs"
-                                                        className="block px-4 py-2 hover:bg-gray-100"
-                                                        onClick={() => setIsMenuOpen(false)}
-                                                    >
-                                                        Dashboard
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/dashboard/overview"
-                                                        className="block px-4 py-2 hover:bg-gray-100"
-                                                        onClick={() => setIsMenuOpen(false)}
-                                                    >
-                                                        Favorite Jobs
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <button
-                                                        onClick={logout}
-                                                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                                                    >
-                                                        Logout
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <div className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"> 
+                                        <ul className="py-1 text-gray-700">
+                                          <li>
+                                            <Link
+                                              to="/dashboard/overview"
+                                              className="flex items-center px-4 py-2 hover:bg-gray-100"
+                                              onClick={() => setIsMenuOpen(false)}
+                                            >
+                                              <HomeIcon className="h-5 w-5 mr-2" /> 
+                                              Dashboard
+                                            </Link>
+                                          </li>
+                                          <li>
+                                            <Link
+                                              to="/favorite-jobs"
+                                              className="flex items-center px-4 py-2 hover:bg-gray-100"
+                                              onClick={() => setIsMenuOpen(false)}
+                                            >
+                                              <StarIcon className="h-5 w-5 mr-2" /> 
+                                              Favorite Jobs
+                                            </Link>
+                                          </li>
+                                          <li>
+                                            <Link
+                                              to="/appliedjobs"
+                                              className="flex items-center px-4 py-2 hover:bg-gray-100"
+                                              onClick={() => setIsMenuOpen(false)}
+                                            >
+                                              <BriefcaseIcon className="h-5 w-5 mr-2" /> 
+                                              Applied Jobs
+                                            </Link>
+                                          </li>
+                                          <li>
+                                            <button
+                                              onClick={logout}
+                                              className="flex items-center w-full text-left px-4 py-2 hover:bg-gray-100"
+                                            >
+                                              <ArrowRightOnRectangleIcon className="h-5 w-5 mr-2" /> 
+                                              Logout
+                                            </button>
+                                          </li>
+                                        </ul>
+                                      </div>
                                     )}
                                 </div>
                             </>

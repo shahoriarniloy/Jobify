@@ -23,7 +23,7 @@ const CandidateCard = ({ candidate }) => {
                     <img className=' rounded-lg' src={image} alt={candidate_name} style={{ height: '100px', width: 'auto' }} />
                 </figure>
                 <div className="card-body p-4" >
-                    <h2 className="card-title" >{candidate_name}</h2>
+                    <h2 className="card-title w-96" >{candidate_name}</h2>
                     <p>{designation}</p>
                     {/* <div className='flex lg:flex-row flex-col items-center mr-52'>
                         <MdOutlineLocationOn className="mr-2 text-2xl" />
