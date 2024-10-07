@@ -10,12 +10,13 @@ const AccountSetting = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
+  const [storedPassword, setStoredPassword] = useState(""); // State to store the password
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const currentPassword = "123456";
+  const currentPassword = "123456"; // mock stored current password
 
   const {
     register,
@@ -43,16 +44,20 @@ const AccountSetting = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("password", data.newPassword);
-    reset();
+    // Set the stored password to the new password
+    setStoredPassword(data.newPassword);
+    alert("Password changed successfully! New password: " + data.newPassword);
+    reset(); // Reset the form after submission
   };
+
+  console.log(storedPassword);
 
   // Watch the new password field to compare with confirm password
   const newPassword = watch("newPassword");
 
   return (
     <div className="p-4 md:p-8">
-      {/*  Contact Information */}
+      {/* Contact Information */}
       <section>
         <h2 className="font-bold  mb-4 text-xl">Contact Information</h2>
         <form action="" onSubmit={handleContactSubmit}>
@@ -124,103 +129,115 @@ const AccountSetting = () => {
       <section>
         <h2 className="font-bold  mb-4 text-xl">Change Password</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Current Password */}
-          <div className="mb-4 relative">
-            <label
-              htmlFor="currentPassword"
-              className="block mb-2 font-semibold"
-            >
-              Current Password
-            </label>
-            <input
-              type={showCurrentPassword ? "text" : "password"}
-              name=""
-              id="currentPassword"
-              className="border p-2 w-full rounded"
-              {...register("currentPassword", {
-                required: "Current Password is required",
-              })}
-            />
-            <button
-              type="button"
-              onClick={toggleCurrentPasswordVisibility}
-              className="absolute right-2 top-11 text-gray-600"
-            >
-              {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
-            {errors.currentPassword && (
-              <p className="text-red-500">{errors.currentPassword.message}</p>
-            )}
+          <div className="grid md:grid-cols-3 gap-4">
+            {/* Current Password */}
+            <div className="md:mb-4 relative">
+              <label
+                htmlFor="currentPassword"
+                className="block mb-2 font-semibold"
+              >
+                Current Password
+              </label>
+              <input
+                type={showCurrentPassword ? "text" : "password"}
+                name="currentPassword"
+                id="currentPassword"
+                className="border p-2 w-full rounded"
+                {...register("currentPassword", {
+                  required: "Current Password is required",
+                  validate: (value) =>
+                    value === currentPassword ||
+                    "Current password is incorrect",
+                })}
+              />
+              <button
+                type="button"
+                onClick={toggleCurrentPasswordVisibility}
+                className="absolute right-2 top-11 text-gray-600"
+              >
+                {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+              {errors.currentPassword && (
+                <p className="text-red-500">{errors.currentPassword.message}</p>
+              )}
+            </div>
+
+            {/* New Password */}
+            <div className="md:mb-4 relative">
+              <label htmlFor="newPassword" className="block mb-2 font-semibold">
+                New Password
+              </label>
+              <input
+                id="newPassword"
+                type={showNewPassword ? "text" : "password"}
+                className="border p-2 w-full rounded"
+                {...register("newPassword", {
+                  required: "New Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters long",
+                  },
+                })}
+              />
+              <button
+                type="button"
+                onClick={toggleNewPasswordVisibility}
+                className="absolute right-2 top-11 text-gray-600"
+              >
+                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+              {errors.newPassword && (
+                <p className="text-red-500">{errors.newPassword.message}</p>
+              )}
+            </div>
+
+            {/* Confirm Password */}
+            <div className="md:mb-4 relative">
+              <label
+                htmlFor="confirmPassword"
+                className="block mb-2 font-semibold"
+              >
+                Confirm Password
+              </label>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                className="border p-2 w-full rounded"
+                {...register("confirmPassword", {
+                  required: "Please confirm your password",
+                  validate: (value) =>
+                    value === newPassword || "Passwords do not match",
+                })}
+              />
+              <button
+                type="button"
+                onClick={toggleConfirmPasswordVisibility}
+                className="absolute right-2 top-11 text-gray-600"
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+              {errors.confirmPassword && (
+                <p className="text-red-500">{errors.confirmPassword.message}</p>
+              )}
+            </div>
           </div>
 
-          {/* New Password */}
-          <div className="mb-4 relative">
-            <label htmlFor="newPassword" className="block mb-2 font-semibold">
-              New Password
-            </label>
-            <input
-              id="newPassword"
-              type={showNewPassword ? "text" : "password"}
-              className="border p-2 w-full rounded"
-              {...register("newPassword", {
-                required: "New Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters long",
-                },
-              })}
-            />
-            <button
-              type="button"
-              onClick={toggleNewPasswordVisibility}
-              className="absolute right-2 top-11 text-gray-600"
-            >
-              {showNewPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
-            {errors.newPassword && (
-              <p className="text-red-500">{errors.newPassword.message}</p>
-            )}
-          </div>
-
-          {/* Confirm Password */}
-          <div className="mb-4 relative">
-            <label
-              htmlFor="confirmPassword"
-              className="block mb-2 font-semibold"
-            >
-              Confirm Password
-            </label>
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              className="border p-2 w-full rounded"
-              {...register("confirmPassword", {
-                required: "Please confirm your password",
-                validate: (value) => {
-                  value === newPassword || "Passwords do not match";
-                },
-              })}
-            />
-            <button
-              type="button"
-              onClick={toggleConfirmPasswordVisibility}
-              className="absolute right-2 top-11 text-gray-600"
-            >
-              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          </div>
-
-          {/* Submit Button */}
+          {/* Submit button */}
           <button
             type="submit"
-            className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"
+            className="btn bg-blue-600 text-white mt-4 px-6 py-3 rounded-lg w-full md:w-auto"
           >
             Change Password
           </button>
         </form>
-      </section>
 
-      {/* Delete Account */}
-      <section></section>
+        {/* Display Stored Password */}
+        {/* {storedPassword && (
+          <div className="mt-4">
+            <h3 className="font-bold text-lg">Stored Password:</h3>
+            <p className="text-gray-700">{storedPassword}</p>
+          </div>
+        )} */}
+      </section>
     </div>
   );
 };
