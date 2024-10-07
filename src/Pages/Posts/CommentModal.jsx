@@ -14,7 +14,7 @@ const CommentsModal = ({ isOpen, onClose }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!isOpen) return; // Only fetch data if the modal is open
+    if (!isOpen) return;
 
     const fetchData = async () => {
       try {
@@ -92,7 +92,7 @@ const CommentsModal = ({ isOpen, onClose }) => {
     }
   };
 
-  if (!isOpen) return null; // Don't render the modal if it's closed
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">

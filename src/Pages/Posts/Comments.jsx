@@ -93,7 +93,7 @@ const CommentsPage = () => {
   }
 
   return (
-    <div className="grid lg:grid-cols-2  gap-6 mx-24 mt-24">
+    <div className="grid lg:grid-cols-2  gap-6 lg:mx-24 mt-24">
       {post && (
         <>
           <div className="relative rounded-lg border h-auto shadow-md">
@@ -174,7 +174,6 @@ const CommentsPage = () => {
                 ))}
               </div>
 
-              {/* Comment input with emoji picker */}
               <form onSubmit={handleCommentSubmit} className="mt-4">
                 <div className="relative">
                   <input
