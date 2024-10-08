@@ -5,31 +5,25 @@ import { useParams } from "react-router-dom";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import { HiHeart, HiOutlineEmojiHappy } from "react-icons/hi";
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../Shared/DashboardLoader";
 
 const CommentsPage = () => {
   const { postId } = useParams();
-  const [post, setPost] = useState(null);
   const [newComment, setNewComment] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const { currentUser, loading } = useCurrentUser();
   const emojiPickerRef = useRef(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const postResponse = await axiosSecure.get(`/post/${postId}`);
-        if (!postResponse.data) throw new Error("Failed to fetch data");
 
-        setPost(postResponse.data);
-        setHasLiked(postResponse.data.likes.includes(currentUser?.email));
-      } catch (error) {
-        console.error("Error fetching post and comments:", error);
-      }
-    };
-
-    fetchData();
-  }, [postId, currentUser?.email]);
+  const { data: post, isLoading, refetch } = useQuery({
+    queryKey: ["allComments"],
+    queryFn: async () => {
+      const result = await axiosSecure.get(`/post/${postId}`);
+      return result.data;
+    }
+  })
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -38,16 +32,13 @@ const CommentsPage = () => {
     try {
       const response = await axiosSecure.post(`/posts/${postId}/comment`, {
         userEmail: currentUser.email,
-        userName: currentUser.name,
+        userName: currentUser.displayName,
         userPhoto: currentUser.photoURL,
         comment: newComment,
       });
+      refetch();
       if (!response.data) throw new Error("Failed to post comment");
 
-      setPost((prevPost) => ({
-        ...prevPost,
-        comments: [...prevPost.comments, response.data],
-      }));
       setNewComment("");
     } catch (error) {
       console.error("Error posting comment:", error);
@@ -63,10 +54,9 @@ const CommentsPage = () => {
       await axiosSecure.put(`/posts/${postId}/${endpoint}`, {
         userEmail: currentUser.email,
       });
+      refetch()
       setHasLiked(!isLiked);
 
-      const updatedPostResponse = await axiosSecure.get(`/post/${postId}`);
-      setPost(updatedPostResponse.data);
     } catch (error) {
       console.error("Error liking/unliking post:", error);
     }
@@ -88,8 +78,8 @@ const CommentsPage = () => {
     };
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
+  if (isLoading) {
+    return <DashboardLoader />;
   }
 
   return (
@@ -144,9 +134,8 @@ const CommentsPage = () => {
                   onClick={handleLike}
                 >
                   <HiHeart
-                    className={`w-5 h-5 ${
-                      hasLiked ? "text-blue-500" : "text-gray-500"
-                    }`}
+                    className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
+                      }`}
                   />
                   <span className="ml-1">{post.likes?.length || 0}</span>
                 </button>

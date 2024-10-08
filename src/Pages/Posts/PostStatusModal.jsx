@@ -7,6 +7,7 @@ import axios from "axios";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
   const [content, setContent] = useState("");
@@ -14,6 +15,7 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
   const [loading, setLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const emojiPickerRef = useRef(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -76,12 +78,12 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
         imageUrl,
       };
 
-      console.log("Post Data:", postData);
-
       await axiosSecure.post("/postStatus", postData);
       setContent("");
       setImage(null);
       onClose();
+      queryClient.invalidateQueries(["loadedPost"])
+
     } catch (error) {
       console.error("Error posting status:", error);
     } finally {

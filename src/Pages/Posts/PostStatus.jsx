@@ -16,7 +16,7 @@ const PostStatus = ({}) => {
         onClick={openModal}
       >
         <p className="text-gray-600">
-          What's on your mind, {currentUser?.name}?
+          What's on your mind, {currentUser?.displayName}?
         </p>
       </div>
 

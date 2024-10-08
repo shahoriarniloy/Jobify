@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import TopCompanies from "./TopCompanies";
 import { EyeIcon } from "@heroicons/react/24/outline";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const AdvancedSearch = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -221,29 +222,32 @@ const AdvancedSearch = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4  mt-4 gap-6 justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-24 gap-16 justify-center ">
           {(filteredCompanies.length > 0 ? filteredCompanies : companies).map(
             (company) => (
               <div
                 key={company.email}
-                className="max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800"
+                className="relative max-w-sm rounded-md  dark:bg-white dark:text-gray-800 border-2 border-gray-300 hover:shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out "
               >
                 <div className="flex flex-col justify-between p-6 space-y-8">
-                  <div className="space-y-2">
-                    <h2 className="text-3xl font-semibold h-24">
+                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
+                    <img
+                      src={company.company_logo}
+                      alt={`${company.company_name} logo`}
+                      className="w-24 h-24 rounded-full border-4 border-blue-300"
+                    />
+                  </div>
+                  <div className="mt-14 space-y-2 text-center">
+                    <h2 className="text-2xl font-semibold">
                       {company.company_name}
                     </h2>
                     <p className="text-blue-500 h-6">{company.industry}</p>
-
-                    <p className="h-24"> {company.company_description}</p>
-                    {/*
-          <Bookmark companyId={company._id} /> */}
+                    <p className=" text-sm">{company.company_description}</p>
                   </div>
                   <Link to={`/company-details/${company.email}`}>
-                    {" "}
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded">
-                      <EyeIcon className="h-5 w-5 inline-block mr-1" />
+                    <button className=" text-blue-500 px-3 py-2 rounded w-full underline">
                       Details
+                      {/* <EyeIcon className="h-5 w-5 inline-block mr-1" /> */}
                     </button>
                   </Link>
                 </div>
@@ -259,7 +263,7 @@ const AdvancedSearch = () => {
           onClick={handlePreviousPage}
           disabled={currentPage === 0}
         >
-          Prev
+          <FaArrowLeft />
         </button>
         <div className="flex gap-2">
           {pages.map((page) => (
@@ -267,8 +271,7 @@ const AdvancedSearch = () => {
               key={page}
               className={`px-4 py-2 rounded-lg ${
                 page === currentPage ? "bg-blue-200" : "bg-white"
-              } border
-        border-blue-300`}
+              } border border-blue-300`}
               onClick={() => setCurrentPage(page)}
             >
               {page + 1}
@@ -280,7 +283,7 @@ const AdvancedSearch = () => {
           onClick={handleNextPage}
           disabled={currentPage === pages.length - 1}
         >
-          Next
+          <FaArrowRight />
         </button>
       </div>
 

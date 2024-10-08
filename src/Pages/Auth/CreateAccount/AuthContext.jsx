@@ -10,13 +10,14 @@ import {
     signInWithPopup
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const provider = new GoogleAuthProvider();
+    const googleProvider = new GoogleAuthProvider();
 
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
@@ -35,53 +36,45 @@ const AuthProvider = ({ children }) => {
             .finally(() => setLoading(false));
     };
 
-    const signInWithGoogle = () => {
-        setLoading(true);
-        return signInWithPopup(auth, provider)
-            .then((result) => {
-                const user = result.user;
-                const userInfo = {
-                    email: user.email,
-                    name: user.displayName || 'Guest',
-                    photoURL: user.photoURL
-                };
-                setUser(userInfo);
-            })
-            .catch((error) => {
-                console.error(error); // Consider logging the error for debugging
-            })
-            .finally(() => setLoading(false)); // Ensure loading state is reset
-    };
+    const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+
+
 
     const logOut = () => {
         setLoading(true);
-        return signOut(auth)
-            .then(() => setUser(null))
-            .finally(() => setLoading(false)); // Reset loading state after logout
+        signOut(auth)
+            .then(res => {
+                toast.success('Successfully Log Out !', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+               
+            })
+
     };
 
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setLoading(true); // Start loading
-            if (currentUser) {
-                const userInfo = {
-                    email: currentUser.email,
-                    name: currentUser.displayName || 'Guest',
-                    photoURL: currentUser.photoURL
-                };
-                setUser(userInfo);
+        const unSubscribe = onAuthStateChanged(auth, (user) => {
+            setLoading(true);
+            if (user) {
+                setCurrentUser(user);
             } else {
-                setUser(null);
+                setCurrentUser(null);
             }
-            setLoading(false); // End loading after processing user state
+            setLoading(false);
         });
 
-        return () => {
-            unSubscribe();
-        };
+        return () => unSubscribe();
+
     }, []);
 
-    const authInfo = { user, createUser, signInUser, signInWithGoogle, logOut, updateUserProfile, loading };
+    const authInfo = { currentUser, createUser, signInUser, signInWithGoogle, logOut, updateUserProfile, loading };
 
     return (
         <AuthContext.Provider value={authInfo}>

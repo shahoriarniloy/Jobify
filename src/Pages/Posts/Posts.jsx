@@ -5,24 +5,20 @@ import { Link } from "react-router-dom";
 import { HiHeart } from "react-icons/hi";
 import { FaComment } from "react-icons/fa";
 import PostStatus from "./PostStatus";
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../Shared/DashboardLoader";
 
 const PostCard = () => {
-  const [posts, setPosts] = useState([]);
-  const { currentUser, loading } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
 
-  useEffect(() => {
-    if (!loading) {
-      const fetchPosts = async () => {
-        try {
-          const { data } = await axiosSecure.get("/posts");
-          setPosts(data);
-        } catch (error) {
-          console.error("Error fetching posts", error);
-        }
-      };
-      fetchPosts();
+
+  const { data: posts, isLoading, refetch } = useQuery({
+    queryKey: ["loadedPost"],
+    queryFn: async () => {
+      const result = await axiosSecure.get("/posts");
+      return result.data;
     }
-  }, [loading]);
+  })
 
   const handleLike = async (postId, hasLiked) => {
     try {
@@ -35,16 +31,14 @@ const PostCard = () => {
           userEmail: currentUser?.email,
         });
       }
-
-      const { data } = await axiosSecure.get("/posts");
-      setPosts(data);
+      refetch();
     } catch (error) {
       console.error("Error liking/unliking post", error);
     }
   };
 
-  if (loading) {
-    return <p>Loading...</p>;
+  if (isLoading) {
+    return <DashboardLoader />;
   }
 
   return (
@@ -95,7 +89,7 @@ const PostCard = () => {
                   post.imageUrl || "https://source.unsplash.com/301x301/?random"
                 }
                 alt="Post Image"
-                className="object-cover object-center w-full h-72 dark:bg-gray-500"
+                className="object-cover object-center lg:w-full md:w-full w-fit h-72 dark:bg-gray-500"
               />
               <div className="p-3">
                 <div className="flex items-center justify-between">
@@ -107,9 +101,8 @@ const PostCard = () => {
                       onClick={() => handleLike(post._id, hasLiked)}
                     >
                       <HiHeart
-                        className={`w-5 h-5 ${
-                          hasLiked ? "text-blue-500" : "text-gray-500"
-                        }`}
+                        className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
+                          }`}
                       />
                       <span className="ml-1">{post.likes.length || 0}</span>
                     </button>

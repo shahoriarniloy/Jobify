@@ -1,9 +1,9 @@
 import { useState } from "react";
-import DragAndDropInput from "../../../Components/DragAndDropInput";
 import "../../../../../../Styles/TextEditorTools/CustomReactQuill.css";
 import ReactQuill from "react-quill";
+import DragAndDropInput from '../../../Components/DragAndDropInput';
 
-const CompanyInfo = () => {
+const UserInfo = () => {
   const [companyName, setCompanyName] = useState("");
   const [aboutUs, setAboutUs] = useState(""); // Keep the rich text here
   const [logoFile, setLogoFile] = useState(null);
@@ -85,8 +85,8 @@ const CompanyInfo = () => {
           <h3 className="text-lg font-medium mb-2">About us</h3>
           <div className="quill-wrapper relative border rounded-lg bg-white ">
             <ReactQuill
-              value={aboutUs} 
-              onChange={handleAboutUsChange} 
+              value={aboutUs}
+              onChange={handleAboutUsChange}
               placeholder="Write down your biography here. Let the employers know who you are..."
               modules={{
                 toolbar: [
@@ -95,9 +95,9 @@ const CompanyInfo = () => {
                   ["link"],
                 ],
               }}
-              formats={["bold", "italic", "underline", "list", "bullet", "link"]} 
+              formats={["bold", "italic", "underline", "list", "bullet", "link"]}
               className="custom-quill-editor "
-              style={{ direction: "ltr" }} 
+              style={{ direction: "ltr" }}
             />
           </div>
         </section>
@@ -113,4 +113,4 @@ const CompanyInfo = () => {
   );
 };
 
-export default CompanyInfo;
+export default UserInfo;

@@ -4,17 +4,17 @@ import "react-tabs/style/react-tabs.css";
 import { LuUser2, LuUserCircle2 } from "react-icons/lu";
 import { GoGlobe } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
-import CompanyInfo from "./Tabs/CompanyInfo/CompanyInfo";
-import FoundingInfo from "./Tabs/FoundingInfo/FoundingInfo";
 import SocialMediaProfile from "./Tabs/SocialMediaProfile/SocialMediaProfile";
 import AccountSetting from "./Tabs/AccountSetting/AccountSetting";
+import UserInfo from "./Tabs/UserInfo/UserInfo";
+import CareerInfo from "./Tabs/CareerInfo/CareerInfo";
 
 
 const EmployeeSettings = () => {
   const [tabIndex, setTabIndex] = useState(0);
   return (
     <div>
-      <h2 className="font-bold">Settings</h2>
+      <h2 className="font-bold mb-4">Settings</h2>
       <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
         <TabList>
           <Tab>
@@ -39,10 +39,10 @@ const EmployeeSettings = () => {
           </Tab>
         </TabList>
         <TabPanel>
-          <CompanyInfo />
+          <UserInfo />
         </TabPanel>
         <TabPanel>
-          <FoundingInfo />
+          <CareerInfo />
         </TabPanel>
         <TabPanel>
           <SocialMediaProfile />

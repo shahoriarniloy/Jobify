@@ -1,43 +1,34 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; 
 import useUserRole from '../../../Hooks/useUserRole';
-import axiosSecure from '../../../Hooks/UseAxiosSecure'; 
+import axiosSecure from '../../../Hooks/UseAxiosSecure';
 import useCurrentUser from '../../../Hooks/useCurrentUser';
-import { ClipboardDocumentListIcon } from '@heroicons/react/24/outline';
+import Loader from '../../../Shared/Loader';
+import DashboardLoader from '../../../Shared/DashboardLoader';
+import { useQuery } from '@tanstack/react-query';
 
 const JobTable = () => {
   const [jobs, setJobs] = useState([]);
-  const [error, setError] = useState(null);
   const { currentUser } = useCurrentUser();
-  const { id, loading, error: roleError } = useUserRole(); 
 
-  useEffect(() => {
-    if (!loading && id) { 
-      const fetchJobs = async () => {
-        try {
-          const response = await axiosSecure.get(`/jobs/dashboard/company/${currentUser?.email}`);
-          // console.log(response); 
-          setJobs(response?.data);
-        } catch (err) {
-          setError(err.message || 'Failed to fetch jobs');
-        }
-      };
 
-      fetchJobs(); 
-    }
-  }, [id, loading, currentUser?.email]); 
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["fetchpostedjobs"],
+    queryFn: async () => {
+      const response = await axiosSecure.get(`/company-jobs?email=${currentUser?.email}`);
+      return response.data; // Return the actual data
+    },
+  });
+  console.log(data)
 
-  if (loading) {
-    return <div>Loading jobs...</div>; 
+
+
+  if (isLoading) {
+    return <DashboardLoader />;
   }
 
-  if (roleError || error) {
-    return <div>Error: {roleError || error}</div>; 
-  }
 
-  if (jobs.length === 0) {
-    return <div>No jobs available for this company.</div>; 
-  }
+
 
   return (
     <div className="overflow-x-auto">

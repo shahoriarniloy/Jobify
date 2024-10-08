@@ -1,16 +1,18 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import Navbar from '../../Shared/Navbar';
 import Navbar2 from '../../Shared/Navbar2';
 import Footer from '../../Shared/Footer';
-import { FaEnvelope } from 'react-icons/fa'; 
+import { FaEnvelope } from 'react-icons/fa';
+import useCurrentUser from '../../Hooks/useCurrentUser';
+import Loader from '../../Shared/Loader';
 
 const AuthLayout = () => {
+    const { loading } = useCurrentUser();
     const navigate = useNavigate();
 
     const goToMessages = () => {
         navigate('/dashboard/messages');
     };
-
+    if (loading) return <Loader />                                                                                                                                    
     return (
         <div className='bg-white'>
             <Navbar2 />
