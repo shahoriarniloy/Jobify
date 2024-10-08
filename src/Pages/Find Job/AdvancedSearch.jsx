@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Bookmark from "./Bookmark";
 import { Link } from "react-router-dom";
-import { EyeIcon } from '@heroicons/react/24/outline';
-
+import { EyeIcon } from "@heroicons/react/24/outline";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const AdvancedSearch = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -16,6 +16,7 @@ const AdvancedSearch = () => {
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
   const [jobs, setJobs] = useState([]);
+
   const [filteredJobs, setFilteredJobs] = useState([]);
 
   const [totalJobs, setTotalJobs] = useState(0);
@@ -133,7 +134,7 @@ const AdvancedSearch = () => {
   };
 
   return (
-    <div className="p-4   pt-24 mx-8 ">
+    <div className="  pt-24 ">
       <div className="w-full bg-[#f6f8f8] rounded-lg  p-6 flex-1">
         <form
           className="flex flex-col sm:flex-row gap-4 sm:gap-2"
@@ -206,7 +207,6 @@ const AdvancedSearch = () => {
         </form>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
       </div>
-
       {showAdvancedFilters && (
         <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-1 px-24 py-8 rounded-lg mt-4 bg-white shadow-xl">
           <div className="mb-4">
@@ -325,7 +325,6 @@ const AdvancedSearch = () => {
       {/* <h2 className="mb-4 text-2xl font-semibold leading-tight text-center mt-8">
         Jobs
       </h2> */}
-
       <div className="flex justify-between items-center">
         <div className="flex items-center justify-center lg:gap-4 md:gap-4 gap-2 mt-4">
           <label
@@ -361,7 +360,6 @@ const AdvancedSearch = () => {
           </button>
         </div>
       </div>
-
       {viewMode === "list" ? (
         <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800 mt-4">
           <div className="overflow-x-auto">
@@ -400,7 +398,7 @@ const AdvancedSearch = () => {
                         <td className="p-3">
                           <Link to={`/job/${job._id}`}>
                             <button className=" hover:underline">
-                            <EyeIcon className="h-5 w-5 inline-block mr-1" />
+                              <EyeIcon className="h-5 w-5 inline-block mr-1" />
                             </button>
                           </Link>
                         </td>
@@ -424,7 +422,7 @@ const AdvancedSearch = () => {
             >
               <div className="flex flex-col justify-between p-6 space-y-8">
                 <div className="space-y-2 flex flex-col">
-                  <div className="h-24">
+                  <div className="h-24 ">
                     <h2 className="text-3xl font-semibold tracking-wide">
                       {job.title}
                     </h2>
@@ -435,28 +433,28 @@ const AdvancedSearch = () => {
                   <div className="h-6">
                     <p>Salary: {job.salaryRange}</p>
                   </div>
-
-                  <Bookmark jobId={job._id} />
                 </div>
+                <Bookmark jobId={job._id} />
+
                 <Link
                   to={`/job/${job._id}`}
                   className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-gradient-to-r from-blue-500 to-blue-700 dark:text-gray-50"
                 >
-                  <EyeIcon className="h-5 w-5 inline-block mr-1" />Details
+                  <EyeIcon className="h-5 w-5 inline-block mr-1" />
+                  Details
                 </Link>
               </div>
             </div>
           ))}
         </div>
       )}
-
       <div className="p-4 flex justify-center items-center">
         <button
           className="px-4 py-2 mr-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
           onClick={handlePreviousPage}
           disabled={currentPage === 0}
         >
-          Prev
+          <FaArrowLeft />
         </button>
         <div className="flex gap-2">
           {pages.map((page) => (
@@ -476,7 +474,7 @@ const AdvancedSearch = () => {
           onClick={handleNextPage}
           disabled={currentPage === pages.length - 1}
         >
-          Next
+          <FaArrowRight />
         </button>
       </div>
     </div>
