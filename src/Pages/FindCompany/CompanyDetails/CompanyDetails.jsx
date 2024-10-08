@@ -22,14 +22,14 @@ const CompanyDetails = () => {
 
   const { _id, email } = company;
 
-  console.log(email);
+  // console.log(email);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
-        console.log(response.data);
+        // console.log(response.data);
         // console.log(response.data);
       } catch (error) {
         // console.error("Error fetching company data:", error);
@@ -65,7 +65,6 @@ const CompanyDetails = () => {
             </div>
             <div className="mt-4 md:mt-0 md:ml-auto">
               <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                
                 <Link to={`/company/${company?.email}/jobs`}>
                   View Open Position →
                 </Link>
@@ -75,10 +74,16 @@ const CompanyDetails = () => {
         </div>
       </div>
 
+      <div className="lg:hidden flex justify-end mt-48 md:mb-2">
+        <button className="bg-green-500 text-white  hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 ">
+          Message
+        </button>
+      </div>
+
       {/* Description and Social Media Links */}
-      <div className="flex flex-col md:flex-row md:mt-36  md:mb-48 container mx-auto px-4 gap-6">
+      <div className="flex flex-col md:flex-row   md:mb-48   gap-6 justify-between">
         <div className="md:w-1/2">
-          <h2 className="font-bold md:mt-24 mt-64 lg:mt-4 sm:mt-56 text-xl md:text-2xl lg:text-3xl">
+          <h2 className="font-bold   lg:mt-2  text-xl md:text-2xl lg:text-3xl">
             Description
           </h2>
           <p className="text-gray-500 mb-4">{company?.company_description}</p>
@@ -160,6 +165,11 @@ const CompanyDetails = () => {
 
         {/* Company Info */}
         <div className="md:ml-10 md:w-1/2">
+          <div className="lg:flex lg:justify-end hidden">
+            <button className="bg-green-500 text-white  hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 mb-4">
+              Message
+            </button>
+          </div>
           <div className=" p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
             <div>
               <FiCalendar className="text-2xl text-blue-500" />
@@ -220,7 +230,7 @@ const CompanyDetails = () => {
       </div>
       {/* <p>email:{company.email}</p> */}
 
-        <OpenPosition title={"Open Position"} email={company?.email} />
+      <OpenPosition title={"Open Position"} email={company?.email} />
     </div>
   );
 };

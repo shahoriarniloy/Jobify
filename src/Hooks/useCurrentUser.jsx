@@ -1,5 +1,7 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Pages/Auth/CreateAccount/AuthContext"; 
+
+
+import { useContext } from "react";
+import { AuthContext } from "../Pages/Auth/CreateAccount/AuthContext";
 
 const useCurrentUser = () => {
     const userInfo = useContext(AuthContext);
