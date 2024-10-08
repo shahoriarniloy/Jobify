@@ -1,5 +1,3 @@
-import { BN, US } from "country-flag-icons/react/3x2";
-import { BiPhoneCall } from "react-icons/bi";
 import { NavLink } from "react-router-dom"; // Use NavLink
 
 const Navbar = () => {

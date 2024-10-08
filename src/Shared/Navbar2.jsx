@@ -10,6 +10,7 @@ import useUserRole from "../Hooks/useUserRole";
 import { FaRegHeart } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
 
 
 const Navbar2 = () => {
@@ -65,6 +66,14 @@ const Navbar2 = () => {
                                                             >
                                                                 <FaRegHeart />
                                                                 Favorite Jobs
+                                                            </Link>
+                                                            <Link
+                                                                to="/employee-settings"
+                                                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                                                onClick={() => setIsMenuOpen(false)}
+                                                            >
+                                                                <IoSettingsOutline />
+                                                                Profile Settings
                                                             </Link>
                                                         </li>
                                                     </>

@@ -65,7 +65,7 @@ const DashboardLayout = () => {
                   <FaUsers className="text-xl" /> Candidates
                 </NavLink>
 
-                <NavLink to="/dashboard/EmployeeSettings" className={({ isActive }) =>
+                <NavLink to="/dashboard/companySettings" className={({ isActive }) =>
                   isActive ? 'isActiveRoute' : 'flex items-center pl-5 py-2 text-[#767F8C] gap-2'
                 }
                 >

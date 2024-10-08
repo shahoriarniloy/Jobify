@@ -33,10 +33,11 @@ import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
 
 // import JobTable from "../Pages/Dashboard/Company/MyJob";
 
-import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
 import EmployeeHome from "../Pages/Dashboard/Company/EmployeeHome";
 import JobTable from "../Pages/Dashboard/Company/MyJob";
 import AppliedCandidates from './../Pages/Dashboard/Company/Candidates/AppliedCandidates';
+import CompanySettings from '../Pages/Dashboard/Company/CompanySettings/CompanySettings';
+import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeAccountSettings/EmployeeSettings";
 
 
 
@@ -53,9 +54,9 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
       },
-      
+
       {
-        path: "company-details/:companyId", 
+        path: "company-details/:companyId",
         element: <CompanyDetails />,
       },
       {
@@ -64,7 +65,7 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/company/:email/jobs", 
+        path: "/company/:email/jobs",
         element: <CompanyJobs />,
       },
       {
@@ -81,29 +82,33 @@ export const router = createBrowserRouter([
       },
       {
         path: "/job/:id",
-        element: <SingleJob/> ,
+        element: <SingleJob />,
 
       },
       {
         path: "/candidates",
-        element: <Candidates/> ,
+        element: <Candidates />,
 
       },
-      
       {
-        path:"/myjobs",
-        element:<JobTable/>
+        path:"/employee-settings",
+        element:<EmployeeSettings/>
+      },
+
+      {
+        path: "/myjobs",
+        element: <JobTable />
       },
       {
-        path:"/favorite-jobs",
-        element:<BookmarkedJobs/>
+        path: "/favorite-jobs",
+        element: <BookmarkedJobs />
       },
 
     ],
   },
   {
     path: "/",
-    element: <AuthLayout />,  
+    element: <AuthLayout />,
     children: [
       {
         path: "/register",
@@ -119,8 +124,8 @@ export const router = createBrowserRouter([
         element: <About />,
       },
 
-      
-     
+
+
 
 
 
@@ -133,44 +138,44 @@ export const router = createBrowserRouter([
             element: <EmployeeHome />
           },
           {
-            path:"/dashboard/applied-jobs",
-            element:<AppliedJobs/>
+            path: "/dashboard/applied-jobs",
+            element: <AppliedJobs />
           }
           ,
-          
+
           {
             path: "/dashboard/postJob",
-            element: <PostJob></PostJob> ,
+            element: <PostJob></PostJob>,
           },
           {
             path: "/dashboard/myjob",
-            element: <MyJob></MyJob>,  
+            element: <MyJob></MyJob>,
           },
           {
             path: "/dashboard/job-candidates",
-            element: <AppliedCandidates></AppliedCandidates>,  
+            element: <AppliedCandidates></AppliedCandidates>,
           },
           {
             path: "/dashboard/candidates",
             element: <Candidates></Candidates>,
-           
+
           },
-          
+
           {
             path: "/dashboard/messages",
             element: <Messages></Messages>,
-           
+
           },
           {
             path: "/dashboard/messages/:otherPartyEmail",
             element: <MessageDetail></MessageDetail>,
-           
+
           },
 
           {
-            path: "/dashboard/EmployeeSettings",
-            element: <EmployeeSettings/> ,
-           
+            path: "/dashboard/companySettings",
+            element: <CompanySettings/>,
+
           },
 
         ]
