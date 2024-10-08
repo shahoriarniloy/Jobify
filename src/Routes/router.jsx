@@ -34,13 +34,8 @@ import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
 
 import EmployeeHome from "../Pages/Dashboard/Company/EmployeeHome";
 import JobTable from "../Pages/Dashboard/Company/MyJob";
-import AppliedCandidates from './../Pages/Dashboard/Company/Candidates/AppliedCandidates';
 import CompanySettings from '../Pages/Dashboard/Company/CompanySettings/CompanySettings';
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeAccountSettings/EmployeeSettings";
-
-
-
-import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeSettings/EmployeeSettings";
 import AppliedCandidates from "../Pages/Dashboard/Company/Candidates/AppliedCandidates";
 import Overview from "../Pages/Dashboard/Company/Overview";
 import PostStatus from "../Pages/Posts/PostStatus";
