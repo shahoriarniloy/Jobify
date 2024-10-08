@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
+
         <div className="mt-8 mb-0">
             <footer className="footer bg-black p-10 text-white">
                 <div className="flex justify-between items-start">
@@ -48,6 +49,7 @@ const Footer = () => {
                 </div>
             </footer>
         </div>
+
     );
 };
 

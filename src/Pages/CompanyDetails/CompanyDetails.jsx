@@ -28,7 +28,7 @@ const CompanyDetails = () => {
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
-        const response = await axiosSecure.get(`/companies/${companyId}`);
+        const response = await axiosSecure.get(`/companies/${email}`);
         setCompany(response.data);
         // console.log(response.data);
         // console.log(response.data);
