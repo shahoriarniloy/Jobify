@@ -89,7 +89,7 @@ const PostCard = () => {
                   post.imageUrl || "https://source.unsplash.com/301x301/?random"
                 }
                 alt="Post Image"
-                className="object-cover object-center w-full h-72 dark:bg-gray-500"
+                className="object-cover object-center lg:w-full md:w-full w-fit h-72 dark:bg-gray-500"
               />
               <div className="p-3">
                 <div className="flex items-center justify-between">
