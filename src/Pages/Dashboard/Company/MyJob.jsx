@@ -21,6 +21,7 @@ const JobTable = () => {
     queryFn: async () => {
       const response = await axiosSecure.get(
         `/jobs/dashboard/company/${currentUser?.email}`
+
       );
       return response.data;
     },
@@ -49,6 +50,7 @@ const JobTable = () => {
                 <button>Open</button>
               </td>
               <td className="px-4 py-2">{job?.applicationsCount || 0}</td>
+
 
               <td className="px-4 py-2">
                 <Link
