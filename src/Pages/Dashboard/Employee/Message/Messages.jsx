@@ -15,7 +15,6 @@ const Messages = () => {
         const response = await axiosSecure.get(
           `/conversations?email=${currentUser.email}`
         );
-        // console.log("Fetched messages:", response.data);
         const allMessages = response.data;
 
         const groupedMessages = {};
@@ -68,9 +67,7 @@ const Messages = () => {
   }
 
   return (
-    <div className="container">
-      <h1 className="text-2xl font-bold mb-4">Your Messages</h1>
-
+    <div className="container max-h-[550px] overflow-y-auto">
       {conversations.length === 0 ? (
         <div className="text-gray-500">No conversations found.</div>
       ) : (
@@ -78,7 +75,7 @@ const Messages = () => {
           {conversations.map((conversation, index) => (
             <Link
               key={conversation.otherPartyEmail || index}
-              to={`/dashboard/messages/${conversation.otherPartyEmail}`}
+              to={`/inbox/${conversation.otherPartyEmail}`}
               state={{
                 otherPartyName: conversation.otherPartyName,
                 otherPartyPhoto: conversation.otherPartyPhoto,

@@ -26,8 +26,8 @@ import FindCompany from "../Pages/FindCompany/FindCompany";
 import PostJob from "../Pages/Dashboard/Company/PostJob";
 import MyJob from "../Pages/Dashboard/Company/MyJob";
 import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs";
-import Messages from "../Pages/Dashboard/Employee/Messages";
-import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
+import Messages from "../Pages/Dashboard/Employee/Message/Messages";
+import MessageDetail from "../Pages/Dashboard/Employee/Message/MessageDetail";
 
 // import JobTable from "../Pages/Dashboard/Company/MyJob";
 
@@ -41,6 +41,8 @@ import PostStatus from "../Pages/Posts/PostStatus";
 import Posts from "../Pages/Posts/Posts";
 import Comments from "../Pages/Posts/Comments";
 import FindJobSeeker from "../Pages/FindJobSeeker/FindJobSeeker";
+import Inbox from "../Pages/Dashboard/Employee/Message/Inbox";
+import CompanyOverview from "../Pages/Dashboard/Company/CompanyOverview";
 
 export const router = createBrowserRouter([
   {
@@ -120,6 +122,22 @@ export const router = createBrowserRouter([
         path: "/find-job-seekers",
         element: <FindJobSeeker />,
       },
+      {
+        path: "/messages",
+        element: <Messages></Messages>,
+      },
+      {
+        path: "/inbox/:otherPartyEmail",
+        element: <Inbox></Inbox>,
+      },
+      {
+        path: "/messages/:otherPartyEmail",
+        element: <MessageDetail></MessageDetail>,
+      },
+      {
+        path: "/overview",
+        element: <EmployeeHome />,
+      },
     ],
   },
   {
@@ -142,13 +160,13 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
+          // {
+          //   path: "/dashboard/overview",
+          //   element: <EmployeeHome />,
+          // },
           {
             path: "/dashboard/overview",
-            element: <EmployeeHome />,
-          },
-          {
-            path: "/dashboard/company-overview",
-            element: <Overview />,
+            element: <CompanyOverview />,
           },
           {
             path: "/dashboard/applied-jobs",
@@ -169,15 +187,6 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/candidates",
             element: <Candidates></Candidates>,
-          },
-
-          {
-            path: "/dashboard/messages",
-            element: <Messages></Messages>,
-          },
-          {
-            path: "/dashboard/messages/:otherPartyEmail",
-            element: <MessageDetail></MessageDetail>,
           },
 
           {
