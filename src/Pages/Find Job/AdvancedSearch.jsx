@@ -9,6 +9,7 @@ import Bookmark from "./Bookmark";
 import { Link } from "react-router-dom";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaBriefcase } from "react-icons/fa";
 
 const AdvancedSearch = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -414,35 +415,38 @@ const AdvancedSearch = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           {(filteredJobs.length > 0 ? filteredJobs : jobs).map((job) => (
             <div
               key={job._id}
-              className="max-w-xs rounded-md shadow-md dark:bg-gray-50 dark:text-gray-800"
+              className="w-64 sm:w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
             >
-              <div className="flex flex-col justify-between p-6 space-y-8">
-                <div className="space-y-2 flex flex-col">
-                  <div className="h-24 ">
-                    <h2 className="text-3xl font-semibold tracking-wide">
-                      {job.title}
-                    </h2>
-                  </div>
-                  <div className="h-6">
-                    <p className="text-blue-500">{job.company}</p>
-                  </div>
-                  <div className="h-6">
-                    <p>Salary: {job.salaryRange}</p>
-                  </div>
-                </div>
-                <Bookmark jobId={job._id} />
+              <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:scale-[10]"></span>
+              <div className="relative z-10 mx-auto max-w-md">
+                <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
+                  <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
+                    <FaBriefcase className="h-10 w-10 text-white transition-all" />
+                  </span>
+                </span>
+                <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                  <h2 className="text-2xl font-semibold tracking-wide">
+                    {job.title}
+                  </h2>
 
-                <Link
-                  to={`/job/${job._id}`}
-                  className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-gradient-to-r from-blue-500 to-blue-700 dark:text-gray-50"
-                >
-                  <EyeIcon className="h-5 w-5 inline-block mr-1" />
-                  Details
-                </Link>
+                  <p className="font-semibold ">Company: {job.company}</p>
+                  <p className=" text-sm tracking-wide">
+                    Job Type:{job.jobType}
+                  </p>
+                  <p className="text-sm">Salary: {job.salaryRange}</p>
+                </div>
+                <div className="pt-5 text-base font-semibold leading-7">
+                  <Link
+                    to={`/job/${job._id}`}
+                    className="text-blue-500 transition-all duration-300 group-hover:text-white flex items-center"
+                  >
+                    View Details &rarr;
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

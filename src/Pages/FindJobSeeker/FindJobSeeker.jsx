@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import JobSeekerCard from "./JobSeekerCard";
 import { AiOutlineSearch } from "react-icons/ai";
+import { FaUserPlus } from "react-icons/fa";
+import { HiOutlineUserGroup } from "react-icons/hi";
 
 const FindJobSeeker = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,7 +36,15 @@ const FindJobSeeker = () => {
 
   return (
     <div>
-      <div className="w-full bg-[#f6f8f8] rounded-lg flex-1 p-6">
+      <div className="flex items-center mb-4">
+        <h1 className="text-lg text-blue-500 font-semibold flex items-center">
+          Find People to Follow
+          <span className="ml-2">
+            <HiOutlineUserGroup className="text-blue-500 text-2xl" />
+          </span>
+        </h1>
+      </div>
+      <div className="w-full bg-[#f6f8f8] rounded-lg flex-1 ">
         <form
           className="flex flex-col sm:flex-row gap-4 sm:gap-2"
           onSubmit={handleSearch}
@@ -58,7 +68,7 @@ const FindJobSeeker = () => {
               type="submit"
               className="w-full sm:w-auto px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white font-semibold text-base transition duration-300 ease-in-out hover:from-blue-700 hover:to-blue-900"
             >
-              Find Job Seeker
+              Find
             </button>
           </div>
         </form>

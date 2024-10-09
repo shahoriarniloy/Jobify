@@ -1,13 +1,13 @@
 import { createContext, useEffect, useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    updateProfile,
-    onAuthStateChanged,
-    GoogleAuthProvider,
-    signInWithPopup
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 import { toast } from "react-toastify";
@@ -15,76 +15,77 @@ import { toast } from "react-toastify";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const googleProvider = new GoogleAuthProvider();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const googleProvider = new GoogleAuthProvider();
 
-    const createUser = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password);
-    };
+  const createUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
-    const updateUserProfile = (name, image) => {
-        return updateProfile(auth.currentUser, {
-            displayName: name,
-            photoURL: image
-        });
-    };
+  const updateUserProfile = (name, image) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: image,
+    });
+  };
 
-    const signInUser = (email, password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password)
-            .finally(() => setLoading(false));
-    };
-
-    const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
-
-
-
-    const logOut = () => {
-        setLoading(true);
-        signOut(auth)
-            .then(res => {
-                toast.success('Successfully Log Out !', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-               
-            })
-
-    };
-
-    useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, (user) => {
-            setLoading(true);
-            if (user) {
-                setCurrentUser(user);
-            } else {
-                setCurrentUser(null);
-            }
-            setLoading(false);
-        });
-
-        return () => unSubscribe();
-
-    }, []);
-
-    const authInfo = { currentUser, createUser, signInUser, signInWithGoogle, logOut, updateUserProfile, loading };
-
-    return (
-        <AuthContext.Provider value={authInfo}>
-            {children}
-        </AuthContext.Provider>
+  const signInUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password).finally(() =>
+      setLoading(false)
     );
+  };
+
+  const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+
+  const logOut = () => {
+    setLoading(true);
+    signOut(auth).then((res) => {
+      toast.success("You have successfully logged out.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    });
+  };
+
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
+      setLoading(true);
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
+      }
+      setLoading(false);
+    });
+
+    return () => unSubscribe();
+  }, []);
+
+  const authInfo = {
+    currentUser,
+    createUser,
+    signInUser,
+    signInWithGoogle,
+    logOut,
+    updateUserProfile,
+    loading,
+  };
+
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
 
 AuthProvider.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node,
 };

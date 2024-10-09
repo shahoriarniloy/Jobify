@@ -97,7 +97,10 @@ const PostCard = () => {
                   </div>
                 </div>
                 <img
-                  src={post.imageUrl}
+                  src={
+                    post.imageUrl ||
+                    "https://i.ibb.co.com/z73W3Cx/failed-to-load-error-page-404-concept-illustration-flat-design-eps10-modern-graphic-element-for-land.jpg"
+                  }
                   alt="Post Image"
                   className="object-cover object-center w-full h-72 sm:h-56 md:h-64 lg:h-72 dark:bg-gray-500"
                 />
