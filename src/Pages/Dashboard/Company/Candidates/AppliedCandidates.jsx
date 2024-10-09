@@ -82,8 +82,8 @@ const AppliedCandidates = () => {
   };
 
   const filteredCandidates = candidates.filter((candidate) => {
-    if (filterStatus === "All") return true; // Show all candidates if no filter is selected
-    return candidate.application.status === filterStatus; // Filter based on the selected status
+    if (filterStatus === "All") return true;
+    return candidate.application.status === filterStatus;
   });
 
   if (loading) {
@@ -122,41 +122,38 @@ const AppliedCandidates = () => {
       <div className="grid grid-cols-1 gap-4">
         {filteredCandidates.map((candidate) => (
           <div
-            key={candidate.user.email}
+            key={candidate?.user?.email}
             className="card lg:card-side bg-base-100 shadow-xl"
           >
             <figure>
               <img
-                src={
-                  candidate.user.photoURL ||
-                  "https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp"
-                }
-                alt={candidate.user.name}
+                src={candidate?.user?.photoURL || ""}
+                alt={candidate?.user?.name}
               />
             </figure>
             <div className="card-body">
-              <h2 className="card-title">{candidate.user.name}</h2>
+              <h2 className="card-title">{candidate?.user?.name}</h2>
               <p>
                 <FontAwesomeIcon
                   icon={faEnvelope}
                   style={{ marginRight: "8px" }}
                 />
-                Email: {candidate.user.email}
+                Email: {candidate?.user?.email}
               </p>
 
               <div className="card-actions justify-end">
                 <div className="relative inline-block">
                   <button
                     className="btn bg-gradient-to-r from-orange-400 to-orange-500 flex items-center text-white"
-                    onClick={() => toggleDropdown(candidate.user.email)}
+                    onClick={() => toggleDropdown(candidate?.user?.email)}
                   >
                     <TagIcon className="h-5 w-5 mr-2" />
-                    {selectedStatus[candidate.user.email] ||
+                    {selectedStatus[candidate?.user?.email] ||
                       candidate.application.status}
                     <ChevronDownIcon className="h-5 w-5 ml-2" />
                   </button>
 
-                  {dropdownOpen[candidate.user.email] && (
+                  {dropdownOpen[candidate?.user?.email] && (
                     <div className="dropdown-content absolute left-0 mt-2 bg-white shadow-lg z-10 w-48 border rounded">
                       {statusOptions
                         .filter((option) => option.value !== "All")
@@ -166,9 +163,9 @@ const AppliedCandidates = () => {
                             className="p-2 hover:bg-gray-200 cursor-pointer"
                             onClick={() =>
                               handleStatusChange(
-                                candidate.user.email,
+                                candidate?.user?.email,
                                 status.value,
-                                candidate.application._id
+                                candidate?.application?._id
                               )
                             }
                           >
