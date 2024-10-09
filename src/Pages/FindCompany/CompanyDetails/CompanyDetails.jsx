@@ -75,14 +75,16 @@ const CompanyDetails = () => {
       </div>
 
       <div className="lg:hidden flex justify-end mt-48 md:mb-2">
-        <button className="bg-green-500 text-white  hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 ">
-          Message
-        </button>
+        <Link to="/dashboard/messages">
+          <button className="bg-green-500 text-white  hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 ">
+            Message
+          </button>
+        </Link>
       </div>
 
       {/* Description and Social Media Links */}
       <div className="flex flex-col md:flex-row   md:mb-48   gap-6 justify-between">
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 mt-12">
           <h2 className="font-bold   lg:mt-2  text-xl md:text-2xl lg:text-3xl">
             Description
           </h2>
