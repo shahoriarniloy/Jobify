@@ -51,7 +51,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          Following
+          My Network
         </NavLink>
       </li>
       <li>
@@ -68,8 +68,8 @@ const Navbar = () => {
   );
 
   return (
-    <div>
-      <div className="navbar bg-[#fcfcfcdf]">
+    <div className="">
+      <div className="navbar bg-[#f7f9fcfa] shadow-md ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -90,7 +90,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-1 z-[1] shadow bg-base-100 rounded-box w-52"
             >
               {navItem}
             </ul>

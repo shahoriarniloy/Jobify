@@ -46,7 +46,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="container  rounded-xl px-12 pt-16">
+    <div className="container  rounded-xl pt-16 lg:mb-32 mb-16">
       <div className="flex flex-col lg:flex-row justify-center items-center  ">
         <div className=" flex lg:flex-row flex-col justify-center items-center">
           <div className="flex-row">
@@ -62,7 +62,7 @@ const SearchBar = () => {
             </div>
 
             <div>
-              <div className="w-full bg-white rounded-lg shadow-lg border border-[#e4e5e8] p-6 flex-1]">
+              <div className="w-full bg-white rounded-lg shadow-md border border-[#e4e5e8] p-6 flex-1]">
                 <form
                   className="flex flex-col sm:flex-row gap-4 sm:gap-2 border rounded-lg"
                   onSubmit={handleSearch}
@@ -142,7 +142,7 @@ const SearchBar = () => {
             )}
           </div>
 
-          <div className="w- flex justify-center items-center">
+          <div className="  justify-center items-center hidden lg:block md:block">
             <img
               src="https://i.ibb.co.com/Z15WRhd/hiring-agency-candidates-job-interview.png"
               alt=""
@@ -151,7 +151,7 @@ const SearchBar = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-start  space-y-4 md:space-y-0 md:space-x-8 mb-8 mt-8">
+      <div className="flex flex-col md:flex-row justify-start  space-y-4 md:space-y-0 md:space-x-8  mt-8">
         <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-md flex items-center space-x-4 w-64">
           <FaBriefcase className="text-4xl text-[#0a65cc]" />
           <div>
