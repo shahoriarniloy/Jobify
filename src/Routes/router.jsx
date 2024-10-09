@@ -31,17 +31,16 @@ import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
 
 // import JobTable from "../Pages/Dashboard/Company/MyJob";
 
-
 import EmployeeHome from "../Pages/Dashboard/Company/EmployeeHome";
 import JobTable from "../Pages/Dashboard/Company/MyJob";
-import CompanySettings from '../Pages/Dashboard/Company/CompanySettings/CompanySettings';
+import CompanySettings from "../Pages/Dashboard/Company/CompanySettings/CompanySettings";
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeAccountSettings/EmployeeSettings";
 import AppliedCandidates from "../Pages/Dashboard/Company/Candidates/AppliedCandidates";
 import Overview from "../Pages/Dashboard/Company/Overview";
 import PostStatus from "../Pages/Posts/PostStatus";
 import Posts from "../Pages/Posts/Posts";
 import Comments from "../Pages/Posts/Comments";
-
+import FindJobSeeker from "../Pages/FindJobSeeker/FindJobSeeker";
 
 export const router = createBrowserRouter([
   {
@@ -81,25 +80,23 @@ export const router = createBrowserRouter([
       {
         path: "/job/:id",
         element: <SingleJob />,
-
       },
       {
         path: "/candidates",
         element: <Candidates />,
-
       },
       {
-        path:"/employee-settings",
-        element:<EmployeeSettings/>
+        path: "/employee-settings",
+        element: <EmployeeSettings />,
       },
 
       {
         path: "/myjobs",
-        element: <JobTable />
+        element: <JobTable />,
       },
       {
         path: "/favorite-jobs",
-        element: <BookmarkedJobs />
+        element: <BookmarkedJobs />,
       },
 
       {
@@ -118,6 +115,10 @@ export const router = createBrowserRouter([
       {
         path: "/comments/:postId",
         element: <Comments />,
+      },
+      {
+        path: "/find-job-seekers",
+        element: <FindJobSeeker />,
       },
     ],
   },
@@ -177,13 +178,11 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/messages/:otherPartyEmail",
             element: <MessageDetail></MessageDetail>,
-
           },
 
           {
             path: "/dashboard/companySettings",
-            element: <CompanySettings/>,
-
+            element: <CompanySettings />,
           },
         ],
       },

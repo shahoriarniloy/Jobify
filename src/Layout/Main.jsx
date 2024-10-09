@@ -14,11 +14,11 @@ const Main = () => {
   };
   if (loading) return <Loader />;
   return (
-    <div className="roboto-regular bg-white">
+    <div className="roboto-regular bg-[#f6f8f8]">
       <Navbar2 />
       <Navbar />
 
-      <div className="lg:px-24 md:px-12 px-4">
+      <div className="lg:px-24 md:px-12 px-4 ">
         <div className="lg:px-24 md:px-12 px-4 min-h-screen   mt-4">
           <Outlet />
         </div>
