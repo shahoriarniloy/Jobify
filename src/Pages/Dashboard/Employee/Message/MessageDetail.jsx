@@ -68,7 +68,9 @@ const MessageDetail = () => {
       </div>
 
       {messages.length === 0 ? (
-        <div className="text-gray-500">No messages found.</div>
+        <div className="text-gray-500 text-center flex justify-center items-center">
+          No messages found.
+        </div>
       ) : (
         <div
           className="mb-4 lg:px-36 md:px-24 px-12"

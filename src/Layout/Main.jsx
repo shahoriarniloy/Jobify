@@ -10,7 +10,7 @@ const Main = () => {
   const navigate = useNavigate();
   const { loading } = useCurrentUser();
   const goToMessages = () => {
-    navigate("/dashboard/messages");
+    navigate("/messages");
   };
   if (loading) return <Loader />;
   return (

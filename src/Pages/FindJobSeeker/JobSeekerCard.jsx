@@ -2,6 +2,7 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import { useEffect, useState } from "react";
 import DashboardLoader from "../../Shared/DashboardLoader";
+import { Link } from "react-router-dom";
 
 const JobSeekerCard = ({ jobSeeker }) => {
   const { currentUser } = useCurrentUser();
@@ -80,18 +81,18 @@ const JobSeekerCard = ({ jobSeeker }) => {
             onClick={handleFollowToggle}
             className={`inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none ${
               isFollowing
-                ? "bg-red-500 hover:bg-red-600" // Red for unfollow
-                : "bg-blue-700 hover:bg-blue-800" // Blue for follow
+                ? "bg-red-500 hover:bg-red-600"
+                : "bg-blue-700 hover:bg-blue-800"
             }`}
           >
             {isFollowing ? "Unfollow" : "Follow"}
           </button>
-          <a
-            href="#"
+          <Link
+            to={`/messages/${jobSeeker.email}`}
             className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700"
           >
             Message
-          </a>
+          </Link>
         </div>
       </div>
     </div>

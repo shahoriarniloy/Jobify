@@ -78,7 +78,7 @@ const Messages = () => {
           {conversations.map((conversation, index) => (
             <Link
               key={conversation.otherPartyEmail || index}
-              to={`/dashboard/messages/${conversation.otherPartyEmail}`}
+              to={`/messages/${conversation.otherPartyEmail}`}
               state={{
                 otherPartyName: conversation.otherPartyName,
                 otherPartyPhoto: conversation.otherPartyPhoto,
