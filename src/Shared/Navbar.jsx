@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"; // Use NavLink
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const navItem = (

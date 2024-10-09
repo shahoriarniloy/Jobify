@@ -160,10 +160,10 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
-          // {
-          //   path: "/dashboard/overview",
-          //   element: <EmployeeHome />,
-          // },
+          {
+            path: "/dashboard/user-overview",
+            element: <EmployeeHome />,
+          },
           {
             path: "/dashboard/overview",
             element: <CompanyOverview />,
