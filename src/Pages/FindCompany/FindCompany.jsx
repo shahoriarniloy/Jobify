@@ -110,7 +110,7 @@ const AdvancedSearch = () => {
             <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
             <input
               type="text"
-              placeholder="Job title, Keyword..."
+              placeholder="Company Name"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none focus:ring-2
@@ -234,7 +234,7 @@ const AdvancedSearch = () => {
                     <img
                       src={company.company_logo}
                       alt={`${company.company_name} logo`}
-                      className="w-24 h-24 rounded-full border-4 border-blue-300"
+                      className="w-24 h-24 rounded-full border-4 border-blue-500"
                     />
                   </div>
                   <div className="mt-14 space-y-2 text-center">

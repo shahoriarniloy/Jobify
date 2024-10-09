@@ -41,6 +41,8 @@ import PostStatus from "../Pages/Posts/PostStatus";
 import Posts from "../Pages/Posts/Posts";
 import Comments from "../Pages/Posts/Comments";
 import FindJobSeeker from "../Pages/FindJobSeeker/FindJobSeeker";
+import Inbox from "../Pages/Dashboard/Employee/Message/Inbox";
+import CompanyOverview from "../Pages/Dashboard/Company/CompanyOverview";
 
 export const router = createBrowserRouter([
   {
@@ -125,8 +127,16 @@ export const router = createBrowserRouter([
         element: <Messages></Messages>,
       },
       {
+        path: "/inbox/:otherPartyEmail",
+        element: <Inbox></Inbox>,
+      },
+      {
         path: "/messages/:otherPartyEmail",
         element: <MessageDetail></MessageDetail>,
+      },
+      {
+        path: "/overview",
+        element: <EmployeeHome />,
       },
     ],
   },
@@ -150,13 +160,13 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
+          // {
+          //   path: "/dashboard/overview",
+          //   element: <EmployeeHome />,
+          // },
           {
             path: "/dashboard/overview",
-            element: <EmployeeHome />,
-          },
-          {
-            path: "/dashboard/company-overview",
-            element: <Overview />,
+            element: <CompanyOverview />,
           },
           {
             path: "/dashboard/applied-jobs",

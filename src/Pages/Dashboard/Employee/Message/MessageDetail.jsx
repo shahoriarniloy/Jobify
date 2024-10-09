@@ -39,8 +39,8 @@ const MessageDetail = () => {
         receiverEmail: otherPartyEmail,
         message: newMessage,
         createdAt: new Date().toISOString(),
-        senderName: currentUser.name,
-        senderPhoto: currentUser.photoURL,
+        senderName: currentUser?.displayName,
+        senderPhoto: currentUser?.photoURL,
       };
 
       await axiosSecure.post("/sendMessage", messageData);
@@ -57,7 +57,7 @@ const MessageDetail = () => {
   }
 
   return (
-    <div className="container mx-auto bg-white rounded-xl h-full text-sm">
+    <div className="container mx-auto bg-white rounded-xl  text-sm">
       <div className="flex items-center mb-4 py-2 border rounded-t-lg px-4">
         <img
           src={otherPartyPhoto || "default-avatar.png"}
@@ -73,8 +73,8 @@ const MessageDetail = () => {
         </div>
       ) : (
         <div
-          className="mb-4 lg:px-36 md:px-24 px-12"
-          style={{ maxHeight: "400px", overflowY: "auto" }}
+          className="mb-4 lg:px-36 md:px-24 px-12 "
+          style={{ maxHeight: "300px", overflowY: "auto" }}
         >
           {messages.map((message, index) => {
             const isSameSender =
