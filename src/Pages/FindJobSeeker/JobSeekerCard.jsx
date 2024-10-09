@@ -15,7 +15,7 @@ const JobSeekerCard = ({ jobSeeker }) => {
         const response = await axiosSecure.get(
           `/check-follow-status?followerEmail=${currentUser?.email}&followedEmail=${jobSeeker.email}`
         );
-        console.log("Follow status response:", response.data);
+        // console.log("Follow status response:", response.data);
         setIsFollowing(response.data.hasFollowed);
         setIsLoading(false);
       } catch (error) {
