@@ -7,7 +7,7 @@ import { Modal } from "react-responsive-modal";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
 import useUserRole from "../Hooks/useUserRole";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaBriefcase } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -30,9 +30,9 @@ const Navbar2 = () => {
 
   return (
     <div className="">
-      <div className="navbar bg-white shadow-md pt-2">
+      <div className="navbar bg-white pt-2">
         <div className="navbar-start">
-          <div className="flex items-center text-[#0a65cc] gap-2 lg:pl-24 md:pl-12 pl-12">
+          <div className="flex items-center text-[#0a65cc] gap-2 ">
             <PiBag className="w-6 h-6" />
             <Link to="/" className="text-xl font-bold text-[#0a65cc]">
               Jobify
@@ -40,7 +40,7 @@ const Navbar2 = () => {
           </div>
         </div>
         <div className="navbar-end">
-          <div className="flex gap-4 lg:gap-5 items-center lg:pr-24 md:pr-12 pr-4">
+          <div className="flex gap-4 lg:gap-5 items-center ">
             {currentUser ? (
               <>
                 <div className="relative flex items-center gap-4">
@@ -66,7 +66,7 @@ const Navbar2 = () => {
                                 className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                 onClick={() => setIsMenuOpen(false)}
                               >
-                                <FaRegHeart />
+                                <FaBriefcase />
                                 Applied Jobs
                               </Link>
                               <Link
