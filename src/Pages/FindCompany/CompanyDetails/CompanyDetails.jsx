@@ -22,15 +22,11 @@ const CompanyDetails = () => {
 
   const { _id, email } = company;
 
-  // console.log(email);
-
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
-        // console.log(response.data);
-        // console.log(response.data);
       } catch (error) {
         // console.error("Error fetching company data:", error);
       }
@@ -41,7 +37,6 @@ const CompanyDetails = () => {
 
   return (
     <div className="relative ">
-      {/* Company Banner and Info */}
       <div className="relative">
         <div>
           <img
@@ -74,15 +69,14 @@ const CompanyDetails = () => {
         </div>
       </div>
 
-      <div className="lg:hidden flex justify-end mt-48 md:mb-2">
-        <Link to="/dashboard/messages">
+      <div className="lg:hidden flex justify-end mt-48 md:mb-2 mb-2">
+        <Link to={`/messages/${company.email}`}>
           <button className="bg-green-500 text-white  hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 ">
             Message
           </button>
         </Link>
       </div>
 
-      {/* Description and Social Media Links */}
       <div className="flex flex-col md:flex-row   md:mb-48   gap-6 justify-between">
         <div className="md:w-1/2 mt-12">
           <h2 className="font-bold   lg:mt-2  text-xl md:text-2xl lg:text-3xl">
@@ -115,7 +109,6 @@ const CompanyDetails = () => {
             <li>Employee wellness programs and gym membership discounts.</li>
           </ul>
 
-          {/* Social Media Links */}
           <div className="flex flex-wrap items-center gap-5 my-5">
             <p>Share profile:</p>
             {company?.social_media_links?.facebook && (
@@ -165,12 +158,13 @@ const CompanyDetails = () => {
           </div>
         </div>
 
-        {/* Company Info */}
         <div className="md:ml-10 md:w-1/2">
           <div className="lg:flex lg:justify-end hidden">
-            <button className="bg-green-500 text-white  hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 mb-4">
-              Message
-            </button>
+            <Link to={`/messages/${company.email}`}>
+              <button className="bg-green-500 text-white  hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 mb-2 ">
+                Message
+              </button>
+            </Link>
           </div>
           <div className=" p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
             <div>

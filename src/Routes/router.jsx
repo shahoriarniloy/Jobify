@@ -26,8 +26,8 @@ import FindCompany from "../Pages/FindCompany/FindCompany";
 import PostJob from "../Pages/Dashboard/Company/PostJob";
 import MyJob from "../Pages/Dashboard/Company/MyJob";
 import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs";
-import Messages from "../Pages/Dashboard/Employee/Messages";
-import MessageDetail from "../Pages/Dashboard/Employee/MessageDetail";
+import Messages from "../Pages/Dashboard/Employee/Message/Messages";
+import MessageDetail from "../Pages/Dashboard/Employee/Message/MessageDetail";
 
 // import JobTable from "../Pages/Dashboard/Company/MyJob";
 
@@ -120,6 +120,14 @@ export const router = createBrowserRouter([
         path: "/find-job-seekers",
         element: <FindJobSeeker />,
       },
+      {
+        path: "/messages",
+        element: <Messages></Messages>,
+      },
+      {
+        path: "/messages/:otherPartyEmail",
+        element: <MessageDetail></MessageDetail>,
+      },
     ],
   },
   {
@@ -169,15 +177,6 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/candidates",
             element: <Candidates></Candidates>,
-          },
-
-          {
-            path: "/dashboard/messages",
-            element: <Messages></Messages>,
-          },
-          {
-            path: "/dashboard/messages/:otherPartyEmail",
-            element: <MessageDetail></MessageDetail>,
           },
 
           {
