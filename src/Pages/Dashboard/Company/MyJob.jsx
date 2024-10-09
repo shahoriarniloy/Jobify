@@ -20,7 +20,7 @@ const JobTable = () => {
     queryKey: ["fetchpostedjobs"],
     queryFn: async () => {
       const response = await axiosSecure.get(
-        `/company-jobs?email=${currentUser?.email}`
+        `/jobs/dashboard/company/${currentUser?.email}`
       );
       return response.data;
     },
@@ -48,7 +48,7 @@ const JobTable = () => {
               <td className="px-4 py-2 text-green-500">
                 <button>Open</button>
               </td>
-              <td className="px-4 py-2">{job.applicationsCount || 0}</td>
+              <td className="px-4 py-2">{job?.applicationsCount || 0}</td>
 
               <td className="px-4 py-2">
                 <Link
