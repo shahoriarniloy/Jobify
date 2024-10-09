@@ -28,6 +28,31 @@ const JobSeekerCard = ({ jobSeeker }) => {
     }
   }, [currentUser, jobSeeker.email]);
 
+  const handleFollowToggle = async () => {
+    try {
+      const followedEmail = jobSeeker.email;
+      const followerEmail = currentUser?.email;
+
+      if (isFollowing) {
+        await axiosSecure.delete("/unfollow-job-seeker", {
+          data: {
+            followerEmail,
+            followedEmail,
+          },
+        });
+        setIsFollowing(false);
+      } else {
+        await axiosSecure.post("/follow-job-seeker", {
+          followerEmail,
+          followedEmail,
+        });
+        setIsFollowing(true);
+      }
+    } catch (error) {
+      console.error("Error following/unfollowing job seeker:", error);
+    }
+  };
+
   if (isLoading) {
     return <DashboardLoader />;
   }
