@@ -102,6 +102,20 @@ const Navbar2 = () => {
                             </li>
                           </>
                         )}
+                        {role == "Admin" && (
+                          <>
+                            <li>
+                              <Link
+                                to="/admin/overview"
+                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                <MdOutlineDashboardCustomize />
+                                Dashboard
+                              </Link>
+                            </li>
+                          </>
+                        )}
 
                         <li>
                           <button
