@@ -108,9 +108,7 @@ const AccountSetting = () => {
                 type="email"
                 name="email"
                 id="email"
-                value={email}
                 required
-                onChange={(e) => setEmail(e.target.value)}
                 className="border border-gray-300 p-2 pl-10 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-2"
                 placeholder="Email"
               />

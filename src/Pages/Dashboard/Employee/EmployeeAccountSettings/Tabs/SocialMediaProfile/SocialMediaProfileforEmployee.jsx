@@ -19,7 +19,7 @@ import {
 } from "react-icons/fa";
 import { MdAddCircleOutline, MdOutlineCancel } from "react-icons/md";
 
-const SocialMediaProfile = () => {
+const SocialMediaProfileForEmployee = () => {
   const socialOptions = [
     { name: "Facebook", icon: <FaFacebook />, value: "facebook" },
     { name: "Twitter", icon: <FaTwitter />, value: "twitter" },
@@ -82,11 +82,11 @@ const SocialMediaProfile = () => {
   return (
     <div className="p-4 md:p-8">
       <form>
+        <h3 className="text-lg font-medium mb-2">Your Social Media Profile</h3>
         {fields.map((field, index) => (
           <div key={index}>
-            <label htmlFor={`Social Link ${index + 1}`}>{`Social Link ${
-              index + 1
-            }`}</label>
+            <label className="text-sm" htmlFor={`Social Link ${index + 1}`}>{`Social Link ${index + 1
+              }`}</label>
             <div className="flex justify-between items-center my-2 ">
               <div className="md:flex items-center border rounded w-full ">
                 {/* Headless UI Dropdown Menu (Listbox) */}
@@ -97,11 +97,11 @@ const SocialMediaProfile = () => {
                   <div className="relative md:w-2/5 w-full">
                     <ListboxButton className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
                       {/* Show Name */}
-                      <span className="block truncate">
+                      <span className="block text-sm truncate">
                         {field.socialMedia
                           ? socialOptions.find(
-                              (option) => option.value === field.socialMedia
-                            )?.name
+                            (option) => option.value === field.socialMedia
+                          )?.name
                           : "Select Social Media"}
                       </span>
 
@@ -134,10 +134,9 @@ const SocialMediaProfile = () => {
                             <ListboxOption
                               key={option.value}
                               className={({ active }) =>
-                                `cursor-default select-none relative py-2 pl-10 pr-4 ${
-                                  active
-                                    ? "text-blue-900 bg-blue-100"
-                                    : "text-gray-900"
+                                `cursor-default select-none relative py-2 pl-10 pr-4 ${active
+                                  ? "text-blue-900 bg-blue-100"
+                                  : "text-gray-900"
                                 }`
                               }
                               value={option.value}
@@ -146,9 +145,8 @@ const SocialMediaProfile = () => {
                                 <div className="flex items-center">
                                   <span className="mr-2">{option.icon}</span>
                                   <span
-                                    className={`block truncate ${
-                                      selected ? "font-medium" : "font-normal"
-                                    }`}
+                                    className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                      }`}
                                   >
                                     {option.name}
                                   </span>
@@ -189,34 +187,35 @@ const SocialMediaProfile = () => {
           </div>
         ))}
 
-        {/* Add New Social Link Button */}
-        <button
-          type="button"
-          className={`flex items-center justify-center gap-2 mt-4 font-semibold p-2 rounded w-full ${
-            fields.length === socialOptions.length
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-gray-100 hover:bg-blue-500 hover:text-white"
-          }`}
-          onClick={addField}
-          disabled={fields.length === socialOptions.length}
-        >
-          <MdAddCircleOutline />
-          Add New Social Link
-        </button>
+        <div className="flex items-center gap-5 mt-7">
+          {/* Add New Social Link Button */}
+          <button
+            type="button"
+            className={`flex items-center text-sm justify-center gap-2 font-semibold px-2 py-4 rounded w-full ${fields.length === socialOptions.length
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-gray-100 hover:bg-blue-500 hover:text-white"
+              }`}
+            onClick={addField}
+            disabled={fields.length === socialOptions.length}
+          >
+            <MdAddCircleOutline />
+            Add New Social Link
+          </button>
 
-        {/* Save button */}
-        <button
-          type="button"
-          className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"
-          onClick={handleSaveChanges}
-        >
-          Save Changes
-        </button>
+          {/* Save button */}
+          <button
+            type="button"
+            className="btn btn-outline hover:border-none hover:bg-blue-500 hover:text-white rounded-lg w-full md:w-auto"
+            onClick={handleSaveChanges}
+          >
+            Save Changes
+          </button>
+        </div>
       </form>
 
       {/* Display all submitted links */}
       <div className="mt-6">
-        <h3 className="text-lg font-semibold">Submitted Social Links:</h3>
+        <h3 className="text-sm font-semibold">Submitted Social Links:</h3>
         <ul>
           {submittedLinks.map((field, index) => (
             <li key={index} className="flex items-center">
@@ -240,4 +239,4 @@ const SocialMediaProfile = () => {
   );
 };
 
-export default SocialMediaProfile;
+export default SocialMediaProfileForEmployee;
