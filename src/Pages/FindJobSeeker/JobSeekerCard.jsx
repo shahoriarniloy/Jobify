@@ -19,7 +19,7 @@ const JobSeekerCard = ({ jobSeeker }) => {
         setIsFollowing(response.data.hasFollowed);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error checking follow status:", error);
+        // console.error("Error checking follow status:", error);
         setIsLoading(false);
       }
     };

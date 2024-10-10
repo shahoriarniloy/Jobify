@@ -39,7 +39,7 @@ const PostCard = () => {
       }
       refetch();
     } catch (error) {
-      console.error("Error liking/unliking post", error);
+      // console.error("Error liking/unliking post", error);
     }
   };
 

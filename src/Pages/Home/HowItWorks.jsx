@@ -22,10 +22,10 @@ const HowItWorks = () => {
     <div className="pt-16">
       <div className="mx-auto ">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-16">
-          How It Works
+          How Jobify Works
         </h2>
         <Marquee>
-          <div className="flex flex-col sm:flex-row sm:justify-center gap-16">
+          <div className="flex  gap-16">
             {steps.map((step, index) => (
               <div
                 key={index}

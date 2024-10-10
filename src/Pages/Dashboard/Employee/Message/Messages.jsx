@@ -67,7 +67,7 @@ const Messages = () => {
   }
 
   return (
-    <div className="container max-h-[550px] overflow-y-auto">
+    <div className="container  overflow-y-auto min-h-screen">
       {conversations.length === 0 ? (
         <div className="text-gray-500">No conversations found.</div>
       ) : (

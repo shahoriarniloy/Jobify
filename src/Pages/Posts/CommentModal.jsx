@@ -25,7 +25,7 @@ const CommentsModal = ({ isOpen, onClose }) => {
         setPost(postResponse.data);
         setHasLiked(postResponse.data.likes.includes(currentUser.email));
       } catch (error) {
-        console.error("Error fetching post and comments:", error);
+        // console.error("Error fetching post and comments:", error);
         setError("Failed to load post.");
       }
     };
@@ -58,7 +58,7 @@ const CommentsModal = ({ isOpen, onClose }) => {
         throw new Error("Failed to post comment");
       }
     } catch (error) {
-      console.error("Error posting comment:", error);
+      // console.error("Error posting comment:", error);
       setError("Failed to post comment.");
     } finally {
       setCommentLoading(false);
@@ -87,7 +87,7 @@ const CommentsModal = ({ isOpen, onClose }) => {
           : [...prevPost.likes, currentUser.email],
       }));
     } catch (error) {
-      console.error("Error liking/unliking post:", error);
+      // console.error("Error liking/unliking post:", error);
       setError("Failed to update like status.");
     }
   };

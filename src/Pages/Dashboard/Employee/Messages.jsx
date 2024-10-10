@@ -68,7 +68,7 @@ const Messages = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container ">
       <h1 className="text-2xl font-bold mb-4">Your Messages</h1>
 
       {conversations.length === 0 ? (

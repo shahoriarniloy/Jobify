@@ -26,7 +26,7 @@ const AllJobs = () => {
       const totalPages = Math.ceil(response.data.totalJobs / itemsPerPage);
       setPages([...Array(totalPages).keys()]);
     } catch (error) {
-      console.error("Failed to fetch jobs", error);
+      // console.error("Failed to fetch jobs", error);
     }
   };
 

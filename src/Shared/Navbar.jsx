@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react"; // Import useState and useEffect
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
-  const [isSticky, setIsSticky] = useState(false); // State to manage sticky behavior
+  const [isSticky, setIsSticky] = useState(false);
 
   const navItem = (
     <>

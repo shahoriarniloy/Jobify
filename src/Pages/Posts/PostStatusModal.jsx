@@ -72,7 +72,7 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
 
       const postData = {
         userEmail: currentUser.email,
-        userName: currentUser.name,
+        userName: currentUser.displayName,
         userPhoto: currentUser.photoURL || "default-photo.jpg",
         content,
         imageUrl,
@@ -82,10 +82,9 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
       setContent("");
       setImage(null);
       onClose();
-      queryClient.invalidateQueries(["loadedPost"])
-
+      queryClient.invalidateQueries(["loadedPost"]);
     } catch (error) {
-      console.error("Error posting status:", error);
+      // console.error("Error posting status:", error);
     } finally {
       setLoading(false);
     }

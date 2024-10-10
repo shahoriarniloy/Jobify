@@ -30,7 +30,7 @@ const Navbar2 = () => {
 
   return (
     <div className="">
-      <div className="navbar bg-white pt-2">
+      <div className="navbar bg-white pt-2 ">
         <div className="navbar-start">
           <div className="flex items-center text-[#0a65cc] gap-2 ">
             <PiBag className="w-6 h-6" />

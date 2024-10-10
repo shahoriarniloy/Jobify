@@ -24,7 +24,7 @@ const AllCompanies = () => {
       const totalPages = Math.ceil(response.data.totalCompanies / itemsPerPage);
       setPages([...Array(totalPages).keys()]);
     } catch (error) {
-      console.error("Failed to fetch companies", error);
+      // console.error("Failed to fetch companies", error);
     }
   };
 
@@ -56,7 +56,7 @@ const AllCompanies = () => {
   };
 
   const handleEdit = (companyId) => {
-    console.log(`Edit company with ID: ${companyId}`);
+    // console.log(`Edit company with ID: ${companyId}`);
   };
 
   const handleDelete = async (companyId) => {
@@ -67,9 +67,9 @@ const AllCompanies = () => {
       try {
         await axiosSecure.delete(`/companies/${companyId}`);
         fetchCompanies();
-        console.log(`Deleted company with ID: ${companyId}`);
+        // console.log(`Deleted company with ID: ${companyId}`);
       } catch (error) {
-        console.error("Failed to delete company", error);
+        // console.error("Failed to delete company", error);
       }
     }
   };

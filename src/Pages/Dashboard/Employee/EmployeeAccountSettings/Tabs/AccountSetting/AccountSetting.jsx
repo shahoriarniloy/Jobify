@@ -41,7 +41,7 @@ const AccountSetting = () => {
 
   const handleContactSubmit = (e) => {
     e.preventDefault();
-    console.log({ phone, email, location });
+    // console.log({ phone, email, location });
   };
 
   const onSubmit = (data) => {
@@ -51,7 +51,7 @@ const AccountSetting = () => {
     reset(); // Reset the form after submission
   };
 
-  console.log(storedPassword);
+  // console.log(storedPassword);
 
   // Watch the new password field to compare with confirm password
   const newPassword = watch("newPassword");
