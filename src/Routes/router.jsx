@@ -43,6 +43,11 @@ import Comments from "../Pages/Posts/Comments";
 import FindJobSeeker from "../Pages/FindJobSeeker/FindJobSeeker";
 import Inbox from "../Pages/Dashboard/Employee/Message/Inbox";
 import CompanyOverview from "../Pages/Dashboard/Company/CompanyOverview";
+import AllJobs from "../Pages/Dashboard/Admin/AllJobs";
+import AllCompanies from "../Pages/Dashboard/Admin/AllCompanies";
+import AllJobSeekers from "../Pages/Dashboard/Admin/AllJobSeekers";
+import AdminOverview from "../Pages/Dashboard/Admin/AdminOverview";
+import AdminLayout from "../Pages/Dashboard/Admin/AdminLayout";
 
 export const router = createBrowserRouter([
   {
@@ -134,10 +139,6 @@ export const router = createBrowserRouter([
         path: "/messages/:otherPartyEmail",
         element: <MessageDetail></MessageDetail>,
       },
-      {
-        path: "/overview",
-        element: <EmployeeHome />,
-      },
     ],
   },
   {
@@ -192,6 +193,29 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/companySettings",
             element: <CompanySettings />,
+          },
+        ],
+      },
+
+      {
+        path: "/admin",
+        element: <AdminLayout />,
+        children: [
+          {
+            path: "/admin/alljobs",
+            element: <AllJobs />,
+          },
+          {
+            path: "/admin/allcompanies",
+            element: <AllCompanies />,
+          },
+          {
+            path: "/admin/alljobseekers",
+            element: <AllJobSeekers />,
+          },
+          {
+            path: "/admin/overview",
+            element: <AdminOverview />,
           },
         ],
       },
