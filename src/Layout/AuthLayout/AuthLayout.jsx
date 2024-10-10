@@ -15,7 +15,10 @@ const AuthLayout = () => {
   if (loading) return <Loader />;
   return (
     <div className="bg-white">
-      <Navbar2 />
+      <div className="lg:px-24">
+        {" "}
+        <Navbar2 />
+      </div>
       <div className="auth-container lg:px-24 md:px-12 px-4">
         <Outlet />
       </div>
