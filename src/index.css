@@ -177,6 +177,14 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Adjust as needed */
+}
+
 /* .active-nav {
   background-color: #007bff;
   color: white;

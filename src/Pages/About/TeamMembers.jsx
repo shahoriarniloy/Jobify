@@ -89,7 +89,7 @@ const TeamMembers = () => {
   };
 
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto mt-8 ">
       <h2 className="text-4xl font-bold text-center mb-12">Our Team</h2>
       <Slider {...settings}>
         {teamMembers.map((member, index) => (
