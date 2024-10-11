@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { LuUser2, LuUserCircle2 } from "react-icons/lu";
-import { IoSettingsOutline } from "react-icons/io5";
-import AccountSetting from "./Tabs/AccountSetting/AccountSetting";
 import UserInfo from "./Tabs/UserInfo/UserInfo";
 import CareerInfo from "./Tabs/CareerInfo/CareerInfo";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
@@ -24,12 +22,7 @@ const EmployeeSettings = () => {
           </Tab>
           <Tab>
             <div className="flex items-center gap-2">
-              <LuUserCircle2 /> Founding Info
-            </div>
-          </Tab>
-          <Tab>
-            <div className="flex items-center gap-2">
-              <IoSettingsOutline /> Account Setting
+              <LuUserCircle2 /> Education Info
             </div>
           </Tab>
         </TabList>
@@ -40,10 +33,6 @@ const EmployeeSettings = () => {
 
         <TabPanel>
           <CareerInfo />
-        </TabPanel>
-        
-        <TabPanel>
-          <AccountSetting />
         </TabPanel>
       </Tabs>
     </div>

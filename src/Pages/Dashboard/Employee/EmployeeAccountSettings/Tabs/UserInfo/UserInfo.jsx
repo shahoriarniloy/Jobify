@@ -89,7 +89,7 @@ const UserInfo = () => {
           <div className="w-full lg:flex-1">
             {/* Company Name */}
             <div className="flex flex-col">
-              <label htmlFor="textInput" className="text-lg font-medium mb-2">Company Name</label>
+              <label htmlFor="textInput" className="text-lg font-medium mb-2">Your Name</label>
               <input
                 id="textInput"
                 type="text"
