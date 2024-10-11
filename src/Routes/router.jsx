@@ -48,6 +48,7 @@ import AllCompanies from "../Pages/Dashboard/Admin/AllCompanies";
 import AllJobSeekers from "../Pages/Dashboard/Admin/AllJobSeekers";
 import AdminOverview from "../Pages/Dashboard/Admin/AdminOverview";
 import AdminLayout from "../Pages/Dashboard/Admin/AdminLayout";
+import Room from "../Pages/Room/Room";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,7 @@ export const router = createBrowserRouter([
         path: "/about",
         element: <About />,
       },
+
       {
         path: "/company/:email/jobs",
         element: <CompanyJobs />,
@@ -139,7 +141,11 @@ export const router = createBrowserRouter([
         path: "/messages/:otherPartyEmail",
         element: <MessageDetail></MessageDetail>,
       },
-    ],
+    ]
+  },
+  {
+    path: "/rooms/:roomID",
+    element: <Room />,
   },
   {
     path: "/",
