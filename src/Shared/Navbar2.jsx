@@ -1,7 +1,7 @@
 import { PiBag } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
 import useCurrentUser from "../Hooks/useCurrentUser";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Login from "../Pages/Auth/Login/Login";
@@ -11,6 +11,7 @@ import { FaRegHeart, FaBriefcase } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineVideoCall } from "react-icons/md";
 
 const Navbar2 = () => {
   const { currentUser, logOut } = useCurrentUser();
@@ -18,15 +19,21 @@ const Navbar2 = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [roomModal, setRoomModal] = useState(false);
+  const [roomID, setRoomID] = useState();
   const { role } = useUserRole();
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  
   const handelLogOut = () => {
     logOut();
     navigate("/");
   };
+  const handelJoinRoom = useCallback(() => {
+    setRoomModal(false);
+    navigate(`/rooms/${roomID}`);
+  }, [navigate,roomID])
 
   return (
     <div className="">
@@ -85,6 +92,7 @@ const Navbar2 = () => {
                                 <IoSettingsOutline />
                                 Profile Settings
                               </Link>
+
                             </li>
                           </>
                         )}
@@ -118,6 +126,17 @@ const Navbar2 = () => {
                         )}
 
                         <li>
+                          <Link
+
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                            onClick={() => { setIsMenuOpen(false); setRoomModal(true) }}
+                          >
+                            <MdOutlineVideoCall className="text-xl" />
+                            Join Call
+                          </Link>
+                        </li>
+
+                        <li>
                           <button
                             onClick={handelLogOut}
                             className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2 w-full"
@@ -126,6 +145,7 @@ const Navbar2 = () => {
                             Logout
                           </button>
                         </li>
+
                       </ul>
                     </div>
                   )}
@@ -166,6 +186,31 @@ const Navbar2 = () => {
           setSignUpModalOpen={setSignUpModalOpen}
         />
       </Modal>
+
+
+      <Modal
+        open={roomModal}
+        onClose={() => setRoomModal(false)}
+      >
+        <div className="card  w-full max-w-sm">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Enter Your Name</span>
+            </label>
+            <input type="text" placeholder="Type name" className="input input-bordered" required />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Room ID</span>
+            </label>
+            <input type="text" onChange={e => setRoomID(e.target.value)} placeholder="Type room id" className="input input-bordered" required />
+          </div>
+          <div className="form-control mt-6">
+            <button disabled={!roomID} onClick={handelJoinRoom} className="btn btn-primary">Join Now</button>
+          </div>
+        </div>
+      </Modal>
+
     </div>
   );
 };
