@@ -20,7 +20,7 @@ const Room = () => {
             sharedLinks: [
                 {
                     name: "Copy Link",
-                    url: `http://localhost:5173/rooms/${roomID}`
+                    url: `https://jobify-13db1.web.app/${roomID}`
                 }
             ],
             scenario: {
