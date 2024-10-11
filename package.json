@@ -45,6 +45,7 @@
     "react-toastify": "^10.0.5",
     "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.14.1",
+    "zego-superboard-web": "^2.15.3",
     "zego-zim-web": "^2.9.0"
   },
   "devDependencies": {
