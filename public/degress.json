@@ -1,0 +1,136 @@
+[
+    {
+        "degree": "Diploma",
+        "fields": [
+            "Diploma in Nursing",
+            "Diploma in Education",
+            "Diploma in Agriculture",
+            "Diploma in Textile Technology",
+            "Diploma in Graphic Design",
+            "Diploma in Hospitality Management",
+            "Diploma in Information Technology",
+            "Diploma in Pharmacy"
+        ]
+    },
+    {
+        "degree": "Bachelor's Degree",
+        "fields": [
+            "Bachelor of Arts (B.A.)",
+            "Bachelor of Science (B.Sc.)",
+            "Bachelor of Commerce (B.Com)",
+            "Bachelor of Business Administration (BBA)",
+            "Bachelor of Engineering (B.Eng.)",
+            "Bachelor of Medicine, Bachelor of Surgery (MBBS)",
+            "Bachelor of Dental Surgery (BDS)",
+            "Bachelor of Laws (LLB)",
+            "Bachelor of Architecture (B.Arch)",
+            "Bachelor of Social Science (BSS)",
+            "Bachelor of Fine Arts (BFA)",
+            "Bachelor of Education (B.Ed.)",
+            "Bachelor of Pharmacy (B.Pharm)",
+            "Bachelor of Computer Science (BCS)",
+            "Bachelor of Information Technology (BIT)"
+        ]
+    },
+    {
+        "degree": "Master's Degree",
+        "fields": [
+            "Master of Arts (M.A.)",
+            "Master of Science (M.Sc.)",
+            "Master of Business Administration (MBA)",
+            "Master of Commerce (M.Com)",
+            "Master of Engineering (M.Eng.)",
+            "Master of Social Science (MSS)",
+            "Master of Laws (LLM)",
+            "Master of Education (M.Ed.)",
+            "Master of Pharmacy (M.Pharm)",
+            "Master of Fine Arts (MFA)"
+        ]
+    },
+    {
+        "degree": "Professional Certification",
+        "fields": [
+            "Chartered Accountancy (CA)",
+            "Cost and Management Accountancy (CMA)",
+            "Doctor of Philosophy (Ph.D.)",
+            "Doctor of Business Administration (DBA)"
+        ]
+    },
+    {
+        "degree": "Engineering",
+        "fields": [
+            "Mechanical Engineering",
+            "Civil Engineering",
+            "Electrical Engineering",
+            "Computer Engineering",
+            "Electronics Engineering",
+            "Textile Engineering"
+        ]
+    },
+    {
+        "degree": "Nursing",
+        "fields": [
+            "General Nursing",
+            "Midwifery"
+        ]
+    },
+    {
+        "degree": "Pharmacy",
+        "fields": [
+            "Pharmacy Technician",
+            "Pharmaceutical Science"
+        ]
+    },
+    {
+        "degree": "Management",
+        "fields": [
+            "General Management",
+            "Marketing",
+            "Finance"
+        ]
+    },
+    {
+        "degree": "Information Technology",
+        "fields": [
+            "Web Development",
+            "Network Administration",
+            "Software Engineering"
+        ]
+    },
+    {
+        "degree": "Hospitality",
+        "fields": [
+            "Hotel Management",
+            "Culinary Arts"
+        ]
+    },
+    {
+        "degree": "Arts",
+        "fields": [
+            "Multimedia Arts",
+            "Visual Communication"
+        ]
+    },
+    {
+        "degree": "Textile",
+        "fields": [
+            "Garment Manufacturing",
+            "Textile Processing"
+        ]
+    },
+    {
+        "degree": "Agriculture",
+        "fields": [
+            "Agricultural Science",
+            "Horticulture"
+        ]
+    },
+    {
+        "degree": "Education",
+        "fields": [
+            "Teacher Training",
+            "Early Childhood Education",
+            "Technical Education Certificate (TEC)"
+        ]
+    }
+]

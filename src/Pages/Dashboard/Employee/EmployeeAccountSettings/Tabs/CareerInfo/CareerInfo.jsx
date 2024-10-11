@@ -1,135 +1,216 @@
-import { useState } from "react";
-import { AiOutlineLink } from "react-icons/ai";
+import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
+import { useQuery } from "@tanstack/react-query";
+import axiosSecure from "./../../../../../../Hooks/UseAxiosSecure";
+import "react-quill/dist/quill.snow.css";
+import useCurrentUser from "./../../../../../../Hooks/useCurrentUser";
+import { toast } from "react-toastify";
 
 const CareerInfo = () => {
-  const [companyVision, setCompanyVision] = useState("");
-  const [website, setWebsite] = useState("");
-  const [organizationType, setOrganizationType] = useState("");
-  const [industryType, setIndustryType] = useState("");
-  const [teamSize, setTeamSize] = useState("");
-  const [establishmentYear, setEstablishmentYear] = useState("");
+  const { currentUser } = useCurrentUser();
+  const [description, setDescription] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [popUpClose, setPopUpClose] = useState(false);
+  const [inputDegree, setInputDegree] = useState("");
 
-  const handleCompanyVision = (value) => {
-    setCompanyVision(value);
+  const { data: schools, isLoading } = useQuery({
+    queryKey: ["School Name", inputValue],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/school-name?name=${inputValue}`);
+      return data;
+    },
+    enabled: inputValue.length > 2,
+    staleTime: 5 * 60 * 1000,
+  });
+  let uniqueSchools = schools
+    ? Array.from(new Set(schools.map((school) => school.name)))
+    : [];
+  const handleInputChange = (e) => {
+    const query = e.target.value;
+    setInputValue(query);
+    setPopUpClose(false);
   };
+  const handleSuggestionClick = (schoolName) => {
+    setInputValue(schoolName);
+    setPopUpClose(true);
+  };
+  const { data: degrees } = useQuery({
+    queryKey: ["loadedDegree"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/degrees`);
+      return data;
+    },
+  });
+  const { data: fields, refetch } = useQuery({
+    queryKey: ["loadedFields"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/field?field=${inputDegree}`);
+      return data;
+    },
+  });
+  useEffect(() => {
+    refetch();
+  }, [inputDegree]);
 
-  const handleLinkPicker = () => {
-    const userInput = window.prompt("Enter the website URL:");
-    if (userInput) {
-      setWebsite(userInput);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const field = form.filedOfStudy.value;
+    const startDate = form.startDate.value;
+    const endDate = form.endDate.value;
+    const cgpa = form.cgpa.value;
+
+    console.log(currentUser.currentUser);
+
+    const data = {
+      schoolName: inputValue,
+      degree: inputDegree,
+      field,
+      startDate,
+      endDate,
+      cgpa,
+      description,
+      userEmail: currentUser?.currentUser.email,
+    };
+
+    try {
+      const response = await axiosSecure.post("/profile-updating", data);
+
+      if (response.status === 200) {
+        toast.success("Profile updated successfully");
+      }
+    } catch (error) {
+      toast.warn("Error updating profile");
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
-    // Extract plain text from companyVision
-    const companyVisionText = companyVision.replace(/<[^>]*>/g, ""); // Strip HTML tags
-
-    console.log({
-      organizationType,
-      industryType,
-      teamSize,
-      establishmentYear,
-      website,
-      companyVisionText, // Log plain text version of company vision
-    });
   };
 
   return (
     <div className="p-4 md:p-8">
       <form onSubmit={handleSubmit}>
         <div className="grid md:grid-cols-3 gap-4">
-          {/* Organization Type */}
-          <div>
-            <label htmlFor="organizationType">Organization Type</label>
-            <select
-              name="organizationType"
-              id="organizationType"
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
-              value={organizationType}
-              onChange={(e) => setOrganizationType(e.target.value)}
-            >
-              <option value="">Select...</option>
-              <option value="Private">Private</option>
-              <option value="Public">Public</option>
-            </select>
-          </div>
-
-          {/* Industry Types */}
-          <div>
-            <label htmlFor="industryType">Industry Types</label>
-            <select
-              name="industryType"
-              id="industryType"
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
-              value={industryType}
-              onChange={(e) => setIndustryType(e.target.value)}
-            >
-              <option value="">Select...</option>
-              <option value="Industry 1">Industry 1</option>
-              <option value="Industry 2">Industry 2</option>
-            </select>
-          </div>
-
-          {/* Team Size */}
-          <div>
-            <label htmlFor="teamSize">Team Size</label>
+          <div className="relative">
+            <label className="font-bold" htmlFor="schoolName">
+              School
+            </label>
             <input
-              type="number" // Changed to number input
-              name="teamSize"
-              id="teamSize"
+              required
+              type="text"
+              name="schoolName"
+              id="schoolName"
               className="border mt-2 border-gray-300 p-2 rounded w-full"
-              value={teamSize}
-              onChange={(e) => setTeamSize(e.target.value)}
-              min="1" // Optional: Set minimum value to 1
-              placeholder="Enter team size..."
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Type a school name..."
             />
+
+            {!isLoading && uniqueSchools.length > 0 && (
+              <ul
+                className={`${
+                  popUpClose ? "hidden" : "absolute"
+                } z-10  border border-gray-300 rounded mt-2 bg-white shadow-lg max-h-60 overflow-auto`}
+              >
+                {uniqueSchools.map((schoolName, index) => (
+                  <li
+                    key={index}
+                    className="p-2 hover:bg-gray-200 cursor-pointer"
+                    onClick={() => handleSuggestionClick(schoolName)}
+                  >
+                    {schoolName}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
-          {/* Year of Establishment */}
           <div>
-            <label htmlFor="establishmentYear">Year of Establishment</label>
+            <label className="font-bold" htmlFor="industryType">
+              Degree
+            </label>
+            <select
+              name="degree"
+              required
+              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              onChange={(e) => setInputDegree(e.target.value)}
+            >
+              <option value="default">Choose your degree</option>
+
+              {degrees?.map((degree) => (
+                <option key={degree._id} value={degree?.degree}>
+                  {degree.degree}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="font-bold" htmlFor="industryType">
+              Field of Study
+            </label>
+            <select
+              name="filedOfStudy"
+              required
+              className="border mt-2 border-gray-300 p-2 rounded w-full"
+            >
+              <option value="">Choose your Field</option>
+
+              {fields &&
+                fields?.fields.map((field, idx) => (
+                  <option key={idx} value={field}>
+                    {field}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="font-bold" htmlFor="startDate">
+              Start Date
+            </label>
             <input
               type="date"
-              name="establishmentYear"
-              id="establishmentYear"
+              name="startDate"
+              required
               className="border mt-2 border-gray-300 p-2 rounded w-full"
-              value={establishmentYear}
-              onChange={(e) => setEstablishmentYear(e.target.value)}
             />
           </div>
 
-          {/* Company Website */}
           <div>
-            <label htmlFor="companyWebsite">Company Website</label>
+            <label className="font-bold" htmlFor="endDate">
+              End Date
+            </label>
+            <input
+              type="date"
+              name="endDate"
+              required
+              className="border mt-2 border-gray-300 p-2 rounded w-full"
+            />
+          </div>
+
+          <div>
+            <label className="font-bold" htmlFor="cgpa">
+              C-GPA
+            </label>
             <div className="relative mt-2">
-              <AiOutlineLink
-                className="absolute left-2 top-2 text-gray-400 cursor-pointer hover:text-blue-500"
-                size={24}
-                onClick={handleLinkPicker}
-              />
               <input
-                type="url"
-                name="companyWebsite"
-                id="companyWebsite"
-                value={website}
-                onChange={(e) => setWebsite(e.target.value)}
-                className="border border-gray-300 p-2 rounded w-full pl-10"
-                placeholder="Website url..."
+                type="text"
+                name="cgpa"
+                required
+                className="border border-gray-300 p-2 rounded w-full" // Padding for icon
+                placeholder="Enter your C-GPA"
               />
             </div>
           </div>
         </div>
 
-        {/* Company Vision */}
         <div className="mt-4">
-          <label htmlFor="companyVision">Company Vision</label>
+          <label className="font-bold" htmlFor="companyVision">
+            Description
+          </label>
           <div className="quill-wrapper relative border rounded-lg mt-2">
             <ReactQuill
-              value={companyVision}
-              onChange={handleCompanyVision}
+              required
+              value={description}
+              onChange={(value) => setDescription(value)}
               placeholder="Write down your biography here. Let the employers know who you are..."
               modules={{
                 toolbar: [
@@ -152,7 +233,6 @@ const CareerInfo = () => {
           </div>
         </div>
 
-        {/* Save Changes button */}
         <button
           type="submit"
           className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"

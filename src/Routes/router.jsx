@@ -48,6 +48,7 @@ import AllCompanies from "../Pages/Dashboard/Admin/AllCompanies";
 import AllJobSeekers from "../Pages/Dashboard/Admin/AllJobSeekers";
 import AdminOverview from "../Pages/Dashboard/Admin/AdminOverview";
 import AdminLayout from "../Pages/Dashboard/Admin/AdminLayout";
+import Room from "../Pages/Room/Room";
 
 export const router = createBrowserRouter([
   {
@@ -68,13 +69,10 @@ export const router = createBrowserRouter([
         path: "/about",
         element: <About />,
       },
+
       {
         path: "/company/:email/jobs",
         element: <CompanyJobs />,
-      },
-      {
-        path: "/register",
-        element: <CreateAccount />,
       },
       {
         path: "/advanced-search",
@@ -142,6 +140,10 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    path: "/rooms/:roomID",
+    element: <Room />,
+  },
+  {
     path: "/",
     element: <AuthLayout />,
     children: [
@@ -153,45 +155,42 @@ export const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
-      {
-        path: "/about",
-        element: <About />,
-      },
+
       {
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
           {
-            path: "/dashboard/user-overview",
+            path: "user-overview",
             element: <EmployeeHome />,
           },
           {
-            path: "/dashboard/overview",
+            path: "overview",
             element: <CompanyOverview />,
           },
           {
-            path: "/dashboard/applied-jobs",
+            path: "applied-jobs",
             element: <AppliedJobs />,
           },
           {
-            path: "/dashboard/postJob",
+            path: "postJob",
             element: <PostJob></PostJob>,
           },
           {
-            path: "/dashboard/myjob",
+            path: "myjob",
             element: <MyJob></MyJob>,
           },
           {
-            path: "/dashboard/job-candidates",
+            path: "job-candidates",
             element: <AppliedCandidates></AppliedCandidates>,
           },
           {
-            path: "/dashboard/candidates",
+            path: "candidates",
             element: <Candidates></Candidates>,
           },
 
           {
-            path: "/dashboard/companySettings",
+            path: "companySettings",
             element: <CompanySettings />,
           },
         ],
@@ -202,19 +201,19 @@ export const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           {
-            path: "/admin/alljobs",
+            path: "alljobs",
             element: <AllJobs />,
           },
           {
-            path: "/admin/allcompanies",
+            path: "allcompanies",
             element: <AllCompanies />,
           },
           {
-            path: "/admin/alljobseekers",
+            path: "alljobseekers",
             element: <AllJobSeekers />,
           },
           {
-            path: "/admin/overview",
+            path: "overview",
             element: <AdminOverview />,
           },
         ],
