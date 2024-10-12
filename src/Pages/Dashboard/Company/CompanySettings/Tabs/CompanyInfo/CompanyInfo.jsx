@@ -1,21 +1,24 @@
 import { useState } from "react";
 import "../../../../../../Styles/TextEditorTools/CustomReactQuill.css";
 import ReactQuill from "react-quill";
-import DragAndDropInput from '../../../../Employee/Components/DragAndDropInput';
+import DragAndDropInput from "../../../../Employee/Components/DragAndDropInput";
+import { useSelector } from "react-redux";
+import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 
 const CompanyInfo = () => {
   const [companyName, setCompanyName] = useState("");
-  const [aboutUs, setAboutUs] = useState(""); // Keep the rich text here
+  const [aboutUs, setAboutUs] = useState("");
   const [logoFile, setLogoFile] = useState(null);
   const [bannerFile, setBannerFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const handleChangeCompanyName = (e) => {
     setCompanyName(e.target.value);
   };
 
-  // Store rich text value in state
   const handleAboutUsChange = (value) => {
-    setAboutUs(value); // Keep rich text format
+    setAboutUs(value);
   };
 
   const handleLogoUpload = (file) => {
@@ -26,16 +29,35 @@ const CompanyInfo = () => {
     setBannerFile(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const doc = new DOMParser().parseFromString(aboutUs, "text/html");
-    const plainTextAboutUs = doc.body.innerText || ""; // Extract plain text
+    setIsLoading(true);
 
-    // console.log("Company Name:", companyName);
-    // console.log("About Us (Plain Text):", plainTextAboutUs);
-    // console.log("Logo File:", logoFile);
-    // console.log("Banner File:", bannerFile);
+    const doc = new DOMParser().parseFromString(aboutUs, "text/html");
+    const plainTextAboutUs = doc.body.innerText || "";
+
+    const companyData = {
+      companyName,
+      aboutUs: plainTextAboutUs,
+      logoFile,
+      bannerFile,
+      currentUserEmail: currentUser.email,
+    };
+
+    try {
+      const response = await axiosSecure.post("/companyInfo", companyData);
+      console.log("Company info saved:", response.data);
+
+      setCompanyName("");
+      setAboutUs("");
+      setLogoFile(null);
+      setBannerFile(null);
+    } catch (error) {
+      console.error("Error saving company info:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -95,7 +117,14 @@ const CompanyInfo = () => {
                   ["link"],
                 ],
               }}
-              formats={["bold", "italic", "underline", "list", "bullet", "link"]}
+              formats={[
+                "bold",
+                "italic",
+                "underline",
+                "list",
+                "bullet",
+                "link",
+              ]}
               className="custom-quill-editor "
               style={{ direction: "ltr" }}
             />
@@ -104,9 +133,12 @@ const CompanyInfo = () => {
 
         <button
           type="submit"
-          className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"
+          className={`btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto ${
+            isLoading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={isLoading}
         >
-          Save Changes
+          {isLoading ? "Saving..." : "Save Changes"}
         </button>
       </form>
     </div>
