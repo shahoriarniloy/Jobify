@@ -15,7 +15,7 @@ const Main = () => {
   if (loading) return <Loader />;
   return (
     <div className="roboto-regular">
-      <div className="lg:px-24 md:px-6 px-4">
+      <div className="">
         <Navbar2 />
       </div>
       <Navbar />
