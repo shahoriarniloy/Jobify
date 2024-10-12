@@ -1,27 +1,33 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
-import { AuthContext } from "../../Auth/CreateAccount/AuthContext";
-import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../../../Redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInWithGoogle,
+  signInWithEmail,
+  setCurrentUser,
+} from "../../../Redux/userSlice";
 import ButtonLoader from "../../../Shared/ButtonLoader";
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
-  const { signInWithGoogle, signIn, loading } = useContext(AuthContext);
-  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.user);
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const from = location.state?.from?.pathname || "/";
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const { email, password } = e.target.elements;
 
     try {
-      const result = await signIn(email.value, password.value);
+      const result = await dispatch(
+        signInWithEmail({ email: email.value, password: password.value })
+      ).unwrap();
       const user = result.user;
 
       dispatch(
@@ -43,25 +49,19 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
   const handleGoogleSignIn = async () => {
     try {
-      const result = await signInWithGoogle();
-      const user = result.user;
+      const result = await dispatch(signInWithGoogle()).unwrap();
 
-      dispatch(
-        setCurrentUser({
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          uid: user.uid,
-        })
-      );
-
-      toast.success("Signed in with Google");
-      navigate(from, { replace: true });
+      if (result) {
+        dispatch(setCurrentUser(result));
+        toast.success("Signed in with Google");
+        navigate(from, { replace: true });
+      } else {
+        throw new Error("User data is undefined");
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Google Sign-In Error:", error);
       toast.warn("Sign in with Google failed!");
     }
-
     setLoginModalOpen(false);
   };
 

@@ -11,13 +11,13 @@ const AccountSetting = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
-  const [storedPassword, setStoredPassword] = useState(""); // State to store the password
+  const [storedPassword, setStoredPassword] = useState("");
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const currentPassword = "123456"; // mock stored current password
+  const currentPassword = "123456";
 
   const {
     register,
@@ -45,24 +45,20 @@ const AccountSetting = () => {
   };
 
   const onSubmit = (data) => {
-    // Set the stored password to the new password
     setStoredPassword(data.newPassword);
     alert("Password changed successfully! New password: " + data.newPassword);
-    reset(); // Reset the form after submission
+    reset();
   };
 
   console.log(storedPassword);
 
-  // Watch the new password field to compare with confirm password
   const newPassword = watch("newPassword");
 
   return (
     <div className="p-4 md:p-8">
-      {/* Contact Information */}
       <section>
         <h2 className="font-bold  mb-4 text-xl">Contact Information</h2>
         <form action="" onSubmit={handleContactSubmit}>
-          {/* Map Location */}
           <div className="flex flex-col md:my-4">
             <label htmlFor="Map Location" className="text-lg font-medium ">
               Map Location
@@ -79,7 +75,6 @@ const AccountSetting = () => {
             />
           </div>
 
-          {/* Phone */}
           <div className="flex flex-col md:my-4">
             <label htmlFor="Phone" className="text-lg font-medium mb-2">
               Phone
@@ -97,7 +92,6 @@ const AccountSetting = () => {
             />
           </div>
 
-          {/* Email */}
           <div className="flex flex-col md:my-4">
             <label htmlFor="Email" className="text-lg font-medium ">
               Email
@@ -117,7 +111,6 @@ const AccountSetting = () => {
             </div>
           </div>
 
-          {/* submit button */}
           <button
             type="submit"
             className="btn bg-blue-600 text-white mt-4 px-6 py-3 rounded-lg w-full md:w-auto"
@@ -129,12 +122,10 @@ const AccountSetting = () => {
 
       <hr className="my-8" />
 
-      {/* Change password */}
       <section>
         <h2 className="font-bold  mb-4 text-xl">Change Password</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid md:grid-cols-3 gap-4">
-            {/* Current Password */}
             <div className="md:mb-4 relative">
               <label
                 htmlFor="currentPassword"
@@ -166,7 +157,6 @@ const AccountSetting = () => {
               )}
             </div>
 
-            {/* New Password */}
             <div className="md:mb-4 relative">
               <label htmlFor="newPassword" className="block mb-2 font-semibold">
                 New Password
@@ -195,7 +185,6 @@ const AccountSetting = () => {
               )}
             </div>
 
-            {/* Confirm Password */}
             <div className="md:mb-4 relative">
               <label
                 htmlFor="confirmPassword"
@@ -225,7 +214,6 @@ const AccountSetting = () => {
             </div>
           </div>
 
-          {/* Submit button */}
           <button
             type="submit"
             className="btn bg-blue-600 text-white mt-4 px-6 py-3 rounded-lg w-full md:w-auto"
@@ -234,7 +222,6 @@ const AccountSetting = () => {
           </button>
         </form>
 
-        {/* Display Stored Password */}
         {storedPassword && (
           <div className="mt-4">
             <h3 className="font-bold text-lg">Stored Password:</h3>
@@ -245,7 +232,6 @@ const AccountSetting = () => {
 
       <hr className="my-8" />
 
-      {/* Delete Your Company */}
       <section className="md:w-1/2">
         <h2 className="font-bold  mb-4 text-xl">Delete Your Company</h2>
         <p className="text-gray-400">
