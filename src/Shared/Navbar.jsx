@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
+  const theme = useSelector((state) => state.theme.theme);
 
   const navItem = (
     <>
@@ -70,17 +72,14 @@ const Navbar = () => {
     </>
   );
 
-  // Function to handle scroll event
   const handleScroll = () => {
     const scrollY = window.scrollY;
-    setIsSticky(scrollY > 50); // Adjust the threshold as needed
+    setIsSticky(scrollY > 50);
   };
 
-  // Add scroll event listener
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -91,6 +90,8 @@ const Navbar = () => {
       <div
         className={`navbar bg-[#f7f9fcfa] shadow-md ${
           isSticky ? "sticky top-0 z-50" : ""
+        } roboto-regular ${
+          theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
         }`}
       >
         <div className="navbar-start">
