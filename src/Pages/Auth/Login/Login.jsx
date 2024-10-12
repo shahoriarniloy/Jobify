@@ -42,7 +42,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       toast.success("Logged in successfully");
       navigate(from, { replace: true });
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Login failed. Please check your credentials.");
     }
   };
@@ -59,7 +59,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
         throw new Error("User data is undefined");
       }
     } catch (error) {
-      console.error("Google Sign-In Error:", error);
+      // console.error("Google Sign-In Error:", error);
       toast.warn("Sign in with Google failed!");
     }
     setLoginModalOpen(false);

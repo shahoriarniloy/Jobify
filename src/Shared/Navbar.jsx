@@ -26,7 +26,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          Find Job
+          Jobs
         </NavLink>
       </li>
       <li>
@@ -36,7 +36,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          Find Company
+          Companies
         </NavLink>
       </li>
       <li>
@@ -46,7 +46,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          Messaging
+          Messages
         </NavLink>
       </li>
       <li>
@@ -56,7 +56,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          My Network
+          Network
         </NavLink>
       </li>
       <li>
@@ -66,7 +66,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          About Us
+          About
         </NavLink>
       </li>
     </>
@@ -88,10 +88,12 @@ const Navbar = () => {
   return (
     <div className="">
       <div
-        className={`navbar bg-[#f7f9fcfa] shadow-md ${
+        className={`navbar shadow-md ${
           isSticky ? "sticky top-0 z-50" : ""
         } roboto-regular ${
-          theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
+          theme === "dark"
+            ? "bg-gray-900 text-white"
+            : "bg-[#d4ddeafa] text-black"
         }`}
       >
         <div className="navbar-start">

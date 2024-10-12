@@ -47,7 +47,7 @@ const AdminOverview = () => {
         setRecentJobSeekers(recentJobSeekersResponse.data);
         setRecentJobs(recentJobsResponse.data);
       } catch (error) {
-        console.error("Error fetching overview data", error);
+        // console.error("Error fetching overview data", error);
       }
     };
 

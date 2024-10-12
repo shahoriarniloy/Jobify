@@ -3,6 +3,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaBriefcase, FaBuilding } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
+import { Link } from "react-router-dom";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -46,9 +47,9 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="container  rounded-xl pt-16 lg:mb-32 mb-16">
-      <div className="flex flex-col lg:flex-row justify-center items-center  ">
-        <div className=" flex lg:flex-row flex-col justify-center items-center">
+    <div className="container rounded-xl pt-16 lg:mb-32 mb-16">
+      <div className="flex flex-col lg:flex-row justify-center items-center">
+        <div className="flex lg:flex-row flex-col justify-center items-center">
           <div className="flex-row">
             <div className="lg:text-left md:text-left text-center ">
               <h1 className="text-[#18191c] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2">
@@ -62,7 +63,7 @@ const SearchBar = () => {
             </div>
 
             <div>
-              <div className="w-full bg-white rounded-lg shadow-md border border-[#e4e5e8] p-6 flex-1]">
+              <div className="w-full bg-white rounded-lg shadow-md border border-[#e4e5e8] p-6 flex-1">
                 <form
                   className="flex flex-col sm:flex-row gap-4 sm:gap-2 border rounded-lg"
                   onSubmit={handleSearch}
@@ -108,41 +109,9 @@ const SearchBar = () => {
             </div>
           </div>
 
-          <div
-            className={`mt-6 ${
-              jobs.length > 0 ? "opacity-100" : "opacity-0"
-            } transition-opacity duration-300`}
-          >
-            {jobs.length > 0 ? (
-              <>
-                <h2 className="text-lg font-medium">Job Results:</h2>
-                <ul>
-                  {jobs.map((job) => (
-                    <li key={job._id} className="p-4 border-b">
-                      <a
-                        href={job.company_website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <h3 className="font-semibold">
-                          {job.position} at {job.company}
-                        </h3>
-                        <p>{job.location} </p>
-                        <p>Salary: {job.salaryRange}</p>
-                        <p>{job.title}</p>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <div className="mt-6 text-gray-500">
-                <h2 className="text-lg font-medium">No matching jobs found.</h2>
-              </div>
-            )}
-          </div>
+          {/* Job results section moved here */}
 
-          <div className="  justify-center items-center hidden lg:block md:block">
+          <div className="justify-center items-center hidden lg:block md:block">
             <img
               src="https://i.ibb.co.com/Z15WRhd/hiring-agency-candidates-job-interview.png"
               alt=""
@@ -150,8 +119,47 @@ const SearchBar = () => {
           </div>
         </div>
       </div>
+      <div
+        className={`mt-6 ${
+          jobs.length > 0 ? "opacity-100" : "opacity-0"
+        } transition-opacity duration-300`}
+      >
+        {jobs.length > 0 ? (
+          <>
+            <h2 className="text-lg font-medium">Job Results:</h2>
+            <div className="max-h-60 overflow-y-auto">
+              {" "}
+              {/* Add fixed height and overflow */}
+              <ul>
+                {jobs.map((job) => (
+                  <li key={job._id} className="p-4 border-b">
+                    <a
+                      href={job.company_website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Link to={`/job/${job._id}`}>
+                        <h3 className="font-semibold">
+                          {job.position} at {job.company}
+                        </h3>
+                      </Link>
+                      <p>{job.location}</p>
+                      <p>Salary: {job.salaryRange}</p>
+                      <p>{job.title}</p>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
+        ) : (
+          <div className="mt-6 text-gray-500">
+            <h2 className="text-lg font-medium">No matching jobs found.</h2>
+          </div>
+        )}
+      </div>
 
-      <div className="flex flex-col md:flex-row justify-start  space-y-4 md:space-y-0 md:space-x-8  mt-8">
+      <div className="flex flex-col md:flex-row justify-start space-y-4 md:space-y-0 md:space-x-8 mt-8">
         <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-md flex items-center space-x-4 w-64">
           <FaBriefcase className="text-4xl text-[#0a65cc]" />
           <div>
