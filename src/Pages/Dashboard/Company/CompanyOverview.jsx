@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import ButtonWithIcon from "../../../Shared/ButtonWithIcon";
-import MyJob from "../Company/MyJob";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
 import {
@@ -10,9 +8,11 @@ import {
   AiOutlineFileDone,
 } from "react-icons/ai";
 import { BiTask } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 const CompanyOverview = () => {
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const [company, setCompany] = useState({});
   const [jobStats, setJobStats] = useState({
     totalApplicants: 0,
@@ -38,23 +38,22 @@ const CompanyOverview = () => {
         const statsResponse = await axiosSecure.get(
           `/jobs/dashboard/company/${currentUser.email}`
         );
-
         const jobs = statsResponse.data;
 
         const totalApplicants = jobs.reduce(
-          (total, job) => total + job.applicationsCount,
+          (total, job) => total + (job?.applicationsCount || 0),
           0
         );
         const interviewsScheduled = jobs.reduce(
-          (total, job) => total + job.statusCounts.InterviewScheduled,
+          (total, job) => total + (job?.statusCounts?.InterviewScheduled || 0),
           0
         );
         const offersExtended = jobs.reduce(
-          (total, job) => total + job.statusCounts.Hired,
+          (total, job) => total + (job?.statusCounts?.Hired || 0),
           0
         );
         const jobsFilled = jobs.reduce(
-          (total, job) => total + job.statusCounts.Hired,
+          (total, job) => total + (job?.statusCounts?.Hired || 0),
           0
         );
 
@@ -120,15 +119,13 @@ const CompanyOverview = () => {
             <h4 className="text-lg font-bold text-green-700">
               Offers Extended
             </h4>
-            <p className="text-2xl  text-green-700 ">
-              {jobStats.offersExtended}
-            </p>
+            <p className="text-2xl text-green-700">{jobStats.offersExtended}</p>
           </div>
         </div>
         <div className="p-4 bg-[#c3b1df] rounded-lg flex items-center gap-4">
           <BiTask size={32} className="text-purple-700" />
           <div>
-            <h4 className="text-lg font-bold text-purple-700 ">Jobs Filled</h4>
+            <h4 className="text-lg font-bold text-purple-700">Jobs Filled</h4>
             <p className="text-2xl text-purple-700">{jobStats.jobsFilled}</p>
           </div>
         </div>
@@ -152,27 +149,12 @@ const CompanyOverview = () => {
           </div>
         </div>
         <Link to="/dashboard/CompanySettings">
-          <button>
-            <ButtonWithIcon
-              btnName={"Edit Profile"}
-              customStyle={"text-[#E05151] bg-white"}
-            />
-          </button>
+          <ButtonWithIcon
+            btnName={"Edit Profile"}
+            customStyle={"text-[#E05151] bg-white"}
+          />
         </Link>
       </div>
-
-      {/* <div>
-        <div className="flex items-center justify-between mt-8">
-          <h3 className="font-bold">Recent Job Postings</h3>
-          <Link to="/dashboard/myJob">
-            <button className="text-lg">
-              <ButtonWithIcon btnName={"View All Jobs"} />
-            </button>
-          </Link>
-        </div>
-      </div> */}
-
-      {/* <MyJob /> */}
     </>
   );
 };

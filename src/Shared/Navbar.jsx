@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
+  const [isSticky, setIsSticky] = useState(false);
+
   const navItem = (
     <>
       <li>
@@ -67,9 +70,29 @@ const Navbar = () => {
     </>
   );
 
+  // Function to handle scroll event
+  const handleScroll = () => {
+    const scrollY = window.scrollY;
+    setIsSticky(scrollY > 50); // Adjust the threshold as needed
+  };
+
+  // Add scroll event listener
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className="">
-      <div className="navbar bg-[#f7f9fcfa] shadow-md ">
+      <div
+        className={`navbar bg-[#f7f9fcfa] shadow-md ${
+          isSticky ? "sticky top-0 z-50" : ""
+        }`}
+      >
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

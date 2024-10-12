@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector, useDispatch } from "react-redux";
 
 const Feedback = () => {
   const [reviews, setReviews] = useState([]);
@@ -14,7 +14,7 @@ const Feedback = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   // Fetch Reviews when component mounts and when currentPage changes
   useEffect(() => {

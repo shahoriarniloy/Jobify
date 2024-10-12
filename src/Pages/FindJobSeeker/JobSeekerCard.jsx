@@ -1,11 +1,11 @@
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { Link } from "react-router-dom";
 
 const JobSeekerCard = ({ jobSeeker }) => {
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,7 +19,7 @@ const JobSeekerCard = ({ jobSeeker }) => {
         setIsFollowing(response.data.hasFollowed);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error checking follow status:", error);
+        // console.error("Error checking follow status:", error);
         setIsLoading(false);
       }
     };

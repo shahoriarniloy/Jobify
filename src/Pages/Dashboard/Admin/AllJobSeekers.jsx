@@ -31,7 +31,7 @@ const AllJobSeekers = () => {
       const totalPages = Math.ceil(totalSeekers / itemsPerPage);
       setPages([...Array(totalPages).keys()]);
     } catch (error) {
-      console.error("Failed to fetch job seekers", error);
+      // console.error("Failed to fetch job seekers", error);
     }
   };
 
@@ -72,7 +72,7 @@ const AllJobSeekers = () => {
         await axiosSecure.delete(`/job-seekers/${id}`);
         fetchJobSeekers();
       } catch (error) {
-        console.error("Failed to delete job seeker", error);
+        // console.error("Failed to delete job seeker", error);
       }
     }
   };

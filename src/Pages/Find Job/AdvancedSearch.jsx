@@ -372,7 +372,7 @@ const AdvancedSearch = () => {
                     <th className="p-3 hidden md:table-cell">Company</th>
                     <th className="p-3 hidden md:table-cell">Salary</th>
                     <th className="p-3">Details</th>
-                    <th className="p-3 hidden lg:table-cell">Bookmark</th>
+                    <th className="p-3  lg:table-cell">Bookmark</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -403,7 +403,7 @@ const AdvancedSearch = () => {
                             </button>
                           </Link>
                         </td>
-                        <td className="p-3 hidden lg:table-cell">
+                        <td className="p-3  lg:table-cell">
                           <Bookmark jobId={job._id} />
                         </td>
                       </tr>
@@ -419,7 +419,7 @@ const AdvancedSearch = () => {
           {(filteredJobs.length > 0 ? filteredJobs : jobs).map((job) => (
             <div
               key={job._id}
-              className="w-64 sm:w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
+              className="lg:w-64 w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
             >
               <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:scale-[10]"></span>
               <div className="relative z-10 mx-auto max-w-md">
@@ -432,6 +432,7 @@ const AdvancedSearch = () => {
                   <h2 className="text-2xl font-semibold tracking-wide">
                     {job.title}
                   </h2>
+                  <Bookmark jobId={job._id} />
 
                   <p className="font-semibold ">Company: {job.company}</p>
                   <p className=" text-sm tracking-wide">

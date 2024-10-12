@@ -2,11 +2,15 @@ import SearchBar from "./SearchBar";
 import About from "../About/About";
 import TeamMembers from "../About/TeamMembers";
 import Feedback from "../About/Feedback";
+import HowItWorks from "./HowItWorks";
+import BuildNetwork from "./BuildNetwork";
 // import TopCompanies from "./TopCompanies"
 const Home = () => {
   return (
     <div>
       <SearchBar></SearchBar>
+      <HowItWorks></HowItWorks>
+      <BuildNetwork></BuildNetwork>
       <TeamMembers></TeamMembers>
       <Feedback></Feedback>
 

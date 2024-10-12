@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useQuery } from "@tanstack/react-query";
 import axiosSecure from "./../../../../../../Hooks/UseAxiosSecure";
-import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
-import useCurrentUser from './../../../../../../Hooks/useCurrentUser';
+import "react-quill/dist/quill.snow.css";
+import useCurrentUser from "./../../../../../../Hooks/useCurrentUser";
 import { toast } from "react-toastify";
 
 const CareerInfo = () => {
@@ -13,7 +13,6 @@ const CareerInfo = () => {
   const [popUpClose, setPopUpClose] = useState(false);
   const [inputDegree, setInputDegree] = useState("");
 
-  // School Name Auto-Suggestion Query
   const { data: schools, isLoading } = useQuery({
     queryKey: ["School Name", inputValue],
     queryFn: async () => {
@@ -23,7 +22,9 @@ const CareerInfo = () => {
     enabled: inputValue.length > 2,
     staleTime: 5 * 60 * 1000,
   });
-  let uniqueSchools = schools ? Array.from(new Set(schools.map(school => school.name))) : [];
+  let uniqueSchools = schools
+    ? Array.from(new Set(schools.map((school) => school.name)))
+    : [];
   const handleInputChange = (e) => {
     const query = e.target.value;
     setInputValue(query);
@@ -31,68 +32,67 @@ const CareerInfo = () => {
   };
   const handleSuggestionClick = (schoolName) => {
     setInputValue(schoolName);
-    setPopUpClose(true)
+    setPopUpClose(true);
   };
-  // loaded all degree
   const { data: degrees } = useQuery({
     queryKey: ["loadedDegree"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/degrees`);
       return data;
-    }
-  })
+    },
+  });
   const { data: fields, refetch } = useQuery({
     queryKey: ["loadedFields"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/field?field=${inputDegree}`);
       return data;
-    }
-  })
+    },
+  });
   useEffect(() => {
     refetch();
-  }, [inputDegree])
+  }, [inputDegree]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
 
-    // Extracting form values
     const field = form.filedOfStudy.value;
     const startDate = form.startDate.value;
     const endDate = form.endDate.value;
     const cgpa = form.cgpa.value;
 
+    console.log(currentUser.currentUser);
+
     const data = {
-      schoolName: inputValue,    
-      degree: inputDegree,        
+      schoolName: inputValue,
+      degree: inputDegree,
       field,
       startDate,
       endDate,
       cgpa,
-      description,                
-      userEmail: currentUser.email 
+      description,
+      userEmail: currentUser?.currentUser.email,
     };
 
     try {
-
       const response = await axiosSecure.post("/profile-updating", data);
-      
+
       if (response.status === 200) {
-        toast.success("Profile updated successfully")
+        toast.success("Profile updated successfully");
       }
     } catch (error) {
-      toast.warn("Error updating profile")
+      toast.warn("Error updating profile");
     }
   };
-
 
   return (
     <div className="p-4 md:p-8">
       <form onSubmit={handleSubmit}>
         <div className="grid md:grid-cols-3 gap-4">
-          {/* School Name Auto-suggestion */}
           <div className="relative">
-            <label className="font-bold" htmlFor="schoolName">School</label>
+            <label className="font-bold" htmlFor="schoolName">
+              School
+            </label>
             <input
               required
               type="text"
@@ -105,7 +105,11 @@ const CareerInfo = () => {
             />
 
             {!isLoading && uniqueSchools.length > 0 && (
-              <ul className={`${popUpClose ? "hidden" : "absolute"} z-10  border border-gray-300 rounded mt-2 bg-white shadow-lg max-h-60 overflow-auto`}>
+              <ul
+                className={`${
+                  popUpClose ? "hidden" : "absolute"
+                } z-10  border border-gray-300 rounded mt-2 bg-white shadow-lg max-h-60 overflow-auto`}
+              >
                 {uniqueSchools.map((schoolName, index) => (
                   <li
                     key={index}
@@ -119,9 +123,10 @@ const CareerInfo = () => {
             )}
           </div>
 
-          {/* Industry Types */}
           <div>
-            <label className="font-bold" htmlFor="industryType">Degree</label>
+            <label className="font-bold" htmlFor="industryType">
+              Degree
+            </label>
             <select
               name="degree"
               required
@@ -130,30 +135,37 @@ const CareerInfo = () => {
             >
               <option value="default">Choose your degree</option>
 
-              {
-                degrees?.map(degree => <option key={degree._id} value={degree?.degree}>{degree.degree}</option>)
-              }
+              {degrees?.map((degree) => (
+                <option key={degree._id} value={degree?.degree}>
+                  {degree.degree}
+                </option>
+              ))}
             </select>
           </div>
           <div>
-            <label className="font-bold" htmlFor="industryType">Field of Study</label>
+            <label className="font-bold" htmlFor="industryType">
+              Field of Study
+            </label>
             <select
               name="filedOfStudy"
               required
               className="border mt-2 border-gray-300 p-2 rounded w-full"
-
             >
               <option value="">Choose your Field</option>
 
-              {
-                fields && fields?.fields.map((field, idx) => <option key={idx} value={field}>{field}</option>)
-              }
+              {fields &&
+                fields?.fields.map((field, idx) => (
+                  <option key={idx} value={field}>
+                    {field}
+                  </option>
+                ))}
             </select>
           </div>
 
-          {/* Start Date */}
           <div>
-            <label className="font-bold" htmlFor="startDate">Start Date</label>
+            <label className="font-bold" htmlFor="startDate">
+              Start Date
+            </label>
             <input
               type="date"
               name="startDate"
@@ -162,9 +174,10 @@ const CareerInfo = () => {
             />
           </div>
 
-          {/* End Date */}
           <div>
-            <label className="font-bold" htmlFor="endDate">End Date</label>
+            <label className="font-bold" htmlFor="endDate">
+              End Date
+            </label>
             <input
               type="date"
               name="endDate"
@@ -173,11 +186,11 @@ const CareerInfo = () => {
             />
           </div>
 
-
           <div>
-            <label className="font-bold" htmlFor="cgpa">C-GPA</label>
+            <label className="font-bold" htmlFor="cgpa">
+              C-GPA
+            </label>
             <div className="relative mt-2">
-
               <input
                 type="text"
                 name="cgpa"
@@ -189,14 +202,15 @@ const CareerInfo = () => {
           </div>
         </div>
 
-
         <div className="mt-4">
-          <label className="font-bold" htmlFor="companyVision">Description</label>
+          <label className="font-bold" htmlFor="companyVision">
+            Description
+          </label>
           <div className="quill-wrapper relative border rounded-lg mt-2">
             <ReactQuill
               required
               value={description}
-              onChange={value => setDescription(value)}
+              onChange={(value) => setDescription(value)}
               placeholder="Write down your biography here. Let the employers know who you are..."
               modules={{
                 toolbar: [
@@ -219,7 +233,6 @@ const CareerInfo = () => {
           </div>
         </div>
 
-        {/* Save Changes button */}
         <button
           type="submit"
           className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"
