@@ -65,7 +65,7 @@ const CompanyDashboard = () => {
           jobsFilled,
         });
       } catch (error) {
-        console.error("Error fetching company or job data:", error);
+        // console.error("Error fetching company or job data:", error);
       } finally {
         setLoading(false);
       }

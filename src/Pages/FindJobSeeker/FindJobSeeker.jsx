@@ -27,7 +27,7 @@ const FindJobSeeker = () => {
         });
         setJobSeekers(response.data);
       } catch (error) {
-        console.error("Error fetching job seekers:", error);
+        // console.error("Error fetching job seekers:", error);
       }
     };
 

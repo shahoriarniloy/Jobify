@@ -51,25 +51,20 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInWithGoogle = async () => {
-    try {
-      const userCredential = await signInWithPopup(auth, googleProvider);
-      const user = userCredential.user;
+    const userCredential = await signInWithPopup(auth, googleProvider);
+    const user = userCredential.user;
 
-      const serializableUser = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-      };
+    const serializableUser = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    };
 
-      dispatch(setCurrentUser(serializableUser));
-      localStorage.setItem("currentUser", JSON.stringify(serializableUser));
+    dispatch(setCurrentUser(serializableUser));
+    localStorage.setItem("currentUser", JSON.stringify(serializableUser));
 
-      return userCredential;
-    } catch (error) {
-      console.error("Error signing in with Google:", error);
-      throw error;
-    }
+    return userCredential;
   };
 
   const logOutUser = () => {
