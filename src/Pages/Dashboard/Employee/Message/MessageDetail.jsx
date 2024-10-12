@@ -11,6 +11,7 @@ const MessageDetail = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const currentUser = useSelector((state) => state.user.currentUser);
+  const loading = useSelector((state) => state.user.loading);
 
   const fetchMessages = async () => {
     if (!currentUser) return;
@@ -20,7 +21,6 @@ const MessageDetail = () => {
         `/individual-messages?email=${currentUser.email}&otherPartyEmail=${otherPartyEmail}`
       );
       setMessages(response.data);
-      // console.log('messages', response.data);
     } catch (error) {
       // console.error("Error fetching messages:", error);
     }
@@ -57,7 +57,7 @@ const MessageDetail = () => {
   }
 
   return (
-    <div className="container mx-auto bg-white rounded-xl  text-sm">
+    <div className="container mx-auto bg-white rounded-xl text-sm">
       <div className="flex items-center mb-4 py-2 border rounded-t-lg px-4">
         <img
           src={otherPartyPhoto || "default-avatar.png"}
@@ -73,7 +73,7 @@ const MessageDetail = () => {
         </div>
       ) : (
         <div
-          className="mb-4 lg:px-36 md:px-24 px-12 "
+          className="mb-4 lg:px-36 md:px-24 px-12"
           style={{ maxHeight: "300px", overflowY: "auto" }}
         >
           {messages.map((message, index) => {
@@ -104,7 +104,6 @@ const MessageDetail = () => {
                   </div>
                 )}
                 <div className="flex items-center">
-                  {/* For current user, show time on the left */}
                   {isCurrentUser && (
                     <time className="text-xs text-gray-500 mr-2">
                       {new Date(message.createdAt).toLocaleTimeString([], {
@@ -118,7 +117,6 @@ const MessageDetail = () => {
                     {message.message}
                   </div>
 
-                  {/* For others, show time on the right */}
                   {!isCurrentUser && (
                     <time className="text-xs text-gray-500 ml-2">
                       {new Date(message.createdAt).toLocaleTimeString([], {
