@@ -415,16 +415,16 @@ const AdvancedSearch = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {(filteredJobs.length > 0 ? filteredJobs : jobs).map((job) => (
             <div
               key={job._id}
-              className="lg:w-64 w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
+              className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
             >
               <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:scale-[10]"></span>
               <div className="relative z-10 mx-auto max-w-md">
                 <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                  <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
+                  <span className="grid  h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
                     <FaBriefcase className="h-10 w-10 text-white transition-all" />
                   </span>
                 </span>
