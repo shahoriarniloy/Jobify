@@ -4,6 +4,7 @@ import TeamMembers from "../About/TeamMembers";
 import Feedback from "../About/Feedback";
 import HowItWorks from "./HowItWorks";
 import BuildNetwork from "./BuildNetwork";
+import OurTeam from "../About/OurTeam/OurTeam";
 // import TopCompanies from "./TopCompanies"
 const Home = () => {
   return (
@@ -11,7 +12,8 @@ const Home = () => {
       <SearchBar></SearchBar>
       <HowItWorks></HowItWorks>
       <BuildNetwork></BuildNetwork>
-      <TeamMembers></TeamMembers>
+      {/* <TeamMembers></TeamMembers> */}
+      <OurTeam></OurTeam>
       <Feedback></Feedback>
 
       {/* <TopCompanies></TopCompanies> */}

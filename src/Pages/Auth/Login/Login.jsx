@@ -10,6 +10,7 @@ import {
   setCurrentUser,
 } from "../../../Redux/userSlice";
 import ButtonLoader from "../../../Shared/ButtonLoader";
+import axiosSecure from "../../../Hooks/UseAxiosSecure";
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const dispatch = useDispatch();
@@ -28,21 +29,25 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       const result = await dispatch(
         signInWithEmail({ email: email.value, password: password.value })
       ).unwrap();
-      const user = result.user;
+
+      const user = result;
+      const userEmail = user.email;
+
+      const response = await axiosSecure.get(`/users/${userEmail}`);
+      const userData = response.data;
 
       dispatch(
         setCurrentUser({
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          uid: user.uid,
+          ...user,
+          role: userData.role,
+          photoURL: userData.photoURL || user.photoURL,
         })
       );
 
       toast.success("Logged in successfully");
       navigate(from, { replace: true });
     } catch (error) {
-      // console.error(error);
+      console.error("Error during login:", error);
       toast.error("Login failed. Please check your credentials.");
     }
   };
@@ -51,18 +56,34 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
     try {
       const result = await dispatch(signInWithGoogle()).unwrap();
 
-      if (result) {
-        dispatch(setCurrentUser(result));
+      dispatch(setCurrentUser(result));
+
+      try {
+        const response = await axiosSecure.post("/users", {
+          email: result.email,
+          uid: result.uid,
+          displayName: result.displayName,
+          photoURL: result.photoURL,
+          role: "Job Seeker",
+        });
+
+        const dbResult = response.data;
+
+        if (dbResult.insertedId) {
+          console.log("User added to the database:", dbResult);
+        } else {
+          console.log(dbResult.message || "User already exists");
+        }
+
         toast.success("Signed in with Google");
         navigate(from, { replace: true });
-      } else {
-        throw new Error("User data is undefined");
+      } catch (dbError) {
+        console.error("Failed to add user to the database:", dbError);
       }
     } catch (error) {
-      // console.error("Google Sign-In Error:", error);
+      console.error("Google Sign-In Error:", error);
       toast.warn("Sign in with Google failed!");
     }
-    setLoginModalOpen(false);
   };
 
   return (

@@ -222,12 +222,12 @@ const AdvancedSearch = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-24 gap-16 justify-center ">
+        <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 mt-24 gap-5 ">
           {(filteredCompanies.length > 0 ? filteredCompanies : companies).map(
             (company) => (
               <div
                 key={company.email}
-                className="relative max-w-sm rounded-md  dark:bg-white dark:text-gray-800 border-2 border-gray-300 hover:shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out "
+                className="relative max-w-sm rounded-md mt-16   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out "
               >
                 <div className="flex flex-col justify-between p-6 space-y-8">
                   <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">

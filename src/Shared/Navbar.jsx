@@ -93,7 +93,7 @@ const Navbar = () => {
         } roboto-regular ${
           theme === "dark"
             ? "bg-gray-900 text-white"
-            : "bg-[#d4ddeafa] text-black"
+            : "bg-[#f4f8fffa] text-black"
         }`}
       >
         <div className="navbar-start">
