@@ -21,7 +21,6 @@ const UserInfo = () => {
 
   useEffect(() => {
     if (currentUser) {
-      console.log(currentUser.currentUser);
       setName(currentUser?.currentUser?.displayName || "");
       setEmail(currentUser?.currentUser?.email || "");
       // If you need to handle roles

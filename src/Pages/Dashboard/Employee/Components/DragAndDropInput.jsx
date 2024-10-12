@@ -6,11 +6,17 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
 
-  const logoSizeLimit = 3.5 * 1024 * 1024; // 3.5 MB
-  const bannerSizeLimit = 4.3 * 1024 * 1024; // 4.3 MB
+  const logoSizeLimit = 3.5 * 1024 * 1024;
+  const bannerSizeLimit = 4.3 * 1024 * 1024;
 
   const onDrop = useCallback(
     (acceptedFiles) => {
+      if (!acceptedFiles || acceptedFiles.length === 0) {
+        setErrorMessage("No file selected or invalid file format.");
+        onFileUpload(null);
+        return;
+      }
+
       const uploadedFile = acceptedFiles[0];
       const fileSizeLimit = type === "logo" ? logoSizeLimit : bannerSizeLimit;
 
@@ -35,7 +41,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
     onDrop,
     accept: "image/*",
     maxFiles: 1,
-    noClick: false, // Allow clicking on the drop area to open the file dialog
+    noClick: true,
   });
 
   useEffect(() => {
@@ -49,12 +55,12 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
         URL.revokeObjectURL(preview);
       }
     };
-  }, [file, preview]);
+  }, [file]);
 
   const handleReplaceClick = () => {
-    setPreview(null); // Clear the preview
-    onFileUpload(null); // Clear the uploaded file in the parent state
-    fileInputRef.current.click(); // Open file input dialog
+    setPreview(null);
+    onFileUpload(null);
+    fileInputRef.current.click();
   };
 
   return (
@@ -66,7 +72,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
           isDragActive ? "bg-blue-100 border-blue-400" : "bg-gray-200"
         }`}
         style={{ minHeight: "150px" }}
-        onClick={() => fileInputRef.current.click()} // Ensure the file input opens on click
+        onClick={() => fileInputRef.current.click()}
       >
         <input
           {...getInputProps()}
