@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import {
   FaBriefcase,
@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 
 const BookmarkedJobs = () => {
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -99,7 +99,7 @@ const BookmarkedJobs = () => {
           return (
             <div
               key={job._id}
-              className="h-fit p-6 bg-base-100 shadow-xl rounded-xl mx-24"
+              className="h-fit p-6 bg-base-100 shadow-xl rounded-xl "
             >
               <div className="flex lg:flex-row md:flex-row flex-col justify-between items-center">
                 <div className="flex flex-col">

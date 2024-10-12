@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector, useDispatch } from "react-redux";
 import { HiHeart } from "react-icons/hi";
 
 const CommentsModal = ({ isOpen, onClose }) => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [newComment, setNewComment] = useState("");
-  const { currentUser, loading } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [hasLiked, setHasLiked] = useState(false);
   const [commentLoading, setCommentLoading] = useState(false);
   const [error, setError] = useState(null);

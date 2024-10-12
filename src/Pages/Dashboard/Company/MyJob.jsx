@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useUserRole from "../../../Hooks/useUserRole";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import Loader from "../../../Shared/Loader";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useQuery } from "@tanstack/react-query";
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
 
 const JobTable = () => {
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const {
     data: jobs,
@@ -21,7 +21,6 @@ const JobTable = () => {
     queryFn: async () => {
       const response = await axiosSecure.get(
         `/jobs/dashboard/company/${currentUser?.email}`
-
       );
       return response.data;
     },
@@ -50,7 +49,6 @@ const JobTable = () => {
                 <button>Open</button>
               </td>
               <td className="px-4 py-2">{job?.applicationsCount || 0}</td>
-
 
               <td className="px-4 py-2">
                 <Link

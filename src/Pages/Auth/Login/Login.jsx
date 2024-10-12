@@ -4,7 +4,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../../Auth/CreateAccount/AuthContext";
-import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../../Redux/userSlice";
 import ButtonLoader from "../../../Shared/ButtonLoader";
@@ -19,12 +18,10 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
+    const { email, password } = e.target.elements;
 
     try {
-      const result = await signIn(email, password);
+      const result = await signIn(email.value, password.value);
       const user = result.user;
 
       dispatch(
@@ -39,30 +36,31 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       toast.success("Logged in successfully");
       navigate(from, { replace: true });
     } catch (error) {
+      console.error(error);
       toast.error("Login failed. Please check your credentials.");
     }
   };
 
   const handleGoogleSignIn = async () => {
-    signInWithGoogle()
-      .then((result) => {
-        const user = result.user;
+    try {
+      const result = await signInWithGoogle();
+      const user = result.user;
 
-        dispatch(
-          setCurrentUser({
-            name: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-            uid: user.uid,
-          })
-        );
+      dispatch(
+        setCurrentUser({
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          uid: user.uid,
+        })
+      );
 
-        toast.success("Signed in with Google");
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        toast.warn("Sign in failed!");
-      });
+      toast.success("Signed in with Google");
+      navigate(from, { replace: true });
+    } catch (error) {
+      console.error(error);
+      toast.warn("Sign in with Google failed!");
+    }
 
     setLoginModalOpen(false);
   };
@@ -74,9 +72,9 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       </Helmet>
 
       <div className="p-7">
-        <h2 className="text-4xl font-semibold ">Sign In</h2>
+        <h2 className="text-4xl font-semibold">Sign In</h2>
 
-        <div className="mt-8 ">
+        <div className="mt-8">
           <form onSubmit={handleLogin}>
             <div className="space-y-5 mt-5 w-full">
               <input

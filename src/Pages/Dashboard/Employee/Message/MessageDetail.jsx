@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import axiosSecure from "../../../../Hooks/useAxiosSecure";
-import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import { FaPaperPlane } from "react-icons/fa";
 
 const MessageDetail = () => {
   const { otherPartyEmail } = useParams();
   const { state } = useLocation();
   const { otherPartyName, otherPartyPhoto } = state || {};
-  const { currentUser, loading } = useCurrentUser();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const fetchMessages = async () => {
-    if (loading || !currentUser) return;
+    if (!currentUser) return;
 
     try {
       const response = await axiosSecure.get(
@@ -28,7 +28,7 @@ const MessageDetail = () => {
 
   useEffect(() => {
     fetchMessages();
-  }, [currentUser, loading, otherPartyEmail]);
+  }, [currentUser, otherPartyEmail]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;

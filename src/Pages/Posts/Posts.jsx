@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { HiHeart } from "react-icons/hi";
 import { FaComment } from "react-icons/fa";
@@ -10,7 +10,7 @@ import DashboardLoader from "../../Shared/DashboardLoader";
 import { FaUserPlus } from "react-icons/fa";
 
 const PostCard = () => {
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const {
     data: posts,

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import PostStatusModal from "./PostStatusModal";
-import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 
 const PostStatus = ({}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   return (
     <div className="post-status">

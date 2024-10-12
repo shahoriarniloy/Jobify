@@ -1,6 +1,6 @@
 import { PiBag } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Login from "../Pages/Auth/Login/Login";
@@ -26,17 +26,18 @@ const Navbar2 = () => {
   const [roomModal, setRoomModal] = useState(false);
   const [roomID, setRoomID] = useState();
   const { role } = useUserRole();
+  const menuRef = useRef(null);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prev) => !prev);
   };
 
-  const handelLogOut = () => {
+  const handleLogOut = () => {
     dispatch(logOutAction());
     navigate("/");
   };
 
-  const handelJoinRoom = useCallback(() => {
+  const handleJoinRoom = useCallback(() => {
     setRoomModal(false);
     navigate(`/rooms/${roomID}`);
   }, [navigate, roomID]);
@@ -44,6 +45,19 @@ const Navbar2 = () => {
   const handleThemeToggle = () => {
     dispatch(toggleTheme());
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div
@@ -78,9 +92,11 @@ const Navbar2 = () => {
                       className="w-10 h-10 rounded-full cursor-pointer"
                       onClick={toggleMenu}
                     />
-
                     {isMenuOpen && (
-                      <div className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+                      <div
+                        ref={menuRef}
+                        className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"
+                      >
                         <ul className="py-1 text-gray-700">
                           {role === "Job Seeker" && (
                             <>
@@ -150,7 +166,7 @@ const Navbar2 = () => {
                           </li>
                           <li>
                             <button
-                              onClick={handelLogOut}
+                              onClick={handleLogOut}
                               className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2 w-full"
                             >
                               <MdLogout />
@@ -224,7 +240,7 @@ const Navbar2 = () => {
             <div className="form-control mt-6">
               <button
                 disabled={!roomID}
-                onClick={handelJoinRoom}
+                onClick={handleJoinRoom}
                 className="btn btn-primary"
               >
                 Join Now

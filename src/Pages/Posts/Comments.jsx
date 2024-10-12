@@ -3,7 +3,7 @@ import Picker from "@emoji-mart/react";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import { HiHeart, HiOutlineEmojiHappy } from "react-icons/hi";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
@@ -13,7 +13,7 @@ const CommentsPage = () => {
   const [newComment, setNewComment] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const { currentUser, loading } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const emojiPickerRef = useRef(null);
 
   const {

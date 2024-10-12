@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { useSelector, useDispatch } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { FaDollarSign, FaCheckCircle, FaMapMarkerAlt } from "react-icons/fa";
 
@@ -13,7 +13,7 @@ const statusSteps = [
 ];
 
 const AppliedJobs = () => {
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [appliedJobs, setAppliedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

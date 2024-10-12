@@ -10,7 +10,7 @@ import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
-import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import RelatedJobs from "../../components/RelatedJobs/RelatedJobs";
 import Bookmark from "./Bookmark";
 
@@ -22,7 +22,7 @@ const SingleJob = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const { id } = useParams();
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const fetchJobData = async () => {
