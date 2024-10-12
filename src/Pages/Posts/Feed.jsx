@@ -12,7 +12,7 @@ const Feed = ({ currentUser }) => {
       const { data } = await axiosSecure.get("/posts");
       setPosts(data);
     } catch (error) {
-      console.error("Error fetching posts:", error);
+      // console.error("Error fetching posts:", error);
     }
   };
 

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 
 const Messages = () => {
   const [conversations, setConversations] = useState([]);
-  const { currentUser, loading } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const fetchMessages = async () => {
-      if (loading || !currentUser) return;
+      if (!currentUser) return;
 
       try {
         const response = await axiosSecure.get(
@@ -60,14 +60,10 @@ const Messages = () => {
     };
 
     fetchMessages();
-  }, [currentUser, loading]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  }, [currentUser]);
 
   return (
-    <div className="container max-h-[550px] overflow-y-auto">
+    <div className="container  overflow-y-auto min-h-screen">
       {conversations.length === 0 ? (
         <div className="text-gray-500">No conversations found.</div>
       ) : (

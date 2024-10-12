@@ -11,13 +11,16 @@ import {
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser, logOut } from "../../../Redux/userSlice";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -32,49 +35,91 @@ const AuthProvider = ({ children }) => {
 
   const signInUser = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password).finally(() =>
-      setLoading(false)
-    );
+    return signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const serializableUser = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        };
+        dispatch(setCurrentUser(serializableUser));
+        localStorage.setItem("currentUser", JSON.stringify(serializableUser));
+      })
+      .finally(() => setLoading(false));
   };
 
-  const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+  const signInWithGoogle = async () => {
+    try {
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      const user = userCredential.user;
 
-  const logOut = () => {
+      const serializableUser = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      };
+
+      dispatch(setCurrentUser(serializableUser));
+      localStorage.setItem("currentUser", JSON.stringify(serializableUser));
+
+      return userCredential;
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+      throw error;
+    }
+  };
+
+  const logOutUser = () => {
     setLoading(true);
-    signOut(auth).then((res) => {
-      toast.success("You have successfully logged out.", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    });
+    signOut(auth)
+      .then(() => {
+        toast.success("You have successfully logged out.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        dispatch(logOut());
+        localStorage.removeItem("currentUser");
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       setLoading(true);
       if (user) {
-        setCurrentUser(user);
+        const serializableUser = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        };
+        dispatch(setCurrentUser(serializableUser));
+        localStorage.setItem("currentUser", JSON.stringify(serializableUser));
       } else {
-        setCurrentUser(null);
+        dispatch(logOut());
+        localStorage.removeItem("currentUser");
       }
       setLoading(false);
     });
 
     return () => unSubscribe();
-  }, []);
+  }, [dispatch]);
 
   const authInfo = {
     currentUser,
     createUser,
     signInUser,
     signInWithGoogle,
-    logOut,
+    logOut: logOutUser,
     updateUserProfile,
     loading,
   };

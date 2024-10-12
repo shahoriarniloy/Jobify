@@ -6,15 +6,20 @@ import { FaEdit, FaUsers } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { useDispatch } from "react-redux";
+import { logOut as logOutAction } from "../../../Redux/userSlice";
 
 const AdminLayout = () => {
-  const { logOut } = useCurrentUser();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+  const handelLogOut = () => {
+    dispatch(logOutAction());
+    navigate("/");
   };
 
   return (
@@ -27,7 +32,6 @@ const AdminLayout = () => {
 
       <div className="mb-3 border-y-2">
         <div className="container mx-auto flex flex-col lg:flex-row">
-          {/* Sidebar */}
           <div
             className={`${
               isSidebarOpen ? "translate-x-0 z-40 " : "-translate-x-full"
@@ -105,7 +109,7 @@ const AdminLayout = () => {
               </NavLink>
               <NavLink
                 onClick={() => {
-                  logOut();
+                  handelLogOut();
                   navigate("/");
                 }}
                 className="flex items-center pl-5 py-2 text-[#767F8C] gap-2"
@@ -115,7 +119,6 @@ const AdminLayout = () => {
             </div>
           </div>
 
-          {/* Content area */}
           <div className="w-full py-14 lg:pt-14 lg:px-4 lg:border-l-2">
             <Outlet />
           </div>

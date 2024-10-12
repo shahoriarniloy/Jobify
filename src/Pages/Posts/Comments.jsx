@@ -3,7 +3,7 @@ import Picker from "@emoji-mart/react";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import { HiHeart, HiOutlineEmojiHappy } from "react-icons/hi";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
@@ -13,17 +13,20 @@ const CommentsPage = () => {
   const [newComment, setNewComment] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const { currentUser, loading } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const emojiPickerRef = useRef(null);
 
-
-  const { data: post, isLoading, refetch } = useQuery({
+  const {
+    data: post,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["allComments"],
     queryFn: async () => {
       const result = await axiosSecure.get(`/post/${postId}`);
       return result.data;
-    }
-  })
+    },
+  });
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +44,7 @@ const CommentsPage = () => {
 
       setNewComment("");
     } catch (error) {
-      console.error("Error posting comment:", error);
+      // console.error("Error posting comment:", error);
     }
   };
 
@@ -54,11 +57,10 @@ const CommentsPage = () => {
       await axiosSecure.put(`/posts/${postId}/${endpoint}`, {
         userEmail: currentUser.email,
       });
-      refetch()
+      refetch();
       setHasLiked(!isLiked);
-
     } catch (error) {
-      console.error("Error liking/unliking post:", error);
+      // console.error("Error liking/unliking post:", error);
     }
   };
 
@@ -134,8 +136,9 @@ const CommentsPage = () => {
                   onClick={handleLike}
                 >
                   <HiHeart
-                    className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
-                      }`}
+                    className={`w-5 h-5 ${
+                      hasLiked ? "text-blue-500" : "text-gray-500"
+                    }`}
                   />
                   <span className="ml-1">{post.likes?.length || 0}</span>
                 </button>

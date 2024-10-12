@@ -75,10 +75,6 @@ export const router = createBrowserRouter([
         element: <CompanyJobs />,
       },
       {
-        path: "/register",
-        element: <CreateAccount />,
-      },
-      {
         path: "/advanced-search",
         element: <AdvancedSearch />,
       },
@@ -141,7 +137,7 @@ export const router = createBrowserRouter([
         path: "/messages/:otherPartyEmail",
         element: <MessageDetail></MessageDetail>,
       },
-    ]
+    ],
   },
   {
     path: "/rooms/:roomID",
@@ -159,45 +155,42 @@ export const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
-      {
-        path: "/about",
-        element: <About />,
-      },
+
       {
         path: "/dashboard",
         element: <DashboardLayout />,
         children: [
           {
-            path: "/dashboard/user-overview",
+            path: "user-overview",
             element: <EmployeeHome />,
           },
           {
-            path: "/dashboard/overview",
+            path: "overview",
             element: <CompanyOverview />,
           },
           {
-            path: "/dashboard/applied-jobs",
+            path: "applied-jobs",
             element: <AppliedJobs />,
           },
           {
-            path: "/dashboard/postJob",
+            path: "postJob",
             element: <PostJob></PostJob>,
           },
           {
-            path: "/dashboard/myjob",
+            path: "myjob",
             element: <MyJob></MyJob>,
           },
           {
-            path: "/dashboard/job-candidates",
+            path: "job-candidates",
             element: <AppliedCandidates></AppliedCandidates>,
           },
           {
-            path: "/dashboard/candidates",
+            path: "candidates",
             element: <Candidates></Candidates>,
           },
 
           {
-            path: "/dashboard/companySettings",
+            path: "companySettings",
             element: <CompanySettings />,
           },
         ],
@@ -208,19 +201,19 @@ export const router = createBrowserRouter([
         element: <AdminLayout />,
         children: [
           {
-            path: "/admin/alljobs",
+            path: "alljobs",
             element: <AllJobs />,
           },
           {
-            path: "/admin/allcompanies",
+            path: "allcompanies",
             element: <AllCompanies />,
           },
           {
-            path: "/admin/alljobseekers",
+            path: "alljobseekers",
             element: <AllJobSeekers />,
           },
           {
-            path: "/admin/overview",
+            path: "overview",
             element: <AdminOverview />,
           },
         ],

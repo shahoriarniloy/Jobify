@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ButtonWithIcon from "../../../Shared/ButtonWithIcon";
 import MyJob from "../Company/MyJob";
-import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
 import {
@@ -12,7 +12,7 @@ import {
 import { BiTask } from "react-icons/bi";
 
 const CompanyDashboard = () => {
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [company, setCompany] = useState({});
   const [jobStats, setJobStats] = useState({
     totalApplicants: 0,
