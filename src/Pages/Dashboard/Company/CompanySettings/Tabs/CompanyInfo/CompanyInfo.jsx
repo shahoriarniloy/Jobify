@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../../../../Styles/TextEditorTools/CustomReactQuill.css";
 import ReactQuill from "react-quill";
 import DragAndDropInput from "../../../../Employee/Components/DragAndDropInput";
 import { useSelector } from "react-redux";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
+import axios from "axios";
 
 const CompanyInfo = () => {
   const [companyName, setCompanyName] = useState("");
@@ -12,6 +13,26 @@ const CompanyInfo = () => {
   const [bannerFile, setBannerFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axiosSecure.get(
+          `/companies/${currentUser.email}`
+        );
+        const userData = response.data;
+
+        if (userData) {
+          setCompanyName(userData?.company_name || "");
+          setAboutUs(userData?.company_description || "");
+        }
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, [currentUser.email]);
 
   const handleChangeCompanyName = (e) => {
     setCompanyName(e.target.value);
@@ -29,23 +50,45 @@ const CompanyInfo = () => {
     setBannerFile(file);
   };
 
+  const uploadImageToImgBB = async (image) => {
+    const formData = new FormData();
+    formData.append("image", image);
+    const response = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_IMGBB_API_KEY
+      }`,
+      formData
+    );
+    return response.data.data.url;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setIsLoading(true);
 
-    const doc = new DOMParser().parseFromString(aboutUs, "text/html");
-    const plainTextAboutUs = doc.body.innerText || "";
-
-    const companyData = {
-      companyName,
-      aboutUs: plainTextAboutUs,
-      logoFile,
-      bannerFile,
-      currentUserEmail: currentUser.email,
-    };
-
     try {
+      let logoUrl = logoFile;
+      let bannerUrl = bannerFile;
+
+      if (logoFile && logoFile instanceof File) {
+        logoUrl = await uploadImageToImgBB(logoFile);
+      }
+
+      if (bannerFile && bannerFile instanceof File) {
+        bannerUrl = await uploadImageToImgBB(bannerFile);
+      }
+
+      const doc = new DOMParser().parseFromString(aboutUs, "text/html");
+      const plainTextAboutUs = doc.body.innerText || "";
+
+      const companyData = {
+        companyName,
+        aboutUs: plainTextAboutUs,
+        logoUrl,
+        bannerUrl,
+        email: currentUser.email,
+      };
+
       const response = await axiosSecure.post("/companyInfo", companyData);
       console.log("Company info saved:", response.data);
 
@@ -66,7 +109,7 @@ const CompanyInfo = () => {
 
       <form onSubmit={handleSubmit}>
         <section className="flex flex-col md:flex-row md:gap-6 gap-4">
-          <div className="md:w-2/6 ">
+          <div className="md:w-2/6">
             <DragAndDropInput
               type="logo"
               label="Upload Logo"
@@ -105,11 +148,11 @@ const CompanyInfo = () => {
 
         <section className="mt-4">
           <h3 className="text-lg font-medium mb-2">About us</h3>
-          <div className="quill-wrapper relative border rounded-lg bg-white ">
+          <div className="quill-wrapper relative border rounded-lg bg-white">
             <ReactQuill
               value={aboutUs}
               onChange={handleAboutUsChange}
-              placeholder="Write down your biography here. Let the employers know who you are..."
+              placeholder="Write down your biography here..."
               modules={{
                 toolbar: [
                   ["bold", "italic", "underline"],
@@ -125,8 +168,7 @@ const CompanyInfo = () => {
                 "bullet",
                 "link",
               ]}
-              className="custom-quill-editor "
-              style={{ direction: "ltr" }}
+              className="custom-quill-editor"
             />
           </div>
         </section>
