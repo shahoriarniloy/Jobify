@@ -14,6 +14,7 @@ import { MdOutlineVideoCall } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut as logOutAction } from "../Redux/userSlice";
 import { toggleTheme } from "../Redux/themeSlice";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar2 = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -78,7 +79,7 @@ const Navbar2 = () => {
           <div className="navbar-end">
             <div className="flex gap-4 lg:gap-5 items-center">
               <button onClick={handleThemeToggle} className="p-2">
-                {theme === "light" ? "🌙" : "🌞"}{" "}
+                {theme === "light" ? <FaMoon /> : <FaSun />}
               </button>
               {currentUser ? (
                 <>
