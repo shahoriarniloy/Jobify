@@ -391,6 +391,7 @@ body.dark {
 }
 
 @keyframes spin {
+
   0%,
   100% {
     box-shadow: 0.2em 0px 0 0px currentcolor;
@@ -425,9 +426,17 @@ body.dark {
   }
 }
 
+
+
+
+
+
 .sCsSbKP9yxvw4LQAeaTz {
   background-color: white !important;
+
 }
+
+
 
 .GBqD5akUB0siCNWbAPQr {
   background-color: white !important;
@@ -439,8 +448,10 @@ body.dark {
 
 .ji5jASszKFf2CGCmbxEh {
   background-color: #0a65cc !important;
+
 }
 
-.tQCB5Tj6hsWzMNzTg5og {
+.tQCB5Tj6hsWzMNzTg5og{
   background-color: rgb(255, 73, 73) !important;
 }
+
