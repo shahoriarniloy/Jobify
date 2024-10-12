@@ -48,7 +48,7 @@ const CompanyDetails = () => {
         <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
           <div className="flex flex-col md:flex-row items-center">
             <img
-              src={instagram_logo}
+              src={company?.company_banner}
               className="w-16 h-16 object-cover rounded-full"
               alt="Company Logo"
             />

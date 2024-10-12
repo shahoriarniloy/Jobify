@@ -129,7 +129,6 @@ const SearchBar = () => {
             <h2 className="text-lg font-medium">Job Results:</h2>
             <div className="max-h-60 overflow-y-auto">
               {" "}
-              {/* Add fixed height and overflow */}
               <ul>
                 {jobs.map((job) => (
                   <li key={job._id} className="p-4 border-b">
