@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import {
   Listbox,
   ListboxButton,
@@ -18,8 +18,12 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import { MdAddCircleOutline, MdOutlineCancel } from "react-icons/md";
+import { useSelector } from "react-redux";
+import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 
 const SocialMediaProfile = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const socialOptions = [
     { name: "Facebook", icon: <FaFacebook />, value: "facebook" },
     { name: "Twitter", icon: <FaTwitter />, value: "twitter" },
@@ -34,19 +38,41 @@ const SocialMediaProfile = () => {
   const [fields, setFields] = useState([{ socialMedia: "", link: "" }]);
   const [submittedLinks, setSubmittedLinks] = useState([]);
 
-  // Add new input field
+  useEffect(() => {
+    const fetchSocialMediaLinks = async () => {
+      try {
+        const response = await axiosSecure.get(
+          `/companies/${currentUser.email}`
+        );
+        const userData = response.data;
+
+        if (userData && userData.social_media_links) {
+          const newFields = Object.keys(userData.social_media_links).map(
+            (key) => ({
+              socialMedia: key,
+              link: userData.social_media_links[key],
+            })
+          );
+          setFields(newFields);
+        }
+      } catch (error) {
+        console.error("Error fetching social media links:", error);
+      }
+    };
+
+    fetchSocialMediaLinks();
+  }, [currentUser.email]);
+
   const addField = () => {
     if (fields.length < socialOptions.length) {
       setFields([...fields, { socialMedia: "", link: "" }]);
     }
   };
 
-  // Remove input field
   const removeField = (index) => {
     setFields(fields.filter((_, i) => i !== index));
   };
 
-  // Handle dropdown selection change
   const handleSelectChange = (index, value) => {
     const updatedFields = fields.map((field, i) =>
       i === index ? { ...field, socialMedia: value } : field
@@ -54,7 +80,6 @@ const SocialMediaProfile = () => {
     setFields(updatedFields);
   };
 
-  // Handle input change (link)
   const handleInputChange = (index, value) => {
     const updatedFields = fields.map((field, i) =>
       i === index ? { ...field, link: value } : field
@@ -62,7 +87,6 @@ const SocialMediaProfile = () => {
     setFields(updatedFields);
   };
 
-  // Get options for each dropdown (hide already selected options)
   const getAvailableOptions = (selectedSocialMedia) => {
     return socialOptions.filter(
       (option) =>
@@ -74,9 +98,25 @@ const SocialMediaProfile = () => {
     );
   };
 
-  // Handle save changes
-  const handleSaveChanges = () => {
-    setSubmittedLinks(fields);
+  const handleSaveChanges = async () => {
+    const socialMediaLinks = fields.reduce((acc, field) => {
+      if (field.socialMedia && field.link) {
+        acc[field.socialMedia] = field.link;
+      }
+      return acc;
+    }, {});
+
+    try {
+      const response = await axiosSecure.post("/companySocialInfo", {
+        email: currentUser.email,
+        socialMediaLinks: socialMediaLinks,
+      });
+
+      console.log("Links saved successfully:", response.data);
+      setSubmittedLinks(fields);
+    } catch (error) {
+      console.error("Error saving links:", error);
+    }
   };
 
   return (
@@ -89,14 +129,12 @@ const SocialMediaProfile = () => {
             }`}</label>
             <div className="flex justify-between items-center my-2 ">
               <div className="md:flex items-center border rounded w-full ">
-                {/* Headless UI Dropdown Menu (Listbox) */}
                 <Listbox
                   value={field.socialMedia}
                   onChange={(value) => handleSelectChange(index, value)}
                 >
                   <div className="relative md:w-2/5 w-full">
                     <ListboxButton className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
-                      {/* Show Name */}
                       <span className="block truncate">
                         {field.socialMedia
                           ? socialOptions.find(
@@ -105,7 +143,6 @@ const SocialMediaProfile = () => {
                           : "Select Social Media"}
                       </span>
 
-                      {/* Show Icon */}
                       {field.socialMedia && (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                           {
@@ -116,7 +153,6 @@ const SocialMediaProfile = () => {
                         </span>
                       )}
 
-                      {/* Down Arrow Icon */}
                       <span className="absolute inset-y-0 right-0 flex items-center pr-3">
                         <FaChevronDown />
                       </span>
@@ -162,13 +198,10 @@ const SocialMediaProfile = () => {
                   </div>
                 </Listbox>
 
-                {/* Vertical line for medium and larger screens */}
                 <div className="hidden md:block border-l-2 border-gray-300 h-5"></div>
 
-                {/* Horizontal line for small screens */}
                 <hr className="block md:hidden border-gray-300 w-full my-2" />
 
-                {/* URL Input Field */}
                 <input
                   type="url"
                   placeholder="Profile link/url..."
@@ -177,7 +210,6 @@ const SocialMediaProfile = () => {
                   onChange={(e) => handleInputChange(index, e.target.value)}
                 />
               </div>
-              {/* Cancel/Remove Button */}
               <button
                 type="button"
                 className="ml-3 text-xl bg-gray-100 p-3 rounded hover:bg-red-500 hover:text-white"
@@ -189,7 +221,6 @@ const SocialMediaProfile = () => {
           </div>
         ))}
 
-        {/* Add New Social Link Button */}
         <button
           type="button"
           className={`flex items-center justify-center gap-2 mt-4 font-semibold p-2 rounded w-full ${
@@ -204,7 +235,6 @@ const SocialMediaProfile = () => {
           Add New Social Link
         </button>
 
-        {/* Save button */}
         <button
           type="button"
           className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"
@@ -214,7 +244,6 @@ const SocialMediaProfile = () => {
         </button>
       </form>
 
-      {/* Display all submitted links */}
       <div className="mt-6">
         <h3 className="text-lg font-semibold">Submitted Social Links:</h3>
         <ul>
