@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import JobCardGrid from "../JobCardGrid/JobCardGrid";
-import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Import the useTranslation hook
 
 const RelatedJobs = ({ job, title }) => {
+  const { t } = useTranslation(); // Initialize the translation function
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -15,7 +16,6 @@ const RelatedJobs = ({ job, title }) => {
 
   useEffect(() => {
     if (jobTitle) {
-      // console.log('Job Title being sent:', jobTitle); // Log job title before API call
       const fetchJobDataPagination = async () => {
         setLoading(true); // Start loading
         try {
@@ -24,9 +24,10 @@ const RelatedJobs = ({ job, title }) => {
           );
           setJobs(response.data.jobs);
           setTotalPages(response.data.totalPages);
-          setLoading(false);
         } catch (error) {
-          // console.error("Error fetching job data:", error);
+          console.error("Error fetching job data:", error);
+        } finally {
+          setLoading(false); // Stop loading after fetching
         }
       };
       fetchJobDataPagination();
@@ -92,7 +93,7 @@ const RelatedJobs = ({ job, title }) => {
             {jobs.length > 0 ? (
               jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
             ) : (
-              <p>No jobs available</p>
+              <p>{t("No jobs available")}</p> // Use translation for no jobs message
             )}
           </div>
         )}

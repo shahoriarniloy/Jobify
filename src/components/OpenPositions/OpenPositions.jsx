@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import JobCardGrid from "../JobCardGrid/JobCardGrid";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next"; // Import the useTranslation hook
 
 const OpenPosition = ({ email, title }) => {
+  const { t } = useTranslation(); // Initialize the translation function
   const [jobs, setJobs] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -20,19 +22,19 @@ const OpenPosition = ({ email, title }) => {
 
       try {
         const response = await axiosSecure.get(
-          `/OpenPosition?page=${page}&limit=${limit}&email=${email}` 
+          `/OpenPosition?page=${page}&limit=${limit}&email=${email}`
         );
         setJobs(response.data.jobs);
         setTotalPages(response.data.totalPages);
       } catch (error) {
-        setError("Error fetching job data. Please try again.");
+        setError(t("Error fetching job data. Please try again.")); // Use translation for error message
       } finally {
         setLoading(false); // Set loading state to false after fetching
       }
     };
 
     fetchJobDataPagination();
-  }, [email, page, limit]);
+  }, [email, page, limit, t]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -83,7 +85,7 @@ const OpenPosition = ({ email, title }) => {
         </div>
 
         {loading ? ( // Show loading message or spinner
-          <p>Loading jobs...</p>
+          <p>{t("Loading jobs...")}</p> // Use translation for loading message
         ) : error ? ( // Show error message if there is an error
           <p className="text-red-500">{error}</p>
         ) : (
@@ -91,7 +93,7 @@ const OpenPosition = ({ email, title }) => {
             {jobs.length > 0 ? (
               jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
             ) : (
-              <p>No jobs available</p>
+              <p>{t("No jobs available")}</p> // Use translation for no jobs message
             )}
           </div>
         )}

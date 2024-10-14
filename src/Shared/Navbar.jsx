@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [isSticky, setIsSticky] = useState(false);
   const theme = useSelector((state) => state.theme.theme);
 
@@ -16,7 +18,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          Home
+          {t("home")}
         </NavLink>
       </li>
       <li>
@@ -26,7 +28,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          Find Job
+          {t("find_job")}
         </NavLink>
       </li>
       <li>
@@ -36,7 +38,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          Find Company
+          {t("find_company")}
         </NavLink>
       </li>
       <li>
@@ -46,7 +48,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          Messaging
+          {t("messaging")}
         </NavLink>
       </li>
       <li>
@@ -56,7 +58,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          My Network
+          {t("my_network")}
         </NavLink>
       </li>
       <li>
@@ -66,7 +68,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          About Us
+          {t("about_us")}
         </NavLink>
       </li>
     </>

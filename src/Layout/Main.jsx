@@ -5,6 +5,7 @@ import Navbar2 from "../Shared/Navbar2";
 import { FaEnvelope } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Loader from "../Shared/Loader";
+import "../../locales/i18";
 
 const Main = () => {
   const navigate = useNavigate();
