@@ -93,7 +93,7 @@ const RelatedJobs = ({ job, title }) => {
             {jobs.length > 0 ? (
               jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
             ) : (
-              <p>{t("No jobs available")}</p> // Use translation for no jobs message
+              <p>{t("no_jobs_available")}</p> // Use translation for no jobs message
             )}
           </div>
         )}

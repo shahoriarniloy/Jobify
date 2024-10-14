@@ -15,7 +15,7 @@ const SideBar = () => {
                             <span className="mr-2">
                                 <IoMdAddCircleOutline />
                             </span>
-                            {t("Post a Job")} {/* Use translation for "Post a Job" */}
+                            {t("post_a_job")} {/* Use translation for "Post a Job" */}
                         </Link>
                     </li>
                     <li className="py-2 px-4 hover:bg-blue-100 hover:text-blue-600 text-gray-600 rounded flex items-center">
@@ -23,7 +23,7 @@ const SideBar = () => {
                             <span className="mr-2">
                                 <PiHandbagSimpleLight />
                             </span>
-                            {t("My Jobs")} {/* Use translation for "My Jobs" */}
+                            {t("my_jobs")} {/* Use translation for "My Jobs" */}
                         </Link>
                     </li>
                 </ul>

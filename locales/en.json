@@ -37,5 +37,27 @@
   "error_fetching_job_data_please_try_again": "Error fetching job data. Please try again.",
   "loading_jobs": "Loading jobs...",
   "post_a_job": "Post a Job",
-  "my_jobs": "My Jobs"
+  "my_jobs": "My Jobs",
+  "know_our_team": "Know Our Team",
+  "meet_the_people_behind": "Meet the people behind",
+  "group_of_passionate_professionals": "A group of passionate professionals dedicated to crafting seamless job-seeking experiences. Each of our team members brings a unique blend of skills, creativity, and dedication to ensure that Jobify is more than just a platform—it's a transformative tool to help you find the perfect job.",
+  "shahoriar_azad_niloy": "Shahoriar Azad Niloy",
+  "team_lead_developer": "Team Lead & Developer",
+  "shahoriar_description": "Passionate developer with a strong background in both frontend and backend technologies.",
+
+  "mumtahina_mahbub_efa": "Mumtahina Mahbub Efa",
+  "developer": "Developer",
+  "efa_description": "Efa specializes in building responsive and user-friendly applications, contributing both to front-end design and back-end functionality.",
+
+  "indra_ghosh": "Indra Ghosh",
+  "indra_developer": "Developer",
+  "indra_description": "Indra excels in developing scalable applications, ensuring stability in both front-end interfaces and back-end infrastructure.",
+
+  "abdullah_az_zahur_gias": "Md. Abdullah Az Zahur (Gias)",
+  "gias_developer": "Developer",
+  "gias_description": "Gias brings expertise in building seamless integrations between the front-end and back-end, ensuring the overall system performs optimally.",
+
+  "md_abumahid_islam_maruf": "Md Abumahid Islam (Maruf)",
+  "maruf_developer": "Developer",
+  "maruf_description": "Maruf is passionate about crafting innovative solutions and constantly pushes the boundaries of what's possible in tech."
 }

@@ -27,7 +27,7 @@ const OpenPosition = ({ email, title }) => {
         setJobs(response.data.jobs);
         setTotalPages(response.data.totalPages);
       } catch (error) {
-        setError(t("Error fetching job data. Please try again.")); // Use translation for error message
+        setError(t("error_fetching_job_data_please_try_again")); // Use translation for error message
       } finally {
         setLoading(false); // Set loading state to false after fetching
       }
@@ -85,7 +85,7 @@ const OpenPosition = ({ email, title }) => {
         </div>
 
         {loading ? ( // Show loading message or spinner
-          <p>{t("Loading jobs...")}</p> // Use translation for loading message
+          <p>{t("loading_jobs")}</p> // Use translation for loading message
         ) : error ? ( // Show error message if there is an error
           <p className="text-red-500">{error}</p>
         ) : (
@@ -93,7 +93,7 @@ const OpenPosition = ({ email, title }) => {
             {jobs.length > 0 ? (
               jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
             ) : (
-              <p>{t("No jobs available")}</p> // Use translation for no jobs message
+              <p>{t("no_jobs_available")}</p> // Use translation for no jobs message
             )}
           </div>
         )}
