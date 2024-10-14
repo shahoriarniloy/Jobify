@@ -1,8 +1,11 @@
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { PiHandbagSimpleLight } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Import the useTranslation hook
 
 const SideBar = () => {
+    const { t } = useTranslation(); // Initialize the translation function
+
     return (
         <div>
             <aside className="w-64 h-full bg-white border-r border-gray-300">
@@ -12,7 +15,7 @@ const SideBar = () => {
                             <span className="mr-2">
                                 <IoMdAddCircleOutline />
                             </span>
-                            Post a Job
+                            {t("Post a Job")} {/* Use translation for "Post a Job" */}
                         </Link>
                     </li>
                     <li className="py-2 px-4 hover:bg-blue-100 hover:text-blue-600 text-gray-600 rounded flex items-center">
@@ -20,7 +23,7 @@ const SideBar = () => {
                             <span className="mr-2">
                                 <PiHandbagSimpleLight />
                             </span>
-                            My Jobs
+                            {t("My Jobs")} {/* Use translation for "My Jobs" */}
                         </Link>
                     </li>
                 </ul>
