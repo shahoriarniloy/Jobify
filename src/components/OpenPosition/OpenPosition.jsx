@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import JobCardGrid from "../JobCardGrid/JobCardGrid";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const OpenPosition = ({ email, title }) => {
+  const { t } = useTranslation(); // Initialize translation hook
   const [jobs, setJobs] = useState([]); // Store fetched jobs
   const [page, setPage] = useState(1); // Track the current page
   const [totalPages, setTotalPages] = useState(1); // Total pages available
@@ -14,8 +16,6 @@ const OpenPosition = ({ email, title }) => {
   useEffect(() => {
     const fetchJobDataPagination = async () => {
       try {
-        // console.log("Fetching jobs for email:", email);  // Debugging
-
         const response = await axios.get(
           `/OpenPosition?page=${page}&limit=${limit}&email=${email}` // Use email in the request
         );
@@ -23,14 +23,14 @@ const OpenPosition = ({ email, title }) => {
         setTotalPages(response.data.totalPages); // Update the total pages
         setError(null); // Clear any errors
       } catch (error) {
-        // console.error("Error fetching job data:", error); 
-        setError("Error fetching job data. Please try again.");
+        setError(t("error_fetching_job_data_please_try_again")); // Use translation for error message
       }
     };
+
     if (email) {
       fetchJobDataPagination(); // Fetch jobs only if email is available
     }
-  }, [email, page, limit]);
+  }, [email, page, limit, t]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -88,8 +88,10 @@ const OpenPosition = ({ email, title }) => {
         <div className="grid md:grid-cols-3 gap-6">
           {jobs?.length > 0 ? (
             jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
+          ) : error ? (
+            <p>{error}</p> // Display error message if any
           ) : (
-            <p>No jobs available</p>
+            <p>{t("no_jobs_available")}</p> // Display translated "No jobs available"
           )}
         </div>
       </section>
