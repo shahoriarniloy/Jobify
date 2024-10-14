@@ -1,47 +1,71 @@
-import { FaEnvelope, FaFacebook, FaGithub } from "react-icons/fa";
-import "./Styles/Style.css";
+import React, { useEffect, useState } from "react";
+import "./Styles/Style.css"; // Add your CSS file here
 
-const TeamMemberCard = ({ imageUrl, name, role, email, facebook, github, index }) => {
-  const isEven = index % 2 === 0; // Check if the index is even
+const OurTeam = () => {
+  const teamMembers = [
+    {
+      name: "Shahoriar Azad Niloy",
+      imageUrl:
+        "https://i.ibb.co/tq6BdhB/459635328-1531076374210966-5827006199608069936-n.jpg",
+    },
+    {
+      name: "Mumtahina Mahbub Efa",
+      imageUrl:
+        "https://i.ibb.co/KKdG923/458968663-1737661743672221-6606888850658979638-n.jpg",
+    },
+    {
+      name: "Indra Ghosh",
+      imageUrl:
+        "https://i.ibb.co/Fwmn9yQ/461014362-1441578429848823-6777233053187165958-n.jpg",
+    },
+    {
+      name: "Md. Abdullah Az Zahur (Gias)",
+      imageUrl:
+        "https://i.ibb.co/L1BnDrS/459298118-814495080572951-1002648524559915351-n.png",
+    },
+    {
+      name: "Md Abumahid Islam (Maruf)",
+      imageUrl:
+        "https://i.ibb.co/c1dTRp2/459216252-1492857254695253-6783292354464325140-n.jpg",
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Move to the next image every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === teamMembers.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [teamMembers.length]);
 
   return (
-    <div className="flex flex-col items-center md:mt-28 sm:mt-5 mt-5"> {/* Flexbox for alignment */}
-      <div
-        className={`relative bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-150 hover:scale-105 hover:shadow-2xl 
-        ${isEven ? 'animate-bounce-faster' : 'animate-bounce-lower'} hover:animate-none delay-${index * 200}ms`}
-      >
-        {/* Image Section */}
-        <div className="w-full h-72 md:h-60 lg:h-72 overflow-hidden"> {/* Responsive height */}
-          <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
-        </div>
+    <div className="carousel-container">
+      {teamMembers.map((member, index) => {
+        const isMiddle = index === currentIndex;
+        const isNext =
+          (index - currentIndex + teamMembers.length) % teamMembers.length ===
+          1;
+        const isPrev =
+          (currentIndex - index + teamMembers.length) % teamMembers.length ===
+          1;
 
-        {/* Info Section */}
-        <div className="p-4 text-center">
-          <h3 className="text-xl font-semibold">{name}</h3>
-          <p className="text-gray-600">{role}</p>
-
-          {/* Contact Icons */}
-          <div className="flex justify-center mt-4 space-x-4">
-            {email && (
-              <a href={`mailto:${email}`} className="text-gray-600 hover:text-gray-800">
-                <FaEnvelope />
-              </a>
-            )}
-            {facebook && (
-              <a href={facebook} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
-                <FaFacebook />
-              </a>
-            )}
-            {github && (
-              <a href={github} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
-                <FaGithub />
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
+        return (
+          <img
+            key={index}
+            src={member.imageUrl}
+            alt={member.name}
+            className={`carousel-image ${isMiddle ? "active" : ""} ${
+              isNext ? "next" : ""
+            } ${isPrev ? "prev" : ""}`}
+          />
+        );
+      })}
     </div>
   );
 };
 
-export default TeamMemberCard;
+export default OurTeam;
