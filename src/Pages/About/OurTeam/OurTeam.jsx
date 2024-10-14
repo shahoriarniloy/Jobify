@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const OurTeam = () => {
   return (
-    <div className="py-16  lg:pt-20">
+    <div className="pt-16  lg:pt-20">
       <div className="mx-auto mb-10  sm:text-center">
         <p className="inline-block px-3 py-px mb-4 text-3xl font-semibold tracking-wider text-black  rounded-full bg-teal-accent-400">
           Know Our Team
