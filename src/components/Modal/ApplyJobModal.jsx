@@ -11,18 +11,15 @@ import {
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next";
 
-const ApplyJobModal = ({
-  isOpen,
-  onClose,
-  job,
-  user,
-  onApplicationSuccess}) => {
+const ApplyJobModal = ({ isOpen, onClose, job, user, onApplicationSuccess }) => {
+  const { t } = useTranslation(); // Initialize the translation hook
   const { title } = job;
   const jobID = job?._id;
   const [coverLetter, setCoverLetter] = useState(""); // Keep rich text
- 
-  // convert to plain text
+  
+  // Convert to plain text
   const plainText = () => {
     const doc = new DOMParser().parseFromString(coverLetter, "text/html");
     const plainTextCoverLetter = doc.body.innerText || ""; // Extract plain text
@@ -35,100 +32,83 @@ const ApplyJobModal = ({
     };
 
     return application;
-  }
-
-  // already applied ?
-
-
-
+  };
 
   const handleApply = async () => {
     const applicationData = plainText();
 
     // Send application data to the backend
-    const {data} = await axiosSecure.post("/apply_job", applicationData);
-    
-    
-    if (data?.insertedId !== null) {
-      Swal.fire({
-        icon: "success",
-        title: "Application Submitted!",
-        text: "Your application has been successfully submitted.",
-        confirmButtonText: "OK",
-      }).then(() => {
-        onClose(); // Close the modal after successful submission
-      });
-    } else {
+    try {
+      const { data } = await axiosSecure.post("/apply_job", applicationData);
+
+      if (data?.insertedId) {
+        Swal.fire({
+          icon: "success",
+          title: t("application_submitted"), // Translated title
+          text: t("your_application_has_been_successfully_submitted"), // Translated text
+          confirmButtonText: t("ok"), // Translated button text
+        }).then(() => {
+          onClose(); // Close the modal after successful submission
+          if (onApplicationSuccess) onApplicationSuccess(); // Optional success callback
+        });
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Submission Failed",
-        text: "There was an error submitting your application.",
-        confirmButtonText: "OK",
+        title: t("submission_failed"), // Translated title
+        text: t("there_was_an_error_submitting_your_application"), // Translated text
+        confirmButtonText: t("ok"), // Translated button text
       });
     }
-
   };
 
   return (
-    <div>
-      <Dialog open={isOpen} onClose={onClose} className="relative z-50">
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30"
-          aria-hidden="true"
-        />
+    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
+      <div className="fixed inset-0 bg-black bg-opacity-30" aria-hidden="true" />
 
-        <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-          <DialogPanel className="max-w-lg space-y-4 md:w-1/2 border rounded-xl bg-white p-8">
-            <DialogTitle className="font-bold text-lg">
-              Apply Job : {title}{" "}
-            </DialogTitle>
+      <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+        <DialogPanel className="max-w-lg space-y-4 md:w-1/2 border rounded-xl bg-white p-8">
+          <DialogTitle className="font-bold text-lg">
+            {t("apply_job")}: {title} {/* Translated title */}
+          </DialogTitle>
 
-            {/* Resume upload can be uncommented if needed */}
-            {/* <Description className="font-semibold">Choose Resume</Description>
-            <input
-              type="file"
-              accept=".pdf,.doc,.docx"
-              onChange={handleResumeChange}
-              className="w-full border rounded p-2"
-            /> */}
+          <Description className="font-semibold">{t("cover_letter")}</Description> {/* Translated text */}
+          <div className="quill-wrapper relative border rounded-lg">
+            <ReactQuill
+              value={coverLetter} // Keep rich text
+              onChange={setCoverLetter} // Update with rich text
+              placeholder={t("write_your_cover_letter_here")} // Translated placeholder
+              modules={{
+                toolbar: [
+                  ["bold", "italic", "underline"],
+                  [{ list: "ordered" }, { list: "bullet" }],
+                  ["link"],
+                ],
+              }}
+              className="custom-quill-editor"
+            />
+          </div>
 
-            <Description className="font-semibold">Cover Letter</Description>
-            <div className="quill-wrapper relative border rounded-lg">
-              <ReactQuill
-                value={coverLetter} // Keep rich text
-                onChange={e => setCoverLetter(e)} // Update with rich text
-                placeholder="Write your cover letter here..."
-                modules={{
-                  toolbar: [
-                    ["bold", "italic", "underline"],
-                    [{ list: "ordered" }, { list: "bullet" }],
-                    ["link"],
-                  ],
-                }}
-                className="custom-quill-editor"
-              />
-            </div>
+          <div className="flex justify-between">
+            <button
+              className="bg-blue-100 text-blue-500 font-bold px-4 py-2 rounded mr-2"
+              onClick={onClose}
+            >
+              {t("cancel")} {/* Translated button text */}
+            </button>
 
-            <div className="flex justify-between">
-              <button
-                className="bg-blue-100 text-blue-500 font-bold px-4 py-2 rounded mr-2"
-                onClick={onClose}
-              >
-                Cancel
-              </button>
-
-              <button
-              
-                className={`flex items-center gap-3 px-6 py-3 rounded-md bg-blue-700 text-white`}
-                onClick={handleApply}
-              >
-                Apply now <FaArrowRight />
-              </button>
-            </div>
-          </DialogPanel>
-        </div>
-      </Dialog>
-    </div>
+            <button
+              className="flex items-center gap-3 px-6 py-3 rounded-md bg-blue-700 text-white"
+              onClick={handleApply}
+            >
+              {t("apply_now")} <FaArrowRight /> {/* Translated button text */}
+            </button>
+          </div>
+        </DialogPanel>
+      </div>
+    </Dialog>
   );
 };
 

@@ -1,22 +1,21 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const OurTeam = () => {
+  const { t } = useTranslation(); // Initialize the translation function
+
   return (
     <div className="pt-16  lg:pt-20">
       <div className="mx-auto mb-10  sm:text-center">
         <p className="inline-block px-3 py-px mb-4 text-3xl font-semibold tracking-wider text-black  rounded-full bg-teal-accent-400">
-          Know Our Team
+          {t("know_our_team")} {/* Updated for translation */}
         </p>
         <p className="text-base text-gray-700 md:text-sm mb-24">
-          Meet the people behind{" "}
+          {t("meet_the_people_behind")}{" "}
           <Link to="/about">
             <span className="text-blue-500">Jobify.</span>
           </Link>{" "}
-          A group of passionate professionals dedicated to crafting seamless
-          job-seeking experiences. Each of our team members brings a unique
-          blend of skills, creativity, and dedication to ensure that Jobify is
-          more than just a platform—it's a transformative tool to help you find
-          the perfect job.
+          {t("group_of_passionate_professionals")}
         </p>
       </div>
       <div className="grid gap-10 mx-auto lg:grid-cols-3 ">
@@ -29,11 +28,12 @@ const OurTeam = () => {
             />
           </div>
           <div className="flex flex-col justify-center mt-5 sm:mt-0 sm:p-5 sm:col-span-2">
-            <p className="text-lg font-bold">Shahoriar Azad Niloy</p>
-            <p className="mb-4 text-xs text-gray-800">Team Lead, Developer</p>
+            <p className="text-lg font-bold">{t("shahoriar_azad_niloy")}</p>
+            <p className="mb-4 text-xs text-gray-800">
+              {t("team_lead_developer")}
+            </p>
             <p className="mb-4 text-sm tracking-wide text-gray-800">
-              Passionate developer with a strong background in both frontend and
-              backend technologies.
+              {t("shahoriar_description")}
             </p>
             <div className="flex items-center space-x-3">
               <a
@@ -65,12 +65,10 @@ const OurTeam = () => {
             />
           </div>
           <div className="flex flex-col justify-center mt-5 sm:mt-0 sm:p-5 sm:col-span-2">
-            <p className="text-lg font-bold">Mumtahina Mahbub Efa</p>
-            <p className="mb-4 text-xs text-gray-800">Developer</p>
+            <p className="text-lg font-bold">{t("mumtahina_mahbub_efa")}</p>
+            <p className="mb-4 text-xs text-gray-800">{t("developer")}</p>
             <p className="mb-4 text-sm tracking-wide text-gray-800">
-              Efa specializes in building responsive and user-friendly
-              applications, contributing both to front-end design and back-end
-              functionality.
+              {t("efa_description")}
             </p>
             <div className="flex items-center space-x-3">
               <a
@@ -102,12 +100,10 @@ const OurTeam = () => {
             />
           </div>
           <div className="flex flex-col justify-center mt-5 sm:mt-0 sm:p-5 sm:col-span-2">
-            <p className="text-lg font-bold">Indra Ghosh</p>
-            <p className="mb-4 text-xs text-gray-800">Developer</p>
+            <p className="text-lg font-bold">{t("indra_ghosh")}</p>
+            <p className="mb-4 text-xs text-gray-800">{t("indra_developer")}</p>
             <p className="mb-4 text-sm tracking-wide text-gray-800">
-              Indra excels in developing scalable applications, ensuring
-              stability in both front-end interfaces and back-end
-              infrastructure.
+              {t("indra_description")}
             </p>
             <div className="flex items-center space-x-3">
               <a
@@ -139,12 +135,10 @@ const OurTeam = () => {
             />
           </div>
           <div className="flex flex-col justify-center mt-5 sm:mt-0 sm:p-5 sm:col-span-2">
-            <p className="text-lg font-bold">Md. Abdullah Az Zahur (Gias)</p>
-            <p className="mb-4 text-xs text-gray-800">Developer</p>
+            <p className="text-lg font-bold">{t("abdullah_az_zahur_gias")}</p>
+            <p className="mb-4 text-xs text-gray-800">{t("gias_developer")}</p>
             <p className="mb-4 text-sm tracking-wide text-gray-800">
-              Gias brings expertise in building seamless integrations between
-              the front-end and back-end, ensuring the overall system performs
-              optimally.
+              {t("gias_description")}
             </p>
             <div className="flex items-center space-x-3">
               <a
@@ -176,12 +170,10 @@ const OurTeam = () => {
             />
           </div>
           <div className="flex flex-col justify-center mt-5 sm:mt-0 sm:p-5 sm:col-span-2">
-            <p className="text-lg font-bold">Md Abumahid Islam (Maruf)</p>
-            <p className="mb-4 text-xs text-gray-800">Developer</p>
+            <p className="text-lg font-bold">{t("md_abumahid_islam_maruf")}</p>
+            <p className="mb-4 text-xs text-gray-800">{t("maruf_developer")}</p>
             <p className="mb-4 text-sm tracking-wide text-gray-800">
-              Maruf focuses on full-stack development, bridging the gap between
-              design and functionality, and ensuring both client and server-side
-              elements work harmoniously.
+              {t("maruf_description")}
             </p>
             <div className="flex items-center space-x-3">
               <a
