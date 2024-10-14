@@ -16,7 +16,6 @@ const Feedback = () => {
 
   const currentUser = useSelector((state) => state.user.currentUser);
 
-  // Fetch Reviews when component mounts and when currentPage changes
   useEffect(() => {
     const fetchReviews = async (page = 1) => {
       try {
@@ -31,7 +30,6 @@ const Feedback = () => {
     fetchReviews(currentPage);
   }, [currentPage]);
 
-  // Set current user's data
   useEffect(() => {
     if (currentUser) {
       setUsername(currentUser.displayName || currentUser.name);
@@ -39,7 +37,6 @@ const Feedback = () => {
     }
   }, [currentUser]);
 
-  // Handle feedback submission
   const handleFeedbackSubmit = async () => {
     if (!rating || !feedback || !username) {
       toast.error("Please provide all required fields.");
@@ -65,12 +62,10 @@ const Feedback = () => {
     }
   };
 
-  // Handle star rating selection
   const handleRate = (stars) => {
     setRating(stars === rating ? 0 : stars);
   };
 
-  // Pagination controls
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1);
@@ -85,9 +80,15 @@ const Feedback = () => {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center mb-12 lg:mt-36 mt-16">
+      <h1 className="text-4xl font-bold text-center mb-12 lg:mt-36 ">
         Feedback
       </h1>
+
+      <p className="text-base text-gray-700 md:text-sm mb-24 text-center">
+        Your feedback is key to our growth. Your suggestions and insights help
+        us improve and create a better experience for everyone. Thank you for
+        helping us make Jobify better!
+      </p>
 
       <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6">
         <div className="p-8 shadow-sm rounded-xl bg-white">

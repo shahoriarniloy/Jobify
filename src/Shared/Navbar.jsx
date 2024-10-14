@@ -28,7 +28,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("find_job")}
+          {t("apply_job")} {/* Changed from "Apply Job" to "apply_job" */}
         </NavLink>
       </li>
       <li>
@@ -38,7 +38,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("find_company")}
+          {t("find_company")} {/* Changed from "Find Company" to "find_company" */}
         </NavLink>
       </li>
       <li>
@@ -48,7 +48,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("messaging")}
+          {t("messaging")} {/* Changed from "Messaging" to "messaging" */}
         </NavLink>
       </li>
       <li>
@@ -58,7 +58,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("my_network")}
+          {t("my_network")} {/* Changed from "My Network" to "my_network" */}
         </NavLink>
       </li>
       <li>
@@ -68,7 +68,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("about_us")}
+          {t("about_us")} {/* Changed from "About Us" to "about_us" */}
         </NavLink>
       </li>
     </>
@@ -88,13 +88,13 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="">
+    <div>
       <div
-        className={`navbar bg-[#f7f9fcfa] shadow-md ${
-          isSticky ? "sticky top-0 z-50" : ""
-        } roboto-regular ${
-          theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
-        }`}
+        className={`navbar shadow-md ${isSticky ? "sticky top-0 z-50" : ""
+          } roboto-regular ${theme === "dark"
+          ? "bg-gray-900 text-white"
+          : "bg-[#f4f8fffa] text-black"
+          }`}
       >
         <div className="navbar-start">
           <div className="dropdown">

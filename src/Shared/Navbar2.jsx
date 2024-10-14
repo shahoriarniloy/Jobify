@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOut as logOutAction } from "../Redux/userSlice";
 import { toggleTheme } from "../Redux/themeSlice";
 import { useTranslation } from "react-i18next";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar2 = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -67,18 +68,14 @@ const Navbar2 = () => {
   };
 
   return (
-    <div
-      className={
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
-      }
-    >
+    <div className={theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}>
       <div className="lg:px-24 md:px-6 px-4">
         <div className="navbar pt-2">
           <div className="navbar-start">
             <div className="flex items-center gap-2 text-[#0a65cc]">
               <PiBag className="w-6 h-6" />
               <Link to="/" className="text-xl font-bold">
-                {t("jobify")}
+                {t("Jobify")}
               </Link>
             </div>
           </div>
@@ -88,10 +85,8 @@ const Navbar2 = () => {
               <select
                 onChange={(e) => changeLanguage(e.target.value)}
                 defaultValue={i18n.language}
-                className={` py-1 px-2 rounded-md transition-colors duration-300 ${
-                  theme === "dark"
-                    ? "bg-gray-800 text-white border-gray-600"
-                    : "bg-white text-black border-gray-300"
+                className={`py-1 px-2 rounded-md transition-colors duration-300 ${
+                  theme === "dark" ? "bg-gray-800 text-white border-gray-600" : "bg-white text-black border-gray-300"
                 }`}
               >
                 <option value="en">{t("english")}</option>
@@ -101,25 +96,19 @@ const Navbar2 = () => {
 
             <div className="flex gap-4 lg:gap-5 items-center">
               <button onClick={handleThemeToggle} className="p-2">
-                {theme === "light" ? "🌙" : "🌞"}{" "}
+                {theme === "light" ? <FaMoon /> : <FaSun />}
               </button>
               {currentUser ? (
                 <>
                   <div className="relative flex items-center gap-4">
                     <img
-                      src={
-                        currentUser?.photoURL ||
-                        "https://via.placeholder.com/150"
-                      }
+                      src={currentUser?.photoURL || "https://via.placeholder.com/150"}
                       alt={t("user_profile")}
                       className="w-10 h-10 rounded-full cursor-pointer"
                       onClick={toggleMenu}
                     />
                     {isMenuOpen && (
-                      <div
-                        ref={menuRef}
-                        className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"
-                      >
+                      <div ref={menuRef} className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
                         <ul className="py-1 text-gray-700">
                           {role === "Job Seeker" && (
                             <>
@@ -213,33 +202,19 @@ const Navbar2 = () => {
           </div>
         </div>
 
-        <Modal
-          open={loginModalOpen}
-          onClose={() => setLoginModalOpen(false)}
-          center
-        >
-          <Login
-            setSignUpModalOpen={setSignUpModalOpen}
-            setLoginModalOpen={setLoginModalOpen}
-          />
+        <Modal open={loginModalOpen} onClose={() => setLoginModalOpen(false)} center>
+          <Login setSignUpModalOpen={setSignUpModalOpen} setLoginModalOpen={setLoginModalOpen} />
         </Modal>
 
-        <Modal
-          open={signUpModalOpen}
-          onClose={() => setSignUpModalOpen(false)}
-          center
-        >
-          <Register
-            setLoginModalOpen={setLoginModalOpen}
-            setSignUpModalOpen={setSignUpModalOpen}
-          />
+        <Modal open={signUpModalOpen} onClose={() => setSignUpModalOpen(false)} center>
+          <Register setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen} />
         </Modal>
 
         <Modal open={roomModal} onClose={() => setRoomModal(false)}>
           <div className="card w-full max-w-sm">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">{t("enter_name")}</span>
+                <span className="label-text">{t("enter_your_name")}</span>
               </label>
               <input
                 type="text"

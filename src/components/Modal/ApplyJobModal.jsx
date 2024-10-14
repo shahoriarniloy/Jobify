@@ -43,18 +43,18 @@ const ApplyJobModal = ({ isOpen, onClose, job, user, onApplicationSuccess }) => 
     if (data?.insertedId !== null) {
       Swal.fire({
         icon: "success",
-        title: t("application_success_title"),
-        text: t("application_success_text"),
-        confirmButtonText: t("ok"),
+        title: t("Application Submitted!"), // Translated title
+        text: t("Your application has been successfully submitted."), // Translated text
+        confirmButtonText: t("OK"), // Translated button text
       }).then(() => {
         onClose(); // Close the modal after successful submission
       });
     } else {
       Swal.fire({
         icon: "error",
-        title: t("application_failed_title"),
-        text: t("application_failed_text"),
-        confirmButtonText: t("ok"),
+        title: t("Submission Failed"), // Translated title
+        text: t("There was an error submitting your application."), // Translated text
+        confirmButtonText: t("OK"), // Translated button text
       });
     }
   };
@@ -67,15 +67,15 @@ const ApplyJobModal = ({ isOpen, onClose, job, user, onApplicationSuccess }) => 
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
           <DialogPanel className="max-w-lg space-y-4 md:w-1/2 border rounded-xl bg-white p-8">
             <DialogTitle className="font-bold text-lg">
-              {t("apply_job_title")}: {title}
+              {t("Apply Job")}: {title} {/* Translated title */}
             </DialogTitle>
 
-            <Description className="font-semibold">{t("cover_letter")}</Description>
+            <Description className="font-semibold">{t("Cover Letter")}</Description> {/* Translated text */}
             <div className="quill-wrapper relative border rounded-lg">
               <ReactQuill
                 value={coverLetter} // Keep rich text
                 onChange={e => setCoverLetter(e)} // Update with rich text
-                placeholder={t("cover_letter_placeholder")}
+                placeholder={t("Write your cover letter here...")} // Translated placeholder
                 modules={{
                   toolbar: [
                     ["bold", "italic", "underline"],
@@ -92,14 +92,14 @@ const ApplyJobModal = ({ isOpen, onClose, job, user, onApplicationSuccess }) => 
                 className="bg-blue-100 text-blue-500 font-bold px-4 py-2 rounded mr-2"
                 onClick={onClose}
               >
-                {t("cancel")}
+                {t("Cancel")} {/* Translated button text */}
               </button>
 
               <button
                 className="flex items-center gap-3 px-6 py-3 rounded-md bg-blue-700 text-white"
                 onClick={handleApply}
               >
-                {t("apply_now")} <FaArrowRight />
+                {t("Apply now")} <FaArrowRight /> {/* Translated button text */}
               </button>
             </div>
           </DialogPanel>

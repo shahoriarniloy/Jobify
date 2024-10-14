@@ -49,7 +49,7 @@ const JobCardGrid = ({ job }) => {
                 <p className="font-bold text-lg truncate">{companyName}</p>
                 {featured && (
                   <p className="text-xs text-red-400 bg-red-100 font-semibold my-auto py-1 px-3 rounded-full ml-2">
-                    {t("featured")}
+                    {t("Featured")}
                   </p>
                 )}
               </div>

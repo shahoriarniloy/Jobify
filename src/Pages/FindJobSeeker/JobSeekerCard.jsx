@@ -50,7 +50,7 @@ const JobSeekerCard = ({ jobSeeker }) => {
         setIsFollowing(true);
       }
     } catch (error) {
-      console.error("Error following/unfollowing job seeker:", error);
+      // console.error("Error following/unfollowing job seeker:", error);
     }
   };
 

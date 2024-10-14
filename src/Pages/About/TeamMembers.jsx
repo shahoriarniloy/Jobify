@@ -54,7 +54,6 @@ const TeamMembers = () => {
     },
   ];
 
-  // Settings for the carousel
   const settings = {
     dots: true,
     infinite: true,
@@ -94,7 +93,7 @@ const TeamMembers = () => {
       <Slider {...settings}>
         {teamMembers.map((member, index) => (
           <div key={index} className="p-4">
-            <div className="bg-white p-6 rounded-lg shadow-lg text-center hover:bg-blue-500 transition duration-300 ease-in-out transform hover:scale-105">
+            <div className="bg-white p-6 rounded-lg shadow-lg text-center transition duration-300 ease-in-out transform hover:scale-105">
               <img
                 src={member.imageUrl}
                 alt={member.name}

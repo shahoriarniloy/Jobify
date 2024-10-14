@@ -23,7 +23,7 @@ const OpenPosition = ({ email, title }) => {
         setTotalPages(response.data.totalPages); // Update the total pages
         setError(null); // Clear any errors
       } catch (error) {
-        setError(t("error_fetching_jobs")); // Use translation for error message
+        setError(t("Error fetching job data. Please try again.")); // Use translation for error message
       }
     };
     if (email) {
@@ -90,7 +90,7 @@ const OpenPosition = ({ email, title }) => {
           ) : error ? (
             <p>{error}</p> // Display error message if any
           ) : (
-            <p>{t("no_jobs_available")}</p> // Display translated "No jobs available"
+            <p>{t("No jobs available")}</p> // Display translated "No jobs available"
           )}
         </div>
       </section>

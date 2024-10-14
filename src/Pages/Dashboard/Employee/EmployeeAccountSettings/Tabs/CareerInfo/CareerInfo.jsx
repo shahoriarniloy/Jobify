@@ -61,7 +61,7 @@ const CareerInfo = () => {
     const endDate = form.endDate.value;
     const cgpa = form.cgpa.value;
 
-    console.log(currentUser.currentUser);
+    // console.log(currentUser.currentUser);
 
     const data = {
       schoolName: inputValue,
