@@ -1,19 +1,23 @@
-import { useState } from 'react';
-import Swal from 'sweetalert2';
+import { useState } from "react";
+import Swal from "sweetalert2";
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import axiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useSelector } from "react-redux";
 
 const PostJob = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [jobData, setJobData] = useState({
-    title: '',
-    company: '',
-    experience: '',
-    salaryRange: '',
-    location: '',
-    education: '',
-    jobType: '',
-    vacancy: '',
-    deadline: '',
-    jobLevel: '', 
-    jobDescription: '',
+    title: "",
+    company: "",
+    experience: "",
+    salaryRange: "",
+    location: "",
+    education: "",
+    jobType: "",
+    vacancy: "",
+    deadline: "",
+    jobLevel: "",
+    jobDescription: "",
     responsibilities: [],
   });
 
@@ -22,6 +26,7 @@ const PostJob = () => {
     setJobData({
       ...jobData,
       [name]: value,
+      hrEmail: currentUser?.email,
     });
   };
 
@@ -31,65 +36,61 @@ const PostJob = () => {
 
     const newJobData = {
       ...rest,
-      responsibilities: responsibilities.split('\n'), 
-      posted: new Date().toISOString().split('T')[0], 
+      responsibilities: responsibilities.split("\n"),
+      posted: new Date().toISOString().split("T")[0],
     };
 
     try {
-      const response = await fetch('http://localhost:5000/postJob', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newJobData),
-      });
-
-      if (response.ok) {
+      const response = await axiosSecure.post("/postJob", newJobData);
+      if (response?.status == 200) {
         Swal.fire({
-          icon: 'success',
-          title: 'Job posted successfully!',
-          text: 'The job listing has been created and posted on the platform.',
+          icon: "success",
+          title: "Job posted successfully!",
+          text: "The job listing has been created and posted on the platform.",
         });
 
+        // Reset job data
         setJobData({
-          title: '',
-          company: '',
-          experience: '',
-          salaryRange: '',
-          location: '',
-          education: '',
-          jobType: '',
-          vacancy: '',
-          deadline: '',
-          jobLevel: '',
-          jobDescription: '',
-          responsibilities: '',
+          title: "",
+          company: "",
+          experience: "",
+          salaryRange: "",
+          location: "",
+          education: "",
+          jobType: "",
+          vacancy: "",
+          deadline: "",
+          jobLevel: "",
+          jobDescription: "",
+          responsibilities: "",
         });
       } else {
         Swal.fire({
-          icon: 'error',
-          title: 'Failed to post job',
-          text: 'Something went wrong. Please try again.',
+          icon: "error",
+          title: "Failed to post job",
+          text: "Something went wrong. Please try again.",
         });
       }
     } catch (error) {
-      console.error('Error:', error);
+      // console.error('Error:', error);
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'There was a problem with the server.',
+        icon: "error",
+        title: "Error",
+        text: "There was a problem with the server.",
       });
     }
   };
 
   return (
-    <div className="container max-w-screen-lg mx-auto pb-6">
+    <div className="container pb-6 mx-auto  w-full">
       <div>
         <h2 className="font-semibold text-3xl text-black mb-4">Post a Job</h2>
-        <p className="text-stone-500 mb-6">Fill Up This Form to Post a Job on The Platform.</p>
+        <p className="text-stone-500 mb-6">
+          Fill Up This Form to Post a Job on The Platform.
+        </p>
         <div className="rounded p-6 mb-6">
           <div className="grid gap-6 text-sm grid-cols-1 lg:grid-cols-3">
-            <form className="lg:col-span-2" onSubmit={handleSubmit}>
+            <form className="lg:col-span-3" onSubmit={handleSubmit}>
               <div className="grid gap-6 text-sm grid-cols-1 md:grid-cols-5">
                 <div className="md:col-span-5">
                   <label htmlFor="title">Job Title</label>
@@ -168,22 +169,48 @@ const PostJob = () => {
                         placeholder="Location"
                       />
                     </div>
+
+                    <div className="md:col-span-5">
+                      <label htmlFor="vacancy">Vacancy</label>
+                      <input
+                        type="number"
+                        name="vacancy"
+                        value={jobData.vacancy}
+                        onChange={handleChange}
+                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                        placeholder="Number of vacancies"
+                        min="1"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="md:col-span-2">
-                  <label htmlFor="jobLevel">Job Level</label>
-                  <select
-                    name="jobLevel"
-                    value={jobData.jobLevel}
-                    onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                  >
-                    <option value="">Select Job Level</option>
-                    <option value="Entry Level">Entry Level</option>
-                    <option value="Mid Level">Mid Level</option>
-                    <option value="Expert Level">Expert Level</option>
-                  </select>
+                <div className="md:col-span-5 flex gap-4">
+                  <div>
+                    <label htmlFor="jobLevel">Job Level</label>
+                    <select
+                      name="jobLevel"
+                      value={jobData.jobLevel}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    >
+                      <option value="">Select Job Level</option>
+                      <option value="Entry Level">Entry Level</option>
+                      <option value="Mid Level">Mid Level</option>
+                      <option value="Expert Level">Expert Level</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="deadline">Application Deadline</label>
+                    <input
+                      type="date"
+                      name="deadline"
+                      value={jobData.deadline}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    />
+                  </div>
                 </div>
 
                 <div className="md:col-span-5">
@@ -237,7 +264,9 @@ const PostJob = () => {
                 </div>
 
                 <div className="md:col-span-5">
-                  <label htmlFor="responsibilities">Responsibilities (one per line)</label>
+                  <label htmlFor="responsibilities">
+                    Responsibilities (one per line)
+                  </label>
                   <textarea
                     name="responsibilities"
                     value={jobData.responsibilities}
@@ -250,8 +279,9 @@ const PostJob = () => {
                 <div className="md:col-span-5 text-right">
                   <button
                     type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
                   >
+                    <PaperAirplaneIcon className="h-5 w-5 mr-2" />
                     Post Job
                   </button>
                 </div>

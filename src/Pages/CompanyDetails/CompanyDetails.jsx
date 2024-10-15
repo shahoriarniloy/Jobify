@@ -2,11 +2,9 @@ import { useState, useEffect } from "react";
 import instagram_logo from "../../assets/image/CompanyDetails/instagram_logo.png";
 import {
   FaFacebookF,
-  FaInstagram,
   FaLinkedin,
   FaPinterest,
   FaTwitter,
-  FaYoutube,
 } from "react-icons/fa";
 import { FiCalendar, FiGlobe } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
@@ -16,57 +14,34 @@ import { TfiEmail } from "react-icons/tfi";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import JobCardGrid from "../../components/JobCardGrid/JobCardGrid";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import OpenPosition from "../../components/OpenPosition/OpenPosition";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
   const { companyId } = useParams();
-  const [jobs, setJobs] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  // console.log(company);
+
+  const { _id, email } = company;
+
+  // console.log(email);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
-        const response = await axiosSecure.get(`/companies/${companyId}`);
+        const response = await axiosSecure.get(`/companies/${email}`);
         setCompany(response.data);
-        console.log(response.data);
+        // console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
-        console.error("Error fetching company data:", error);
+        // console.error("Error fetching company data:", error);
       }
     };
 
     fetchCompanyData();
   }, [companyId]);
 
-  // useEffect(() => {
-  //   const fetchJobDataPagination = async () => {
-  //     try {
-  //       const response = await axiosSecure.get(`/jobs/pagination?page=${page}&limit=6`); 
-  //       setJobs(response.data);
-  //       setTotalPages(response.data.totalPages);
-  //     } catch (error) {
-  //       console.error("Error fetching job data:", error);
-  //     }
-  //   };
-  //   fetchJobDataPagination();
-  // }, [page]);
-
-  // const handleNext = () => {
-  //   if (page < totalPages) {
-  //     setPage(page + 1);
-  //   }
-  // };
-
-  // const handlePrev = () => {
-  //   if (page > 1) {
-  //     setPage(page - 1);
-  //   }
-  // };
-
   return (
-    <div className="relative noto">
+    <div className="relative ">
       {/* Company Banner and Info */}
       <div className="relative">
         <div>
@@ -79,7 +54,7 @@ const CompanyDetails = () => {
         <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
           <div className="flex flex-col md:flex-row items-center">
             <img
-              src={instagram_logo}
+              src={company?.company_logo}
               className="w-16 h-16 object-cover rounded-full"
               alt="Company Logo"
             />
@@ -243,39 +218,9 @@ const CompanyDetails = () => {
           </div>
         </div>
       </div>
+      <p>email:{company.email}</p>
 
-      {/* Jobs Section */}
-      {/* <section className="container mx-auto">
-        <div>
-          <div className="flex justify-between mb-12">
-            <h3 className="font-bold text-xl">Open Position </h3>
-            <div className="">
-              <button
-                onClick={handlePrev}
-                disabled={page === 1}
-                className="btn bg-blue-100 h-12 w-12"
-              >
-                <FaArrowLeft className="text-blue-400" />
-              </button>
-              <button
-                onClick={handleNext}
-                disabled={page === totalPages}
-                className="btn bg-blue-100 ml-4 h-12 w-12"
-              >
-                <FaArrowRight className="text-blue-400" />
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-6">
-            {Array.isArray(jobs.jobs) && jobs.jobs.length > 0 ? (
-              jobs.jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
-            ) : (
-              <p>No jobs available</p>
-            )}
-          </div>
-        </div>
-      </section> */}
+      <OpenPosition title={"Open Position"} email={company?.email} />
     </div>
   );
 };

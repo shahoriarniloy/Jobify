@@ -1,156 +1,457 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 /*  custom color */
 .link-color {
-    color: #0A65CC;
-    font-weight: 600;
+  color: #0a65cc;
+  font-weight: 600;
 }
+
+.modal {
+  /* Style for the modal itself */
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 80%;
+  max-width: 500px;
+  /* or whatever size you want */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-overlay {
+  /* Style for the overlay */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  /* make sure it's on top of everything */
+}
+
+/* Add any additional styles for responsiveness and aesthetics */
 
 /* isActiveRoute style */
-.isActiveRoute{
-    border-left: 5px solid #0A65CC;
-    background-color: #e7f0fa;
-    color: #0A65CC;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding-left:15px ;
-    padding-top:8px ;
-    padding-bottom:8px ;
+.isActiveRoute {
+  border-left: 5px solid #0a65cc;
+  background-color: #e7f0fa;
+  color: #0a65cc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
-
-
 
 /* loader style */
+/* HTML: <div className="loader"></div> */
 .loader {
-    width: 48px;
-    height: 48px;
-    display: inline-block;
-    position: relative;
-    border: 3px solid;
-    border-color: #de3500 #0000 #fff #0000;
-    border-radius: 50%;
-    box-sizing: border-box;
-    animation: 1s rotate linear infinite;
-}
-
-.loader:before,
-.loader:after {
-    content: '';
-    top: 0;
-    left: 0;
-    position: absolute;
-    border: 10px solid transparent;
-    border-bottom-color: #fff;
-    transform: translate(-10px, 19px) rotate(-35deg);
+  width: 108px;
+  height: 60px;
+  color: #269af2;
+  --c: radial-gradient(farthest-side, currentColor 96%, #0000);
+  background: var(--c) 100% 100% /30% 60%, var(--c) 70% 0 /50% 100%,
+    var(--c) 0 100% /36% 68%, var(--c) 27% 18% /26% 40%,
+    linear-gradient(currentColor 0 0) bottom/67% 58%;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
 .loader:after {
-    border-color: #de3500 #0000 #0000 #0000;
-    transform: translate(32px, 3px) rotate(-35deg);
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  opacity: 0.4;
+  animation: l7 1s infinite;
+}
+
+@keyframes l7 {
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
 }
 
 .roboto-thin {
-    font-family: "Roboto", sans-serif;
-    font-weight: 100;
-    font-style: normal;
-  }
-  
-  .roboto-light {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-  }
-  
-  .roboto-regular {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .roboto-medium {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
-  
-  .roboto-bold {
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .roboto-black {
-    font-family: "Roboto", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-  }
-  
-  .roboto-thin-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 100;
-    font-style: italic;
-  }
-  
-  .roboto-light-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-  
-  .roboto-regular-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .roboto-medium-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-  }
-  
-  .roboto-bold-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  
-  .roboto-black-italic {
-    font-family: "Roboto", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-  }
-
-
-
-
-  .nav-link {
-    padding: 10px 15px; 
-    transition: background-color 0.3s, color 0.3s; 
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
 }
 
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black-italic {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.roboto-light {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.nav-link {
+  padding: 10px 15px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Adjust as needed */
+}
+
+/* Global Styles */
+body.light {
+  --bg-color: white;
+  --text-color: black;
+}
+
+body.dark {
+  --bg-color: #121212;
+  --text-color: white;
+}
+
+/* .active-nav {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+} */
+
 .active-nav {
-    background-color: #007BFF; 
-    color: white; 
-    border-radius: 5px; 
-    font-weight: bold; 
+  border-bottom: 3px solid #007bff;
+  /* color: #007bff; */
+  font-weight: bold;
 }
 
 .nav-link:hover {
-    background-color: #0056b3; 
-    color: white; 
-    border-radius: 5px; 
+  /* background-color: #0056b3; */
+  /* color: white; */
+  /* border-radius: 5px; */
+  /* border-bottom: 3px solid #2a527d; */
 }
-  
+
+/* .btn-gradient {
+  width: 100%; 
+  padding: 12px 24px; 
+  background: linear-gradient(to right, #4299e1, #2b6cb0); 
+  border-radius: 0.375rem; 
+  color: white; 
+  font-weight: 600; 
+  font-size: 1rem; 
+  transition: background-color 300ms ease-in-out; 
+}
+
+   */
+
+/* Custom scrollbar styles (for webkit browsers) */
+::-webkit-scrollbar {
+  width: 8px;
+  /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  /* Color of the scrollbar thumb */
+  border-radius: 4px;
+  /* Rounded corners for the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+  /* Darker color on hover */
+}
 
 @keyframes rotate {
-    100% {
-        transform: rotate(360deg)
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes shine-move {
+  from {
+    background-position: top left;
+  }
+
+  to {
+    background-position: bottom right;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 1s ease-in-out;
+}
+
+/* HTML: <div className="loader"></div> */
+.loader-dashboard {
+  width: 45px;
+  aspect-ratio: 1;
+  --c: no-repeat linear-gradient(#000 0 0);
+  background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
+  background-size: 20% 100%;
+  animation: l1 1s infinite linear;
+}
+
+@keyframes l1 {
+  0% {
+    background-size: 20% 100%, 20% 100%, 20% 100%;
+  }
+
+  33% {
+    background-size: 20% 10%, 20% 100%, 20% 100%;
+  }
+
+  50% {
+    background-size: 20% 100%, 20% 10%, 20% 100%;
+  }
+
+  66% {
+    background-size: 20% 100%, 20% 100%, 20% 10%;
+  }
+
+  100% {
+    background-size: 20% 100%, 20% 100%, 20% 100%;
+  }
+}
+
+.loader-button {
+  transform: rotateZ(45deg);
+  perspective: 1000px;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  color: #fff;
+}
+
+.loader-button:before,
+.loader-button:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  transform: rotateX(70deg);
+  animation: 1s spin linear infinite;
+}
+
+.loader-button:after {
+  color: #ff3d00;
+  transform: rotateY(70deg);
+  animation-delay: 0.4s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotateZ(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotateZ(360deg);
+  }
+}
+
+@keyframes rotateccw {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+@keyframes spin {
+
+  0%,
+  100% {
+    box-shadow: 0.2em 0px 0 0px currentcolor;
+  }
+
+  12% {
+    box-shadow: 0.2em 0.2em 0 0 currentcolor;
+  }
+
+  25% {
+    box-shadow: 0 0.2em 0 0px currentcolor;
+  }
+
+  37% {
+    box-shadow: -0.2em 0.2em 0 0 currentcolor;
+  }
+
+  50% {
+    box-shadow: -0.2em 0 0 0 currentcolor;
+  }
+
+  62% {
+    box-shadow: -0.2em -0.2em 0 0 currentcolor;
+  }
+
+  75% {
+    box-shadow: 0px -0.2em 0 0 currentcolor;
+  }
+
+  87% {
+    box-shadow: 0.2em -0.2em 0 0 currentcolor;
+  }
+}
+
+
+
+
+
+
+.sCsSbKP9yxvw4LQAeaTz {
+  background-color: white !important;
+
+}
+
+
+
+.GBqD5akUB0siCNWbAPQr {
+  background-color: white !important;
+}
+
+.GBqD5akUB0siCNWbAPQr div {
+  background-color: #2564eb3c !important;
+}
+
+.ji5jASszKFf2CGCmbxEh {
+  background-color: #0a65cc !important;
+
+}
+
+.tQCB5Tj6hsWzMNzTg5og{
+  background-color: rgb(255, 73, 73) !important;
+}
+

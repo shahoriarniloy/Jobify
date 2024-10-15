@@ -1,36 +1,25 @@
-import { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../Pages/Auth/CreateAccount/AuthContext'; // Adjust the path based on your project structure
-import axiosSecure from './UseAxiosSecure'; // Adjust the path based on your project structure
+import axiosSecure from "./UseAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 const useUserRole = () => {
-    const { user } = useContext(AuthContext); // Directly get the user from AuthContext
-    const [role, setRole] = useState(null);
-    const [id, setId] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const currentUser = useSelector((state) => state?.user?.currentUser);
 
-    useEffect(() => {
-        const fetchRole = async () => {
-            if (user?.email) {
-                console.log("email",user.email);
-                try {
-                    const response = await axiosSecure.get(`/user-role?email=${user.email}`);
-                    setRole(response.data.role); // Assuming the response contains the role in the data
-                    setId(response.data.id); // Assuming the response contains the role in the data
-                } catch (err) {
-                    setError(err.response ? err.response.data.message : err.message);
-                } finally {
-                    setLoading(false);
-                }
-            } else {
-                setLoading(false); // If no email, stop loading
-            }
-        };
+  const { data: role, isLoading } = useQuery({
+    queryKey: ["loadedRole", currentUser?.email],
+    queryFn: async () => {
+      if (currentUser?.email) {
+        const response = await axiosSecure.get(
+          `/user-role?email=${currentUser.email}`
+        );
+        return response.data;
+      }
+      return null;
+    },
+    enabled: !!currentUser?.email,
+  });
 
-        fetchRole();
-    }, [user]);
-
-    return { role,id, loading, error };
+  return { role, isLoading };
 };
 
 export default useUserRole;
