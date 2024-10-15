@@ -49,6 +49,9 @@ import AllJobSeekers from "../Pages/Dashboard/Admin/AllJobSeekers";
 import AdminOverview from "../Pages/Dashboard/Admin/AdminOverview";
 import AdminLayout from "../Pages/Dashboard/Admin/AdminLayout";
 import Room from "../Pages/Room/Room";
+import ResumeForm from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeForm";
+import Resume from "../Pages/Dashboard/Employee/ResumeBuilder/Resume";
+import ResumeBuilder from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeBuilder";
 
 export const router = createBrowserRouter([
   {
@@ -137,6 +140,18 @@ export const router = createBrowserRouter([
         path: "/messages/:otherPartyEmail",
         element: <MessageDetail></MessageDetail>,
       },
+      {
+        path: "/resume-builder",
+        element: <ResumeForm></ResumeForm>,
+      },
+      {
+        path: "/resume/:email",
+        element: <Resume></Resume>,
+      },
+      // {
+      //   path: "/resume-builder",
+      //   element: <ResumeBuilder></ResumeBuilder>,
+      // },
     ],
   },
   {
