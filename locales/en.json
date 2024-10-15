@@ -79,7 +79,6 @@
   "about_jobify": "About Jobify",
   "jobify_intro_description": "Jobify is a cutting-edge platform designed to streamline the hiring process for both job seekers and employers. Our mission is to connect talented individuals with top-notch companies through a user-friendly interface and innovative technology.",
 
-
   "why_choose_us": "Why Choose Us?",
   "why_choose_us_description": "We are a platform designed to make the hiring and job-seeking process effortless for everyone. Here’s why you should choose",
   "experienced_professionals": "Experienced Professionals",
@@ -95,7 +94,6 @@
   "comprehensive_job_solutions": "Comprehensive Job Solutions",
   "comprehensive_job_solutions_description": "Whether you're an employer or a job seeker, we offer solutions tailored to your needs, helping you find the best match quickly and effectively.",
 
-
   "create_account": "Create Account",
   "your_account_type": "Your Account Type?",
   "employee": "Employee",
@@ -108,11 +106,10 @@
   "failed_to_save_user_data": "Failed to save user data to the database.",
   "registration_failed": "Registration failed. Please try again.",
   "already_have_account": "Already have an account?",
-  
+
   "job_seeker": "Job Seeker",
   "employer": "Employer",
 
-  
   "login": {
     "login": "Login",
     "sign_in": "Sign In",
@@ -123,5 +120,31 @@
     "google_sign_in": "Sign in with Google",
     "dont_have_account": "Don't have an account?",
     "create_account": "Create account"
+  },
+
+  "CompanyDetails": {
+    "company_banner_alt": "Company Banner",
+    "company_logo_alt": "Company Logo",
+    "view_open_position": "View Open Position →",
+    "message": "Message",
+    "description": "Description",
+    "company_benefits": "Company Benefits",
+    "benefits_intro": "At TechWorld Solutions, we believe in creating a supportive and rewarding environment for our employees. We offer a range of benefits designed to support your personal and professional growth.",
+    "benefit_1": "Comprehensive health, dental, and vision insurance coverage.",
+    "benefit_2": "Flexible work hours and remote work options.",
+    "benefit_3": "401(k) retirement plan with company match.",
+    "benefit_4": "Generous paid time off, including vacation, holidays, and sick leave.",
+    "benefit_5": "Professional development programs and opportunities for career growth.",
+    "benefit_6": "Employee wellness programs and gym membership discounts.",
+    "share_profile": "Share profile:",
+    "founded_in": "Founded in:",
+    "organization_type": "Organization type",
+    "team_size": "Team size",
+    "industry_types": "Industry types",
+    "contact_information": "Contact Information",
+    "website": "Website",
+    "phone": "Phone",
+    "email": "Email",
+    "open_position": "Open Position"
   }
 }
