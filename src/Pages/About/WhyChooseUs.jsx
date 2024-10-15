@@ -1,78 +1,66 @@
+import { t } from "i18next";
+
 const WhyChooseUs = () => {
   return (
     <section>
       <div className="container mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold text-black">Why Choose Us?</h2>
+        <h2 className="text-4xl font-bold text-black">{t("why_choose_us")}</h2>
         <p className="mt-4 text-lg text-gray-600 mx-auto">
-          We are a platform designed to make the hiring and job-seeking process
-          effortless for everyone. Here’s why you should choose{" "}
-          <strong>Jobify</strong>.
+          {t("why_choose_us_description")} <strong>Jobify</strong>.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
           <div className="p-6 bg-white rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl">
             <h3 className="text-2xl font-semibold text-black">
-              Experienced Professionals
+              {t("experienced_professionals")}
             </h3>
             <p className="mt-4 text-gray-600">
-              Our team is comprised of industry experts with years of experience
-              in recruitment and technology, ensuring you receive the best
-              possible support.
+              {t("experienced_professionals_description")}
             </p>
           </div>
 
           <div className="p-6 bg-white rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl">
             <h3 className="text-2xl font-semibold text-black">
-              Cutting-Edge Technology
+              {t("cutting_edge_technology")}
             </h3>
             <p className="mt-4 text-gray-600">
-              We use advanced algorithms and AI-powered tools to match
-              candidates with the right job opportunities, making the process
-              faster and more efficient.
+              {t("cutting_edge_technology_description")}
             </p>
           </div>
 
           <div className="p-6 bg-white rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl">
             <h3 className="text-2xl font-semibold text-black">
-              User-Centric Approach
+              {t("user_centric_approach")}
             </h3>
             <p className="mt-4 text-gray-600">
-              At Jobify, we prioritize user experience, ensuring our platform is
-              easy to navigate and tailored to meet the needs of both job
-              seekers and employers.
+              {t("user_centric_approach_description")}
             </p>
           </div>
 
           <div className="p-6 bg-white rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl">
             <h3 className="text-2xl font-semibold text-black">
-              Innovation & Growth
+              {t("innovation_growth")}
             </h3>
             <p className="mt-4 text-gray-600">
-              We continuously update our platform with the latest features to
-              stay ahead of industry trends and meet the evolving needs of the
-              market.
+              {t("innovation_growth_description")}
             </p>
           </div>
 
           <div className="p-6 bg-white rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl">
             <h3 className="text-2xl font-semibold text-black">
-              Trusted by Industry Leaders
+              {t("trusted_by_industry_leaders")}
             </h3>
             <p className="mt-4 text-gray-600">
-              Top companies and organizations trust us to provide them with
-              high-quality candidates, making Jobify a trusted partner in the
-              recruitment process.
+              {t("trusted_by_industry_leaders_description")}
             </p>
           </div>
 
           <div className="p-6 bg-white rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl">
             <h3 className="text-2xl font-semibold text-black">
-              Comprehensive Job Solutions
+              {t("comprehensive_job_solutions")}
             </h3>
             <p className="mt-4 text-gray-600">
-              Whether you're an employer or a job seeker, we offer solutions
-              tailored to your needs, helping you find the best match quickly
-              and effectively.
+              {t("comprehensive_job_solutions_description")}
             </p>
           </div>
         </div>
