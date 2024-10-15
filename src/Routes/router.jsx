@@ -1,12 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import Main from "../Layout/Main";
-import RouteNotFound from "../Pages/RouteNotFound";
+import RouteNotFound from "./RouteNotFound";
 
 import Home from "../Pages/Home";
 import Candidates from "../Pages/Candidates/Candidates";
 
-import Home from "../Pages/Home/Home";
 import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
 
