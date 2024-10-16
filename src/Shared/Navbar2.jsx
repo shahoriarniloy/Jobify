@@ -218,9 +218,12 @@ const Navbar2 = () => {
               </label>
               <input
                 type="text"
+
+                value={currentUser?.displayName}
                 placeholder={t("type_name")}
+
                 className="input input-bordered"
-                required
+                disabled
               />
             </div>
             <div className="form-control">

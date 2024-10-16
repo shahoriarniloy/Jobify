@@ -76,16 +76,16 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                 <Tab
                   className={`pb-2 cursor-pointer ${
                     selectedIndex === 0
-                      ? "border-b-2 border-blue-500 text-blue-500"
+                      ? "border-b-4"
                       : "text-gray-700"
                   }`}
                 >
                   Employee
                 </Tab>
                 <Tab
-                  className={`pb-2 cursor-pointer ${
+                  className={`pb- cursor-pointer ${
                     selectedIndex === 1
-                      ? "border-b-2 border-blue-500 text-blue-500"
+                      ? "border-b-4"
                       : "text-gray-700"
                   }`}
                 >
