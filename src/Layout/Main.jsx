@@ -22,16 +22,13 @@ const Main = () => {
 
   return (
     <div
-      className={`roboto-regular ${
-        theme === "dark" ? "bg-[#1E1E1E] text-white" : "bg-white text-black"
-      }`}
+      className={`roboto-regular ${theme === "dark" ? "bg-[#1E1E1E] text-white" : "bg-white text-black"
+        }`}
     >
-      <div className="">
-        <Navbar2 />
-      </div>
+      <Navbar2 />
       <Navbar />
 
-      <div className="lg:px-24 md:px-6 px-4 ">
+      <div className="container mx-auto">
         <div className="mt-4">
           <Outlet />
         </div>

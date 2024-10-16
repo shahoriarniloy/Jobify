@@ -38,7 +38,8 @@ const Navbar2 = () => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    // const socket = io("http://localhost:5000");
+    const socket = io("https://jobify-server-ujo0.onrender.com");
 
     socket.on("jobPosted", (notification) => {
       setJobNotifications((prev) => [...prev, notification]);
@@ -123,7 +124,7 @@ const Navbar2 = () => {
         theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
       }
     >
-      <div className="lg:px-24 md:px-6 px-4">
+      <div className="container mx-auto">
         <div className="navbar pt-2">
           <div className="navbar-start">
             <div className="flex items-center gap-2 text-[#0a65cc]">
@@ -133,7 +134,7 @@ const Navbar2 = () => {
               </Link>
             </div>
           </div>
-          <div className="navbar-end">
+          <div className="navbar-end gap-3">
             {/* Language Switcher */}
             <div className="text-sm text-black">
               <select
@@ -160,10 +161,9 @@ const Navbar2 = () => {
               </button>
 
               {/* Notifications Bell Icon */}
-              <div className="relative">
+              <div className="relative rounded-full p-2 hover:bg-[#e7f0fa]">
                 <FaBell
-                  style={{ color: "#0a65cc" }}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-[#0a65cc]"
                   onClick={handleModalToggle}
                 />
                 {jobNotifications.length > 0 && (
