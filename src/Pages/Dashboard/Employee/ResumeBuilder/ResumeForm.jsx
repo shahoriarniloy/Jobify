@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import "./resume.css";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const predefinedSkills = [
   // Frontend Development
@@ -538,7 +539,7 @@ const ResumeForm = () => {
       );
       if (resumeResponse.status === 200) {
         const resumeData = resumeResponse.data;
-        console.log(resumeData);
+
         setFormData({
           ...formData,
           ...resumeData,
@@ -549,7 +550,7 @@ const ResumeForm = () => {
 
         if (userResponse.status === 200) {
           const userData = userResponse.data;
-          console.log(userData);
+
           setFormData({
             ...formData,
             name: currentUser.displayName,
@@ -561,7 +562,7 @@ const ResumeForm = () => {
         }
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+
     }
   };
 
@@ -669,15 +670,16 @@ const ResumeForm = () => {
         name: currentUser.displayName,
       };
 
-      console.log("Form data being sent:", updatedFormData);
 
       const response = await axiosSecure.post(
         "/createOrUpdateResume",
         updatedFormData
       );
-      console.log("Resume created successfully", response.data);
+
+      toast.success("Resume Informations Updated");
+
     } catch (error) {
-      console.error("Error creating resume", error);
+      toast.error("Failed Saving Resume Information");
     }
   };
 

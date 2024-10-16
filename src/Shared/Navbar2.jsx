@@ -250,7 +250,8 @@ const Navbar2 = () => {
                             <>
                               <li>
                                 <Link
-                                  to="/jobSeeker-dashboard"
+                                  to="jobSeeker/overview"
+
                                   className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                   onClick={() => setIsMenuOpen(false)}
                                 >
