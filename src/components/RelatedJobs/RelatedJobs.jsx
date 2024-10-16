@@ -25,7 +25,7 @@ const RelatedJobs = ({ job, title }) => {
           setJobs(response.data.jobs);
           setTotalPages(response.data.totalPages);
         } catch (error) {
-          console.error("Error fetching job data:", error);
+          // console.error("Error fetching job data:", error);
         } finally {
           setLoading(false); // Stop loading after fetching
         }

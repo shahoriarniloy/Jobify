@@ -24,7 +24,7 @@ const UserInfo = () => {
       try {
         const response = await axiosSecure.get(`/users/${currentUser?.email}`);
         const userData = response.data;
-        console.log(userData);
+        // console.log(userData);
 
         if (userData && userData.userInfo && userData.userInfo.length > 0) {
           setAbout(userData?.userInfo[0]?.about || "");
@@ -32,7 +32,7 @@ const UserInfo = () => {
           setSocialLinks(userData?.userInfo[0]?.socialLinks || "");
         }
       } catch (error) {
-        console.error("Error fetching user info:", error);
+        // console.error("Error fetching user info:", error);
       }
     };
 
@@ -92,7 +92,7 @@ const UserInfo = () => {
       await axiosSecure.post("/userInfo-updating", postData);
       toast.success("Profile saved successfully");
     } catch (error) {
-      console.error("Error submitting profile:", error);
+      // console.error("Error submitting profile:", error);
     } finally {
       setLoading(false);
     }
