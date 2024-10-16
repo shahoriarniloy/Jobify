@@ -20,6 +20,7 @@ import {
 import { MdAddCircleOutline, MdOutlineCancel } from "react-icons/md";
 import { useSelector } from "react-redux";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
+import { toast } from "react-toastify";
 
 const SocialMediaProfile = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -112,7 +113,7 @@ const SocialMediaProfile = () => {
         socialMediaLinks: socialMediaLinks,
       });
 
-      console.log("Links saved successfully:", response.data);
+      toast.success("Social Info Saved");
       setSubmittedLinks(fields);
     } catch (error) {
       console.error("Error saving links:", error);

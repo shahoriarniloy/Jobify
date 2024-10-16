@@ -1,13 +1,5 @@
-import { Fragment, useState } from "react";
+import { useState, Fragment } from "react";
 import {
-  Listbox,
-  ListboxButton,
-  ListboxOption,
-  ListboxOptions,
-  Transition,
-} from "@headlessui/react";
-import {
-  FaChevronDown,
   FaFacebook,
   FaInstagram,
   FaLinkedin,
@@ -17,9 +9,16 @@ import {
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  Transition,
+} from "@headlessui/react"; // Ensure you have these imports
 import { MdAddCircleOutline, MdOutlineCancel } from "react-icons/md";
 
-const SocialMediaProfileForEmployee = () => {
+const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
   const socialOptions = [
     { name: "Facebook", icon: <FaFacebook />, value: "facebook" },
     { name: "Twitter", icon: <FaTwitter />, value: "twitter" },
@@ -32,7 +31,6 @@ const SocialMediaProfileForEmployee = () => {
   ];
 
   const [fields, setFields] = useState([{ socialMedia: "", link: "" }]);
-  const [submittedLinks, setSubmittedLinks] = useState([]);
 
   // Add new input field
   const addField = () => {
@@ -62,21 +60,9 @@ const SocialMediaProfileForEmployee = () => {
     setFields(updatedFields);
   };
 
-  // Get options for each dropdown (hide already selected options)
-  const getAvailableOptions = (selectedSocialMedia) => {
-    return socialOptions.filter(
-      (option) =>
-        !fields.some(
-          (field) =>
-            field.socialMedia === option.value &&
-            field.socialMedia !== selectedSocialMedia
-        )
-    );
-  };
-
   // Handle save changes
   const handleSaveChanges = () => {
-    setSubmittedLinks(fields);
+    setSocialLinks(fields);
   };
 
   return (
@@ -84,117 +70,91 @@ const SocialMediaProfileForEmployee = () => {
       <form>
         <h3 className="text-lg font-medium mb-2">Your Social Media Profile</h3>
         {fields.map((field, index) => (
-          <div key={index}>
-            <label className="text-sm" htmlFor={`Social Link ${index + 1}`}>{`Social Link ${index + 1
-              }`}</label>
-            <div className="flex justify-between items-center my-2 ">
-              <div className="md:flex items-center border rounded w-full ">
-                {/* Headless UI Dropdown Menu (Listbox) */}
-                <Listbox
-                  value={field.socialMedia}
-                  onChange={(value) => handleSelectChange(index, value)}
+          <div key={index} className="flex items-center mb-3">
+            <Listbox
+              value={field.socialMedia}
+              onChange={(value) => handleSelectChange(index, value)}
+            >
+              <div className="relative w-1/3">
+                <ListboxButton className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
+                  <span className="block text-sm truncate">
+                    {field.socialMedia
+                      ? socialOptions.find(
+                          (option) => option.value === field.socialMedia
+                        )?.name
+                      : "Select Social Media"}
+                  </span>
+                </ListboxButton>
+                <Transition
+                  as={Fragment}
+                  leave="transition ease-in duration-100"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
                 >
-                  <div className="relative md:w-2/5 w-full">
-                    <ListboxButton className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
-                      {/* Show Name */}
-                      <span className="block text-sm truncate">
-                        {field.socialMedia
-                          ? socialOptions.find(
-                            (option) => option.value === field.socialMedia
-                          )?.name
-                          : "Select Social Media"}
-                      </span>
-
-                      {/* Show Icon */}
-                      {field.socialMedia && (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                          {
-                            socialOptions.find(
-                              (option) => option.value === field.socialMedia
-                            )?.icon
+                  <ListboxOptions className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+                    {socialOptions
+                      .filter(
+                        (option) =>
+                          !fields.some(
+                            (field) => field.socialMedia === option.value
+                          ) || option.value === field.socialMedia
+                      )
+                      .map((option) => (
+                        <ListboxOption
+                          key={option.value}
+                          className={({ active }) =>
+                            `cursor-default select-none relative py-2 pl-10 pr-4 ${
+                              active
+                                ? "text-blue-900 bg-blue-100"
+                                : "text-gray-900"
+                            }`
                           }
-                        </span>
-                      )}
-
-                      {/* Down Arrow Icon */}
-                      <span className="absolute inset-y-0 right-0 flex items-center pr-3">
-                        <FaChevronDown />
-                      </span>
-                    </ListboxButton>
-
-                    <Transition
-                      as={Fragment}
-                      leave="transition ease-in duration-100"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                    >
-                      <ListboxOptions className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-                        {getAvailableOptions(field.socialMedia).map(
-                          (option) => (
-                            <ListboxOption
-                              key={option.value}
-                              className={({ active }) =>
-                                `cursor-default select-none relative py-2 pl-10 pr-4 ${active
-                                  ? "text-blue-900 bg-blue-100"
-                                  : "text-gray-900"
-                                }`
-                              }
-                              value={option.value}
-                            >
-                              {({ selected }) => (
-                                <div className="flex items-center">
-                                  <span className="mr-2">{option.icon}</span>
-                                  <span
-                                    className={`block truncate ${selected ? "font-medium" : "font-normal"
-                                      }`}
-                                  >
-                                    {option.name}
-                                  </span>
-                                </div>
-                              )}
-                            </ListboxOption>
-                          )
-                        )}
-                      </ListboxOptions>
-                    </Transition>
-                  </div>
-                </Listbox>
-
-                {/* Vertical line for medium and larger screens */}
-                <div className="hidden md:block border-l-2 border-gray-300 h-5"></div>
-
-                {/* Horizontal line for small screens */}
-                <hr className="block md:hidden border-gray-300 w-full my-2" />
-
-                {/* URL Input Field */}
-                <input
-                  type="url"
-                  placeholder="Profile link/url..."
-                  className="h-10 p-2 w-full"
-                  value={field.link}
-                  onChange={(e) => handleInputChange(index, e.target.value)}
-                />
+                          value={option.value}
+                        >
+                          {({ selected }) => (
+                            <div className="flex items-center">
+                              <span className="mr-2">{option.icon}</span>
+                              <span
+                                className={`block truncate ${
+                                  selected ? "font-medium" : "font-normal"
+                                }`}
+                              >
+                                {option.name}
+                              </span>
+                            </div>
+                          )}
+                        </ListboxOption>
+                      ))}
+                  </ListboxOptions>
+                </Transition>
               </div>
-              {/* Cancel/Remove Button */}
-              <button
-                type="button"
-                className="ml-3 text-xl bg-gray-100 p-3 rounded hover:bg-red-500 hover:text-white"
-                onClick={() => removeField(index)}
-              >
-                <MdOutlineCancel />
-              </button>
-            </div>
+            </Listbox>
+
+            <input
+              type="url"
+              placeholder="Profile link/url..."
+              className="h-10 p-2 w-2/3 ml-2 border rounded"
+              value={field.link}
+              onChange={(e) => handleInputChange(index, e.target.value)}
+            />
+            <button
+              type="button"
+              className="ml-2 text-xl bg-gray-100 p-2 rounded hover:bg-red-500 hover:text-white"
+              onClick={() => removeField(index)}
+            >
+              <MdOutlineCancel />
+            </button>
           </div>
         ))}
 
         <div className="flex items-center gap-5 mt-7">
-          {/* Add New Social Link Button */}
           <button
             type="button"
-            className={`flex items-center text-sm justify-center gap-2 font-semibold px-2 py-4 rounded w-full ${fields.length === socialOptions.length
+            className={`flex items-center text-sm justify-center gap-2 font-semibold px-2 py-4 rounded w-full ${
+              fields.length === socialOptions.length
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-gray-100 hover:bg-blue-500 hover:text-white"
-              }`}
+            }`}
             onClick={addField}
             disabled={fields.length === socialOptions.length}
           >
@@ -202,7 +162,6 @@ const SocialMediaProfileForEmployee = () => {
             Add New Social Link
           </button>
 
-          {/* Save button */}
           <button
             type="button"
             className="btn btn-outline hover:border-none hover:bg-blue-500 hover:text-white rounded-lg w-full md:w-auto"
@@ -217,7 +176,7 @@ const SocialMediaProfileForEmployee = () => {
       <div className="mt-6">
         <h3 className="text-sm font-semibold">Submitted Social Links:</h3>
         <ul>
-          {submittedLinks.map((field, index) => (
+          {socialLinks.map((field, index) => (
             <li key={index} className="flex items-center">
               {field.socialMedia && (
                 <span className="mr-2">

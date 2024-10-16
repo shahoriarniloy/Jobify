@@ -205,7 +205,7 @@ export const router = createBrowserRouter([
           },
 
           {
-            path: "companySettings",
+            path: "company-settings",
             element: <CompanySettings />,
           },
         ],
