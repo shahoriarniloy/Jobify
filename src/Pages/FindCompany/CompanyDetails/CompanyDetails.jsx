@@ -15,11 +15,12 @@ import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import OpenPosition from "../../../components/OpenPositions/OpenPositions";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
   const { companyId } = useParams();
+  const { t } = useTranslation(); // Initialize the translation function
 
   const { _id, email } = company;
 
@@ -160,32 +161,48 @@ const CompanyDetails = () => {
           <div className="p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
             <div>
               <FiCalendar className="text-2xl text-blue-500" />
-              <p className="text-gray-500 mt-2">{t("CompanyDetails.founded_in")}</p>
+              <p className="text-gray-500 mt-2">
+                {t("CompanyDetails.founded_in")}
+              </p>
               <p className="font-bold text-sm">{company?.founded_date}</p>
             </div>
             <div>
               <BiStopwatch className="text-2xl text-blue-500" />
-              <p className="text-gray-500 mt-2">{t("CompanyDetails.organization_type")}</p>
-              <p className="font-bold text-sm">{company?.company_type} {t("CompanyDetails.company")}</p>
+              <p className="text-gray-500 mt-2">
+                {t("CompanyDetails.organization_type")}
+              </p>
+              <p className="font-bold text-sm">
+                {company?.company_type} {t("CompanyDetails.company")}
+              </p>
             </div>
             <div>
               <PiWallet className="text-2xl text-blue-500" />
-              <p className="text-gray-500 mt-2">{t("CompanyDetails.team_size")}</p>
-              <p className="font-bold text-sm">{company?.company_size} {t("CompanyDetails.candidates")}</p>
+              <p className="text-gray-500 mt-2">
+                {t("CompanyDetails.team_size")}
+              </p>
+              <p className="font-bold text-sm">
+                {company?.company_size} {t("CompanyDetails.candidates")}
+              </p>
             </div>
             <div>
               <PiBriefcase className="text-2xl text-blue-500" />
-              <p className="text-gray-500 mt-2">{t("CompanyDetails.industry_types")}</p>
+              <p className="text-gray-500 mt-2">
+                {t("CompanyDetails.industry_types")}
+              </p>
               <p className="font-bold text-sm">{company?.industry}</p>
             </div>
           </div>
           <div className="p-4 md:p-8 border-2 rounded-lg md:my-6">
-            <h2 className="font-bold text-xl md:text-2xl">{t("CompanyDetails.contact_information")}</h2>
+            <h2 className="font-bold text-xl md:text-2xl">
+              {t("CompanyDetails.contact_information")}
+            </h2>
             <div className="flex items-center my-5">
               <FiGlobe className="text-3xl text-blue-500" />
               <div className="ml-4">
                 <p className="text-gray-500">{t("CompanyDetails.website")}</p>
-                <p className="text-black font-bold">{company?.company_website}</p>
+                <p className="text-black font-bold">
+                  {company?.company_website}
+                </p>
               </div>
             </div>
             <hr />
@@ -207,8 +224,11 @@ const CompanyDetails = () => {
           </div>
         </div>
       </div>
-      
-      <OpenPosition title={t("CompanyDetails.open_position")} email={company?.email} />
+
+      <OpenPosition
+        title={t("CompanyDetails.open_position")}
+        email={company?.email}
+      />
     </div>
   );
 };

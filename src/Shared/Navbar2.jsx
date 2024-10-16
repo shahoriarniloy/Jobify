@@ -16,6 +16,7 @@ import { logOut as logOutAction } from "../Redux/userSlice";
 import { toggleTheme } from "../Redux/themeSlice";
 import { useTranslation } from "react-i18next";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { switchLanguage } from "../Redux/languageSlice";
 
 const Navbar2 = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -29,7 +30,8 @@ const Navbar2 = () => {
   const [roomID, setRoomID] = useState();
   const { role } = useUserRole();
   const menuRef = useRef(null);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const currentLanguage = useSelector((state) => state.language.language);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -63,12 +65,17 @@ const Navbar2 = () => {
   }, []);
 
   // Language Switcher functions
-  const changeLanguage = (lang) => {
-    i18n.changeLanguage(lang);
+  const handleLanguageChange = (e) => {
+    const selectedLanguage = e.target.value;
+    dispatch(switchLanguage(selectedLanguage));
   };
 
   return (
-    <div className={theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}>
+    <div
+      className={
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
+      }
+    >
       <div className="lg:px-24 md:px-6 px-4">
         <div className="navbar pt-2">
           <div className="navbar-start">
@@ -83,10 +90,12 @@ const Navbar2 = () => {
             {/* Language Switcher */}
             <div>
               <select
-                onChange={(e) => changeLanguage(e.target.value)}
-                defaultValue={i18n.language}
+                onChange={handleLanguageChange}
+                value={currentLanguage}
                 className={`py-1 px-2 rounded-md transition-colors duration-300 ${
-                  theme === "dark" ? "bg-gray-800 text-white border-gray-600" : "bg-white text-black border-gray-300"
+                  theme === "dark"
+                    ? "bg-gray-800 text-white border-gray-600"
+                    : "bg-white text-black border-gray-300"
                 }`}
               >
                 <option value="en">{t("english")}</option>
@@ -102,13 +111,19 @@ const Navbar2 = () => {
                 <>
                   <div className="relative flex items-center gap-4">
                     <img
-                      src={currentUser?.photoURL || "https://via.placeholder.com/150"}
+                      src={
+                        currentUser?.photoURL ||
+                        "https://via.placeholder.com/150"
+                      }
                       alt={t("user_profile")}
                       className="w-10 h-10 rounded-full cursor-pointer"
                       onClick={toggleMenu}
                     />
                     {isMenuOpen && (
-                      <div ref={menuRef} className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+                      <div
+                        ref={menuRef}
+                        className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"
+                      >
                         <ul className="py-1 text-gray-700">
                           {role === "Job Seeker" && (
                             <>
@@ -202,12 +217,26 @@ const Navbar2 = () => {
           </div>
         </div>
 
-        <Modal open={loginModalOpen} onClose={() => setLoginModalOpen(false)} center>
-          <Login setSignUpModalOpen={setSignUpModalOpen} setLoginModalOpen={setLoginModalOpen} />
+        <Modal
+          open={loginModalOpen}
+          onClose={() => setLoginModalOpen(false)}
+          center
+        >
+          <Login
+            setSignUpModalOpen={setSignUpModalOpen}
+            setLoginModalOpen={setLoginModalOpen}
+          />
         </Modal>
 
-        <Modal open={signUpModalOpen} onClose={() => setSignUpModalOpen(false)} center>
-          <Register setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen} />
+        <Modal
+          open={signUpModalOpen}
+          onClose={() => setSignUpModalOpen(false)}
+          center
+        >
+          <Register
+            setLoginModalOpen={setLoginModalOpen}
+            setSignUpModalOpen={setSignUpModalOpen}
+          />
         </Modal>
 
         <Modal open={roomModal} onClose={() => setRoomModal(false)}>
