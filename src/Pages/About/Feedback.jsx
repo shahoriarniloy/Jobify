@@ -80,7 +80,7 @@ const Feedback = () => {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center mb-12 lg:mt-36 ">
+      <h1 className="text-4xl font-bold text-center mb-12 lg:mt-24 ">
         Feedback
       </h1>
 
@@ -162,7 +162,9 @@ const Feedback = () => {
                 </div>
                 <div className="chat-bubble bg-white text-black w-full">
                   <h3 className="font-bold">{review.username}</h3>
-                  <p>{review.feedback}</p>
+                  <p className="text-base text-gray-700 md:text-sm">
+                    {review.feedback}
+                  </p>
                   <div className="flex mt-2">
                     {[...Array(review.rating)].map((_, i) => (
                       <svg
