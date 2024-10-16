@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 const PostJob = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
+
   const [jobData, setJobData] = useState({
     title: "",
     company: "",
@@ -20,6 +21,29 @@ const PostJob = () => {
     jobDescription: "",
     responsibilities: [],
   });
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axiosSecure.get(
+          `/companies/${currentUser.email}`
+        );
+
+        const userData = response.data;
+
+        if (userData) {
+          setJobData((prevJobData) => ({
+            ...prevJobData,
+            company: userData.company_name,
+          }));
+        }
+      } catch (error) {
+        // console.error("Error fetching user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, [currentUser.email]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -99,7 +123,8 @@ const PostJob = () => {
                     value={jobData.title}
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                    placeholder="Add job title, role, vacancies etc"
+                    placeholder="Add job title"
+                    required
                   />
                 </div>
 
@@ -112,12 +137,14 @@ const PostJob = () => {
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                     placeholder="Company name"
+                    disabled
                   />
                 </div>
 
                 <div className="md:col-span-2">
                   <label htmlFor="experience">Experience</label>
                   <select
+                    required
                     name="experience"
                     value={jobData.experience}
                     onChange={handleChange}
@@ -140,6 +167,7 @@ const PostJob = () => {
                     <div className="w-1/3">
                       <label htmlFor="salaryRange">Salary Range</label>
                       <select
+                        required
                         name="salaryRange"
                         value={jobData.salaryRange}
                         onChange={handleChange}
@@ -166,6 +194,7 @@ const PostJob = () => {
                         onChange={handleChange}
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                         placeholder="Location"
+                        required
                       />
                     </div>
 
@@ -178,6 +207,7 @@ const PostJob = () => {
                         onChange={handleChange}
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                         placeholder="Number of vacancies"
+                        required
                         min="1"
                       />
                     </div>
@@ -188,6 +218,7 @@ const PostJob = () => {
                   <div>
                     <label htmlFor="jobLevel">Job Level</label>
                     <select
+                      required
                       name="jobLevel"
                       value={jobData.jobLevel}
                       onChange={handleChange}
@@ -208,6 +239,7 @@ const PostJob = () => {
                       value={jobData.deadline}
                       onChange={handleChange}
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                      required
                     />
                   </div>
                 </div>
@@ -217,6 +249,7 @@ const PostJob = () => {
                     <div className="w-1/3">
                       <label htmlFor="education">Education</label>
                       <select
+                        required
                         name="education"
                         value={jobData.education}
                         onChange={handleChange}
@@ -233,6 +266,7 @@ const PostJob = () => {
                     <div className="w-1/3">
                       <label htmlFor="jobType">Job Type</label>
                       <select
+                        required
                         name="jobType"
                         value={jobData.jobType}
                         onChange={handleChange}
@@ -259,6 +293,7 @@ const PostJob = () => {
                     onChange={handleChange}
                     className="h-20 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                     placeholder="Enter job description"
+                    required
                   />
                 </div>
 
@@ -272,6 +307,7 @@ const PostJob = () => {
                     onChange={handleChange}
                     className="h-20 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                     placeholder="Enter job responsibilities (e.g., Collect and test water samples)"
+                    required
                   />
                 </div>
 

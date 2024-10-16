@@ -5,6 +5,7 @@ import DragAndDropInput from "../../../../Employee/Components/DragAndDropInput";
 import { useSelector } from "react-redux";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const CompanyInfo = () => {
   const [companyName, setCompanyName] = useState("");
@@ -27,7 +28,7 @@ const CompanyInfo = () => {
           setAboutUs(userData?.company_description || "");
         }
       } catch (error) {
-        console.error("Error fetching user info:", error);
+        // console.error("Error fetching user info:", error);
       }
     };
 
@@ -90,14 +91,13 @@ const CompanyInfo = () => {
       };
 
       const response = await axiosSecure.post("/companyInfo", companyData);
-      console.log("Company info saved:", response.data);
-
+      toast.success("Company Info Saved");
       setCompanyName("");
       setAboutUs("");
       setLogoFile(null);
       setBannerFile(null);
     } catch (error) {
-      console.error("Error saving company info:", error);
+      // console.error("Error saving company info:", error);
     } finally {
       setIsLoading(false);
     }

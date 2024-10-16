@@ -34,7 +34,7 @@ const Resume = () => {
         setResumeData(response?.data);
       } catch (err) {
         setError("Error fetching resume data");
-        console.error(err);
+        // console.error(err);
       }
     };
 
