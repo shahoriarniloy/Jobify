@@ -14,6 +14,7 @@ import { MdOutlineVideoCall } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut as logOutAction } from "../Redux/userSlice";
 import { toggleTheme } from "../Redux/themeSlice";
+import { useTranslation } from "react-i18next";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar2 = () => {
@@ -28,7 +29,7 @@ const Navbar2 = () => {
   const [roomID, setRoomID] = useState();
   const { role } = useUserRole();
   const menuRef = useRef(null);
-  console.log(currentUser)
+  const { t, i18n } = useTranslation();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -61,23 +62,38 @@ const Navbar2 = () => {
     };
   }, []);
 
+  // Language Switcher functions
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   return (
-    <div
-      className={
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
-      }
-    >
+    <div className={theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"}>
       <div className="lg:px-24 md:px-6 px-4">
         <div className="navbar pt-2">
           <div className="navbar-start">
             <div className="flex items-center gap-2 text-[#0a65cc]">
               <PiBag className="w-6 h-6" />
               <Link to="/" className="text-xl font-bold">
-                Jobify
+                {t("Jobify")}
               </Link>
             </div>
           </div>
           <div className="navbar-end">
+            {/* Language Switcher */}
+            <div>
+              <select
+                onChange={(e) => changeLanguage(e.target.value)}
+                defaultValue={i18n.language}
+                className={`py-1 px-2 rounded-md transition-colors duration-300 ${
+                  theme === "dark" ? "bg-gray-800 text-white border-gray-600" : "bg-white text-black border-gray-300"
+                }`}
+              >
+                <option value="en">{t("english")}</option>
+                <option value="bn">{t("bangla")}</option>
+              </select>
+            </div>
+
             <div className="flex gap-4 lg:gap-5 items-center">
               <button onClick={handleThemeToggle} className="p-2">
                 {theme === "light" ? <FaMoon /> : <FaSun />}
@@ -86,19 +102,13 @@ const Navbar2 = () => {
                 <>
                   <div className="relative flex items-center gap-4">
                     <img
-                      src={
-                        currentUser?.photoURL ||
-                        "https://via.placeholder.com/150"
-                      }
-                      alt="User Profile"
+                      src={currentUser?.photoURL || "https://via.placeholder.com/150"}
+                      alt={t("user_profile")}
                       className="w-10 h-10 rounded-full cursor-pointer"
                       onClick={toggleMenu}
                     />
                     {isMenuOpen && (
-                      <div
-                        ref={menuRef}
-                        className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"
-                      >
+                      <div ref={menuRef} className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
                         <ul className="py-1 text-gray-700">
                           {role === "Job Seeker" && (
                             <>
@@ -109,7 +119,7 @@ const Navbar2 = () => {
                                   onClick={() => setIsMenuOpen(false)}
                                 >
                                   <FaBriefcase />
-                                  Applied Jobs
+                                  {t("applied_jobs")}
                                 </Link>
                                 <Link
                                   to="/favorite-jobs"
@@ -117,7 +127,7 @@ const Navbar2 = () => {
                                   onClick={() => setIsMenuOpen(false)}
                                 >
                                   <FaRegHeart />
-                                  Favorite Jobs
+                                  {t("favorite_jobs")}
                                 </Link>
                                 <Link
                                   to="/employee-settings"
@@ -125,7 +135,7 @@ const Navbar2 = () => {
                                   onClick={() => setIsMenuOpen(false)}
                                 >
                                   <IoSettingsOutline />
-                                  Profile Settings
+                                  {t("profile_settings")}
                                 </Link>
                               </li>
                             </>
@@ -138,7 +148,7 @@ const Navbar2 = () => {
                                 onClick={() => setIsMenuOpen(false)}
                               >
                                 <MdOutlineDashboardCustomize />
-                                Dashboard
+                                {t("dashboard")}
                               </Link>
                             </li>
                           )}
@@ -150,7 +160,7 @@ const Navbar2 = () => {
                                 onClick={() => setIsMenuOpen(false)}
                               >
                                 <MdOutlineDashboardCustomize />
-                                Dashboard
+                                {t("admin_dashboard")}
                               </Link>
                             </li>
                           )}
@@ -163,7 +173,7 @@ const Navbar2 = () => {
                               }}
                             >
                               <MdOutlineVideoCall className="text-xl" />
-                              Join Call
+                              {t("join_call")}
                             </Link>
                           </li>
                           <li>
@@ -172,7 +182,7 @@ const Navbar2 = () => {
                               className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2 w-full"
                             >
                               <MdLogout />
-                              Logout
+                              {t("logout")}
                             </button>
                           </li>
                         </ul>
@@ -185,56 +195,45 @@ const Navbar2 = () => {
                   onClick={() => setLoginModalOpen(true)}
                   className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-lg text-blue-500 border border-blue-400"
                 >
-                  Join Us
+                  {t("join_us")}
                 </button>
               )}
             </div>
           </div>
         </div>
 
-        <Modal
-          open={loginModalOpen}
-          onClose={() => setLoginModalOpen(false)}
-          center
-        >
-          <Login
-            setSignUpModalOpen={setSignUpModalOpen}
-            setLoginModalOpen={setLoginModalOpen}
-          />
+        <Modal open={loginModalOpen} onClose={() => setLoginModalOpen(false)} center>
+          <Login setSignUpModalOpen={setSignUpModalOpen} setLoginModalOpen={setLoginModalOpen} />
         </Modal>
 
-        <Modal
-          open={signUpModalOpen}
-          onClose={() => setSignUpModalOpen(false)}
-          center
-        >
-          <Register
-            setLoginModalOpen={setLoginModalOpen}
-            setSignUpModalOpen={setSignUpModalOpen}
-          />
+        <Modal open={signUpModalOpen} onClose={() => setSignUpModalOpen(false)} center>
+          <Register setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen} />
         </Modal>
 
         <Modal open={roomModal} onClose={() => setRoomModal(false)}>
           <div className="card w-full max-w-sm">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Enter Your Name</span>
+                <span className="label-text">{t("enter_your_name")}</span>
               </label>
               <input
                 type="text"
+
                 value={currentUser?.displayName}
+                placeholder={t("type_name")}
+
                 className="input input-bordered"
                 disabled
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Room ID</span>
+                <span className="label-text">{t("room_id")}</span>
               </label>
               <input
                 type="text"
                 onChange={(e) => setRoomID(e.target.value)}
-                placeholder="Type room id"
+                placeholder={t("type_room_id")}
                 className="input input-bordered"
                 required
               />
@@ -245,7 +244,7 @@ const Navbar2 = () => {
                 onClick={handleJoinRoom}
                 className="btn btn-primary"
               >
-                Join Now
+                {t("join_now")}
               </button>
             </div>
           </div>
