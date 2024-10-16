@@ -187,10 +187,10 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end relative">
-          <FaBell className="cursor-pointer" onClick={toggleModal} />
+          {/* <FaBell className="cursor-pointer" onClick={toggleModal} />
           {jobNotifications.length > 0 && (
             <div className="notification-count">{jobNotifications.length}</div>
-          )}
+          )} */}
 
           {isModalOpen && (
             <div
@@ -199,14 +199,13 @@ const Navbar = () => {
             >
               <h2 className="text-lg font-bold mb-4">Notifications</h2>
 
-              {/* Mark all as read button */}
               {jobNotifications.length > 0 && (
                 <div className="flex justify-between items-center mb-4">
                   <p className="text-sm">
                     You have {jobNotifications.length} notifications
                   </p>
                   <button
-                    onClick={() => setJobNotifications([])} // Clear all notifications
+                    onClick={() => setJobNotifications([])}
                     className="text-blue-600 text-sm hover:underline"
                   >
                     Mark all as read
