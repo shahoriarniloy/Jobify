@@ -5,6 +5,7 @@ import { MdHome, MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import useUserRole from "../../../Hooks/useUserRole";
 import { useSelector } from "react-redux";
+import { FiLayers } from "react-icons/fi";
 
 const EmployeeDashboard = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -44,6 +45,16 @@ const EmployeeDashboard = () => {
             <div className="space-y-2">
               {role === "Job Seeker" && (
                 <div>
+                  <NavLink
+                    to="/jobSeeker/overview"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "isActiveRoute"
+                        : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                    }
+                  >
+                    <FiLayers className="text-xl" /> Overview
+                  </NavLink>
                   <NavLink
                     to="/jobSeeker/appliedjobs"
                     className={({ isActive }) =>
