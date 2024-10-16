@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import instagram_logo from "../../assets/image/CompanyDetails/instagram_logo.png";
 import {
   FaFacebookF,
   FaLinkedin,

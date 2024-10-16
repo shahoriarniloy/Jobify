@@ -9,10 +9,10 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import auth from "../firebase/firebase.config";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser, logOut } from "../../../Redux/userSlice";
+import auth from "../Firebase/firebase.config";
 
 export const AuthContext = createContext(null);
 

@@ -48,6 +48,7 @@ import AllJobSeekers from "../Pages/Dashboard/Admin/AllJobSeekers";
 import AdminOverview from "../Pages/Dashboard/Admin/AdminOverview";
 import AdminLayout from "../Pages/Dashboard/Admin/AdminLayout";
 import Room from "../Pages/Room/Room";
+import Home from './../Pages/Home/Home';
 
 export const router = createBrowserRouter([
   {
