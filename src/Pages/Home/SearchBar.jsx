@@ -68,7 +68,7 @@ const SearchBar = () => {
             </div>
             <div className={ theme === "dark" ? "w-full bg-black rounded-lg shadow-md border border-black p-6 flex-1" : "w-full bg-white rounded-lg shadow-md border border-[#e4e5e8] p-6 flex-1"}>
               <form
-                className="flex flex-col sm:flex-row gap-4 sm:gap-2 border rounded-lg"
+                className="flex flex-col sm:flex-row gap-4 sm:gap-2  rounded-lg"
                 onSubmit={handleSearch}
               >
                 <div className="relative flex-1 ">
@@ -78,8 +78,10 @@ const SearchBar = () => {
                     placeholder="Job title, Company Name..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none
-                            focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                    className={ theme === "dark" ? 
+                      "w-full pl-12 pr-3 py-3 sm:py-4 bg-[#10101d] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out" : 
+                      "w-full pl-12 pr-3 py-3 sm:py-4 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out" 
+                  }
                   />
                 </div>
 
@@ -92,8 +94,12 @@ const SearchBar = () => {
                     placeholder="Location"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none
-                            focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                   className={ theme === "dark" ? 
+                      "w-full pl-12 pr-3 py-3 sm:py-4 bg-[#10101d] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out" : 
+                      "w-full pl-12 pr-3 py-3 sm:py-4 border bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out" 
+                  }
+                  
+
                   />
                 </div>
 
