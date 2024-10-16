@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,8 @@ const Navbar = () => {
   const [jobNotifications, setJobNotifications] = useState([]);
   const theme = useSelector((state) => state.theme.theme);
   const [socket, setSocket] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const currentUser = useSelector((state) => state.user.currentUser);
   const navItem = (
     <>
@@ -43,7 +45,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("find_company")}{" "}
+          {t("find_company")}
         </NavLink>
       </li>
       <li>
@@ -117,11 +119,16 @@ const Navbar = () => {
 
         setJobNotifications((prevNotifications) => [
           ...prevNotifications,
-          { title: data.jobTitle, company: data.company },
+          { title: data.jobTitle, company: data.company, jobId: data.jobId },
         ]);
       });
     }
   }, [socket, currentUser?.email]);
+
+  const toggleModal = () => {
+    console.log("Bell icon clicked! Modal state:", isModalOpen);
+    setIsModalOpen((prevState) => !prevState);
+  };
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
@@ -169,20 +176,74 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-1 z-[1] shadow bg-base-100 rounded-box w-52"
             >
-              {navItem}{" "}
+              {navItem}
             </ul>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="text-[#5E6670] gap-7 menu-horizontal px-1">
-            {navItem}{" "}
+            {navItem}
           </ul>
         </div>
 
-        <div className="navbar-end">
-          <FaBell />
+        <div className="navbar-end relative">
+          <FaBell className="cursor-pointer" onClick={toggleModal} />
           {jobNotifications.length > 0 && (
             <div className="notification-count">{jobNotifications.length}</div>
+          )}
+
+          {isModalOpen && (
+            <div
+              className="absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+              style={{ marginRight: "20px" }}
+            >
+              <h2 className="text-lg font-bold mb-4">Notifications</h2>
+
+              {/* Mark all as read button */}
+              {jobNotifications.length > 0 && (
+                <div className="flex justify-between items-center mb-4">
+                  <p className="text-sm">
+                    You have {jobNotifications.length} notifications
+                  </p>
+                  <button
+                    onClick={() => setJobNotifications([])} // Clear all notifications
+                    className="text-blue-600 text-sm hover:underline"
+                  >
+                    Mark all as read
+                  </button>
+                </div>
+              )}
+
+              {jobNotifications.length > 0 ? (
+                <ul className="text-sm">
+                  {jobNotifications.map((notification, index) => (
+                    <li
+                      key={index}
+                      className="py-2 text-gray-700 bg-bottom bg-slate-300 rounded-md p-4 mb-2"
+                    >
+                      <Link
+                        to={`/job/${notification.jobId}`}
+                        className="hover:underline"
+                      >
+                        <strong>'{notification.title}' position</strong> at{" "}
+                        <strong>{notification.company}</strong>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No notifications available</p>
+              )}
+
+              <div className="flex justify-end">
+                <button
+                  className="btn btn-primary mt-4"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           )}
         </div>
       </div>
