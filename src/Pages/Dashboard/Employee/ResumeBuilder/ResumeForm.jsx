@@ -391,6 +391,95 @@ const predefinedSkills = [
   "Zeplin",
 ];
 
+const languageList = [
+  "English",
+  "Spanish",
+  "Mandarin",
+  "Hindi",
+  "Bengali",
+  "Telugu",
+  "Marathi",
+  "Tamil",
+  "Gujarati",
+  "Kannada",
+  "Malayalam",
+  "Punjabi",
+  "Urdu",
+  "Arabic",
+  "Egyptian Arabic",
+  "Levantine Arabic",
+  "Maghrebi Arabic",
+  "Swahili",
+  "Hausa",
+  "Yoruba",
+  "Amharic",
+  "Zulu",
+  "Shona",
+  "French",
+  "German",
+  "Italian",
+  "Portuguese",
+  "Dutch",
+  "Greek",
+  "Swedish",
+  "Danish",
+  "Norwegian",
+  "Finnish",
+  "Polish",
+  "Czech",
+  "Slovak",
+  "Hungarian",
+  "Romanian",
+  "Bulgarian",
+  "Serbian",
+  "Croatian",
+  "Bosnian",
+  "Albanian",
+  "Ukrainian",
+  "Belarusian",
+  "Lithuanian",
+  "Latvian",
+  "Estonian",
+  "Russian",
+  "Kazakh",
+  "Uzbek",
+  "Tajik",
+  "Turkmen",
+  "Kyrgyz",
+  "Vietnamese",
+  "Thai",
+  "Lao",
+  "Khmer",
+  "Burmese",
+  "Malay",
+  "Indonesian",
+  "Tagalog",
+  "Korean",
+  "Japanese",
+  "Turkish",
+  "Azerbaijani",
+  "Persian",
+  "Pashto",
+  "Kurdish",
+  "Samoan",
+  "Tongan",
+  "Fijian",
+  "Maori",
+  "Hawaiian",
+  "Navajo",
+  "Quechua",
+  "Guarani",
+  "Hebrew",
+  "Georgian",
+  "Armenian",
+  "Mongolian",
+  "Sinhala",
+  "Nepali",
+  "Dzongkha",
+  "Tibetan",
+  "Malagasy",
+];
+
 const ResumeForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -417,6 +506,9 @@ const ResumeForm = () => {
   const [skillInput, setSkillInput] = useState("");
   const [skillSuggestions, setSkillSuggestions] = useState([]);
   const currentUser = useSelector((state) => state.user.currentUser);
+  const [languageInput, setLanguageInput] = useState("");
+  const [languageSuggestions, setLanguageSuggestions] = useState([]);
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -432,14 +524,77 @@ const ResumeForm = () => {
           userInfo,
         }));
       } catch (error) {
-        console.error("Error fetching user data", error);
+        // console.error("Error fetching user data", error);
       }
     };
     fetchUserData();
   }, []);
 
+  const fetchResumeOrUserData = async (email) => {
+    try {
+      // Fetch resume data using axiosSecure
+      const resumeResponse = await axiosSecure.get(
+        `/resume/${currentUser.email}`
+      );
+      if (resumeResponse.status === 200) {
+        const resumeData = resumeResponse.data;
+        console.log(resumeData);
+        setFormData({
+          ...formData,
+          ...resumeData,
+          languages: resumeData.languages || "",
+        });
+      } else {
+        const userResponse = await axiosSecure.get(`/users/${email}`);
+
+        if (userResponse.status === 200) {
+          const userData = userResponse.data;
+          console.log(userData);
+          setFormData({
+            ...formData,
+            name: currentUser.displayName,
+            phone: userData?.userInfo[0]?.phone,
+            email: currentUser.email,
+            linkedin: userData.linkedin,
+            github: userData.github,
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser?.email) {
+      fetchResumeOrUserData(currentUser.email);
+    }
+  }, [currentUser?.email]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLanguageInputChange = (e) => {
+    const value = e.target.value;
+    setLanguageInput(value);
+
+    if (value) {
+      const suggestions = languageList.filter((lang) =>
+        lang.toLowerCase().startsWith(value.toLowerCase())
+      );
+      setLanguageSuggestions(suggestions);
+    } else {
+      setLanguageSuggestions([]);
+    }
+  };
+
+  const handleLanguageSelect = (language) => {
+    if (!selectedLanguages.includes(language)) {
+      setSelectedLanguages([...selectedLanguages, language]);
+    }
+    setLanguageInput("");
+    setLanguageSuggestions([]);
   };
 
   const handleSkillInputChange = (e) => {
@@ -508,7 +663,18 @@ const ResumeForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosSecure.post("/createResume", formData);
+      const updatedFormData = {
+        ...formData,
+        languages: selectedLanguages,
+        name: currentUser.displayName,
+      };
+
+      console.log("Form data being sent:", updatedFormData);
+
+      const response = await axiosSecure.post(
+        "/createOrUpdateResume",
+        updatedFormData
+      );
       console.log("Resume created successfully", response.data);
     } catch (error) {
       console.error("Error creating resume", error);
@@ -516,146 +682,174 @@ const ResumeForm = () => {
   };
 
   return (
-    <div className="resume-form mb-8 ">
+    <div className="resume-form mb-8 text-sm ">
       <h2 className="text-lg mb-8 text-center font-bold">Resume Builder</h2>
 
       <form onSubmit={handleSubmit}>
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-8">
+        <div className="border p-6 rounded-md  shadow-md mb-4 ">
           <h2 className="font-bold text-xl mb-4">Personal Info</h2>
 
-          <label className="block mt-2">Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
-          />
+          <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
+            <div className="w-full">
+              <label className="block mt-2">Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={currentUser?.displayName}
+                onChange={handleChange}
+                disabled
+                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+              />
+            </div>
+            <div className="w-full">
+              <label className="block mt-2">Email:</label>
+              <input
+                type="text"
+                name="email"
+                value={currentUser?.email}
+                onChange={handleChange}
+                disabled
+                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+              />
+            </div>
 
-          <label className="block mt-2">Phone:</label>
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
-          />
+            <div className="w-full">
+              <label className="block mt-2">Phone:</label>
+              <input
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+              />
+            </div>
+          </div>
 
-          <label className="block mt-2">Email:</label>
-          <input
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
-          />
+          <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
+            <div className="w-full">
+              <label className="block mt-2">LinkedIn:</label>
+              <input
+                type="text"
+                name="linkedin"
+                value={formData.linkedin}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+              />
+            </div>
 
-          <label className="block mt-2">LinkedIn:</label>
-          <input
-            type="text"
-            name="linkedin"
-            value={formData.linkedin}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
-          />
-
-          <label className="block mt-2">GitHub:</label>
-          <input
-            type="text"
-            name="github"
-            value={formData.github}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
-          />
-        </div>
-
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12 mt-12">
-          <label className="block mt-2">Objective:</label>
-          <textarea
-            name="objective"
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
-          ></textarea>
-        </div>
-
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
-          <label className="block mt-2">Skills:</label>
-          <input
-            type="text"
-            value={skillInput}
-            placeholder="Type a skill..."
-            onChange={handleSkillInputChange}
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
-          />
-          {skillSuggestions.length > 0 && (
-            <ul className="suggestions list-none p-0 my-1 bg-gray-100 border border-gray-300 max-h-24 overflow-y-auto rounded">
-              {skillSuggestions.map((skill, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleSkillSelect(skill)}
-                  className="p-2 cursor-pointer hover:bg-gray-200"
-                >
-                  {skill}
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <div className="selected-skills mt-2">
-            {formData.skills.map((skill, index) => (
-              <span
-                key={index}
-                className="inline-block bg-blue-500 text-white px-3 py-1 mr-2 mb-2 rounded-full"
-              >
-                {skill}
-              </span>
-            ))}
+            <div className="w-full">
+              <label className="block mt-2">GitHub:</label>
+              <input
+                type="text"
+                name="github"
+                value={formData.github}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+              />
+            </div>
           </div>
         </div>
+        <div className=" border p-6 rounded-md  shadow-md mb-4">
+          <h3 className=" font-bold text-xl">Summary & Skills</h3>
+          <div className="flex lg:flex-row flex-col justify-between w-full gap-4 ">
+            <div className=" w-full">
+              <label className="block mt-2">Objective:</label>
+              <textarea
+                name="objective"
+                value={formData.objective}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+              ></textarea>
+            </div>
 
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
-          <h3 className="mt-8 font-bold">Experience</h3>
+            <div className="w-full flex flex-col">
+              <label className="block mt-2">Skills:</label>
+              <input
+                type="text"
+                value={skillInput}
+                placeholder="Type a skill..."
+                onChange={handleSkillInputChange}
+                className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+              />
+              {skillSuggestions.length > 0 && (
+                <ul className="suggestions list-none p-0 my-1 bg-gray-100 border border-gray-300 max-h-24 overflow-y-auto rounded z-10 absolute">
+                  {skillSuggestions.map((skill, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleSkillSelect(skill)}
+                      className="p-2 cursor-pointer hover:bg-gray-200"
+                    >
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <div className="selected-skills mt-2">
+                {formData.skills.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="inline-block bg-blue-500 text-white px-3 py-1 mr-2 mb-2 rounded-full"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="border p-6 rounded-md   shadow-md mb-4">
+          <h3 className=" font-bold text-xl">Experience</h3>
 
           {formData.experiences.map((experience, index) => (
             <div key={index} className="mb-4">
-              <label className="block mt-2">Job Position/Title:</label>
-              <input
-                type="text"
-                name="jobTitle"
-                value={experience.jobTitle}
-                onChange={(e) => handleExperienceChange(index, e)}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
-              />
+              <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
+                <div className="w-full">
+                  <label className="block mt-2">Job Position/Title:</label>
+                  <input
+                    type="text"
+                    name="jobTitle"
+                    value={experience.jobTitle}
+                    onChange={(e) => handleExperienceChange(index, e)}
+                    className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                  />
+                </div>
 
-              <label className="block mt-2">Company:</label>
-              <input
-                type="text"
-                name="company"
-                value={experience.company}
-                onChange={(e) => handleExperienceChange(index, e)}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
-              />
+                <div className="w-full">
+                  <label className="block mt-2">Company:</label>
+                  <input
+                    type="text"
+                    name="company"
+                    value={experience.company}
+                    onChange={(e) => handleExperienceChange(index, e)}
+                    className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                  />
+                </div>
+              </div>
 
-              <label className="block mt-2">Start Date:</label>
-              <input
-                type="date"
-                name="startDate"
-                value={experience.startDate}
-                onChange={(e) => handleExperienceChange(index, e)}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
-              />
+              <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
+                <div className="w-full">
+                  <label className="block mt-2">Start Date:</label>
+                  <input
+                    type="date"
+                    name="startDate"
+                    value={experience.startDate}
+                    onChange={(e) => handleExperienceChange(index, e)}
+                    className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                  />
+                </div>
 
-              <label className="block mt-2">End Date:</label>
-              <input
-                type="date"
-                name="endDate"
-                value={experience.endDate}
-                onChange={(e) => handleExperienceChange(index, e)}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
-              />
+                <div className="w-full">
+                  <label className="block mt-2">End Date:</label>
+                  <input
+                    type="date"
+                    name="endDate"
+                    value={experience.endDate}
+                    onChange={(e) => handleExperienceChange(index, e)}
+                    className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                  />
+                </div>
+              </div>
 
               <label className="block mt-2">Description:</label>
               <textarea
@@ -675,9 +869,8 @@ const ResumeForm = () => {
             Add Experience
           </button>
         </div>
-
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
-          <h3 className="font-bold">Projects</h3>
+        <div className="border p-6 rounded-md   shadow-md mb-4">
+          <h3 className="font-bold text-xl">Projects</h3>
 
           {formData.projects.map((project, index) => (
             <div key={index} className="mb-4">
@@ -728,9 +921,8 @@ const ResumeForm = () => {
             Add Project
           </button>
         </div>
-
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
-          <h3 className="font-bold">Education</h3>
+        <div className="border p-6 rounded-md   shadow-md mb-4">
+          <h3 className="font-bold text-xl">Education</h3>
 
           <label className="block mt-2">Year of Graduation:</label>
           <input
@@ -741,23 +933,50 @@ const ResumeForm = () => {
             className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
           />
         </div>
-
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
-          <label className="block mt-2">Languages:</label>
+        <div className="border p-6 rounded-md shadow-md mb-12">
+          <label className="block mt-2 text-xl">Languages:</label>
           <input
             type="text"
-            name="languages"
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+            value={languageInput}
+            placeholder="Type a language..."
+            onChange={handleLanguageInputChange}
+            className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
           />
+
+          {languageSuggestions.length > 0 && (
+            <ul className="suggestions list-none p-0 my-1 bg-white border border-gray-300 w-64 max-h-64 overflow-y-auto rounded z-10 absolute">
+              {languageSuggestions.map((language, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleLanguageSelect(language)}
+                  className="p-2 cursor-pointer hover:bg-gray-200"
+                >
+                  {language}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div className="selected-languages mt-2">
+            {selectedLanguages.map((language, index) => (
+              <span
+                key={index}
+                className="inline-block bg-blue-500 text-white px-3 py-1 mr-2 mb-2 rounded-full"
+              >
+                {language}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <button
-          type="submit"
-          className="mt-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Generate Resume
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="mt-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Generate Resume
+          </button>
+        </div>
       </form>
     </div>
   );
