@@ -28,6 +28,7 @@ const Navbar2 = () => {
   const [roomID, setRoomID] = useState();
   const { role } = useUserRole();
   const menuRef = useRef(null);
+  console.log(currentUser)
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -221,9 +222,9 @@ const Navbar2 = () => {
               </label>
               <input
                 type="text"
-                placeholder="Type name"
+                value={currentUser?.displayName}
                 className="input input-bordered"
-                required
+                disabled
               />
             </div>
             <div className="form-control">

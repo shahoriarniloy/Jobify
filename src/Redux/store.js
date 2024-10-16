@@ -8,5 +8,4 @@ const store = configureStore({
     theme: themeReducer,
   },
 });
-
 export default store;
