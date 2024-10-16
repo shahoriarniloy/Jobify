@@ -266,6 +266,16 @@ const Navbar2 = () => {
                                   {t("favorite_jobs")}
                                 </Link>
                                 <Link
+                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                  onClick={() => {
+                                    setIsMenuOpen(false);
+                                    setRoomModal(true);
+                                  }}
+                                >
+                                  <MdOutlineVideoCall className="text-xl" />
+                                  {t("join_call")}
+                                </Link>
+                                <Link
                                   to="/employee-settings"
                                   className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                   onClick={() => setIsMenuOpen(false)}
@@ -295,25 +305,24 @@ const Navbar2 = () => {
                                 {t("profile_settings")}
                               </Link>
                               <Link
-                                to="/meetings"
                                 className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                onClick={() => setIsMenuOpen(false)}
+                                onClick={() => {
+                                  setIsMenuOpen(false);
+                                  setRoomModal(true);
+                                }}
                               >
-                                <MdOutlineVideoCall />
-                                {t("meetings")}
+                                <MdOutlineVideoCall className="text-xl" />
+                                {t("join_call")}
                               </Link>
                             </li>
                           )}
                           <li>
                             <button
-                              className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] w-full text-left flex items-center gap-2"
-                              onClick={() => {
-                                handleLogOut();
-                                setIsMenuOpen(false);
-                              }}
+                              onClick={handleLogOut}
+                              className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2 w-full"
                             >
                               <MdLogout />
-                              {t("Log Out")}
+                              {t("logout")}
                             </button>
                           </li>
                         </ul>
