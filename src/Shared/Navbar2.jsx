@@ -121,7 +121,7 @@ const Navbar2 = () => {
   return (
     <div
       className={
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-secondary text-black"
       }
     >
       <div className="container mx-auto">
@@ -129,7 +129,7 @@ const Navbar2 = () => {
           <div className="navbar-start">
             <div className="flex items-center gap-2 text-[#0a65cc]">
               <PiBag className="w-6 h-6" />
-              <Link to="/" className="text-xl font-bold">
+              <Link to="/" className="text-xl border-none outline-none font-bold">
                 {t("Jobify")}
               </Link>
             </div>
@@ -140,7 +140,7 @@ const Navbar2 = () => {
               <select
                 onChange={(e) => changeLanguage(e.target.value)}
                 defaultValue={i18n.language}
-                className={`py-1 px-2 rounded-md  duration-300 text-xs${
+                className={`py-1 px-2 rounded-md bg-transparent  duration-300 text-xs${
                   theme === "dark"
                     ? "bg-gray-800 text-black border-gray-600"
                     : "bg-gray-400 text-[#0a65cc] border-gray-300"

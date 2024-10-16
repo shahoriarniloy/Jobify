@@ -28,7 +28,7 @@ const Main = () => {
       <Navbar2 />
       <Navbar />
 
-      <div className="container mx-auto">
+      <div className="">
         <div className="mt-4">
           <Outlet />
         </div>
