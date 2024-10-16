@@ -8,7 +8,7 @@ import SocialMediaProfileForEmployee from "../SocialMediaProfile/SocialMediaProf
 import axios from "axios";
 import { toast } from "react-toastify";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 
 const UserInfo = () => {
   const [name, setName] = useState("");
@@ -17,20 +17,16 @@ const UserInfo = () => {
   const [logoFile, setLogoFile] = useState(null);
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
-  const currentUser = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     if (currentUser) {
-      setName(currentUser?.currentUser?.displayName || "");
-      setEmail(currentUser?.currentUser?.email || "");
-      // If you need to handle roles
-      if (currentUser.role === "Job Seeker") {
-        // Apply Job Seeker specific logic
-      } else if (currentUser.role === "Employer") {
-        // Apply Employer specific logic
-      }
+      setName(currentUser?.displayName || "");
+      setEmail(currentUser?.email || "");
     }
   }, [currentUser]);
+
+  console.log(currentUser);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -61,9 +57,9 @@ const UserInfo = () => {
     setLoading(true);
 
     try {
-      let logoUrl = null;
+      let photoUrl = null;
       if (logoFile) {
-        logoUrl = await uploadImageToImgBB(logoFile);
+        photoUrl = await uploadImageToImgBB(logoFile);
       }
 
       const postData = {
@@ -71,6 +67,7 @@ const UserInfo = () => {
         about,
         phone,
         photoUrl,
+        email: currentUser.email,
       };
 
       await axiosSecure.post("/userInfo-updating", postData);

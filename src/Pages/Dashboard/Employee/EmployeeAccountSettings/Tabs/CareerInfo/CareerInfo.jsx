@@ -3,11 +3,11 @@ import ReactQuill from "react-quill";
 import { useQuery } from "@tanstack/react-query";
 import axiosSecure from "./../../../../../../Hooks/UseAxiosSecure";
 import "react-quill/dist/quill.snow.css";
-import useCurrentUser from "./../../../../../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const CareerInfo = () => {
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [description, setDescription] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [popUpClose, setPopUpClose] = useState(false);
@@ -71,7 +71,7 @@ const CareerInfo = () => {
       endDate,
       cgpa,
       description,
-      userEmail: currentUser?.currentUser.email,
+      userEmail: currentUser?.email,
     };
 
     try {

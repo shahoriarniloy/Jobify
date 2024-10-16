@@ -42,14 +42,13 @@ const PostJob = () => {
 
     try {
       const response = await axiosSecure.post("/postJob", newJobData);
-      if (response?.status == 200) {
+      if (response?.status == 201) {
         Swal.fire({
           icon: "success",
           title: "Job posted successfully!",
           text: "The job listing has been created and posted on the platform.",
         });
 
-        // Reset job data
         setJobData({
           title: "",
           company: "",

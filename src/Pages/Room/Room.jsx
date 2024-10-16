@@ -9,7 +9,6 @@ const Room = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const { roomID } = useParams();
 
-  // const startCall = async (element) => {
   //     const appID = 639103717;
   //     const serverSecret = "8de40f6b3f46174f6c83f0e0b61ed0e7";
 
