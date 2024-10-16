@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
 import useUserRole from "../Hooks/useUserRole";
-import { FaRegHeart, FaBriefcase, FaBell } from "react-icons/fa";
+import { FaRegHeart, FaBriefcase, FaBell, FaEdit } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -135,14 +135,14 @@ const Navbar2 = () => {
           </div>
           <div className="navbar-end">
             {/* Language Switcher */}
-            <div className="text-sm">
+            <div className="text-sm text-black">
               <select
                 onChange={(e) => changeLanguage(e.target.value)}
                 defaultValue={i18n.language}
-                className={`py-1 px-2 rounded-md transition-colors duration-300 text-xs${
+                className={`py-1 px-2 rounded-md  duration-300 text-xs${
                   theme === "dark"
-                    ? "bg-gray-800 text-white border-gray-600"
-                    : "bg-white text-[#0a65cc] border-gray-300"
+                    ? "bg-gray-800 text-black border-gray-600"
+                    : "bg-gray-400 text-[#0a65cc] border-gray-300"
                 }`}
               >
                 <option value="en">{t("english")}</option>
@@ -200,7 +200,7 @@ const Navbar2 = () => {
                         {jobNotifications.map((notification, index) => (
                           <li
                             key={index}
-                            className="py-2 text-gray-700 bg-slate-300 rounded-md p-4 mb-2"
+                            className="py-2 text-gray-700 bg-[#f4f8fffa] rounded-md p-4 mb-2"
                           >
                             <Link
                               to={`/job/${notification.jobId}`}
@@ -266,6 +266,14 @@ const Navbar2 = () => {
                                   {t("favorite_jobs")}
                                 </Link>
                                 <Link
+                                  to="/resume-builder"
+                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                  onClick={() => setIsMenuOpen(false)}
+                                >
+                                  <FaEdit />
+                                  {t("edit_resume")}
+                                </Link>
+                                <Link
                                   className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                   onClick={() => {
                                     setIsMenuOpen(false);
@@ -297,7 +305,7 @@ const Navbar2 = () => {
                                 {t("dashboard")}
                               </Link>
                               <Link
-                                to="/company-settings"
+                                to="/dashboard/company-settings"
                                 className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                 onClick={() => setIsMenuOpen(false)}
                               >
@@ -331,20 +339,12 @@ const Navbar2 = () => {
                   </div>
                 </>
               ) : (
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setLoginModalOpen(true)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md"
-                  >
-                    {t("log_in")}
-                  </button>
-                  <button
-                    onClick={() => setSignUpModalOpen(true)}
-                    className="px-4 py-2 border rounded-md"
-                  >
-                    {t("sign_up")}
-                  </button>
-                </div>
+                <button
+                  onClick={() => setLoginModalOpen(true)}
+                  className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-lg text-blue-500 border border-blue-400"
+                >
+                  {t("join_us")}
+                </button>
               )}
             </div>
           </div>

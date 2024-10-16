@@ -520,7 +520,7 @@ const ResumeForm = () => {
       <h2 className="text-lg mb-8 text-center font-bold">Resume Builder</h2>
 
       <form onSubmit={handleSubmit}>
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-8">
+        <div className="border p-6 rounded-md  shadow-md mb-8">
           <h2 className="font-bold text-xl mb-4">Personal Info</h2>
 
           <label className="block mt-2">Name:</label>
@@ -572,7 +572,7 @@ const ResumeForm = () => {
           />
         </div>
 
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12 mt-12">
+        <div className="border p-6 rounded-md   shadow-md mb-12 mt-12">
           <label className="block mt-2">Objective:</label>
           <textarea
             name="objective"
@@ -581,7 +581,7 @@ const ResumeForm = () => {
           ></textarea>
         </div>
 
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
+        <div className="border p-6 rounded-md   shadow-md mb-12">
           <label className="block mt-2">Skills:</label>
           <input
             type="text"
@@ -616,7 +616,7 @@ const ResumeForm = () => {
           </div>
         </div>
 
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
+        <div className="border p-6 rounded-md   shadow-md mb-12">
           <h3 className="mt-8 font-bold">Experience</h3>
 
           {formData.experiences.map((experience, index) => (
@@ -676,7 +676,7 @@ const ResumeForm = () => {
           </button>
         </div>
 
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
+        <div className="border p-6 rounded-md   shadow-md mb-12">
           <h3 className="font-bold">Projects</h3>
 
           {formData.projects.map((project, index) => (
@@ -729,7 +729,7 @@ const ResumeForm = () => {
           </button>
         </div>
 
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
+        <div className="border p-6 rounded-md   shadow-md mb-12">
           <h3 className="font-bold">Education</h3>
 
           <label className="block mt-2">Year of Graduation:</label>
@@ -742,7 +742,7 @@ const ResumeForm = () => {
           />
         </div>
 
-        <div className="border p-6 rounded-md bg-slate-100 shadow-md mb-12">
+        <div className="border p-6 rounded-md   shadow-md mb-12">
           <label className="block mt-2">Languages:</label>
           <input
             type="text"
@@ -751,13 +751,14 @@ const ResumeForm = () => {
             className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
           />
         </div>
-
-        <button
-          type="submit"
-          className="mt-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Generate Resume
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="mt-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Generate Resume
+          </button>
+        </div>
       </form>
     </div>
   );
