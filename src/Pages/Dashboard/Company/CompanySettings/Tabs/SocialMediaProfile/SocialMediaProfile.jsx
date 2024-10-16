@@ -57,7 +57,7 @@ const SocialMediaProfile = () => {
           setFields(newFields);
         }
       } catch (error) {
-        console.error("Error fetching social media links:", error);
+        // console.error("Error fetching social media links:", error);
       }
     };
 
@@ -116,7 +116,7 @@ const SocialMediaProfile = () => {
       toast.success("Social Info Saved");
       setSubmittedLinks(fields);
     } catch (error) {
-      console.error("Error saving links:", error);
+      // console.error("Error saving links:", error);
     }
   };
 

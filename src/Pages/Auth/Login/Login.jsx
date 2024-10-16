@@ -47,7 +47,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       toast.success("Logged in successfully");
       navigate(from, { replace: true });
     } catch (error) {
-      console.error("Error during login:", error);
+      // console.error("Error during login:", error);
       toast.error("Login failed. Please check your credentials.");
     }
   };
@@ -70,18 +70,18 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
         const dbResult = response.data;
 
         if (dbResult.insertedId) {
-          console.log("User added to the database:", dbResult);
+          // console.log("User added to the database:", dbResult);
         } else {
-          console.log(dbResult.message || "User already exists");
+          // console.log(dbResult.message || "User already exists");
         }
 
         toast.success("Signed in with Google");
         navigate(from, { replace: true });
       } catch (dbError) {
-        console.error("Failed to add user to the database:", dbError);
+        // console.error("Failed to add user to the database:", dbError);
       }
     } catch (error) {
-      console.error("Google Sign-In Error:", error);
+      // console.error("Google Sign-In Error:", error);
       toast.warn("Sign in with Google failed!");
     }
   };

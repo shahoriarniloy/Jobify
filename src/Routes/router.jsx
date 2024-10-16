@@ -52,6 +52,7 @@ import Room from "../Pages/Room/Room";
 import ResumeForm from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeForm";
 import Resume from "../Pages/Dashboard/Employee/ResumeBuilder/Resume";
 import ResumeBuilder from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeBuilder";
+import EmployeeDashboard from "../Pages/Dashboard/Employee/EmployeeDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -93,27 +94,10 @@ export const router = createBrowserRouter([
         path: "/candidates",
         element: <Candidates />,
       },
-      {
-        path: "/employee-settings",
-        element: <EmployeeSettings />,
-      },
 
       {
         path: "/myjobs",
         element: <JobTable />,
-      },
-      {
-        path: "/favorite-jobs",
-        element: <BookmarkedJobs />,
-      },
-
-      {
-        path: "/appliedjobs",
-        element: <AppliedJobs />,
-      },
-      {
-        path: "/favorite-jobs",
-        element: <BookmarkedJobs />,
       },
 
       {
@@ -140,14 +124,7 @@ export const router = createBrowserRouter([
         path: "/messages/:otherPartyEmail",
         element: <MessageDetail></MessageDetail>,
       },
-      {
-        path: "/resume-builder",
-        element: <ResumeForm></ResumeForm>,
-      },
-      {
-        path: "/resume/:email",
-        element: <Resume></Resume>,
-      },
+
       // {
       //   path: "/resume-builder",
       //   element: <ResumeBuilder></ResumeBuilder>,
@@ -230,6 +207,37 @@ export const router = createBrowserRouter([
           {
             path: "overview",
             element: <AdminOverview />,
+          },
+        ],
+      },
+
+      {
+        path: "/jobSeeker",
+        element: <EmployeeDashboard />,
+        children: [
+          {
+            path: "overview",
+            element: <EmployeeHome />,
+          },
+          {
+            path: "appliedjobs",
+            element: <AppliedJobs />,
+          },
+          {
+            path: "favorite-jobs",
+            element: <BookmarkedJobs />,
+          },
+          {
+            path: "resume-builder",
+            element: <ResumeForm></ResumeForm>,
+          },
+          {
+            path: "resume/:email",
+            element: <Resume></Resume>,
+          },
+          {
+            path: "employee-settings",
+            element: <EmployeeSettings />,
           },
         ],
       },

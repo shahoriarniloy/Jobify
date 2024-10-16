@@ -28,7 +28,7 @@ const CompanyInfo = () => {
           setAboutUs(userData?.company_description || "");
         }
       } catch (error) {
-        console.error("Error fetching user info:", error);
+        // console.error("Error fetching user info:", error);
       }
     };
 

@@ -38,7 +38,7 @@ const Navbar2 = () => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    const socket = io("https://jobify-server-ujo0.onrender.com");
 
     socket.on("jobPosted", (notification) => {
       setJobNotifications((prev) => [...prev, notification]);
@@ -250,6 +250,16 @@ const Navbar2 = () => {
                             <>
                               <li>
                                 <Link
+                                  to="jobSeeker/overview"
+                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                  onClick={() => setIsMenuOpen(false)}
+                                >
+                                  <MdOutlineDashboardCustomize />
+                                  {t("dashboard")}
+                                </Link>
+                              </li>
+                              {/* <li>
+                                <Link
                                   to="/appliedjobs"
                                   className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                   onClick={() => setIsMenuOpen(false)}
@@ -291,7 +301,7 @@ const Navbar2 = () => {
                                   <IoSettingsOutline />
                                   {t("profile_settings")}
                                 </Link>
-                              </li>
+                              </li> */}
                             </>
                           )}
                           {role === "Employer" && (

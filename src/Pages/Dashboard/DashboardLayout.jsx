@@ -19,8 +19,8 @@ const DashboardLayout = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(logOutAction()); // Dispatch the logOut action
-    navigate("/"); // Redirect to home after logout
+    dispatch(logOutAction());
+    navigate("/");
   };
 
   return (
