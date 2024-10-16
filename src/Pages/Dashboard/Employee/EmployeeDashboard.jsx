@@ -7,6 +7,7 @@ import useUserRole from "../../../Hooks/useUserRole";
 import { useSelector } from "react-redux";
 import { FiLayers } from "react-icons/fi";
 
+
 const EmployeeDashboard = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const {
@@ -46,6 +47,7 @@ const EmployeeDashboard = () => {
               {role === "Job Seeker" && (
                 <div>
                   <NavLink
+
                     to="/jobSeeker/overview"
                     className={({ isActive }) =>
                       isActive
@@ -56,6 +58,7 @@ const EmployeeDashboard = () => {
                     <FiLayers className="text-xl" /> Overview
                   </NavLink>
                   <NavLink
+
                     to="/jobSeeker/appliedjobs"
                     className={({ isActive }) =>
                       isActive

@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
 import homeBg from "../../assets/homebg.png";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../../Redux/themeSlice";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,6 +15,7 @@ const SearchBar = () => {
   const [error, setError] = useState("");
   const [totalJobs, setTotalJobs] = useState(0);
   const [totalCompanies, setTotalCompanies] = useState(0);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchTotals = async () => {
@@ -53,7 +56,8 @@ const SearchBar = () => {
         <div className="flex lg:flex-row flex-col justify-center items-center md:gap-[50px] lg:gap-[100px]">
           <div>
             <div className="lg:text-left md:text-left text-center ">
-              <h1 className="text-[#18191c] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2">
+              <h1 className={
+                theme === "dark" ? "text-[#989a9e] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2": "text-[#18191c] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2" }>
                 Find a job that suits your interest & skills.
               </h1>
               <p className="text-[#5e6670] text-lg font-normal mb-4">
@@ -62,13 +66,13 @@ const SearchBar = () => {
                 locations.
               </p>
             </div>
-            <div className="w-full bg-white rounded-lg shadow-md border border-[#e4e5e8] p-6 flex-1">
+            <div className={ theme === "dark" ? "w-full bg-black rounded-lg shadow-md border border-black p-6 flex-1" : "w-full bg-white rounded-lg shadow-md border border-[#e4e5e8] p-6 flex-1"}>
               <form
                 className="flex flex-col sm:flex-row gap-4 sm:gap-2 border rounded-lg"
                 onSubmit={handleSearch}
               >
                 <div className="relative flex-1 ">
-                  <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
+                  <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2  text-[#0a65cc] w-5 h-5" />
                   <input
                     type="text"
                     placeholder="Job title, Company Name..."

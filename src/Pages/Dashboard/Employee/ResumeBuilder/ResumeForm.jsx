@@ -539,6 +539,7 @@ const ResumeForm = () => {
       );
       if (resumeResponse.status === 200) {
         const resumeData = resumeResponse.data;
+
         setFormData({
           ...formData,
           ...resumeData,
@@ -549,6 +550,7 @@ const ResumeForm = () => {
 
         if (userResponse.status === 200) {
           const userData = userResponse.data;
+
           setFormData({
             ...formData,
             name: currentUser.displayName,
@@ -560,7 +562,7 @@ const ResumeForm = () => {
         }
       }
     } catch (error) {
-      // console.error("Error fetching data:", error);
+
     }
   };
 
@@ -668,11 +670,14 @@ const ResumeForm = () => {
         name: currentUser.displayName,
       };
 
+
       const response = await axiosSecure.post(
         "/createOrUpdateResume",
         updatedFormData
       );
+
       toast.success("Resume Informations Updated");
+
     } catch (error) {
       toast.error("Failed Saving Resume Information");
     }
