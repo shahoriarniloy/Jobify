@@ -34,7 +34,7 @@ const HowItWorks = () => {
                 <div className="flex items-center justify-center w-24 h-24 rounded-full bg-white shadow-md">
                   <span className="text-3xl text-[#0a65cc]">{step.icon}</span>
                 </div>
-                <p className="mt-2 text-center text-gray-600 text-sm md:text-base">
+                <p className="mt-2 text-center text-base text-gray-700 md:text-sm">
                   {step.label}
                 </p>
               </div>

@@ -15,7 +15,7 @@ const BuildNetwork = () => {
             <h3 className="text-xl font-semibold text-gray-800 mt-4">
               Find People
             </h3>
-            <p className="text-gray-600 text-center mt-2">
+            <p className="text-base text-gray-700 md:text-sm text-center mt-2">
               Connect with like-minded professionals and expand your career
               opportunities.
             </p>
@@ -24,8 +24,10 @@ const BuildNetwork = () => {
             <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#0a65cc] text-white">
               <FaUsers className="text-2xl" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-800 mt-4">Follow</h3>
-            <p className="text-gray-600 text-center mt-2">
+            <h3 className="text-xl font-semibold text-gray-800 mt-4">
+              Follow People
+            </h3>
+            <p className="text-base text-gray-700 md:text-sm text-center mt-2">
               Stay updated with your connections' activities and growth in their
               careers.
             </p>

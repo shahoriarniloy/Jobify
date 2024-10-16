@@ -49,34 +49,34 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="container rounded-xl pt-16 lg:mb-32 mb-16">
+    <div className="container rounded-xl pt-16 lg:mb-4 mb-16">
       <div className="flex flex-col lg:flex-row justify-center items-center">
         <div className="flex lg:flex-row flex-col justify-center items-center md:gap-[50px] lg:gap-[100px]">
-
-          <div>
-            <div className="lg:text-left md:text-left text-center ">
-              <h1 className="text-[#18191c] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2">
-                Find a job that suits your interest & skills.
-              </h1>
-              <p className="text-[#5e6670] text-lg font-normal mb-4">
-                Quickly find job opportunities that match your skills and
-                interests by searching for specific job titles, keywords, or
-                locations.
-              </p>
-            </div>
-            <div className="w-full bg-white rounded-lg shadow-md border border-[#e4e5e8] p-6 flex-1">
-              <form
-                className="flex flex-col sm:flex-row gap-4 sm:gap-2 border rounded-lg"
-                onSubmit={handleSearch}
-              >
-                <div className="relative flex-1 ">
-                  <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
-                  <input
-                    type="text"
-                    placeholder="Job title, Company Name..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none
+          
+            <div>
+              <div className="lg:text-left md:text-left text-center ">
+                <h1 className="text-[#18191c] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2">
+                  Find a job that suits your interest & skills.
+                </h1>
+                <p className="text-[#5e6670] text-lg font-normal mb-4">
+                  Quickly find job opportunities that match your skills and
+                  interests by searching for specific job titles, keywords, or
+                  locations.
+                </p>
+              </div>
+              <div className="w-full bg-white rounded-lg shadow-md border border-[#e4e5e8] p-6 flex-1">
+                <form
+                  className="flex flex-col sm:flex-row gap-4 sm:gap-2 border rounded-lg"
+                  onSubmit={handleSearch}
+                >
+                  <div className="relative flex-1 ">
+                    <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
+                    <input
+                      type="text"
+                      placeholder="Job title, Company Name..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none
                             focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
                   />
                 </div>
@@ -105,24 +105,22 @@ const SearchBar = () => {
                 </div>
               </form>
 
-              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+              </div>
             </div>
-          </div>
-
+          
 
           {/* Job results section moved here */}
 
           <div className="justify-center items-center hidden lg:block md:block">
-            <img
-              src={homeBg}
-              alt=""
-            />
+            <img src={homeBg} alt="" />
           </div>
         </div>
       </div>
       <div
-        className={`mt-6 ${jobs.length > 0 ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-300`}
+        className={`mt-6 ${
+          jobs.length > 0 ? "opacity-100" : "opacity-0"
+        } transition-opacity duration-300`}
       >
         {jobs.length > 0 ? (
           <>
@@ -158,7 +156,7 @@ const SearchBar = () => {
         )}
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 mt-8 items-center ">
+      <div className="flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-8 mt-8">
         <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-md flex items-center space-x-4 w-64">
           <div className="rounded-md bg-[#e7f0fa] p-4">
             <FaBriefcase className="text-4xl text-[#0a65cc]" />
