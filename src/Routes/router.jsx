@@ -31,6 +31,7 @@ import MessageDetail from "../Pages/Dashboard/Employee/Message/MessageDetail";
 // import JobTable from "../Pages/Dashboard/Company/MyJob";
 
 import EmployeeHome from "../Pages/Dashboard/Company/EmployeeHome";
+import Home from "../Pages/Home/Home";
 import JobTable from "../Pages/Dashboard/Company/MyJob";
 import CompanySettings from "../Pages/Dashboard/Company/CompanySettings/CompanySettings";
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeAccountSettings/EmployeeSettings";

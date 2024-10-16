@@ -2,12 +2,17 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { io } from "socket.io-client";
+import { FaBell } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { t } = useTranslation();
   const [isSticky, setIsSticky] = useState(false);
+  const [jobNotifications, setJobNotifications] = useState([]);
   const theme = useSelector((state) => state.theme.theme);
-
+  const [socket, setSocket] = useState(null);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const navItem = (
     <>
       <li>
@@ -28,7 +33,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("apply_job")} {/* Changed from "Apply Job" to "apply_job" */}
+          {t("apply_job")}
         </NavLink>
       </li>
       <li>
@@ -38,7 +43,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("find_company")} {/* Changed from "Find Company" to "find_company" */}
+          {t("find_company")}{" "}
         </NavLink>
       </li>
       <li>
@@ -48,7 +53,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("messaging")} {/* Changed from "Messaging" to "messaging" */}
+          {t("messaging")}
         </NavLink>
       </li>
       <li>
@@ -58,7 +63,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("my_network")} {/* Changed from "My Network" to "my_network" */}
+          {t("my_network")}
         </NavLink>
       </li>
       <li>
@@ -68,11 +73,55 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("about_us")} {/* Changed from "About Us" to "about_us" */}
+          {t("about_us")}
         </NavLink>
       </li>
     </>
   );
+
+  useEffect(() => {
+    const socketConnection = io("http://localhost:5000");
+    setSocket(socketConnection);
+
+    return () => {
+      socketConnection.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.emit("newUser", currentUser?.email);
+
+      socket.on("jobPosted", (data) => {
+        Swal.fire({
+          icon: "info",
+          title: "New Job Posted!",
+          text: `A new job "${data.jobTitle}" was posted by ${data.company}`,
+          background: "#f4f8ff",
+          color: "#333",
+          customClass: {
+            title: "swal-title",
+            content: "swal-content",
+            confirmButton: "swal-confirm",
+          },
+          confirmButtonText: "View Job",
+          confirmButtonColor: "#007bff",
+          showCancelButton: true,
+          cancelButtonText: "Close",
+          cancelButtonColor: "#dc3545",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = `/job/${data.jobId}`;
+          }
+        });
+
+        setJobNotifications((prevNotifications) => [
+          ...prevNotifications,
+          { title: data.jobTitle, company: data.company },
+        ]);
+      });
+    }
+  }, [socket, currentUser?.email]);
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
@@ -90,11 +139,13 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className={`navbar shadow-md ${isSticky ? "sticky top-0 z-50" : ""
-          } roboto-regular ${theme === "dark"
-          ? "bg-gray-900 text-white"
-          : "bg-[#f4f8fffa] text-black"
-          }`}
+        className={`navbar shadow-md ${
+          isSticky ? "sticky top-0 z-50" : ""
+        } roboto-regular ${
+          theme === "dark"
+            ? "bg-gray-900 text-white"
+            : "bg-[#f4f8fffa] text-black"
+        }`}
       >
         <div className="navbar-start">
           <div className="dropdown">
@@ -118,17 +169,22 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-1 z-[1] shadow bg-base-100 rounded-box w-52"
             >
-              {navItem}
+              {navItem}{" "}
             </ul>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="text-[#5E6670] gap-7 menu-horizontal px-1">
-            {navItem}
+            {navItem}{" "}
           </ul>
         </div>
 
-        <div className="navbar-end flex items-center gap-4"></div>
+        <div className="navbar-end">
+          <FaBell />
+          {jobNotifications.length > 0 && (
+            <div className="notification-count">{jobNotifications.length}</div>
+          )}
+        </div>
       </div>
     </div>
   );

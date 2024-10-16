@@ -1,4 +1,3 @@
-import React from "react";
 import ResumeForm from "./ResumeForm";
 import Resume from "./Resume";
 

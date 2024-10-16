@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import "./resume.css";
 import { useSelector } from "react-redux";
