@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "../../../../../../Styles/TextEditorTools/CustomReactQuill.css";
 import ReactQuill from "react-quill";
 import DragAndDropInput from "../../../Components/DragAndDropInput";
 import PhoneInput from "react-phone-input-2";
@@ -17,7 +16,28 @@ const UserInfo = () => {
   const [logoFile, setLogoFile] = useState(null);
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
+  const [socialLinks, setSocialLinks] = useState([]);
   const currentUser = useSelector((state) => state.user.currentUser);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axiosSecure.get(`/users/${currentUser?.email}`);
+        const userData = response.data;
+        console.log(userData);
+
+        if (userData && userData.userInfo && userData.userInfo.length > 0) {
+          setAbout(userData?.userInfo[0]?.about || "");
+          setAbout(userData?.userInfo[0]?.phone || "");
+          setSocialLinks(userData?.userInfo[0]?.socialLinks || "");
+        }
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, [currentUser?.email]);
 
   useEffect(() => {
     if (currentUser) {
@@ -25,8 +45,6 @@ const UserInfo = () => {
       setEmail(currentUser?.email || "");
     }
   }, [currentUser]);
-
-  console.log(currentUser);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -68,6 +86,7 @@ const UserInfo = () => {
         phone,
         photoUrl,
         email: currentUser.email,
+        socialLinks,
       };
 
       await axiosSecure.post("/userInfo-updating", postData);
@@ -174,7 +193,10 @@ const UserInfo = () => {
           </section>
 
           <div className="w-full lg:w-1/2">
-            <SocialMediaProfileForEmployee />
+            <SocialMediaProfileForEmployee
+              socialLinks={socialLinks}
+              setSocialLinks={setSocialLinks} // Pass setter to update social links
+            />
           </div>
         </div>
 
