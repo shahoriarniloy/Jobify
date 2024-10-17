@@ -123,29 +123,29 @@ const Navbar2 = () => {
   return (
     <div
       className={
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-secondary text-black"
       }
     >
-      <div className="lg:px-24 md:px-6 px-4">
+      <div className="container mx-auto">
         <div className="navbar pt-2">
-          <div className="navbar-start">
+          <div className="navbar-start ">
             <div className="flex items-center gap-2 text-[#0a65cc]">
               <PiBag className="w-6 h-6" />
-              <Link to="/" className="text-xl font-bold">
+              <Link to="/" className="text-xl border-none outline-none font-bold">
                 {t("Jobify")}
               </Link>
             </div>
           </div>
-          <div className="navbar-end">
+          <div className="navbar-end gap-3">
             {/* Language Switcher */}
             <div className="text-sm text-black">
               <select
                 onChange={handleLanguageChange}
                 value={currentLanguage}
-                className={`py-1 px-2 rounded-md transition-colors duration-300 ${
+                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
                   theme === "dark"
-                    ? "bg-gray-800 text-white border-gray-600"
-                    : "bg-white text-black border-gray-300"
+                    ? "bg-transparent text-white"
+                    : "bg-transparent text-black"
                 }`}
               >
                 <option value="en">{t("english")}</option>
@@ -163,10 +163,9 @@ const Navbar2 = () => {
               </button>
 
               {/* Notifications Bell Icon */}
-              <div className="relative">
+              <div className="relative rounded-full p-2 hover:bg-[#e7f0fa]">
                 <FaBell
-                  style={{ color: "#0a65cc" }}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-[#0a65cc]"
                   onClick={handleModalToggle}
                 />
                 {jobNotifications.length > 0 && (
@@ -261,50 +260,6 @@ const Navbar2 = () => {
                                   {t("dashboard")}
                                 </Link>
                               </li>
-                              {/* <li>
-                                <Link
-                                  to="/appliedjobs"
-                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                  onClick={() => setIsMenuOpen(false)}
-                                >
-                                  <FaBriefcase />
-                                  {t("applied_jobs")}
-                                </Link>
-                                <Link
-                                  to="/favorite-jobs"
-                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                  onClick={() => setIsMenuOpen(false)}
-                                >
-                                  <FaRegHeart />
-                                  {t("favorite_jobs")}
-                                </Link>
-                                <Link
-                                  to="/resume-builder"
-                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                  onClick={() => setIsMenuOpen(false)}
-                                >
-                                  <FaEdit />
-                                  {t("edit_resume")}
-                                </Link>
-                                <Link
-                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                  onClick={() => {
-                                    setIsMenuOpen(false);
-                                    setRoomModal(true);
-                                  }}
-                                >
-                                  <MdOutlineVideoCall className="text-xl" />
-                                  {t("join_call")}
-                                </Link>
-                                <Link
-                                  to="/employee-settings"
-                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                  onClick={() => setIsMenuOpen(false)}
-                                >
-                                  <IoSettingsOutline />
-                                  {t("profile_settings")}
-                                </Link>
-                              </li> */}
                             </>
                           )}
                           {role === "Employer" && (
@@ -317,14 +272,7 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
-                              <Link
-                                to="/dashboard/company-settings"
-                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                onClick={() => setIsMenuOpen(false)}
-                              >
-                                <IoSettingsOutline />
-                                {t("profile_settings")}
-                              </Link>
+                             
                               <Link
                                 className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                 onClick={() => {
@@ -383,7 +331,7 @@ const Navbar2 = () => {
         onClose={() => setLoginModalOpen(false)}
         center
       >
-        <Login />
+        <Login setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen}/>
       </Modal>
 
       {/* Sign Up Modal */}
@@ -392,7 +340,7 @@ const Navbar2 = () => {
         onClose={() => setSignUpModalOpen(false)}
         center
       >
-        <Register />
+        <Register setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen} />
       </Modal>
 
       {/* Room Modal */}

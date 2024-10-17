@@ -188,7 +188,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
         <p className="text-xs text-center mt-3">
           {t("already_have_account")}
           <button
-            className="text-blue-500 underline"
+            className="text-blue-500 font-semibold underline"
             onClick={() => {
               setLoginModalOpen(true);
               setSignUpModalOpen(false);
