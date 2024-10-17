@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineLocationMarker } from "react-icons/hi";
@@ -10,7 +11,7 @@ import TopCompanies from "./TopCompanies";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const AdvancedSearch = () => {
+const FindCompany = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
@@ -21,12 +22,9 @@ const AdvancedSearch = () => {
   const [totalCompanies, setTotalCompanies] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  // console.log("Total Companies:", totalCompanies);
-  // console.log("item per page:", itemsPerPage);
+
   const noOfPages = Math.ceil(totalCompanies / itemsPerPage);
-  // console.log("no of page:", noOfPages);
   const pages = [...Array(noOfPages).keys()];
-  // console.log("Total Companies:", totalCompanies);
 
   const [viewMode, setViewMode] = useState("grid");
 
@@ -36,10 +34,8 @@ const AdvancedSearch = () => {
         const response = await axiosSecure.get(
           `/companies?page=${currentPage}&size=${itemsPerPage}`
         );
-        // console.log(response.data);
         setCompanies(response.data.Companies);
         setTotalCompanies(response.data.totalCompanies);
-        // console.log(totalCompanies);
       } catch (err) {
         // console.error("Error fetching Companies:", err);
       }
@@ -55,8 +51,6 @@ const AdvancedSearch = () => {
 
     setShowAdvancedFilters(false);
 
-    // console.log("Search Term:", searchTerm);
-
     try {
       const response = await axiosSecure.get(
         `/Companies?page=${currentPage}&size=${itemsPerPage}`,
@@ -68,14 +62,10 @@ const AdvancedSearch = () => {
       );
       setFilteredCompanies(response.data.Companies);
 
-      // console.log("Companies", response.data);
-      // console.log("try:", response.data.Companies);
       setTotalCompanies(response.data.totalCompanies);
       if (!response.data.totalCompanies) {
         toast.info("No matching data found");
       }
-
-      // console.log(response.data);
     } catch (err) {
       // console.error("Error fetching Companies:", err);
       setError("Failed to fetch Companies. Please try again later.");
@@ -281,6 +271,7 @@ const AdvancedSearch = () => {
         <button
           className="px-4 py-2 ml-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
           onClick={handleNextPage}
+          aria-label="next"
           disabled={currentPage === pages.length - 1}
         >
           <FaArrowRight />
@@ -292,4 +283,4 @@ const AdvancedSearch = () => {
   );
 };
 
-export default AdvancedSearch;
+export default FindCompany;
