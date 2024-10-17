@@ -17,11 +17,8 @@ import { logOut as logOutAction } from "../Redux/userSlice";
 import { toggleTheme } from "../Redux/themeSlice";
 import { useTranslation } from "react-i18next";
 import { FaMoon, FaSun } from "react-icons/fa";
-<<<<<<< HEAD
 import { switchLanguage } from "../Redux/languageSlice";
-=======
 import Swal from "sweetalert2";
->>>>>>> 4facb7bf496891e6410f5afa6094a489bba149f4
 
 const Navbar2 = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -143,21 +140,12 @@ const Navbar2 = () => {
             {/* Language Switcher */}
             <div className="text-sm text-black">
               <select
-<<<<<<< HEAD
                 onChange={handleLanguageChange}
                 value={currentLanguage}
                 className={`py-1 px-2 rounded-md transition-colors duration-300 ${
                   theme === "dark"
                     ? "bg-gray-800 text-white border-gray-600"
                     : "bg-white text-black border-gray-300"
-=======
-                onChange={(e) => changeLanguage(e.target.value)}
-                defaultValue={i18n.language}
-                className={`py-1 px-2 rounded-md  duration-300 text-xs${
-                  theme === "dark"
-                    ? "bg-gray-800 text-black border-gray-600"
-                    : "bg-gray-400 text-[#0a65cc] border-gray-300"
->>>>>>> 4facb7bf496891e6410f5afa6094a489bba149f4
                 }`}
               >
                 <option value="en">{t("english")}</option>
@@ -375,68 +363,6 @@ const Navbar2 = () => {
             </div>
           </div>
         </div>
-<<<<<<< HEAD
-
-        <Modal
-          open={loginModalOpen}
-          onClose={() => setLoginModalOpen(false)}
-          center
-        >
-          <Login
-            setSignUpModalOpen={setSignUpModalOpen}
-            setLoginModalOpen={setLoginModalOpen}
-          />
-        </Modal>
-
-        <Modal
-          open={signUpModalOpen}
-          onClose={() => setSignUpModalOpen(false)}
-          center
-        >
-          <Register
-            setLoginModalOpen={setLoginModalOpen}
-            setSignUpModalOpen={setSignUpModalOpen}
-          />
-        </Modal>
-
-        <Modal open={roomModal} onClose={() => setRoomModal(false)}>
-          <div className="card w-full max-w-sm">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">{t("enter_your_name")}</span>
-              </label>
-              <input
-                type="text"
-                placeholder={t("type_name")}
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">{t("room_id")}</span>
-              </label>
-              <input
-                type="text"
-                onChange={(e) => setRoomID(e.target.value)}
-                placeholder={t("type_room_id")}
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control mt-6">
-              <button
-                disabled={!roomID}
-                onClick={handleJoinRoom}
-                className="btn btn-primary"
-              >
-                {t("join_now")}
-              </button>
-            </div>
-          </div>
-        </Modal>
-=======
->>>>>>> 4facb7bf496891e6410f5afa6094a489bba149f4
       </div>
 
       {/* Login Modal */}

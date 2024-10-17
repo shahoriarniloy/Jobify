@@ -32,6 +32,8 @@ const AdvancedSearch = () => {
 
   const [viewMode, setViewMode] = useState("grid");
 
+  const [companyLogos, setCompanyLogos] = useState({});
+
   const [filters, setFilters] = useState({
     experience: [],
     jobType: [],
@@ -133,6 +135,30 @@ const AdvancedSearch = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  // Function to fetch company info based on hrEmail
+  const fetchCompanyInfo = async (email) => {
+    try {
+      const response = await axiosSecure.get(`/companies/${email}`);
+      return response.data.company_logo;
+    } catch (error) {
+      console.error("Error fetching company info:", error);
+      return null;
+    }
+  };
+
+  // Fetch the company logos when jobs array is updated
+  useEffect(() => {
+    const fetchLogos = async () => {
+      const logos = {};
+      for (const job of jobs) {
+        const logo = await fetchCompanyInfo(job?.hrEmail);
+        logos[job._id] = logo;
+      }
+      setCompanyLogos(logos);
+    };
+    fetchLogos();
+  }, [jobs]);
 
   return (
     <div className="pt-4 ">
@@ -425,9 +451,20 @@ const AdvancedSearch = () => {
               <div className="relative z-10 mx-auto max-w-md">
                 <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
                   <span className="grid  h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                    <FaBriefcase className="h-10 w-10 text-white transition-all" />
+                    {/* <FaBriefcase className="h-10 w-10 text-white transition-all" /> */}
+                    {/* Render company logo if available */}
+                    {companyLogos[job._id] ? (
+                      <img
+                        src={companyLogos[job._id]}
+                        alt={`${job.title} logo`}
+                        className="h-10 w-10 text-white transition-all"
+                      />
+                    ) : (
+                      <p>Loading company logo...</p>
+                    )}
                   </span>
                 </span>
+
                 <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                   <h2 className="text-2xl font-semibold tracking-wide">
                     {job.title}
