@@ -142,11 +142,10 @@ const Navbar2 = () => {
               <select
                 onChange={handleLanguageChange}
                 value={currentLanguage}
-                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
-                  theme === "dark"
+                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${theme === "dark"
                     ? "bg-transparent text-white"
                     : "bg-transparent text-black"
-                }`}
+                  }`}
               >
                 <option value="en">{t("english")}</option>
                 <option value="bn">{t("bangla")}</option>
@@ -272,17 +271,7 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
-                             
-                              <Link
-                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                onClick={() => {
-                                  setIsMenuOpen(false);
-                                  setRoomModal(true);
-                                }}
-                              >
-                                <MdOutlineVideoCall className="text-xl" />
-                                {t("join_call")}
-                              </Link>
+
                             </li>
                           )}
 
@@ -299,6 +288,18 @@ const Navbar2 = () => {
                             </li>
                           )}
                           <li>
+                            <Link
+                              className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setRoomModal(true);
+                              }}
+                            >
+                              <MdOutlineVideoCall className="text-xl" />
+                              {t("join_call")}
+                            </Link>
+                          </li>
+                          <li>
                             <button
                               onClick={handleLogOut}
                               className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2 w-full"
@@ -307,6 +308,7 @@ const Navbar2 = () => {
                               {t("logout")}
                             </button>
                           </li>
+                          
                         </ul>
                       </div>
                     )}
@@ -331,7 +333,7 @@ const Navbar2 = () => {
         onClose={() => setLoginModalOpen(false)}
         center
       >
-        <Login setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen}/>
+        <Login setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen} />
       </Modal>
 
       {/* Sign Up Modal */}
