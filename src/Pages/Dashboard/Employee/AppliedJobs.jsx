@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
@@ -68,7 +69,10 @@ const AppliedJobs = () => {
                   </div>
                 </div>
 
-                <div className="card-actions mt-6 flex items-center">
+                <div
+                  className="card-actions mt-6 flex items-center"
+                  data-testid="job-status"
+                >
                   <div className="flex items-center">
                     <FaCheckCircle
                       className={`mr-2 ${
