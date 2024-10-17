@@ -126,7 +126,7 @@ const Navbar2 = () => {
     >
       <div className="container mx-auto">
         <div className="navbar pt-2">
-          <div className="navbar-start">
+          <div className="navbar-start ">
             <div className="flex items-center gap-2 text-[#0a65cc]">
               <PiBag className="w-6 h-6" />
               <Link to="/" className="text-xl border-none outline-none font-bold">

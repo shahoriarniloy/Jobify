@@ -6,7 +6,7 @@ import arrow2 from '../../assets/arrow2.png'
 const HowItWorks = () => {
   return (
     <div className='bg-secondary'>
-      <div className='py-[100px] container mx-auto '>
+      <div className='py-24 container mx-auto '>
         <h1 className='text-3xl font-semibold mb-2 tracking-wider text-black text-center '>How Jobify work</h1>
         {/* <div className="flex justify-between items-center  gap-12 text-center mt-16"> */}
         <div className="grid grid-cols-1 place-items-center md:grid-cols-2 lg:grid-cols-4  gap-12 text-center mt-16 ">

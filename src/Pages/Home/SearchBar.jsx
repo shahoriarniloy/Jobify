@@ -152,8 +152,8 @@ const SearchBar = () => {
         </div>
 
 
-        <div className="flex flex-col md:flex-row justify-between mt-28 gap-5">
-          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 w-full max-w-xs ">
+        <div className=" mt-8 md:mt-28 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4  ">
             <div className="rounded-md bg-[#e7f0fa] p-4">
               <FaBriefcase className="text-4xl text-[#0a65cc]" />
             </div>
@@ -163,7 +163,7 @@ const SearchBar = () => {
             </div>
           </div>
 
-          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 w-full max-w-xs">
+          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 ">
             <div className="rounded-md bg-[#e7f0fa] p-4">
               <FaBuilding className="text-4xl text-[#0a65cc]" />
             </div>
@@ -174,7 +174,7 @@ const SearchBar = () => {
 
           </div>
 
-          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 w-full max-w-xs">
+          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 ">
             <div className="rounded-md bg-[#e7f0fa] p-4">
               <IoPeopleSharp className="text-4xl text-[#0a65cc]" />
             </div>
@@ -185,7 +185,7 @@ const SearchBar = () => {
 
           </div>
 
-          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 w-full max-w-xs">
+          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 ">
             <div className="rounded-md bg-[#e7f0fa] p-4">
               <RiPoliceBadgeFill className="text-4xl text-[#0a65cc]" />
             </div>

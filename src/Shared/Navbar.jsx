@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { io } from "socket.io-client";
 import { FaBell } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { PiBag } from "react-icons/pi";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -146,13 +147,11 @@ const Navbar = () => {
   return (
     <div className="-mb-4">
       <div
-        className={`navbar shadow-sm ${
-          isSticky ? "sticky top-0 z-50" : ""
-        } roboto-regular ${
-          theme === "dark"
+        className={`navbar shadow-sm ${isSticky ? "sticky top-0 z-50" : ""
+          } roboto-regular ${theme === "dark"
             ? "bg-gray-900 text-white"
             : "bg-white text-black"
-        }`}
+          }`}
       >
         <div className="navbar-start">
           <div className="dropdown">
