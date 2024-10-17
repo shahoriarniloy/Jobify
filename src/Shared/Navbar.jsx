@@ -147,11 +147,11 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className={`navbar shadow-sm ${isSticky ? "sticky top-0 z-50" : ""
-          } roboto-regular ${theme === "dark"
-            ? "bg-gray-900 text-white"
-            : "bg-white text-black"
-          }`}
+        className={`navbar shadow-sm ${
+          isSticky ? "sticky top-0 z-50" : ""
+        } roboto-regular ${
+          theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+        }`}
       >
         <div className="navbar-start">
           <div className="dropdown">
@@ -186,7 +186,6 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end relative">
-
           {isModalOpen && (
             <div
               className="absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"

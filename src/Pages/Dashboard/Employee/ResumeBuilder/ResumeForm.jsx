@@ -4,6 +4,7 @@ import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import "./resume.css";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const predefinedSkills = [
   // Frontend Development
@@ -682,7 +683,18 @@ const ResumeForm = () => {
 
   return (
     <div className="resume-form mb-8 text-sm ">
-      <h2 className="text-lg mb-8 text-center font-bold">Resume Builder</h2>
+      <div className="flex flex-row justify-between">
+        <div className="">
+          <h2 className="text-lg mb-8 text-center font-bold">Resume Builder</h2>
+        </div>
+        <div>
+          <Link to={`/jobSeeker/resume/${currentUser.email}`}>
+            <button className="px-4 py-2 bg-blue-400 rounded-md">
+              View Resume
+            </button>
+          </Link>
+        </div>
+      </div>
 
       <form onSubmit={handleSubmit}>
         <div className="border p-6 rounded-md  shadow-md mb-4 ">

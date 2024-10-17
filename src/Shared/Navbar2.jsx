@@ -131,7 +131,10 @@ const Navbar2 = () => {
           <div className="navbar-start ">
             <div className="flex items-center gap-2 text-[#0a65cc]">
               <PiBag className="w-6 h-6" />
-              <Link to="/" className="text-xl border-none outline-none font-bold">
+              <Link
+                to="/"
+                className="text-xl border-none outline-none font-bold"
+              >
                 {t("Jobify")}
               </Link>
             </div>
@@ -260,6 +263,16 @@ const Navbar2 = () => {
                                   {t("dashboard")}
                                 </Link>
                               </li>
+                              <Link
+                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                onClick={() => {
+                                  setIsMenuOpen(false);
+                                  setRoomModal(true);
+                                }}
+                              >
+                                <MdOutlineVideoCall className="text-xl" />
+                                {t("join_call")}
+                              </Link>
                             </>
                           )}
                           {role === "Employer" && (
@@ -272,7 +285,7 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
-                             
+
                               <Link
                                 className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                 onClick={() => {
@@ -331,7 +344,10 @@ const Navbar2 = () => {
         onClose={() => setLoginModalOpen(false)}
         center
       >
-        <Login setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen}/>
+        <Login
+          setLoginModalOpen={setLoginModalOpen}
+          setSignUpModalOpen={setSignUpModalOpen}
+        />
       </Modal>
 
       {/* Sign Up Modal */}
@@ -340,7 +356,10 @@ const Navbar2 = () => {
         onClose={() => setSignUpModalOpen(false)}
         center
       >
-        <Register setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen} />
+        <Register
+          setLoginModalOpen={setLoginModalOpen}
+          setSignUpModalOpen={setSignUpModalOpen}
+        />
       </Modal>
 
       {/* Room Modal */}

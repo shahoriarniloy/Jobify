@@ -4,7 +4,7 @@ import { FaBriefcase, FaBuilding } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
-import homeBg from '../../assets/homebg.png'
+import homeBg from "../../assets/homebg.png";
 import { IoPeopleSharp } from "react-icons/io5";
 import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
@@ -91,9 +91,10 @@ const SearchBar = () => {
                       placeholder="Job title, Company Name..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className={theme === "dark" ?
-                        "w-full pl-12 pr-3 py-3 sm:py-4 bg-[#10101d] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out" :
-                        "w-full pl-12 pr-3 py-3 sm:py-4 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                      className={
+                        theme === "dark"
+                          ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-[#10101d] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                          : "w-full pl-12 pr-3 py-3 sm:py-4 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
                       }
                     />
                   </div>
@@ -107,8 +108,11 @@ const SearchBar = () => {
                       placeholder="Location"
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
-                      className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none
-                            focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                      className={
+                        theme === "dark"
+                          ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-[#10101d] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                          : "w-full pl-12 pr-3 py-3 sm:py-4 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                      }
                     />
                   </div>
 
@@ -121,20 +125,17 @@ const SearchBar = () => {
                     </button>
                   </div>
                 </form>
-
               </div>
-              <p className="mt-2"><span className="text-[#9199A3]">Suggestion: </span>
+              <p className="mt-2">
+                <span className="text-[#9199A3]">Suggestion: </span>
                 <span className="text-[#474C54]">
-                  Designer,
-                  Programing,
-                  Digital Marketing,
-                  Video,
-                  Animation.
+                  Designer, Programing, Digital Marketing, Video, Animation.
                 </span>
               </p>
               <div
-                className={`mt-3 ${jobs.length > 0 ? "opacity-100" : "opacity-0"
-                  } transition-opacity duration-300`}
+                className={`mt-3 ${
+                  jobs.length > 0 ? "opacity-100" : "opacity-0"
+                } transition-opacity duration-300`}
               >
                 {jobs.length > 0 ? (
                   <div className="flex items-center gap-2">
@@ -147,17 +148,17 @@ const SearchBar = () => {
                           </h3>
                         </Link>
                       ))}
-
                     </div>
                   </div>
                 ) : (
                   <div className="mt-6 text-gray-500">
-                    <h2 className="text-lg font-medium">No matching jobs found.</h2>
+                    <h2 className="text-lg font-medium">
+                      No matching jobs found.
+                    </h2>
                   </div>
                 )}
               </div>
             </div>
-
 
             {/* home banner */}
 
@@ -166,7 +167,6 @@ const SearchBar = () => {
             </div>
           </div>
         </div>
-
 
         <div className=" mt-8 md:mt-28 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4  ">
@@ -187,7 +187,6 @@ const SearchBar = () => {
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
               <p className="text-[#767F8C]">Companies</p>
             </div>
-
           </div>
 
           <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 ">
@@ -198,7 +197,6 @@ const SearchBar = () => {
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
               <p className="text-[#767F8C]">Candidates</p>
             </div>
-
           </div>
 
           <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 ">
@@ -210,11 +208,9 @@ const SearchBar = () => {
               <p className="text-[#767F8C]">Successful</p>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-
   );
 };
 
