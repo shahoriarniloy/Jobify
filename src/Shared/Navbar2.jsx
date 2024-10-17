@@ -285,17 +285,6 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
-
-                              <Link
-                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                onClick={() => {
-                                  setIsMenuOpen(false);
-                                  setRoomModal(true);
-                                }}
-                              >
-                                <MdOutlineVideoCall className="text-xl" />
-                                {t("join_call")}
-                              </Link>
                             </li>
                           )}
 
@@ -309,8 +298,21 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
+                              <li>
+                                <Link
+                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                  onClick={() => {
+                                    setIsMenuOpen(false);
+                                    setRoomModal(true);
+                                  }}
+                                >
+                                  <MdOutlineVideoCall className="text-xl" />
+                                  {t("join_call")}
+                                </Link>
+                              </li>
                             </li>
                           )}
+
                           <li>
                             <button
                               onClick={handleLogOut}

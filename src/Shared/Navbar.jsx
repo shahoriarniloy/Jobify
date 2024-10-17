@@ -83,7 +83,7 @@ const Navbar = () => {
   );
 
   useEffect(() => {
-    const socketConnection = io("http://localhost:5000");
+    const socketConnection = io("https://jobify-server-ujo0.onrender.com");
     setSocket(socketConnection);
 
     return () => {
@@ -150,7 +150,7 @@ const Navbar = () => {
         className={`navbar shadow-sm ${
           isSticky ? "sticky top-0 z-50" : ""
         } roboto-regular ${
-          theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+          theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"
         }`}
       >
         <div className="navbar-start">
