@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import "./resume.css";
@@ -561,9 +562,7 @@ const ResumeForm = () => {
           });
         }
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -670,14 +669,12 @@ const ResumeForm = () => {
         name: currentUser.displayName,
       };
 
-
       const response = await axiosSecure.post(
         "/createOrUpdateResume",
         updatedFormData
       );
 
       toast.success("Resume Informations Updated");
-
     } catch (error) {
       toast.error("Failed Saving Resume Information");
     }
@@ -693,8 +690,11 @@ const ResumeForm = () => {
 
           <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
             <div className="w-full">
-              <label className="block mt-2">Name:</label>
+              <label htmlFor="name" className="block mt-2">
+                Name:
+              </label>
               <input
+                id="name"
                 type="text"
                 name="name"
                 value={currentUser?.displayName}
@@ -704,8 +704,11 @@ const ResumeForm = () => {
               />
             </div>
             <div className="w-full">
-              <label className="block mt-2">Email:</label>
+              <label htmlFor="email" className="block mt-2">
+                Email:
+              </label>
               <input
+                id="email"
                 type="text"
                 name="email"
                 value={currentUser?.email}
@@ -716,8 +719,11 @@ const ResumeForm = () => {
             </div>
 
             <div className="w-full">
-              <label className="block mt-2">Phone:</label>
+              <label htmlFor="phone" className="block mt-2">
+                Phone:
+              </label>
               <input
+                id="phone"
                 type="text"
                 name="phone"
                 value={formData.phone}
@@ -729,8 +735,11 @@ const ResumeForm = () => {
 
           <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
             <div className="w-full">
-              <label className="block mt-2">LinkedIn:</label>
+              <label htmlFor="linkedin" className="block mt-2">
+                LinkedIn:
+              </label>
               <input
+                id="linkedin"
                 type="text"
                 name="linkedin"
                 value={formData.linkedin}
@@ -740,8 +749,11 @@ const ResumeForm = () => {
             </div>
 
             <div className="w-full">
-              <label className="block mt-2">GitHub:</label>
+              <label htmlFor="github" className="block mt-2">
+                GitHub:
+              </label>
               <input
+                id="github"
                 type="text"
                 name="github"
                 value={formData.github}
@@ -755,8 +767,11 @@ const ResumeForm = () => {
           <h3 className=" font-bold text-xl">Summary & Skills</h3>
           <div className="flex lg:flex-row flex-col justify-between w-full gap-4 ">
             <div className=" w-full">
-              <label className="block mt-2">Objective:</label>
+              <label htmlFor="objective" className="block mt-2">
+                Objective:
+              </label>
               <textarea
+                id="objective"
                 name="objective"
                 value={formData.objective}
                 onChange={handleChange}
@@ -765,8 +780,11 @@ const ResumeForm = () => {
             </div>
 
             <div className="w-full flex flex-col">
-              <label className="block mt-2">Skills:</label>
+              <label htmlFor="skills" className="block mt-2">
+                Skills:
+              </label>
               <input
+                id="skills"
                 type="text"
                 value={skillInput}
                 placeholder="Type a skill..."
@@ -807,8 +825,11 @@ const ResumeForm = () => {
             <div key={index} className="mb-4">
               <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
                 <div className="w-full">
-                  <label className="block mt-2">Job Position/Title:</label>
+                  <label htmlFor="jobTitle" className="block mt-2">
+                    Job Position/Title:
+                  </label>
                   <input
+                    id="jobTitle"
                     type="text"
                     name="jobTitle"
                     value={experience.jobTitle}
@@ -818,8 +839,11 @@ const ResumeForm = () => {
                 </div>
 
                 <div className="w-full">
-                  <label className="block mt-2">Company:</label>
+                  <label htmlFor="company" className="block mt-2">
+                    Company:
+                  </label>
                   <input
+                    id="company"
                     type="text"
                     name="company"
                     value={experience.company}
@@ -831,8 +855,11 @@ const ResumeForm = () => {
 
               <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
                 <div className="w-full">
-                  <label className="block mt-2">Start Date:</label>
+                  <label htmlFor="date1" className="block mt-2">
+                    Start Date:
+                  </label>
                   <input
+                    id="date1"
                     type="date"
                     name="startDate"
                     value={experience.startDate}
@@ -842,8 +869,11 @@ const ResumeForm = () => {
                 </div>
 
                 <div className="w-full">
-                  <label className="block mt-2">End Date:</label>
+                  <label htmlFor="date2" className="block mt-2">
+                    End Date:
+                  </label>
                   <input
+                    id="date2"
                     type="date"
                     name="endDate"
                     value={experience.endDate}
@@ -853,8 +883,11 @@ const ResumeForm = () => {
                 </div>
               </div>
 
-              <label className="block mt-2">Description:</label>
+              <label htmlFor="description" className="block mt-2">
+                Description:
+              </label>
               <textarea
+                id="description"
                 name="description"
                 value={experience.description}
                 onChange={(e) => handleExperienceChange(index, e)}
