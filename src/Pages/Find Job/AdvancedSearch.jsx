@@ -474,7 +474,9 @@ const AdvancedSearch = () => {
                   <h2 className="text-2xl font-semibold tracking-wide">
                     {job.title}
                   </h2>
-                  <Bookmark jobId={job._id} />
+                  <div
+                  className="absolute -top-12 -right-6"
+                  ><Bookmark jobId={job._id} /></div>
 
                   <p className="font-semibold ">Company: {job.company}</p>
                   <p className=" text-sm tracking-wide">
