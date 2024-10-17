@@ -357,7 +357,7 @@ const Navbar2 = () => {
         onClose={() => setLoginModalOpen(false)}
         center
       >
-        <Login />
+        <Login setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen}/>
       </Modal>
 
       {/* Sign Up Modal */}
@@ -366,7 +366,7 @@ const Navbar2 = () => {
         onClose={() => setSignUpModalOpen(false)}
         center
       >
-        <Register />
+        <Register setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen} />
       </Modal>
 
       {/* Room Modal */}

@@ -3,17 +3,19 @@ import Feedback from "../About/Feedback";
 import HowItWorks from "./HowItWorks";
 import OurTeam from "../About/OurTeam/OurTeam";
 import PopularCategory from "./PopularCategory";
+import TopCompanies from "./TopCompanies";
 // import TopCompanies from "./TopCompanies"
 const Home = () => {
   return (
     <div>
       <SearchBar></SearchBar>
-      <HowItWorks></HowItWorks>
-
       <PopularCategory/>
+      <HowItWorks></HowItWorks>
+      <TopCompanies/>
 
-      <OurTeam></OurTeam>
-      <Feedback></Feedback>
+
+      {/* <OurTeam></OurTeam> */}
+      {/* <Feedback></Feedback> */}
 
       {/* <TopCompanies></TopCompanies> */}
     </div>

@@ -28,8 +28,8 @@ const Main = () => {
       <Navbar2 />
       <Navbar />
 
-      <div className="">
-        <div className="mt-4">
+      
+        <div className="min-h-[calc(100vh-240px)]">
           <Outlet />
         </div>
 
@@ -39,7 +39,7 @@ const Main = () => {
         >
           <FaEnvelope size={24} />
         </button>
-      </div>
+      
       <Footer />
     </div>
   );

@@ -145,7 +145,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="-mb-4">
+    <div>
       <div
         className={`navbar shadow-sm ${isSticky ? "sticky top-0 z-50" : ""
           } roboto-regular ${theme === "dark"

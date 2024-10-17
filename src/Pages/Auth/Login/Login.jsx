@@ -19,6 +19,8 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 
+
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
@@ -144,7 +146,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
           </button>
 
           <p className="mt-4 text-xs text-center">
-            Don't have an account?{" "}
+            Don't have an account?
             <span className="link-color">
               <button
                 onClick={() => {

@@ -21,10 +21,10 @@ const AuthLayout = () => {
         theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
       }`}
     >
-      <div className="">
+     
         <Navbar2 />
-      </div>
-      <div className="auth-container lg:px-24 md:px-12 px-4">
+     
+      <div className="lg:px-24 md:px-12 px-4 min-h-[calc(100vh-290px)]">
         <Outlet />
       </div>
       <Footer />
