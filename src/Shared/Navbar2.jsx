@@ -307,7 +307,7 @@ const Navbar2 = () => {
                           {role === "Employer" && (
                             <li>
                               <Link
-                                to="/dashboard"
+                                to="/dashboard/overview"
                                 className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                 onClick={() => setIsMenuOpen(false)}
                               >
@@ -331,6 +331,19 @@ const Navbar2 = () => {
                               >
                                 <MdOutlineVideoCall className="text-xl" />
                                 {t("join_call")}
+                              </Link>
+                            </li>
+                          )}
+
+                          {role === "Admin" && (
+                            <li>
+                              <Link
+                                to="/admin/overview"
+                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                <MdOutlineDashboardCustomize />
+                                {t("dashboard")}
                               </Link>
                             </li>
                           )}

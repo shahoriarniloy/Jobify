@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaEdit, FaTrashAlt } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
@@ -9,6 +10,7 @@ const AllCompanies = () => {
   const [totalCompanies, setTotalCompanies] = useState(0);
   const [pages, setPages] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [error, setError] = useState(null);
 
   const fetchCompanies = async () => {
     try {
@@ -23,8 +25,10 @@ const AllCompanies = () => {
       setTotalCompanies(response.data.totalCompanies);
       const totalPages = Math.ceil(response.data.totalCompanies / itemsPerPage);
       setPages([...Array(totalPages).keys()]);
+      setError(null);
     } catch (error) {
-      // console.error("Failed to fetch companies", error);
+      console.error("Failed to fetch companies", error);
+      setError("Failed to load companies. Please try again later.");
     }
   };
 
@@ -56,7 +60,7 @@ const AllCompanies = () => {
   };
 
   const handleEdit = (companyId) => {
-    // console.log(`Edit company with ID: ${companyId}`);
+    console.log(`Edit company with ID: ${companyId}`);
   };
 
   const handleDelete = async (companyId) => {
@@ -67,15 +71,16 @@ const AllCompanies = () => {
       try {
         await axiosSecure.delete(`/companies/${companyId}`);
         fetchCompanies();
-        // console.log(`Deleted company with ID: ${companyId}`);
+        console.log(`Deleted company with ID: ${companyId}`);
       } catch (error) {
-        // console.error("Failed to delete company", error);
+        console.error("Failed to delete company", error);
       }
     }
   };
 
   return (
     <div className="companies-container">
+      {error && <div className="error-message">{error}</div>}
       <div className="flex items-center justify-center gap-4 mt-4">
         <input
           type="text"
@@ -169,6 +174,7 @@ const AllCompanies = () => {
           className="px-4 py-2 ml-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
           onClick={handleNextPage}
           disabled={currentPage === pages.length - 1}
+          aria-label="Next"
         >
           <FaArrowRight />
         </button>
