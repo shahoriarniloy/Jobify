@@ -50,21 +50,10 @@ const AuthProvider = ({ children }) => {
       .finally(() => setLoading(false));
   };
 
-  const signInWithGoogle = async () => {
-    const userCredential = await signInWithPopup(auth, googleProvider);
-    const user = userCredential.user;
-
-    const serializableUser = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-    };
-
-    dispatch(setCurrentUser(serializableUser));
-    localStorage.setItem("currentUser", JSON.stringify(serializableUser));
-
-    return userCredential;
+  const signInWithGoogle = () => {
+    return signInWithPopup(auth, googleProvider);
+    
+    
   };
 
   const logOutUser = () => {

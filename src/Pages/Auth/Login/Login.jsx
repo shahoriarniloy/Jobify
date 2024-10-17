@@ -8,6 +8,7 @@ import { signInWithGoogle, signInWithEmail, setCurrentUser } from "../../../Redu
 import ButtonLoader from "../../../Shared/ButtonLoader";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import useCurrentUser from './../../../Hooks/useCurrentUser';
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const { t } = useTranslation(); // Initialize translation
@@ -16,6 +17,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+  const { signInWithGoogle } = useCurrentUser();
 
 
 
@@ -51,37 +53,11 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   };
 
   const handleGoogleSignIn = async () => {
-    try {
-      const result = await dispatch(signInWithGoogle()).unwrap();
-
-      dispatch(setCurrentUser(result));
-
-      try {
-        const response = await axiosSecure.post("/users", {
-          email: result.email,
-          uid: result.uid,
-          displayName: result.displayName,
-          photoURL: result.photoURL,
-          role: "Job Seeker",
-        });
-
-        const dbResult = response.data;
-
-        if (dbResult.insertedId) {
-          // console.log("User added to the database:", dbResult);
-        } else {
-          // console.log(dbResult.message || "User already exists");
-        }
-
-        toast.success(t("login.google_sign_in")); // Use translation for Google sign-in
-        navigate(from, { replace: true });
-      } catch (dbError) {
-        // console.error("Failed to add user to the database:", dbError);
-      }
-    } catch (error) {
-      console.error("Google Sign-In Error:", error);
-      toast.warn(t("login.failed_google")); // Change to use translation
-    }
+    signInWithGoogle()
+      .then(result => {
+        toast.success(`${result?.user?.displayName} sign with ${result?.providerId}`);
+        setLoginModalOpen(false)
+      })
   };
 
   return (
