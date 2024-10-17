@@ -33,7 +33,7 @@ const FoundingInfo = () => {
           setEstablishmentYear(userData.founded_date || "");
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        // console.error("Error fetching user data:", error);
       }
     };
 
@@ -71,7 +71,7 @@ const FoundingInfo = () => {
       );
       toast.success("Company Founding Info Saved");
     } catch (error) {
-      console.error("Error saving company info:", error);
+      // console.error("Error saving company info:", error);
     }
   };
 

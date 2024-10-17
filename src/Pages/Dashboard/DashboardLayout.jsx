@@ -19,8 +19,8 @@ const DashboardLayout = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(logOutAction()); // Dispatch the logOut action
-    navigate("/"); // Redirect to home after logout
+    dispatch(logOutAction());
+    navigate("/");
   };
 
   return (
@@ -83,7 +83,7 @@ const DashboardLayout = () => {
                 <FaUsers className="text-xl" /> Candidates
               </NavLink>
               <NavLink
-                to="/dashboard/companySettings"
+                to="/dashboard/company-settings"
                 className={({ isActive }) =>
                   isActive
                     ? "isActiveRoute"

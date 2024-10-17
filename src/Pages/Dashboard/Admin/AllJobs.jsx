@@ -14,7 +14,6 @@ const AllJobs = () => {
   const [totalJobs, setTotalJobs] = useState(0);
   const [pages, setPages] = useState([]);
 
-  // Function to fetch jobs from the server
   const fetchJobs = async () => {
     try {
       const response = await axiosSecure.get("/jobs", {
@@ -123,6 +122,7 @@ const AllJobs = () => {
           className="px-4 py-2 mr-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
           onClick={handlePreviousPage}
           disabled={currentPage === 0}
+          aria-label="Previous Page"
         >
           <FaArrowLeft />
         </button>
@@ -134,6 +134,7 @@ const AllJobs = () => {
                 page === currentPage ? "bg-blue-200" : "bg-white"
               } border border-blue-300`}
               onClick={() => setCurrentPage(page)}
+              aria-label={`Page ${page + 1}`}
             >
               {page + 1}
             </button>
@@ -143,6 +144,7 @@ const AllJobs = () => {
           className="px-4 py-2 ml-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
           onClick={handleNextPage}
           disabled={currentPage === pages.length - 1}
+          aria-label="Next Page"
         >
           <FaArrowRight />
         </button>

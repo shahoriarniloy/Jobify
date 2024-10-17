@@ -121,7 +121,7 @@ const SingleJob = () => {
           <div>
             <img
               className="rounded-full h-16 w-16"
-              src="https://th.bing.com/th/id/R.03f40b67b63d9c1c1a5a792109bbc699?rik=8HhXk%2b5PP7XurQ&riu=http%3a%2f%2fpngimg.com%2fuploads%2finstagram%2finstagram_PNG10.png&ehk=%2f7%2ftghrL31GFpelB7DZvprao8IZHRvmhi0BpDsEAZgI%3d&risl=&pid=ImgRaw&r=0"
+              src={job?.company_logo}
               alt="Company Logo"
             />
           </div>

@@ -127,7 +127,7 @@ const Navbar = () => {
   }, [socket, currentUser?.email]);
 
   const toggleModal = () => {
-    console.log("Bell icon clicked! Modal state:", isModalOpen);
+    // console.log("Bell icon clicked! Modal state:", isModalOpen);
     setIsModalOpen((prevState) => !prevState);
   };
 
