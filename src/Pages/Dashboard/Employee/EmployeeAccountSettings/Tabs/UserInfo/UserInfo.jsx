@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "../../../../../../Styles/TextEditorTools/CustomReactQuill.css";
 import ReactQuill from "react-quill";
 import DragAndDropInput from "../../../Components/DragAndDropInput";
 import PhoneInput from "react-phone-input-2";
@@ -8,7 +7,7 @@ import SocialMediaProfileForEmployee from "../SocialMediaProfile/SocialMediaProf
 import axios from "axios";
 import { toast } from "react-toastify";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
-import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 
 const UserInfo = () => {
   const [name, setName] = useState("");
@@ -17,18 +16,34 @@ const UserInfo = () => {
   const [logoFile, setLogoFile] = useState(null);
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
-  const currentUser = useCurrentUser();
+  const [socialLinks, setSocialLinks] = useState([]);
+  const currentUser = useSelector((state) => state.user.currentUser);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axiosSecure.get(`/users/${currentUser?.email}`);
+        const userData = response.data;
+
+
+        if (userData && userData.userInfo && userData.userInfo.length > 0) {
+          setAbout(userData?.userInfo[0]?.about || "");
+          setPhone(userData?.userInfo[0]?.phone || "");
+
+          setSocialLinks(userData?.userInfo[0]?.socialLinks || "");
+        }
+      } catch (error) {
+        // console.error("Error fetching user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, [currentUser?.email]);
 
   useEffect(() => {
     if (currentUser) {
-      setName(currentUser?.currentUser?.displayName || "");
-      setEmail(currentUser?.currentUser?.email || "");
-      // If you need to handle roles
-      if (currentUser.role === "Job Seeker") {
-        // Apply Job Seeker specific logic
-      } else if (currentUser.role === "Employer") {
-        // Apply Employer specific logic
-      }
+      setName(currentUser?.displayName || "");
+      setEmail(currentUser?.email || "");
     }
   }, [currentUser]);
 
@@ -61,9 +76,9 @@ const UserInfo = () => {
     setLoading(true);
 
     try {
-      let logoUrl = null;
+      let photoUrl = null;
       if (logoFile) {
-        logoUrl = await uploadImageToImgBB(logoFile);
+        photoUrl = await uploadImageToImgBB(logoFile);
       }
 
       const postData = {
@@ -71,12 +86,14 @@ const UserInfo = () => {
         about,
         phone,
         photoUrl,
+        email: currentUser.email,
+        socialLinks,
       };
 
       await axiosSecure.post("/userInfo-updating", postData);
       toast.success("Profile saved successfully");
     } catch (error) {
-      console.error("Error submitting profile:", error);
+      // console.error("Error submitting profile:", error);
     } finally {
       setLoading(false);
     }
@@ -177,7 +194,10 @@ const UserInfo = () => {
           </section>
 
           <div className="w-full lg:w-1/2">
-            <SocialMediaProfileForEmployee />
+            <SocialMediaProfileForEmployee
+              socialLinks={socialLinks}
+              setSocialLinks={setSocialLinks} // Pass setter to update social links
+            />
           </div>
         </div>
 

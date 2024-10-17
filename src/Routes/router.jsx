@@ -5,7 +5,6 @@ import RouteNotFound from "./RouteNotFound";
 
 import Candidates from "../Pages/Dashboard/Company/Candidates/Candidates";
 
-import Home from "../Pages/Home/Home";
 import CreateAccount from "../Pages/Auth/CreateAccount/CreateAccount";
 import Login from "../Pages/Auth/Login/Login";
 
@@ -32,6 +31,7 @@ import MessageDetail from "../Pages/Dashboard/Employee/Message/MessageDetail";
 // import JobTable from "../Pages/Dashboard/Company/MyJob";
 
 import EmployeeHome from "../Pages/Dashboard/Company/EmployeeHome";
+import Home from "../Pages/Home/Home";
 import JobTable from "../Pages/Dashboard/Company/MyJob";
 import CompanySettings from "../Pages/Dashboard/Company/CompanySettings/CompanySettings";
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeAccountSettings/EmployeeSettings";
@@ -49,6 +49,10 @@ import AllJobSeekers from "../Pages/Dashboard/Admin/AllJobSeekers";
 import AdminOverview from "../Pages/Dashboard/Admin/AdminOverview";
 import AdminLayout from "../Pages/Dashboard/Admin/AdminLayout";
 import Room from "../Pages/Room/Room";
+import ResumeForm from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeForm";
+import Resume from "../Pages/Dashboard/Employee/ResumeBuilder/Resume";
+import ResumeBuilder from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeBuilder";
+import EmployeeDashboard from "../Pages/Dashboard/Employee/EmployeeDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -90,27 +94,10 @@ export const router = createBrowserRouter([
         path: "/candidates",
         element: <Candidates />,
       },
-      {
-        path: "/employee-settings",
-        element: <EmployeeSettings />,
-      },
 
       {
         path: "/myjobs",
         element: <JobTable />,
-      },
-      {
-        path: "/favorite-jobs",
-        element: <BookmarkedJobs />,
-      },
-
-      {
-        path: "/appliedjobs",
-        element: <AppliedJobs />,
-      },
-      {
-        path: "/favorite-jobs",
-        element: <BookmarkedJobs />,
       },
 
       {
@@ -137,6 +124,11 @@ export const router = createBrowserRouter([
         path: "/messages/:otherPartyEmail",
         element: <MessageDetail></MessageDetail>,
       },
+
+      // {
+      //   path: "/resume-builder",
+      //   element: <ResumeBuilder></ResumeBuilder>,
+      // },
     ],
   },
   {
@@ -190,7 +182,7 @@ export const router = createBrowserRouter([
           },
 
           {
-            path: "companySettings",
+            path: "company-settings",
             element: <CompanySettings />,
           },
         ],
@@ -215,6 +207,37 @@ export const router = createBrowserRouter([
           {
             path: "overview",
             element: <AdminOverview />,
+          },
+        ],
+      },
+
+      {
+        path: "/jobSeeker",
+        element: <EmployeeDashboard />,
+        children: [
+          {
+            path: "overview",
+            element: <EmployeeHome />,
+          },
+          {
+            path: "appliedjobs",
+            element: <AppliedJobs />,
+          },
+          {
+            path: "favorite-jobs",
+            element: <BookmarkedJobs />,
+          },
+          {
+            path: "resume-builder",
+            element: <ResumeForm></ResumeForm>,
+          },
+          {
+            path: "resume/:email",
+            element: <Resume></Resume>,
+          },
+          {
+            path: "employee-settings",
+            element: <EmployeeSettings />,
           },
         ],
       },

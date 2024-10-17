@@ -10,5 +10,4 @@ const store = configureStore({
     language: languageReducer,
   },
 });
-
 export default store;

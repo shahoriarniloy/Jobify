@@ -1,13 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { io } from "socket.io-client";
+import { FaBell } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { t } = useTranslation();
   const [isSticky, setIsSticky] = useState(false);
+  const [jobNotifications, setJobNotifications] = useState([]);
   const theme = useSelector((state) => state.theme.theme);
+  const [socket, setSocket] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const currentUser = useSelector((state) => state.user.currentUser);
   const navItem = (
     <>
       <li>
@@ -28,7 +35,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("apply_job")} {/* Changed from "Apply Job" to "apply_job" */}
+          {t("apply_job")}
         </NavLink>
       </li>
       <li>
@@ -38,7 +45,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("find_company")} {/* Changed from "Find Company" to "find_company" */}
+          {t("find_company")}
         </NavLink>
       </li>
       <li>
@@ -48,7 +55,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("messaging")} {/* Changed from "Messaging" to "messaging" */}
+          {t("messaging")}
         </NavLink>
       </li>
       <li>
@@ -58,7 +65,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("my_network")} {/* Changed from "My Network" to "my_network" */}
+          {t("my_network")}
         </NavLink>
       </li>
       <li>
@@ -68,11 +75,60 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("about_us")} {/* Changed from "About Us" to "about_us" */}
+          {t("about_us")}
         </NavLink>
       </li>
     </>
   );
+
+  useEffect(() => {
+    const socketConnection = io("http://localhost:5000");
+    setSocket(socketConnection);
+
+    return () => {
+      socketConnection.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.emit("newUser", currentUser?.email);
+
+      socket.on("jobPosted", (data) => {
+        Swal.fire({
+          icon: "info",
+          title: "New Job Posted!",
+          text: `A new job "${data.jobTitle}" was posted by ${data.company}`,
+          background: "#f4f8ff",
+          color: "#333",
+          customClass: {
+            title: "swal-title",
+            content: "swal-content",
+            confirmButton: "swal-confirm",
+          },
+          confirmButtonText: "View Job",
+          confirmButtonColor: "#007bff",
+          showCancelButton: true,
+          cancelButtonText: "Close",
+          cancelButtonColor: "#dc3545",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = `/job/${data.jobId}`;
+          }
+        });
+
+        setJobNotifications((prevNotifications) => [
+          ...prevNotifications,
+          { title: data.jobTitle, company: data.company, jobId: data.jobId },
+        ]);
+      });
+    }
+  }, [socket, currentUser?.email]);
+
+  const toggleModal = () => {
+    // console.log("Bell icon clicked! Modal state:", isModalOpen);
+    setIsModalOpen((prevState) => !prevState);
+  };
 
   const handleScroll = () => {
     const scrollY = window.scrollY;
@@ -90,11 +146,13 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className={`navbar shadow-md ${isSticky ? "sticky top-0 z-50" : ""
-          } roboto-regular ${theme === "dark"
-          ? "bg-gray-900 text-white"
-          : "bg-[#f4f8fffa] text-black"
-          }`}
+        className={`navbar shadow-md ${
+          isSticky ? "sticky top-0 z-50" : ""
+        } roboto-regular ${
+          theme === "dark"
+            ? "bg-gray-900 text-white"
+            : "bg-[#f4f8fffa] text-black"
+        }`}
       >
         <div className="navbar-start">
           <div className="dropdown">
@@ -128,7 +186,65 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="navbar-end flex items-center gap-4"></div>
+        <div className="navbar-end relative">
+          {/* <FaBell className="cursor-pointer" onClick={toggleModal} />
+          {jobNotifications.length > 0 && (
+            <div className="notification-count">{jobNotifications.length}</div>
+          )} */}
+
+          {isModalOpen && (
+            <div
+              className="absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+              style={{ marginRight: "20px" }}
+            >
+              <h2 className="text-lg font-bold mb-4">Notifications</h2>
+
+              {jobNotifications.length > 0 && (
+                <div className="flex justify-between items-center mb-4">
+                  <p className="text-sm">
+                    You have {jobNotifications.length} notifications
+                  </p>
+                  <button
+                    onClick={() => setJobNotifications([])}
+                    className="text-blue-600 text-sm hover:underline"
+                  >
+                    Mark all as read
+                  </button>
+                </div>
+              )}
+
+              {jobNotifications.length > 0 ? (
+                <ul className="text-sm">
+                  {jobNotifications.map((notification, index) => (
+                    <li
+                      key={index}
+                      className="py-2 text-gray-700 bg-bottom bg-slate-300 rounded-md p-4 mb-2"
+                    >
+                      <Link
+                        to={`/job/${notification.jobId}`}
+                        className="hover:underline"
+                      >
+                        <strong>'{notification.title}' position</strong> at{" "}
+                        <strong>{notification.company}</strong>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No notifications available</p>
+              )}
+
+              <div className="flex justify-end">
+                <button
+                  className="btn btn-primary mt-4"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

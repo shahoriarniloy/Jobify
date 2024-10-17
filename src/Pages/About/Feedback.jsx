@@ -16,7 +16,6 @@ const Feedback = () => {
   const [totalPages, setTotalPages] = useState(1);
   const { t } = useTranslation(); // Initialize the translation function
 
-
   const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
@@ -31,7 +30,7 @@ const Feedback = () => {
       }
     };
     fetchReviews(currentPage);
-  }, [currentPage]);
+  }, [currentPage, t]);
 
   useEffect(() => {
     if (currentUser) {
@@ -163,7 +162,9 @@ const Feedback = () => {
                 </div>
                 <div className="chat-bubble bg-white text-black w-full">
                   <h3 className="font-bold">{review.username}</h3>
-                  <p>{review.feedback}</p>
+                  <p className="text-base text-gray-700 md:text-sm">
+                    {review.feedback}
+                  </p>
                   <div className="flex mt-2">
                     {[...Array(review.rating)].map((_, i) => (
                       <svg

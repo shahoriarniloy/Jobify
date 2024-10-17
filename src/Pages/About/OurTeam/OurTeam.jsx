@@ -5,7 +5,7 @@ const OurTeam = () => {
   const { t } = useTranslation(); // Initialize the translation function
 
   return (
-    <div className="py-16  lg:pt-20">
+    <div className="pt-16  lg:pt-20">
       <div className="mx-auto mb-10  sm:text-center">
         <p className="inline-block px-3 py-px mb-4 text-3xl font-semibold tracking-wider text-black  rounded-full bg-teal-accent-400">
           {t("know_our_team")} {/* Updated for translation */}
@@ -38,6 +38,8 @@ const OurTeam = () => {
             <div className="flex items-center space-x-3">
               <a
                 href="https://github.com/shahoriarniloy"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -46,6 +48,8 @@ const OurTeam = () => {
               </a>
               <a
                 href="https://www.facebook.com/shahoriarniloy"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -73,6 +77,8 @@ const OurTeam = () => {
             <div className="flex items-center space-x-3">
               <a
                 href="https://github.com/Bella908"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -81,6 +87,8 @@ const OurTeam = () => {
               </a>
               <a
                 href="https://www.facebook.com/share/2zLeJux621QpVnm8/?mibextid=LQQJ4d"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -108,6 +116,8 @@ const OurTeam = () => {
             <div className="flex items-center space-x-3">
               <a
                 href="https://github.com/indraghosh02"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -116,6 +126,8 @@ const OurTeam = () => {
               </a>
               <a
                 href="https://www.facebook.com/indra.priya.564?mibextid=ZbWKwL"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -143,6 +155,8 @@ const OurTeam = () => {
             <div className="flex items-center space-x-3">
               <a
                 href="https://github.com/Abdullah-Az-Zahur"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -151,6 +165,8 @@ const OurTeam = () => {
               </a>
               <a
                 href="https://www.facebook.com/abdullahaazzahur.giyas"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -177,7 +193,9 @@ const OurTeam = () => {
             </p>
             <div className="flex items-center space-x-3">
               <a
-                href="https://github.com/Abdullah-Az-Zahur"
+                href="https://github.com/md-maruf-billa"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -186,6 +204,8 @@ const OurTeam = () => {
               </a>
               <a
                 href="https://www.facebook.com/profile.php?id=100027753881743"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">

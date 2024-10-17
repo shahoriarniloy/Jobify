@@ -43,8 +43,13 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       toast.success(t("login.sign_in") + " " + t("login.login") + " " + t("login.success")); // Optional success message
       navigate(from, { replace: true });
     } catch (error) {
+<<<<<<< HEAD
       console.error("Error during login:", error);
       toast.error(t("login.failed")); // Change to use translation
+=======
+      // console.error("Error during login:", error);
+      toast.error("Login failed. Please check your credentials.");
+>>>>>>> 4facb7bf496891e6410f5afa6094a489bba149f4
     }
   };
 
@@ -66,19 +71,24 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
         const dbResult = response.data;
 
         if (dbResult.insertedId) {
-          console.log("User added to the database:", dbResult);
+          // console.log("User added to the database:", dbResult);
         } else {
-          console.log(dbResult.message || "User already exists");
+          // console.log(dbResult.message || "User already exists");
         }
 
         toast.success(t("login.google_sign_in")); // Use translation for Google sign-in
         navigate(from, { replace: true });
       } catch (dbError) {
-        console.error("Failed to add user to the database:", dbError);
+        // console.error("Failed to add user to the database:", dbError);
       }
     } catch (error) {
+<<<<<<< HEAD
       console.error("Google Sign-In Error:", error);
       toast.warn(t("login.failed_google")); // Change to use translation
+=======
+      // console.error("Google Sign-In Error:", error);
+      toast.warn("Sign in with Google failed!");
+>>>>>>> 4facb7bf496891e6410f5afa6094a489bba149f4
     }
   };
 

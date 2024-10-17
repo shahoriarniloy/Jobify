@@ -430,13 +430,11 @@ body.dark {
 
 
 
-
+/* Room page styles */
 .sCsSbKP9yxvw4LQAeaTz {
   background-color: white !important;
 
 }
-
-
 
 .GBqD5akUB0siCNWbAPQr {
   background-color: white !important;
@@ -455,3 +453,9 @@ body.dark {
   background-color: rgb(255, 73, 73) !important;
 }
 
+/* React Tab Styles */
+.react-tabs__tab--selected{
+  border-color: #007bff !important;
+  color: #007bff !important;
+  font-weight: bold !important;
+}

@@ -33,7 +33,7 @@ const AccountSetting = () => {
           phone: userData?.phone_number,
         });
       } catch (error) {
-        console.error("Error fetching user info:", error);
+        // console.error("Error fetching user info:", error);
       }
     };
 
@@ -74,7 +74,7 @@ const AccountSetting = () => {
         }
       },
       (error) => {
-        console.error("Error getting location: ", error);
+        // console.error("Error getting location: ", error);
       }
     );
 
@@ -95,9 +95,9 @@ const AccountSetting = () => {
 
     try {
       const response = await axiosSecure.post("/companyAccountInfo", payload);
-      console.log("Success:", response.data);
+      // console.log("Success:", response.data);
     } catch (error) {
-      console.error("Error:", error);
+      // console.error("Error:", error);
     }
   };
 

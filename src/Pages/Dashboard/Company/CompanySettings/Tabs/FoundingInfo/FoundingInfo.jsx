@@ -3,6 +3,7 @@ import { AiOutlineLink } from "react-icons/ai";
 import ReactQuill from "react-quill";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const FoundingInfo = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -32,7 +33,7 @@ const FoundingInfo = () => {
           setEstablishmentYear(userData.founded_date || "");
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        // console.error("Error fetching user data:", error);
       }
     };
 
@@ -68,9 +69,9 @@ const FoundingInfo = () => {
         "/companyFoundingInfo",
         companyData
       );
-      console.log(response.data.message);
+      toast.success("Company Founding Info Saved");
     } catch (error) {
-      console.error("Error saving company info:", error);
+      // console.error("Error saving company info:", error);
     }
   };
 
