@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa";
+import ButtonLoader from "../../Shared/ButtonLoader";
 
 const AdvancedSearch = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -147,7 +148,6 @@ const AdvancedSearch = () => {
     }
   };
 
-  // Fetch the company logos when jobs array is updated
   useEffect(() => {
     const fetchLogos = async () => {
       const logos = {};
@@ -447,7 +447,7 @@ const AdvancedSearch = () => {
               key={job._id}
               className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
             >
-              <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:scale-[10]"></span>
+              <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-gradient-to-r from-blue-300 to-blue-500 transition-all duration-300 group-hover:scale-[10]"></span>
               <div className="relative z-10 mx-auto max-w-md">
                 {/* <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
                   <span className="grid  h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
@@ -455,9 +455,8 @@ const AdvancedSearch = () => {
                   </span>
                 </span> */}
                 <span>
-                  <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                    <span className="grid  h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                      {/* Render company logo if available */}
+                  <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-300 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
+                    <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-300 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
                       {companyLogos[job._id] ? (
                         <img
                           src={companyLogos[job._id]}
@@ -465,18 +464,19 @@ const AdvancedSearch = () => {
                           className="h-full w-full rounded-full transition-all"
                         />
                       ) : (
-                        <p>Loading company logo...</p>
+                        <ButtonLoader />
                       )}
                     </span>
                   </span>
                 </span>
+
                 <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                   <h2 className="text-2xl font-semibold tracking-wide">
                     {job.title}
                   </h2>
-                  <div
-                  className="absolute -top-12 -right-6"
-                  ><Bookmark jobId={job._id} /></div>
+                  <div className="absolute -top-12 -right-6">
+                    <Bookmark jobId={job._id} />
+                  </div>
 
                   <p className="font-semibold ">Company: {job.company}</p>
                   <p className=" text-sm tracking-wide">
@@ -487,7 +487,7 @@ const AdvancedSearch = () => {
                 <div className="pt-5 text-base font-semibold leading-7">
                   <Link
                     to={`/job/${job._id}`}
-                    className="text-blue-500 transition-all duration-300 group-hover:text-white flex items-center"
+                    className="text-slate-500 transition-all duration-300 group-hover:text-white flex items-center"
                   >
                     View Details &rarr;
                   </Link>

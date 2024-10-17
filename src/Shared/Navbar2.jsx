@@ -254,7 +254,6 @@ const Navbar2 = () => {
                               <li>
                                 <Link
                                   to="jobSeeker/overview"
-
                                   className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                   onClick={() => setIsMenuOpen(false)}
                                 >
@@ -368,7 +367,7 @@ const Navbar2 = () => {
               ) : (
                 <button
                   onClick={() => setLoginModalOpen(true)}
-                  className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-lg text-blue-500 border border-blue-400"
+                  className="bg-white px-5 py-1 lg:px-7 lg:py-2 rounded-lg text-blue-500 border border-blue-400"
                 >
                   {t("join_us")}
                 </button>
