@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -34,14 +34,13 @@ const Resume = () => {
         setResumeData(response?.data);
       } catch (err) {
         setError("Error fetching resume data");
-        // console.error(err);
       }
     };
 
     if (currentUser) {
       fetchResume();
     }
-  }, [email, currentUser]);
+  }, [currentUser]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -56,7 +55,7 @@ const Resume = () => {
   }
 
   return (
-    <div className="">
+    <div>
       {resumeData && (
         <div className="flex justify-end">
           <button
@@ -74,7 +73,7 @@ const Resume = () => {
       >
         <h1 className="text-xl font-bold">{resumeData.name}</h1>
 
-        <div className="contact-section my-2 ">
+        <div className="contact-section my-2">
           <p>
             <FaEnvelope className="inline mr-2" /> {resumeData.email}
           </p>
@@ -131,9 +130,10 @@ const Resume = () => {
         <h2 className="text-sm font-semibold my-2">
           <FaGraduationCap className="inline mr-2" /> Education
         </h2>
-        <p>Institution: {resumeData.institution}</p>
-        <p>Major: {resumeData.major}</p>
-        <p>Year of Graduation: {resumeData.educationYear}</p>
+        <p>Institution: {resumeData.education[0].schoolName}</p>
+        <p>{resumeData.education[0].degree}</p>
+
+        <p>Year of Graduation: {resumeData.education[0].endDate}</p>
 
         <h2 className="text-sm font-semibold my-2">
           <FaLanguage className="inline mr-2" /> Languages
