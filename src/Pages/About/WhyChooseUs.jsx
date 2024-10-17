@@ -1,6 +1,7 @@
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const WhyChooseUs = () => {
+  const { t } = useTranslation(); // Initialize the translation function
   return (
     <section>
       <div className="container mx-auto px-6 text-center">
