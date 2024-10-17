@@ -449,22 +449,27 @@ const AdvancedSearch = () => {
             >
               <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:scale-[10]"></span>
               <div className="relative z-10 mx-auto max-w-md">
-                <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
+                {/* <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
                   <span className="grid  h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                    {/* <FaBriefcase className="h-10 w-10 text-white transition-all" /> */}
-                    {/* Render company logo if available */}
-                    {companyLogos[job._id] ? (
-                      <img
-                        src={companyLogos[job._id]}
-                        alt={`${job.title} logo`}
-                        className="h-10 w-10 text-white transition-all"
-                      />
-                    ) : (
-                      <p>Loading company logo...</p>
-                    )}
+                    <FaBriefcase className="h-10 w-10 text-white transition-all" />
+                  </span>
+                </span> */}
+                <span>
+                  <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
+                    <span className="grid  h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
+                      {/* Render company logo if available */}
+                      {companyLogos[job._id] ? (
+                        <img
+                          src={companyLogos[job._id]}
+                          alt={`${job.title} logo`}
+                          className="h-full w-full rounded-full transition-all"
+                        />
+                      ) : (
+                        <p>Loading company logo...</p>
+                      )}
+                    </span>
                   </span>
                 </span>
-
                 <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                   <h2 className="text-2xl font-semibold tracking-wide">
                     {job.title}
