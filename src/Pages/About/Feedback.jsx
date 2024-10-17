@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
+import axiosSecure from "../../Hooks/useAxiosSecure";
 
 const Feedback = () => {
   const [reviews, setReviews] = useState([]);
@@ -81,7 +81,7 @@ const Feedback = () => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto">
       <h1 className="text-4xl font-bold text-center mb-12 lg:mt-36 ">
         {t("feedback")}
       </h1>
