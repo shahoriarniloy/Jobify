@@ -23,7 +23,9 @@ const Main = () => {
   return (
     <div
       className={`roboto-regular ${
-        theme === "dark" ? "bg-[#19192f] text-white" : "bg-white text-black"
+        theme === "dark"
+          ? "bg-gradient-to-r from-gray-800 to-slate-900 text-white"
+          : "bg-white text-black"
       }`}
     >
       <div className="">

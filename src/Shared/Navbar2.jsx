@@ -17,6 +17,7 @@ import { logOut as logOutAction } from "../Redux/userSlice";
 import { toggleTheme } from "../Redux/themeSlice";
 import { useTranslation } from "react-i18next";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { switchLanguage } from "../Redux/languageSlice";
 import Swal from "sweetalert2";
 
 const Navbar2 = () => {
@@ -31,7 +32,8 @@ const Navbar2 = () => {
   const [roomID, setRoomID] = useState();
   const { role } = useUserRole();
   const menuRef = useRef(null);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const currentLanguage = useSelector((state) => state.language.language);
 
   const [jobNotifications, setJobNotifications] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,8 +115,9 @@ const Navbar2 = () => {
   }, [isModalOpen]);
 
   // Language Switcher functions
-  const changeLanguage = (lang) => {
-    i18n.changeLanguage(lang);
+  const handleLanguageChange = (e) => {
+    const selectedLanguage = e.target.value;
+    dispatch(switchLanguage(selectedLanguage));
   };
 
   return (
@@ -137,12 +140,12 @@ const Navbar2 = () => {
             {/* Language Switcher */}
             <div className="text-sm text-black">
               <select
-                onChange={(e) => changeLanguage(e.target.value)}
-                defaultValue={i18n.language}
-                className={`py-1 px-2 rounded-md  duration-300 text-xs${
+                onChange={handleLanguageChange}
+                value={currentLanguage}
+                className={`py-1 px-2 rounded-md transition-colors duration-300 ${
                   theme === "dark"
-                    ? "bg-gray-800 text-black border-gray-600"
-                    : "bg-gray-400 text-[#0a65cc] border-gray-300"
+                    ? "bg-gray-800 text-white border-gray-600"
+                    : "bg-white text-black border-gray-300"
                 }`}
               >
                 <option value="en">{t("english")}</option>
@@ -251,7 +254,6 @@ const Navbar2 = () => {
                               <li>
                                 <Link
                                   to="jobSeeker/overview"
-
                                   className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
                                   onClick={() => setIsMenuOpen(false)}
                                 >
@@ -365,7 +367,7 @@ const Navbar2 = () => {
               ) : (
                 <button
                   onClick={() => setLoginModalOpen(true)}
-                  className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-lg text-blue-500 border border-blue-400"
+                  className="bg-white px-5 py-1 lg:px-7 lg:py-2 rounded-lg text-blue-500 border border-blue-400"
                 >
                   {t("join_us")}
                 </button>

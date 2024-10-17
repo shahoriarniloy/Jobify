@@ -8,12 +8,14 @@ import "react-tabs/style/react-tabs.css";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../../Redux/userSlice";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next";
 
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
+  const { t } = useTranslation();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const accountType = selectedIndex === 0 ? "Job Seeker" : "Employer";
+  const accountType = selectedIndex === 0 ? t("job_seeker") : t("employer");
 
   const { loading, error } = useSelector((state) => state.user);
 
@@ -47,23 +49,23 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
           // console.log(dbResult.message || "User already exists");
         }
 
-        toast.success("Account created successfully!");
+        toast.success(t("account_created_successfully"));
         setSignUpModalOpen(false);
         setLoginModalOpen(true);
       } catch (dbError) {
         // console.error("Failed to add user to the database:", dbError);
-        toast.error("Failed to save user data to the database.");
+        toast.error(t("failed_to_save_user_data"));
       }
     } catch (error) {
       // console.error("Registration failed:", error);
-      toast.error("Registration failed. Please try again.");
+      toast.error(t("registration_failed"));
     }
   };
 
   return (
     <div className="bg-white flex justify-center w-[400px] max-w-2xl">
       <div className="w-full p-7">
-        <h2 className="text-4xl font-semibold text-center">Create Account</h2>
+        <h2 className="text-4xl font-semibold text-center">{t("create_account")}</h2>
 
         <form className="mt-8" onSubmit={handleRegister}>
           <Tabs
@@ -71,7 +73,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
             onSelect={(index) => setSelectedIndex(index)}
           >
             <div className="flex items-center justify-between">
-              <p className="text-[#0A65CC]">Your Account Type? </p>
+              <p className="text-[#0A65CC]">{t("your_account_type")} </p>
               <TabList className="flex space-x-4 border-b">
                 <Tab
                   className={`pb-2 cursor-pointer ${
@@ -80,7 +82,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                       : "text-gray-700"
                   }`}
                 >
-                  Employee
+                  {t("employee")}
                 </Tab>
                 <Tab
                   className={`pb- cursor-pointer ${
@@ -89,7 +91,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                       : "text-gray-700"
                   }`}
                 >
-                  HR Manager
+                  {t("hr_manager")}
                 </Tab>
               </TabList>
             </div>
@@ -98,8 +100,8 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               <div className="flex gap-5 mt-4">
                 <input
                   type="text"
-                  name="name" // Changed from fullName to name
-                  placeholder="Full Name"
+                  name="name"
+                  placeholder={t("full_name")}
                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   required
                 />
@@ -108,7 +110,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email Address"
+                  placeholder={t("email_address")}
                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   required
                 />
@@ -116,7 +118,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    placeholder="Password"
+                    placeholder={t("password")}
                     className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     required
                   />
@@ -135,8 +137,8 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               <div className="flex gap-5 mt-4">
                 <input
                   type="text"
-                  name="name" // Changed from fullName to name
-                  placeholder="Full Name"
+                  name="name"
+                  placeholder={t("full_name")}
                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   required
                 />
@@ -145,7 +147,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email Address"
+                  placeholder={t("email_address")}
                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   required
                 />
@@ -153,7 +155,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    placeholder="Password"
+                    placeholder={t("password")}
                     className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     required
                   />
@@ -173,9 +175,9 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
             <button
               type="submit"
               className="btn w-full bg-[#0A65CC] text-white"
-              disabled={loading} // Disable the button while loading
+              disabled={loading}
             >
-              {loading ? "Creating Account..." : "Create Account"}{" "}
+              {loading ? t("creating_account") : t("create_account")}
               <TiArrowRight className="text-2xl" />
             </button>
           </div>
@@ -184,7 +186,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
         </form>
 
         <p className="text-xs text-center mt-3">
-          Already have an account?
+          {t("already_have_account")}
           <button
             className="text-blue-500 underline"
             onClick={() => {
@@ -192,7 +194,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               setSignUpModalOpen(false);
             }}
           >
-            Login
+            {t("login.login")}
           </button>
         </p>
       </div>

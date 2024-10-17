@@ -83,7 +83,7 @@ const DashboardLayout = () => {
                 <FaUsers className="text-xl" /> Candidates
               </NavLink>
               <NavLink
-                to="/dashboard/companySettings"
+                to="/dashboard/company-settings"
                 className={({ isActive }) =>
                   isActive
                     ? "isActiveRoute"

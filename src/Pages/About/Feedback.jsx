@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const Feedback = () => {
   const [reviews, setReviews] = useState([]);
@@ -13,6 +14,7 @@ const Feedback = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const { t } = useTranslation(); // Initialize the translation function
 
   const currentUser = useSelector((state) => state.user.currentUser);
 
@@ -24,11 +26,11 @@ const Feedback = () => {
         setTotalPages(response.data.totalPages);
         setCurrentPage(response.data.currentPage);
       } catch (error) {
-        toast.error("Failed to fetch reviews.");
+        toast.error(t("failed_to_fetch_reviews"));
       }
     };
     fetchReviews(currentPage);
-  }, [currentPage]);
+  }, [currentPage, t]);
 
   useEffect(() => {
     if (currentUser) {
@@ -39,7 +41,7 @@ const Feedback = () => {
 
   const handleFeedbackSubmit = async () => {
     if (!rating || !feedback || !username) {
-      toast.error("Please provide all required fields.");
+      toast.error(t("please_provide_all_required_fields"));
       return;
     }
 
@@ -53,12 +55,12 @@ const Feedback = () => {
 
     try {
       await axiosSecure.post("/reviews", newReview);
-      toast.success("Your review has been posted successfully!");
+      toast.success(t("review_posted_successfully"));
       setReviews((prevReviews) => [...prevReviews, newReview]);
       setRating(0);
       setFeedback("");
     } catch (error) {
-      toast.error("Failed to post the review.");
+      toast.error(t("failed_to_post_review"));
     }
   };
 
@@ -80,19 +82,17 @@ const Feedback = () => {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center mb-12 lg:mt-24 ">
-        Feedback
+      <h1 className="text-4xl font-bold text-center mb-12 lg:mt-36 ">
+        {t("feedback")}
       </h1>
 
       <p className="text-base text-gray-700 md:text-sm mb-24 text-center">
-        Your feedback is key to our growth. Your suggestions and insights help
-        us improve and create a better experience for everyone. Thank you for
-        helping us make Jobify better!
+        {t("feedback_description")}
       </p>
 
       <div className="grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6">
         <div className="p-8 shadow-sm rounded-xl bg-white">
-          <h3>Your Rating:</h3>
+          <h3>{t("your_rating")}:</h3>
           <div className="flex flex-col py-4 space-y-3 h-36">
             <div className="flex space-x-2">
               {[1, 2, 3, 4, 5].map((stars) => (
@@ -124,7 +124,7 @@ const Feedback = () => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter your username"
+            placeholder={t("enter_username")}
             className="w-3/4 rounded-md p-2 focus:ring focus:ring-opacity-75 dark:text-gray-700 focus:ring-violet-600 dark:border-gray-300 mb-4"
             required
           />
@@ -132,7 +132,7 @@ const Feedback = () => {
             rows="3"
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
-            placeholder="Your feedback"
+            placeholder={t("your_feedback")}
             className="w-full rounded-md p-2 focus:ring focus:ring-opacity-75 dark:text-gray-700 focus:ring-violet-600 dark:border-gray-300"
             required
           ></textarea>
@@ -141,7 +141,7 @@ const Feedback = () => {
             onClick={handleFeedbackSubmit}
             className="py-4 mt-8 text-white font-semibold rounded-md bg-gradient-to-r from-blue-500 to-blue-700 w-full"
           >
-            Leave feedback
+            {t("leave_feedback")}
           </button>
         </div>
 
@@ -152,7 +152,7 @@ const Feedback = () => {
                 <div className="chat-image avatar">
                   <div className="w-10 rounded-full">
                     <img
-                      alt="User Avatar"
+                      alt={t("user_avatar")}
                       src={
                         review.photoURL ||
                         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
@@ -193,7 +193,7 @@ const Feedback = () => {
             </button>
 
             <span className="mx-4">
-              Page {currentPage} of {totalPages}
+              {t("page")} {currentPage} {t("of")} {totalPages}
             </span>
 
             <button

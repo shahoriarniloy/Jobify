@@ -4,15 +4,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  signInWithGoogle,
-  signInWithEmail,
-  setCurrentUser,
-} from "../../../Redux/userSlice";
+import { signInWithGoogle, signInWithEmail, setCurrentUser } from "../../../Redux/userSlice";
 import ButtonLoader from "../../../Shared/ButtonLoader";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
+  const { t } = useTranslation(); // Initialize translation
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
   const location = useLocation();
@@ -26,9 +24,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
     const { email, password } = e.target.elements;
 
     try {
-      const result = await dispatch(
-        signInWithEmail({ email: email.value, password: password.value })
-      ).unwrap();
+      const result = await dispatch(signInWithEmail({ email: email.value, password: password.value })).unwrap();
 
       const user = result;
       const userEmail = user.email;
@@ -44,11 +40,11 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
         })
       );
 
-      toast.success("Logged in successfully");
+      toast.success(t("login.sign_in") + " " + t("login.login") + " " + t("login.success")); // Optional success message
       navigate(from, { replace: true });
     } catch (error) {
-      // console.error("Error during login:", error);
-      toast.error("Login failed. Please check your credentials.");
+      console.error("Error during login:", error);
+      toast.error(t("login.failed")); // Change to use translation
     }
   };
 
@@ -75,25 +71,25 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
           // console.log(dbResult.message || "User already exists");
         }
 
-        toast.success("Signed in with Google");
+        toast.success(t("login.google_sign_in")); // Use translation for Google sign-in
         navigate(from, { replace: true });
       } catch (dbError) {
         // console.error("Failed to add user to the database:", dbError);
       }
     } catch (error) {
-      // console.error("Google Sign-In Error:", error);
-      toast.warn("Sign in with Google failed!");
+      console.error("Google Sign-In Error:", error);
+      toast.warn(t("login.failed_google")); // Change to use translation
     }
   };
 
   return (
     <div className="bg-white w-[400px] max-w-2xl">
       <Helmet>
-        <title>Login</title>
+        <title>{t("login.login")}</title> {/* Title translation */}
       </Helmet>
 
       <div className="p-7">
-        <h2 className="text-4xl font-semibold">Sign In</h2>
+        <h2 className="text-4xl font-semibold">{t("login.sign_in")}</h2> {/* Sign In translation */}
 
         <div className="mt-8">
           <form onSubmit={handleLogin}>
@@ -101,7 +97,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               <input
                 type="email"
                 name="email"
-                placeholder="Email Address"
+                placeholder={t("login.email_placeholder")} // Email placeholder translation
                 className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 required
               />
@@ -109,7 +105,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  placeholder="Password"
+                  placeholder={t("login.password_placeholder")} // Password placeholder translation
                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   required
                 />
@@ -125,11 +121,11 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
             </div>
             <div className="mt-6">
               <button className="btn w-full bg-[#0A65CC] text-white">
-                {loading ? <ButtonLoader /> : "Sign In"}
+                {loading ? <ButtonLoader /> : t("login.sign_in_button")} {/* Sign In button translation */}
               </button>
             </div>
           </form>
-          <p className="text-center my-3">or</p>
+          <p className="text-center my-3">{t("login.or")}</p> {/* "or" translation */}
 
           <button
             onClick={handleGoogleSignIn}
@@ -140,11 +136,11 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               alt="Google Logo"
               className="h-6 w-6"
             />
-            Sign in with Google
+            {t("login.google_sign_in")} {/* Google sign-in translation */}
           </button>
 
           <p className="mt-4 text-xs text-center">
-            Don't have an account?{" "}
+            {t("login.dont_have_account")}{" "} {/* Don't have an account translation */}
             <span className="link-color">
               <button
                 onClick={() => {
@@ -152,7 +148,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                   setSignUpModalOpen(true);
                 }}
               >
-                Create account
+                {t("login.create_account")} {/* Create account translation */}
               </button>
             </span>
           </p>
