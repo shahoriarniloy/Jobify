@@ -10,6 +10,7 @@ import {
   AiOutlineFileDone,
 } from "react-icons/ai";
 import { BiTask } from "react-icons/bi";
+import DashboardLoader from "../../../Shared/DashboardLoader";
 
 const CompanyDashboard = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -79,7 +80,7 @@ const CompanyDashboard = () => {
   }, [currentUser]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <DashboardLoader/>;
   }
 
   return (
