@@ -79,7 +79,7 @@ const CompanyOverview = () => {
   }, [currentUser]);
 
   if (loading) {
-    return <DashboardLoader/>;
+    return <DashboardLoader />;
   }
 
   return (
@@ -149,7 +149,7 @@ const CompanyOverview = () => {
             </p>
           </div>
         </div>
-        <Link to="/dashboard/CompanySettings">
+        <Link to="/dashboard/company-settings">
           <ButtonWithIcon
             btnName={"Edit Profile"}
             customStyle={"text-[#E05151] bg-white"}

@@ -13,6 +13,7 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
+import DashboardLoader from "../../../Shared/DashboardLoader";
 
 const BookmarkedJobs = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -83,7 +84,7 @@ const BookmarkedJobs = () => {
     setIsModalOpen(false);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <DashboardLoader />;
 
   return (
     <div className="">

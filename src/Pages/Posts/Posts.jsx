@@ -11,6 +11,7 @@ import axiosSecure from "../../Hooks/useAxiosSecure";
 
 const PostCard = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
+  const theme = useSelector((state) => state.theme.theme);
 
   const {
     data: posts,
@@ -48,11 +49,13 @@ const PostCard = () => {
   }
 
   return (
-    <div className="bg-secondary">
+    <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto py-8">
         <PostStatus></PostStatus>
         <div className="flex justify-between mt-16 px-4">
-          <h1 className="text-lg text-gray-700">Posts from people you follow</h1>
+          <h1 className="text-lg text-gray-700">
+            Posts from people you follow
+          </h1>
           <Link to="/find-job-seekers">
             <button>
               <FaUserPlus className="w-6 h-6 mr-1 text-blue-500" />
@@ -115,8 +118,9 @@ const PostCard = () => {
                           onClick={() => handleLike(post._id, hasLiked)}
                         >
                           <HiHeart
-                            className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
-                              }`}
+                            className={`w-5 h-5 ${
+                              hasLiked ? "text-blue-500" : "text-gray-500"
+                            }`}
                           />
                           <span className="ml-1">{post.likes.length || 0}</span>
                         </button>

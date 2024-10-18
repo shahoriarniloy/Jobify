@@ -12,6 +12,7 @@ const MessageDetail = () => {
   const [newMessage, setNewMessage] = useState("");
   const currentUser = useSelector((state) => state.user.currentUser);
   const loading = useSelector((state) => state.user.loading);
+  const theme = useSelector((state) => state.theme.theme);
 
   const fetchMessages = async () => {
     if (!currentUser) return;
@@ -64,7 +65,15 @@ const MessageDetail = () => {
           alt={otherPartyName}
           className="w-12 h-12 rounded-full object-cover mr-4"
         />
-        <h1 className="text-2xl font-bold roboto-regular">{otherPartyName}</h1>
+        <h1
+          className={
+            theme === "dark "
+              ? "text-2xl font-bold roboto-regular text-black"
+              : "text-2xl font-bold roboto-regular"
+          }
+        >
+          {otherPartyName}
+        </h1>
       </div>
 
       {messages.length === 0 ? (

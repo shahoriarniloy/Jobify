@@ -19,7 +19,7 @@ const EmployeeHome = () => {
         setAppliedJobsCount(response.data.appliedJobsCount);
         setFavoriteJobsCount(response.data.favoriteJobsCount);
       } catch (error) {
-        console.error("Error fetching job counts:", error);
+        // console.error("Error fetching job counts:", error);
       }
     };
 

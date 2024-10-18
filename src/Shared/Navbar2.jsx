@@ -99,22 +99,19 @@ const Navbar2 = () => {
   useEffect(() => {
     const handleClickOutsideModal = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        handleModalToggle(); // Close the modal if clicking outside
+        handleModalToggle();
       }
     };
 
-    // Add event listener if the modal is open
     if (isModalOpen) {
       document.addEventListener("mousedown", handleClickOutsideModal);
     }
 
-    // Cleanup the event listener when the modal is closed or component unmounts
     return () => {
       document.removeEventListener("mousedown", handleClickOutsideModal);
     };
   }, [isModalOpen]);
 
-  // Language Switcher functions
   const handleLanguageChange = (e) => {
     const selectedLanguage = e.target.value;
     dispatch(switchLanguage(selectedLanguage));
@@ -140,7 +137,6 @@ const Navbar2 = () => {
             </div>
           </div>
           <div className="navbar-end gap-3">
-            {/* Language Switcher */}
             <div className="text-sm text-black">
               <select
                 onChange={handleLanguageChange}
@@ -165,7 +161,6 @@ const Navbar2 = () => {
                 )}
               </button>
 
-              {/* Notifications Bell Icon */}
               <div className="relative rounded-full p-2 hover:bg-[#e7f0fa]">
                 <FaBell
                   className="cursor-pointer text-[#0a65cc]"
@@ -177,15 +172,17 @@ const Navbar2 = () => {
                   </span>
                 )}
 
-                {/* Notifications Modal */}
                 {isModalOpen && (
                   <div
                     ref={modalRef}
-                    className="absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                    className={
+                      theme === "dark"
+                        ? "bg-gray-900 text-slate-400 absolute top-10 right-0  p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                        : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                    }
                   >
                     <h2 className="text-lg font-bold mb-4">Notifications</h2>
 
-                    {/* Mark all as read button */}
                     {jobNotifications.length > 0 && (
                       <div className="flex justify-between items-center mb-4">
                         <p className="text-sm">

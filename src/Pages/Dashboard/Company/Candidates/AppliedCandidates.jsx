@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   TagIcon,
   DocumentTextIcon,
@@ -8,6 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
+import DashboardLoader from "../../../../Shared/DashboardLoader";
 
 const AppliedCandidates = () => {
   const location = useLocation();
@@ -87,7 +88,7 @@ const AppliedCandidates = () => {
   });
 
   if (loading) {
-    return <div>Loading candidates...</div>;
+    return <DashboardLoader />;
   }
 
   if (error) {
@@ -125,7 +126,7 @@ const AppliedCandidates = () => {
             key={candidate?.user?.email}
             className="card lg:card-side bg-base-100 shadow-xl"
           >
-            <figure>
+            <figure className="w-24 h-24">
               <img
                 src={candidate?.user?.photoURL || ""}
                 alt={candidate?.user?.name}
@@ -176,12 +177,13 @@ const AppliedCandidates = () => {
                   )}
                 </div>
 
-                <button
-                  className="btn bg-gradient-to-r from-blue-500 to-blue-700 flex items-center text-white"
-                  onClick={() => viewCV(candidate.user.email)}
+                <Link
+                  to={`/dashboard/candidate-resume/${candidate?.user?.email}`}
                 >
-                  <DocumentTextIcon className="h-5 w-5 mr-2" /> View CV
-                </button>
+                  <button className="btn bg-gradient-to-r from-blue-500 to-blue-700 flex items-center text-white">
+                    <DocumentTextIcon className="h-5 w-5 mr-2" /> View Resume
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -190,9 +192,8 @@ const AppliedCandidates = () => {
     </div>
   );
 
-  function viewCV(email) {
-    // console.log(`View CV for ${email}`);
-  }
+  // function viewCV(email) {
+  // }
 };
 
 export default AppliedCandidates;
