@@ -325,7 +325,12 @@
   "company_info": "কোম্পানির তথ্য",
   "founding_info": "প্রতিষ্ঠানের তথ্য",
   "social_media_profile": "সামাজিক মিডিয়া প্রফাইল",
-  "account_setting": "অ্যাকাউন্ট সেটিং"
+  "account_setting": "অ্যাকাউন্ট সেটিং",
+  "map_location": "মানচিত্রের অবস্থান",
+  "account_settings": "অ্যাকাউন্ট সেটিংস",
+  "field_required": "এই ক্ষেত্রটি আবশ্যক",
+  "save_changes": "পরিবর্তন সংরক্ষণ করুন"
+
 
 
 }

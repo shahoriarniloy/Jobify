@@ -334,7 +334,11 @@
   "company_info": "Company Info",
   "founding_info": "Founding Info",
   "social_media_profile": "Social Media Profile",
-  "account_setting": "Account Setting"
+  "account_setting": "Account Setting",
+  "map_location": "Map Location",
+  "account_settings": "Account Settings",
+  "field_required": "This field is required",
+  "save_changes": "Save Changes"
 
 
 
