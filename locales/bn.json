@@ -179,6 +179,14 @@
   "salary": "বেতন",
   "details": "বিস্তারিত",
   "previous_page": "পূর্ববর্তী পৃষ্ঠা",
-  "next_page": "পরবর্তী পৃষ্ঠা"
+  "next_page": "পরবর্তী পৃষ্ঠা",
+
+  "search_placeholder": "নাম দিয়ে চাকরি প্রার্থী অনুসন্ধান করুন...",
+  "number_of_job_seekers_per_page": "প্রতি পৃষ্ঠায় চাকরি প্রার্থীর সংখ্যা",
+  "table_name": "নাম",
+  "table_email": "ইমেইল",
+  "table_role": "ভূমিকা",
+  "table_actions": "কার্যকলাপ",
+  "confirm_delete_job_seeker": "আপনি কি নিশ্চিত যে আপনি এই চাকরি প্রার্থীকে মুছে ফেলতে চান?"
 
 }
