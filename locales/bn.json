@@ -329,7 +329,17 @@
   "map_location": "মানচিত্রের অবস্থান",
   "account_settings": "অ্যাকাউন্ট সেটিংস",
   "field_required": "এই ক্ষেত্রটি আবশ্যক",
-  "save_changes": "পরিবর্তন সংরক্ষণ করুন"
+  "save_changes": "পরিবর্তন সংরক্ষণ করুন",
+  "logo_banner_image": "লোগো ও ব্যানার ইমেজ",
+  "upload_logo": "লোগো আপলোড করুন",
+  "maximum_size_3_5mb": "সর্বাধিক ৩.৫ এমবি",
+  "upload_banner": "ব্যানার আপলোড করুন",
+  "maximum_size_4_3mb": "সর্বাধিক ৪.৩ এমবি",
+  "type_here": "এখানে টাইপ করুন...",
+  "write_biography": "আপনার জীবনী এখানে লিখুন...",
+  "saving": "সংরক্ষণ করা হচ্ছে...",
+  "company_info_saved": "কোম্পানির তথ্য সংরক্ষিত হয়েছে"
+
 
 
 

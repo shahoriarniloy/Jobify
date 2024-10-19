@@ -338,7 +338,16 @@
   "map_location": "Map Location",
   "account_settings": "Account Settings",
   "field_required": "This field is required",
-  "save_changes": "Save Changes"
+  "logo_banner_image": "Logo & Banner Image",
+  "upload_logo": "Upload Logo",
+  "maximum_size_3_5mb": "Maximum 3.5 MB",
+  "upload_banner": "Upload Banner",
+  "maximum_size_4_3mb": "Maximum 4.3 MB",
+  "type_here": "Type here...",
+  "write_biography": "Write down your biography here...",
+  "saving": "Saving...",
+  "save_changes": "Save Changes",
+  "company_info_saved": "Company Info Saved"
 
 
 
