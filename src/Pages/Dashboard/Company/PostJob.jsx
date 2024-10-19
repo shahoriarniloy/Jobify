@@ -3,8 +3,10 @@ import Swal from "sweetalert2";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const PostJob = () => {
+  const { t } = useTranslation(); // Initialize useTranslation
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const [jobData, setJobData] = useState({
@@ -69,8 +71,8 @@ const PostJob = () => {
       if (response?.status == 201) {
         Swal.fire({
           icon: "success",
-          title: "Job posted successfully!",
-          text: "The job listing has been created and posted on the platform.",
+          title: t("job_post_success"),
+          text: t("job_post_created"),
         });
 
         setJobData({
@@ -90,16 +92,16 @@ const PostJob = () => {
       } else {
         Swal.fire({
           icon: "error",
-          title: "Failed to post job",
-          text: "Something went wrong. Please try again.",
+          title: t("job_post_fail"),
+          text: t("job_post_try_again"),
         });
       }
     } catch (error) {
       // console.error('Error:', error);
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "There was a problem with the server.",
+        title: t("server_error"),
+        text: t("server_error_message"),
       });
     }
   };
@@ -107,42 +109,42 @@ const PostJob = () => {
   return (
     <div className="container pb-6 mx-auto  w-full">
       <div>
-        <h2 className="font-semibold text-3xl text-black mb-4">Post a Job</h2>
-        <p className="text-stone-500 mb-6">
-          Fill Up This Form to Post a Job on The Platform.
-        </p>
+        <h2 className="font-semibold text-3xl text-black mb-4">
+          {t("post_job")}
+        </h2>
+        <p className="text-stone-500 mb-6">{t("fill_form")}</p>
         <div className="rounded p-6 mb-6">
           <div className="grid gap-6 text-sm grid-cols-1 lg:grid-cols-3">
             <form className="lg:col-span-3" onSubmit={handleSubmit}>
               <div className="grid gap-6 text-sm grid-cols-1 md:grid-cols-5">
                 <div className="md:col-span-5">
-                  <label htmlFor="title">Job Title</label>
+                  <label htmlFor="title">{t("job_title")}</label>
                   <input
                     type="text"
                     name="title"
                     value={jobData.title}
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                    placeholder="Add job title"
+                    placeholder={t("add_job_title")}
                     required
                   />
                 </div>
 
                 <div className="md:col-span-3">
-                  <label htmlFor="company">Company</label>
+                  <label htmlFor="company">{t("company")}</label>
                   <input
                     type="text"
                     name="company"
                     value={jobData.company}
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                    placeholder="Company name"
+                    placeholder={t("company_name")}
                     disabled
                   />
                 </div>
 
                 <div className="md:col-span-2">
-                  <label htmlFor="experience">Experience</label>
+                  <label htmlFor="experience">{t("experience")}</label>
                   <select
                     required
                     name="experience"
@@ -150,15 +152,19 @@ const PostJob = () => {
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                   >
-                    <option value="">Select Experience</option>
-                    <option value="Freshers">Freshers</option>
-                    <option value="1-2 Years">1-2 Years</option>
-                    <option value="2-4 Years">2-4 Years</option>
-                    <option value="4-6 Years">4-6 Years</option>
-                    <option value="6-8 Years">6-8 Years</option>
-                    <option value="8-10 Years">8-10 Years</option>
-                    <option value="10-15 Years">10-15 Years</option>
-                    <option value="15+ Years">15+ Years</option>
+                    <option value="">{t("select_experience")}</option>
+                    <option value="Freshers">{t("freshers")}</option>
+                    <option value="1-2 Years">{t("one_to_two_years")}</option>
+                    <option value="2-4 Years">{t("two_to_four_years")}</option>
+                    <option value="4-6 Years">{t("four_to_six_years")}</option>
+                    <option value="6-8 Years">{t("six_to_eight_years")}</option>
+                    <option value="8-10 Years">
+                      {t("eight_to_ten_years")}
+                    </option>
+                    <option value="10-15 Years">
+                      {t("ten_to_fifteen_years")}
+                    </option>
+                    <option value="15+ Years">{t("fifteen_plus_years")}</option>
                   </select>
                 </div>
 
