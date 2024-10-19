@@ -329,7 +329,12 @@
   "select_job_level": "Select Job Level",
   "job_type": "Job Type",
   "enter_job_description": "Enter job description",
-  "enter_job_responsibilities": "Enter job responsibilities (e.g., Collect and test water samples)"
+  "enter_job_responsibilities": "Enter job responsibilities (e.g., Collect and test water samples)",
+  "settings": "Settings",
+  "company_info": "Company Info",
+  "founding_info": "Founding Info",
+  "social_media_profile": "Social Media Profile",
+  "account_setting": "Account Setting"
 
 
 
