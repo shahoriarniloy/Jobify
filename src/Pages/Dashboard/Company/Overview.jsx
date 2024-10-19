@@ -80,7 +80,7 @@ const CompanyDashboard = () => {
   }, [currentUser]);
 
   if (loading) {
-    return <DashboardLoader/>;
+    return <DashboardLoader />;
   }
 
   return (
@@ -152,7 +152,7 @@ const CompanyDashboard = () => {
             </p>
           </div>
         </div>
-        <Link to="/dashboard/EmployeeSettings">
+        <Link to="/dashboard/company-settings">
           <button>
             <ButtonWithIcon
               btnName={"Edit Profile"}

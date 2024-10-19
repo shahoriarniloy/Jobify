@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { FaDollarSign, FaCheckCircle, FaMapMarkerAlt } from "react-icons/fa";
-
+import DashboardLoader from "../../../Shared/DashboardLoader";
 const statusSteps = [
   { value: "Pending", label: "Pending" },
   { value: "Under Review", label: "Under Review" },
@@ -40,7 +40,7 @@ const AppliedJobs = () => {
     fetchAppliedJobs();
   }, [currentUser]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <DashboardLoader />;
   if (error) return <p>{error}</p>;
 
   return (

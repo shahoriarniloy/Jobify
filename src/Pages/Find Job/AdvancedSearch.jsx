@@ -11,8 +11,11 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa";
 import ButtonLoader from "../../Shared/ButtonLoader";
+import { useSelector } from "react-redux";
 
 const AdvancedSearch = () => {
+  const theme = useSelector((state) => state.theme.theme);
+
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
@@ -161,7 +164,7 @@ const AdvancedSearch = () => {
   }, [jobs]);
 
   return (
-    <div className="bg-secondary">
+    <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto">
         <div className="w-full  rounded-lg  p-6 flex-1">
           <form
@@ -175,7 +178,11 @@ const AdvancedSearch = () => {
                 placeholder="Job title, Company Name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                className={
+                  theme === "dark"
+                    ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-white text-slate-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                    : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                }
               />
             </div>
 
@@ -188,10 +195,20 @@ const AdvancedSearch = () => {
                 placeholder="Location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                className={
+                  theme === "dark"
+                    ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-white text-slate-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                    : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                }
               />
             </div>
-            <div className=" bg-white text-gray-400 rounded-md">
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-gray-400 rounded-md"
+                  : "bg-white text-gray-400 rounded-md"
+              }
+            >
               <button
                 type="button"
                 onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
@@ -237,7 +254,13 @@ const AdvancedSearch = () => {
         </div>
         {showAdvancedFilters && (
           <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-1 px-24 py-8 rounded-lg mt-4 bg-white shadow-xl">
-            <div className="mb-4">
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
               <h3 className="font-medium">Experience</h3>
               {[
                 "Freshers",
@@ -262,7 +285,13 @@ const AdvancedSearch = () => {
               ))}
             </div>
 
-            <div className="mb-4">
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
               <h3 className="font-medium">Job Type</h3>
               {[
                 "All",
@@ -286,7 +315,13 @@ const AdvancedSearch = () => {
               ))}
             </div>
 
-            <div className="mb-4">
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
               <h3 className="font-medium">Education</h3>
               {[
                 "High School",
@@ -308,7 +343,13 @@ const AdvancedSearch = () => {
               ))}
             </div>
 
-            <div className="mb-4">
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
               <h3 className="font-medium">Job Level</h3>
               {["Entry Level", "Mid Level", "Expert Level"].map((level) => (
                 <label key={level} className="flex items-center mb-2">
@@ -324,7 +365,13 @@ const AdvancedSearch = () => {
               ))}
             </div>
 
-            <div className="mb-4">
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
               <h3 className="font-medium">Salary</h3>
               {[
                 "$500-$1000",
@@ -363,7 +410,11 @@ const AdvancedSearch = () => {
               id="itemsPerPage"
               value={itemsPerPage}
               onChange={handleItemsPerPage}
-              className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+              className={
+                theme === "dark"
+                  ? "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-gray-400 text-slate-800 border border-slate-800 focus:border-slate-900 focus:ring focus:ring-blue-200"
+                  : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+              }
             >
               <option value="10">10</option>
               <option value="20">20</option>
@@ -499,12 +550,13 @@ const AdvancedSearch = () => {
           >
             <FaArrowLeft />
           </button>
-          <div className="flex gap-2">
+          <div className="flex gap-2 text-slate-800">
             {pages.map((page) => (
               <button
                 key={page}
-                className={`px-4 py-2 rounded-lg ${page === currentPage ? "bg-blue-200" : "bg-white"
-                  } border border-blue-300`}
+                className={`px-4 py-2 rounded-lg ${
+                  page === currentPage ? "bg-blue-200" : "bg-gray-300"
+                } border border-blue-300`}
                 onClick={() => setCurrentPage(page)}
               >
                 {page + 1}

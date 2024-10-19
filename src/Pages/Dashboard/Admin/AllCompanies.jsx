@@ -27,7 +27,7 @@ const AllCompanies = () => {
       setPages([...Array(totalPages).keys()]);
       setError(null);
     } catch (error) {
-      console.error("Failed to fetch companies", error);
+      // console.error("Failed to fetch companies", error);
       setError("Failed to load companies. Please try again later.");
     }
   };
@@ -60,20 +60,20 @@ const AllCompanies = () => {
   };
 
   const handleEdit = (companyId) => {
-    console.log(`Edit company with ID: ${companyId}`);
+    // console.log(`Edit company with ID: ${companyId}`);
   };
 
-  const handleDelete = async (companyId) => {
+  const handleDelete = async (email) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this company?"
     );
     if (confirmDelete) {
       try {
-        await axiosSecure.delete(`/companies/${companyId}`);
+        await axiosSecure.delete(`/deleteCompany/${email}`);
         fetchCompanies();
-        console.log(`Deleted company with ID: ${companyId}`);
+        // console.log(`Deleted company with ID: ${companyId}`);
       } catch (error) {
-        console.error("Failed to delete company", error);
+        // console.error("Failed to delete company", error);
       }
     }
   };
@@ -129,14 +129,14 @@ const AllCompanies = () => {
                   <td className="p-3">{company.company_name}</td>
                   <td className="p-3">{company.industry}</td>
                   <td className="p-3 flex space-x-4 hidden md:table-cell">
-                    <button
+                    {/* <button
                       onClick={() => handleEdit(company._id)}
                       className="text-blue-500 hover:text-blue-700"
                     >
                       <FaEdit className="h-5 w-5" />
-                    </button>
+                    </button> */}
                     <button
-                      onClick={() => handleDelete(company._id)}
+                      onClick={() => handleDelete(company.email)}
                       className="text-red-500 hover:text-red-700"
                     >
                       <FaTrashAlt className="h-5 w-5" />

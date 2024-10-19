@@ -4,11 +4,10 @@ import { FaBriefcase, FaBuilding } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
-import homeBg from '../../assets/homebg.png'
+import homeBg from "../../assets/homebg.png";
 import { IoPeopleSharp } from "react-icons/io5";
 import { RiPoliceBadgeFill } from "react-icons/ri";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme } from "../../Redux/themeSlice";
+import { useSelector } from "react-redux";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -52,7 +51,13 @@ const SearchBar = () => {
     }
   };
   return (
-    <div className="bg-secondary py-28">
+    <div
+      className={
+        theme === "dark"
+          ? "text-white py-20 "
+          : "text-[#18191c] bg-secondary py-20"
+      }
+    >
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row justify-center items-center">
           <div className="flex lg:flex-row flex-col justify-center items-center md:gap-[50px] lg:gap-[100px]">
@@ -61,13 +66,19 @@ const SearchBar = () => {
                 <h1
                   className={
                     theme === "dark"
-                      ? "text-[#989a9e] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2"
+                      ? "text-white lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2"
                       : "text-[#18191c] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2"
                   }
                 >
                   Find a job that suits your interest & skills.
                 </h1>
-                <p className="text-[#5e6670] text-lg font-normal mb-4">
+                <p
+                  className={
+                    theme === "dark"
+                      ? "text-white text-lg font-normal mb-4"
+                      : "text-[#18191c] text-lg font-normal mb-4"
+                  }
+                >
                   Quickly find job opportunities that match your skills and
                   interests by searching for specific job titles, keywords, or
                   locations.
@@ -76,7 +87,7 @@ const SearchBar = () => {
               <div
                 className={
                   theme === "dark"
-                    ? "w-full bg-black rounded-lg shadow-md border border-black p-6 flex-1"
+                    ? "w-full bg-slate-800 rounded-lg shadow-md  p-6 flex-1"
                     : "w-full bg-white rounded-lg shadow-md border  p-6 flex-1"
                 }
               >
@@ -91,9 +102,10 @@ const SearchBar = () => {
                       placeholder="Job title, Company Name..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className={theme === "dark" ?
-                        "w-full pl-12 pr-3 py-3 sm:py-4 bg-[#10101d] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out" :
-                        "w-full pl-12 pr-3 py-3 sm:py-4 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                      className={
+                        theme === "dark"
+                          ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-slate-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                          : "w-full pl-12 pr-3 py-3 sm:py-4 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
                       }
                     />
                   </div>
@@ -107,8 +119,11 @@ const SearchBar = () => {
                       placeholder="Location"
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
-                      className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none
-                            focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                      className={
+                        theme === "dark"
+                          ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-slate-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                          : "w-full pl-12 pr-3 py-3 sm:py-4 border bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                      }
                     />
                   </div>
 
@@ -121,20 +136,37 @@ const SearchBar = () => {
                     </button>
                   </div>
                 </form>
-
               </div>
-              <p className="mt-2"><span className="text-[#9199A3]">Suggestion: </span>
-                <span className="text-[#474C54]">
-                  Designer,
-                  Programing,
-                  Digital Marketing,
-                  Video,
-                  Animation.
+              <p
+                className={
+                  theme === "dark"
+                    ? "text-white text-lg font-normal mt-2"
+                    : "text-[#18191c] text-lg font-normal mt-2"
+                }
+              >
+                <span
+                  className={
+                    theme === "dark"
+                      ? "text-white text-lg font-normal mt-2"
+                      : "text-[#9199A3] text-lg font-normal mt-2"
+                  }
+                >
+                  Suggestion:{" "}
+                </span>
+                <span
+                  className={
+                    theme === "dark"
+                      ? "text-slate-400 text-lg font-normal mt-2"
+                      : "text-[#474C54] text-lg font-normal mt-2"
+                  }
+                >
+                  Designer, Programing, Digital Marketing, Video, Animation.
                 </span>
               </p>
               <div
-                className={`mt-3 ${jobs.length > 0 ? "opacity-100" : "opacity-0"
-                  } transition-opacity duration-300`}
+                className={`mt-3 ${
+                  jobs.length > 0 ? "opacity-100" : "opacity-0"
+                } transition-opacity duration-300`}
               >
                 {jobs.length > 0 ? (
                   <div className="flex items-center gap-2">
@@ -147,17 +179,17 @@ const SearchBar = () => {
                           </h3>
                         </Link>
                       ))}
-
                     </div>
                   </div>
                 ) : (
                   <div className="mt-6 text-gray-500">
-                    <h2 className="text-lg font-medium">No matching jobs found.</h2>
+                    <h2 className="text-lg font-medium">
+                      No matching jobs found.
+                    </h2>
                   </div>
                 )}
               </div>
             </div>
-
 
             {/* home banner */}
 
@@ -167,9 +199,14 @@ const SearchBar = () => {
           </div>
         </div>
 
-
         <div className=" mt-8 md:mt-28 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4  ">
+          <div
+            className={
+              theme === "dark"
+                ? "bg-slate-700 bg-opacity-50 text-slate-200 p-4 rounded-lg shadow-sm flex items-center space-x-4"
+                : "bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4"
+            }
+          >
             <div className="rounded-md bg-[#e7f0fa] p-4">
               <FaBriefcase className="text-4xl text-[#0a65cc]" />
             </div>
@@ -179,7 +216,13 @@ const SearchBar = () => {
             </div>
           </div>
 
-          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 ">
+          <div
+            className={
+              theme === "dark"
+                ? "bg-slate-700 bg-opacity-50 text-slate-200 p-4 rounded-lg shadow-sm flex items-center space-x-4"
+                : "bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4"
+            }
+          >
             <div className="rounded-md bg-[#e7f0fa] p-4">
               <FaBuilding className="text-4xl text-[#0a65cc]" />
             </div>
@@ -187,10 +230,15 @@ const SearchBar = () => {
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
               <p className="text-[#767F8C]">Companies</p>
             </div>
-
           </div>
 
-          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 ">
+          <div
+            className={
+              theme === "dark"
+                ? "bg-slate-700 bg-opacity-50 text-slate-200 p-4 rounded-lg shadow-sm flex items-center space-x-4"
+                : "bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4"
+            }
+          >
             <div className="rounded-md bg-[#e7f0fa] p-4">
               <IoPeopleSharp className="text-4xl text-[#0a65cc]" />
             </div>
@@ -198,10 +246,15 @@ const SearchBar = () => {
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
               <p className="text-[#767F8C]">Candidates</p>
             </div>
-
           </div>
 
-          <div className="bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4 ">
+          <div
+            className={
+              theme === "dark"
+                ? "bg-slate-700 bg-opacity-50 text-slate-200 p-4 rounded-lg shadow-sm flex items-center space-x-4"
+                : "bg-white bg-opacity-80 text-black p-4 rounded-lg shadow-sm flex items-center space-x-4"
+            }
+          >
             <div className="rounded-md bg-[#e7f0fa] p-4">
               <RiPoliceBadgeFill className="text-4xl text-[#0a65cc]" />
             </div>
@@ -210,11 +263,9 @@ const SearchBar = () => {
               <p className="text-[#767F8C]">Successful</p>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-
   );
 };
 

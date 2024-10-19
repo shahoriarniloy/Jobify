@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const OurTeam = () => {
-  const { t } = useTranslation(); // Initialize the translation function
+  const { t } = useTranslation();
 
   return (
     <div className="container mx-auto pt-16  lg:pt-20">

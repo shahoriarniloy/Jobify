@@ -67,10 +67,10 @@ const AllJobSeekers = () => {
     window.location.href = `/edit-job-seeker/${id}`;
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (email) => {
     if (window.confirm("Are you sure you want to delete this job seeker?")) {
       try {
-        await axiosSecure.delete(`/job-seekers/${id}`);
+        await axiosSecure.delete(`/deleteUser/${email}`);
         fetchJobSeekers();
       } catch (error) {
         // console.error("Failed to delete job seeker", error);
@@ -127,21 +127,23 @@ const AllJobSeekers = () => {
                   key={jobSeeker._id}
                   className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
                 >
-                  <td className="p-3">{jobSeeker.name}</td>
+                  <td className="p-3">
+                    {jobSeeker.displayName || jobSeeker.name}
+                  </td>
                   <td className="p-3 hidden md:table-cell">
                     {jobSeeker.email}
                   </td>
                   <td className="p-3 hidden md:table-cell">{jobSeeker.role}</td>
                   <td className="p-3 flex gap-4">
-                    <button
+                    {/* <button
                       className="text-blue-600 hover:text-blue-800"
                       onClick={() => handleEdit(jobSeeker._id)}
                     >
                       <FaEdit />
-                    </button>
+                    </button> */}
                     <button
                       className="text-red-600 hover:text-red-800"
-                      onClick={() => handleDelete(jobSeeker._id)}
+                      onClick={() => handleDelete(jobSeeker.email)}
                     >
                       <FaTrash />
                     </button>
