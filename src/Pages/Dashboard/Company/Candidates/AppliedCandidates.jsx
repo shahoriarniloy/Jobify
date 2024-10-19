@@ -9,8 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
+import { useTranslation } from "react-i18next";
 
 const AppliedCandidates = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const { jobId } = location.state;
   const [candidates, setCandidates] = useState([]);
@@ -21,14 +23,14 @@ const AppliedCandidates = () => {
   const [filterStatus, setFilterStatus] = useState("All");
 
   const statusOptions = [
-    { value: "All", label: "All Statuses" },
-    { value: "Pending", label: "Pending" },
-    { value: "Under Review", label: "Under Review" },
-    { value: "Shortlisted", label: "Shortlisted" },
-    { value: "Interview Scheduled", label: "Interview Scheduled" },
-    { value: "Assessment Task", label: "Assessment Task" },
-    { value: "Rejected", label: "Rejected" },
-    { value: "Hired", label: "Hired" },
+    { value: "All", label: t("all_statuses") },
+    { value: "Pending", label: t("pending") },
+    { value: "Under Review", label: t("under_review") },
+    { value: "Shortlisted", label: t("shortlisted") },
+    { value: "Interview Scheduled", label: t("interview_scheduled") },
+    { value: "Assessment Task", label: t("assessment_task") },
+    { value: "Rejected", label: t("rejected") },
+    { value: "Hired", label: t("hired") },
   ];
 
   useEffect(() => {
@@ -39,9 +41,7 @@ const AppliedCandidates = () => {
           `/appliedCandidates?job_id=${jobId}`
         );
         setCandidates(response.data);
-        // console.log("Candidates fetched:", response.data);
       } catch (err) {
-        // console.error(err);
         setError(err.response ? err.response.data.message : err.message);
       } finally {
         setLoading(false);
@@ -63,12 +63,8 @@ const AppliedCandidates = () => {
         status: newStatus,
         applicationId,
       })
-      .then((response) => {
-        // console.log("Status updated:", response.data);
-      })
-      .catch((error) => {
-        // console.error("Error updating status:", error);
-      });
+      .then((response) => {})
+      .catch((error) => {});
   };
 
   const toggleDropdown = (email) => {
@@ -92,18 +88,18 @@ const AppliedCandidates = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t("error")}: {error}</div>;
   }
 
   return (
     <div>
       <div className="mb-4 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Applied Candidates</h1>
+          <h1 className="text-2xl font-bold">{t("applied_candidates")}</h1>
         </div>
         <div>
           <label htmlFor="filter-status" className="mr-2">
-            Filter by Status:
+            {t("filter_by_status")}:
           </label>
           <select
             id="filter-status"
@@ -139,7 +135,7 @@ const AppliedCandidates = () => {
                   icon={faEnvelope}
                   style={{ marginRight: "8px" }}
                 />
-                Email: {candidate?.user?.email}
+                {t("email")}: {candidate?.user?.email}
               </p>
 
               <div className="card-actions justify-end">
@@ -181,7 +177,7 @@ const AppliedCandidates = () => {
                   to={`/dashboard/candidate-resume/${candidate?.user?.email}`}
                 >
                   <button className="btn bg-gradient-to-r from-blue-500 to-blue-700 flex items-center text-white">
-                    <DocumentTextIcon className="h-5 w-5 mr-2" /> View Resume
+                    <DocumentTextIcon className="h-5 w-5 mr-2" /> {t("view_resume")}
                   </button>
                 </Link>
               </div>
@@ -191,9 +187,6 @@ const AppliedCandidates = () => {
       </div>
     </div>
   );
-
-  // function viewCV(email) {
-  // }
 };
 
 export default AppliedCandidates;
