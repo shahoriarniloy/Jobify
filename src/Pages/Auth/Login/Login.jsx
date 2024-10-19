@@ -49,7 +49,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       );
 
       toast.success(
-        t("login.sign_in") + " " + t("login.login") + " " + t("login.success")
+        t("sign_in") + " " + t("login") + " " + t("success")
       ); // Optional success message
       navigate(from, { replace: true });
     } catch (error) {
