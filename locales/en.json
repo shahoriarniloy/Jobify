@@ -409,10 +409,10 @@
 
   "team_size_label": "Team Size",
   "team_size_placeholder": "Enter team size...",
-  
+
   "establishment_year_label": "Year of Establishment",
 
-    "company_website_label": "Company Website",
+  "company_website_label": "Company Website",
   "company_website_placeholder": "Website url...",
 
   "company_vision_label": "Company Vision",
@@ -423,6 +423,10 @@
   "profile_link_placeholder": "Profile link/url...",
   "add_new_social_link": "Add New Social Link",
   "submitted_social_links": "Submitted Social Links",
-  "social_info_saved": "Social Info Saved"
+  "social_info_saved": "Social Info Saved",
 
+  "no_file_selected": "No file selected or invalid file format.",
+  "file_size_exceeds": "File size exceeds the limit. Maximum allowed size is {{maxSize}}.",
+  "drag_and_drop_message": "Drag and drop an image here, or click to select one",
+  "replace": "Replace"
 }
