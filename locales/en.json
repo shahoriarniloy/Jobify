@@ -428,5 +428,7 @@
   "no_file_selected": "No file selected or invalid file format.",
   "file_size_exceeds": "File size exceeds the limit. Maximum allowed size is {{maxSize}}.",
   "drag_and_drop_message": "Drag and drop an image here, or click to select one",
-  "replace": "Replace"
+  "replace": "Replace",
+
+  "job_alerts": "Job Alerts"
 }
