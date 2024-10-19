@@ -283,7 +283,7 @@
 
   
   "salaryRange": "বেতন সীমা",
-  "vacancy": "পদ",
+  "vacancy":  "শূন্যপদ",
   "jobLevel": "চাকরির স্তর",
   "application_deadline": "আবেদনের শেষ তারিখ",
   "jobType": "চাকরির প্রকার",
@@ -310,5 +310,17 @@
   "internship": "ইন্টার্নশিপ",
   "remote": "রিমোট",
   "temporary": "অস্থায়ী",
-  "contract_based": "চুক্তিভিত্তিক"
+  "contract_based": "চুক্তিভিত্তিক",
+  "salary_range": "বেতন সীমা",
+  "placeholder_number_of_vacancies": "শূন্যপদের সংখ্যা",
+  "job_level": "চাকরির স্তর",
+  "select_job_level": "চাকরির স্তর নির্বাচন করুন",
+  "entry_level": "প্রবেশ স্তর",
+  "mid_level": "মধ্য স্তর",
+  "expert_level": "বিশেষজ্ঞ স্তর",
+  "job_type": "চাকরির প্রকার",
+  "enter_job_description": "চাকরির বিবরণ লিখুন",
+  "enter_job_responsibilities": "চাকরির দায়িত্ব লিখুন (যেমন, জল নমুনা সংগ্রহ এবং পরীক্ষা করা)"
+
+
 }

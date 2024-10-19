@@ -322,5 +322,16 @@
   "internship": "Internship",
   "remote": "Remote",
   "temporary": "Temporary",
-  "contract_based": "Contract Based"
+  "contract_based": "Contract Based",
+  "salary_range": "Salary Range",
+  "placeholder_number_of_vacancies": "Number of vacancies",
+  "job_level": "Job Level",
+  "select_job_level": "Select Job Level",
+  "job_type": "Job Type",
+  "enter_job_description": "Enter job description",
+  "enter_job_responsibilities": "Enter job responsibilities (e.g., Collect and test water samples)"
+
+
+
+
 }
