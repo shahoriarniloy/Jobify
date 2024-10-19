@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import OpenPosition from "../../../components/OpenPositions/OpenPositions";
 import { useTranslation } from "react-i18next";
 import axiosSecure from "../../../Hooks/useAxiosSecure";
+import ButtonLoader from "../../../Shared/ButtonLoader.jsx";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
@@ -40,17 +41,19 @@ const CompanyDetails = () => {
     <div className="bg-secondary">
       <div className="relative container mx-auto">
         <div className="relative">
+          {/* Banner */}
           <div>
             <img
               className="w-full h-56 object-cover md:h-72 lg:h-96"
-              src={company.company_logo}
+              src={company?.company_logo}
               alt={t("CompanyDetails.company_banner_alt")}
             />
           </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
+              {/* Logo */}
               <img
-                src={company?.company_banner}
+                src={company?.company_logo}
                 className="w-16 h-16 object-cover rounded-full"
                 alt={t("CompanyDetails.company_logo_alt")}
               />
@@ -210,7 +213,9 @@ const CompanyDetails = () => {
                 <LuPhoneCall className="text-3xl text-blue-500" />
                 <div className="ml-4">
                   <p className="text-gray-500">{t("CompanyDetails.phone")}</p>
-                  <p className="text-black font-bold">{company?.phone_number}</p>
+                  <p className="text-black font-bold">
+                    {company?.phone_number}
+                  </p>
                 </div>
               </div>
               <hr />
