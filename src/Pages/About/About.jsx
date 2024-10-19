@@ -6,7 +6,7 @@ import OurTeam from "./OurTeam/OurTeam";
 
 const About = () => {
   return (
-    <div>
+    <div className="bg-secondary">
       <Intro />
       <WhyChooseUs />
       <OurTeam />
