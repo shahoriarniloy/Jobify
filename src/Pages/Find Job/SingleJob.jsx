@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import RelatedJobs from "../../components/RelatedJobs/RelatedJobs";
 import Bookmark from "./Bookmark";
+import DashboardLoader from "../../Shared/DashboardLoader";
 
 const SingleJob = () => {
   const [job, setJob] = useState(null);
@@ -19,6 +20,28 @@ const SingleJob = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [companyLogos, setCompanyLogos] = useState({});
+
+  useEffect(() => {
+    const fetchCompanyInfo = async (email) => {
+      try {
+        const response = await axiosSecure.get(`/companies/${email}`);
+        return response.data.company_logo;
+      } catch (error) {
+        console.error("Error fetching company info:", error);
+        return null;
+      }
+    };
+
+    const fetchLogos = async () => {
+      if (job?.hrEmail) {
+        const logo = await fetchCompanyInfo(job.hrEmail);
+        setCompanyLogos(logo);
+      }
+    };
+
+    fetchLogos();
+  }, [job]);
 
   const { id } = useParams();
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -111,7 +134,7 @@ const SingleJob = () => {
   };
 
   if (!job) {
-    return <div>Loading Job Details...</div>;
+    return <DashboardLoader />;
   }
 
   return (
@@ -121,7 +144,7 @@ const SingleJob = () => {
           <div>
             <img
               className="rounded-full h-16 w-16"
-              src={job?.company_logo}
+              src={companyLogos}
               alt="Company Logo"
             />
           </div>

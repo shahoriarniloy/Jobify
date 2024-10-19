@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import TopCompanies from "./TopCompanies";
 import { EyeIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const FindCompany = () => {
@@ -18,6 +19,7 @@ const FindCompany = () => {
   const [error, setError] = useState("");
   const [companies, setCompanies] = useState([]);
   const [filteredCompanies, setFilteredCompanies] = useState([]);
+  const theme = useSelector((state) => state.theme.theme);
 
   const [totalCompanies, setTotalCompanies] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -90,8 +92,7 @@ const FindCompany = () => {
     }
   };
   return (
-    <div className="bg-secondary">
-
+    <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto">
         <div className="flex justify-between items-center pt-12">
           <div className="flex items-center lg:gap-4 md:gap-4 gap-2 mt-4 w-1/3">
@@ -142,7 +143,6 @@ const FindCompany = () => {
               </div>
             </form>
           </div>
-
 
           <div className="view-toggle flex justify-end mt-2 gap-4 w-1/3">
             <button
@@ -229,11 +229,9 @@ const FindCompany = () => {
                           {company.company_name}
                         </h2>
                         <p className="text-blue-500 h-6">{company.industry}</p>
-
                       </div>
                     </div>
                     <div className="mt-14 space-y-2 text-justify">
-
                       <p className=" text-sm">{company.company_description}</p>
                     </div>
                     <Link to={`/company-details/${company.email}`}>
@@ -261,8 +259,9 @@ const FindCompany = () => {
             {pages.map((page) => (
               <button
                 key={page}
-                className={`px-4 py-2 rounded-lg ${page === currentPage ? "bg-blue-200" : "bg-white"
-                  } border border-blue-300`}
+                className={`px-4 py-2 rounded-lg ${
+                  page === currentPage ? "bg-blue-200" : "bg-white"
+                } border border-blue-300`}
                 onClick={() => setCurrentPage(page)}
               >
                 {page + 1}

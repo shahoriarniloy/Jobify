@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import axiosSecure from "../../../../Hooks/useAxiosSecure";
+import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 
 const Messages = () => {
   const [conversations, setConversations] = useState([]);
   const currentUser = useSelector((state) => state.user.currentUser);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -63,7 +64,7 @@ const Messages = () => {
   }, [currentUser]);
 
   return (
-    <div className="bg-secondary">
+    <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto pt-8 min-h-screen">
         {conversations.length === 0 ? (
           <div className="text-gray-500">No conversations found.</div>
@@ -85,7 +86,13 @@ const Messages = () => {
                   className="w-12 h-12 rounded-full object-cover mr-4"
                 />
                 <div className="flex-1">
-                  <h2 className="text-lg font-semibold truncate">
+                  <h2
+                    className={
+                      theme === "dark "
+                        ? "text-lg font-semibold truncate text-slate-700"
+                        : "text-lg font-semibold truncate"
+                    }
+                  >
                     {conversation.otherPartyName || "Unknown"}
                   </h2>
                   <p className="text-gray-500 text-sm truncate w-1/2">

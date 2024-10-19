@@ -72,7 +72,7 @@ const DashboardLayout = () => {
               >
                 <FaBriefcase className="text-xl" /> My Jobs
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to="/dashboard/candidates"
                 className={({ isActive }) =>
                   isActive
@@ -81,7 +81,7 @@ const DashboardLayout = () => {
                 }
               >
                 <FaUsers className="text-xl" /> Candidates
-              </NavLink>
+              </NavLink> */}
               <NavLink
                 to="/dashboard/company-settings"
                 className={({ isActive }) =>

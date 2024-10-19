@@ -17,8 +17,7 @@ import {
 import { useReactToPrint } from "react-to-print";
 import { PiBag } from "react-icons/pi";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
-
-const Resume = () => {
+const CandidateResume = () => {
   const { email } = useParams();
   const [resumeData, setResumeData] = useState(null);
   const loading = useSelector((state) => state.user.loading);
@@ -31,7 +30,7 @@ const Resume = () => {
   useEffect(() => {
     const fetchResume = async () => {
       try {
-        const response = await axiosSecure.get(`/resume/${currentUser?.email}`);
+        const response = await axiosSecure.get(`/resume/${email}`);
         setResumeData(response?.data);
       } catch (err) {
         setError("Error fetching resume data");
@@ -155,4 +154,4 @@ const Resume = () => {
   );
 };
 
-export default Resume;
+export default CandidateResume;

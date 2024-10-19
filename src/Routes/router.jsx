@@ -53,6 +53,7 @@ import ResumeForm from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeForm";
 import Resume from "../Pages/Dashboard/Employee/ResumeBuilder/Resume";
 import ResumeBuilder from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeBuilder";
 import EmployeeDashboard from "../Pages/Dashboard/Employee/EmployeeDashboard";
+import CandidateResume from "../Pages/Dashboard/Company/Candidates/CandidateResume";
 
 export const router = createBrowserRouter([
   {
@@ -179,6 +180,10 @@ export const router = createBrowserRouter([
           {
             path: "candidates",
             element: <Candidates></Candidates>,
+          },
+          {
+            path: "candidate-resume/:email",
+            element: <CandidateResume></CandidateResume>,
           },
 
           {
