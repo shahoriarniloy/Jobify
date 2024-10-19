@@ -7,8 +7,10 @@ import {
   FaClipboardList,
   FaUserPlus,
 } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const AdminOverview = () => {
+  const { t } = useTranslation();
   const [stats, setStats] = useState({
     totalJobSeekers: 0,
     totalEmployers: 0,
@@ -62,7 +64,7 @@ const AdminOverview = () => {
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-2xl font-bold">{stats.totalJobSeekers}</h3>
-              <p className="text-sm">Total Job Seekers</p>
+              <p className="text-sm">{t("total_job_seekers")}</p>
             </div>
             <FaUsers className="text-4xl text-blue-500" />
           </div>
@@ -72,7 +74,7 @@ const AdminOverview = () => {
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-2xl font-bold">{stats.totalEmployers}</h3>
-              <p className="text-sm">Total Employers</p>
+              <p className="text-sm">{t("total_employers")}</p>
             </div>
             <FaBriefcase className="text-4xl text-green-500" />
           </div>
@@ -82,7 +84,7 @@ const AdminOverview = () => {
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-2xl font-bold">{stats.totalJobsPosted}</h3>
-              <p className="text-sm">Total Jobs Posted</p>
+              <p className="text-sm">{t("total_jobs_posted")}</p>
             </div>
             <FaClipboardList className="text-4xl text-yellow-500" />
           </div>
@@ -92,7 +94,7 @@ const AdminOverview = () => {
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-2xl font-bold">{stats.totalApplications}</h3>
-              <p className="text-sm">Total Applications</p>
+              <p className="text-sm">{t("total_applications")}</p>
             </div>
             <FaUserPlus className="text-4xl text-red-500" />
           </div>
@@ -100,12 +102,12 @@ const AdminOverview = () => {
       </div>
 
       <div className="recent-job-seekers mt-8 p-6">
-        <h2 className="text-xl font-bold mb-4">Recent Job Seekers</h2>
+        <h2 className="text-xl font-bold mb-4">{t("recent_job_seekers")}</h2>
         <table className="min-w-full text-xs sm:text-sm">
           <thead className="dark:bg-gray-300">
             <tr className="text-left">
-              <th className="p-3">Name</th>
-              <th className="p-3 hidden md:table-cell">Email</th>
+              <th className="p-3">{t("name")}</th>
+              <th className="p-3 hidden md:table-cell">{t("email")}</th>
             </tr>
           </thead>
           <tbody>
@@ -123,12 +125,12 @@ const AdminOverview = () => {
       </div>
 
       <div className="recent-jobs mt-8 p-6">
-        <h2 className="text-xl font-bold mb-4">Recent Jobs Posted</h2>
+        <h2 className="text-xl font-bold mb-4">{t("recent_jobs_posted")}</h2>
         <table className="min-w-full text-xs sm:text-sm">
           <thead className="dark:bg-gray-300">
             <tr className="text-left">
-              <th className="p-3">Job Title</th>
-              <th className="p-3 hidden md:table-cell">Company</th>
+              <th className="p-3">{t("job_title")}</th>
+              <th className="p-3 hidden md:table-cell">{t("company")}</th>
             </tr>
           </thead>
           <tbody>

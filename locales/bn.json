@@ -155,5 +155,15 @@
   "overview": "ওভারভিউ",
   "candidates": "প্রার্থীরা",
   "jobs": "চাকরি",
-  "log_out": "লগ আউট"
+  "log_out": "লগ আউট",
+
+  "total_job_seekers": "মোট চাকরিপ্রার্থী",
+  "total_employers": "মোট নিয়োগকারী",
+  "total_jobs_posted": "মোট পোস্টকৃত চাকরি",
+  "total_applications": "মোট আবেদন",
+  "recent_job_seekers": "সাম্প্রতিক চাকরিপ্রার্থী",
+  "name": "নাম",
+  "recent_jobs_posted": "সাম্প্রতিক পোস্টকৃত চাকরি",
+  "job_title": "চাকরির শিরোনাম",
+  "company": "কোম্পানি"
 }

@@ -156,5 +156,15 @@
   "overview": "Overview",
   "candidates": "Candidates",
   "jobs": "Jobs",
-  "log_out": "Log-out"
+  "log_out": "Log-out",
+
+  "total_job_seekers": "Total Job Seekers",
+  "total_employers": "Total Employers",
+  "total_jobs_posted": "Total Jobs Posted",
+  "total_applications": "Total Applications",
+  "recent_job_seekers": "Recent Job Seekers",
+  "name": "Name",
+  "recent_jobs_posted": "Recent Jobs Posted",
+  "job_title": "Job Title",
+  "company": "Company"
 }
