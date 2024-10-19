@@ -416,6 +416,13 @@
   "company_website_placeholder": "Website url...",
 
   "company_vision_label": "Company Vision",
-  "company_vision_placeholder": "Write down your biography here. Let the employers know who you are..."
+  "company_vision_placeholder": "Write down your biography here. Let the employers know who you are...",
+
+  "social_link": "Social Link",
+  "select_social_media": "Select Social Media",
+  "profile_link_placeholder": "Profile link/url...",
+  "add_new_social_link": "Add New Social Link",
+  "submitted_social_links": "Submitted Social Links",
+  "social_info_saved": "Social Info Saved"
 
 }

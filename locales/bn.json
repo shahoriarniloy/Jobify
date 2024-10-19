@@ -406,5 +406,12 @@
   "company_website_placeholder": "ওয়েবসাইট ইউআরএল...",
 
   "company_vision_label": "কোম্পানির দৃষ্টি",
-  "company_vision_placeholder": "এখানে আপনার জীবনবৃত্তান্ত লিখুন। নিয়োগকর্তাদের জানান আপনি কে..."
+  "company_vision_placeholder": "এখানে আপনার জীবনবৃত্তান্ত লিখুন। নিয়োগকর্তাদের জানান আপনি কে...",
+
+  "social_link": "সামাজিক লিঙ্ক",
+  "select_social_media": "সামাজিক মাধ্যম নির্বাচন করুন",
+  "profile_link_placeholder": "প্রোফাইল লিঙ্ক/ইউআরএল...",
+  "add_new_social_link": "নতুন সামাজিক লিঙ্ক যোগ করুন",
+  "submitted_social_links": "প্রদত্ত সামাজিক লিঙ্কগুলি",
+  "social_info_saved": "সামাজিক তথ্য সংরক্ষণ করা হয়েছে"
 }
