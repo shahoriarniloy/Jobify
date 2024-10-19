@@ -166,5 +166,13 @@
   "name": "Name",
   "recent_jobs_posted": "Recent Jobs Posted",
   "job_title": "Job Title",
-  "company": "Company"
+  "company": "Company",
+
+  "search_companies": "Search Companies...",
+  "items_per_page": "Number of Companies Per Page:",
+  "company_name": "Company Name",
+  "industry": "Industry",
+  "actions": "Actions",
+  "fetch_error": "Failed to load companies. Please try again later.",
+  "delete_confirm": "Are you sure you want to delete this company?"
 }
