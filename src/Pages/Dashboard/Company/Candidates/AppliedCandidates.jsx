@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   TagIcon,
   DocumentTextIcon,
@@ -16,21 +17,37 @@ const AppliedCandidates = () => {
   const location = useLocation();
   const { jobId } = location.state;
   const [candidates, setCandidates] = useState([]);
+  const [company, setCompany] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({});
-  const [dropdownOpen, setDropdownOpen] = useState({});
   const [filterStatus, setFilterStatus] = useState("All");
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const [interviewDetails, setInterviewDetails] = useState({
+    date: "",
+    time: "",
+    roomId: "",
+  });
+  const [schedulingCandidate, setSchedulingCandidate] = useState(null);
 
   const statusOptions = [
-    { value: "All", label: t("all_statuses") },
-    { value: "Pending", label: t("pending") },
-    { value: "Under Review", label: t("under_review") },
-    { value: "Shortlisted", label: t("shortlisted") },
-    { value: "Interview Scheduled", label: t("interview_scheduled") },
-    { value: "Assessment Task", label: t("assessment_task") },
-    { value: "Rejected", label: t("rejected") },
-    { value: "Hired", label: t("hired") },
+//     { value: "All", label: t("all_statuses") },
+//     { value: "Pending", label: t("pending") },
+//     { value: "Under Review", label: t("under_review") },
+//     { value: "Shortlisted", label: t("shortlisted") },
+//     { value: "Interview Scheduled", label: t("interview_scheduled") },
+//     { value: "Assessment Task", label: t("assessment_task") },
+//     { value: "Rejected", label: t("rejected") },
+//     { value: "Hired", label: t("hired") },
+// =======
+    { value: "Pending", label: "Pending" },
+    { value: "Under Review", label: "Under Review" },
+    { value: "Shortlisted", label: "Shortlisted" },
+    { value: "Interview Scheduled", label: "Interview Scheduled" },
+    { value: "Assessment Task", label: "Assessment Task" },
+    { value: "Rejected", label: "Rejected" },
+    { value: "Hired", label: "Hired" },
+
   ];
 
   useEffect(() => {
@@ -51,27 +68,65 @@ const AppliedCandidates = () => {
     fetchCandidates();
   }, [jobId]);
 
-  const handleStatusChange = (email, newStatus, applicationId) => {
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        if (!currentUser?.email) {
+          throw new Error("User not found");
+        }
+        setLoading(true);
+
+        const companyResponse = await axiosSecure.get(
+          `/companies/${currentUser.email}`
+        );
+        setCompany(companyResponse.data);
+      } catch (error) {
+        // Handle error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (currentUser?.email) {
+      fetchCompanyData();
+    } else {
+      setLoading(false);
+    }
+  }, [currentUser]);
+
+  const handleStatusChange = (email, newStatus, applicationId, name) => {
     setSelectedStatus((prevStatus) => ({
       ...prevStatus,
       [email]: newStatus,
     }));
 
-    axiosSecure
-      .patch(`/updateCandidateStatus`, {
-        email,
-        status: newStatus,
-        applicationId,
-      })
-      .then((response) => {})
-      .catch((error) => {});
-  };
+    const statusUpdatePayload = {
+      email,
+      status: newStatus,
+      applicationId,
+      name,
+      company: company?.company_name,
+      jobId,
+    };
 
-  const toggleDropdown = (email) => {
-    setDropdownOpen((prevDropdown) => ({
-      ...prevDropdown,
-      [email]: !prevDropdown[email],
-    }));
+    if (newStatus === "Interview Scheduled") {
+      statusUpdatePayload.interviewDate = interviewDetails.date;
+      statusUpdatePayload.interviewTime = interviewDetails.time;
+      statusUpdatePayload.roomId = interviewDetails.roomId;
+
+      console.log("Status Update Payload:", statusUpdatePayload);
+    }
+
+    axiosSecure
+
+      .patch(`/updateCandidateStatus`, statusUpdatePayload)
+      .then((response) => {
+        console.log("Candidate status updated successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating candidate status:", error);
+        console.error("Response data:", error.response.data);
+      });
   };
 
   const handleFilterChange = (event) => {
@@ -82,6 +137,28 @@ const AppliedCandidates = () => {
     if (filterStatus === "All") return true;
     return candidate.application.status === filterStatus;
   });
+
+  const openInterviewScheduler = (candidate) => {
+    setSchedulingCandidate(candidate);
+  };
+
+  const scheduleInterview = (e) => {
+    e.preventDefault();
+
+    handleStatusChange(
+      schedulingCandidate?.user?.email,
+      "Interview Scheduled",
+      schedulingCandidate?.application?._id,
+      schedulingCandidate?.user?.name
+    );
+
+    console.log(
+      `Scheduled interview for ${schedulingCandidate.user.name} on ${interviewDetails.date} at ${interviewDetails.time} in room ${interviewDetails.roomId}`
+    );
+
+    setSchedulingCandidate(null);
+    setInterviewDetails({ date: "", time: "", roomId: "" });
+  };
 
   if (loading) {
     return <DashboardLoader />;
@@ -107,6 +184,7 @@ const AppliedCandidates = () => {
             onChange={handleFilterChange}
             className="select select-bordered"
           >
+            <option value="All">All Statuses</option>
             {statusOptions.map((status) => (
               <option key={status.value} value={status.value}>
                 {status.label}
@@ -122,7 +200,7 @@ const AppliedCandidates = () => {
             key={candidate?.user?.email}
             className="card lg:card-side bg-base-100 shadow-xl"
           >
-            <figure className="w-24 h-24">
+            <figure className="w-48 h-auto">
               <img
                 src={candidate?.user?.photoURL || ""}
                 alt={candidate?.user?.name}
@@ -138,40 +216,37 @@ const AppliedCandidates = () => {
                 {t("email")}: {candidate?.user?.email}
               </p>
 
-              <div className="card-actions justify-end">
-                <div className="relative inline-block">
+              <div className="card-actions flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+                {statusOptions.map((status) => (
                   <button
-                    className="btn bg-gradient-to-r from-orange-400 to-orange-500 flex items-center text-white"
-                    onClick={() => toggleDropdown(candidate?.user?.email)}
+                    key={status.value}
+                    className={`btn ${
+                      candidate.application.status === status.value
+                        ? "bg-gradient-to-r from-orange-400 to-orange-500 text-white"
+                        : "bg-white text-black"
+                    }`}
+                    onClick={() =>
+                      handleStatusChange(
+                        candidate?.user?.email,
+                        status.value,
+                        candidate?.application?._id,
+                        candidate?.user?.name
+                      )
+                    }
                   >
-                    <TagIcon className="h-5 w-5 mr-2" />
-                    {selectedStatus[candidate?.user?.email] ||
-                      candidate.application.status}
-                    <ChevronDownIcon className="h-5 w-5 ml-2" />
+                    {status.label}
                   </button>
+                ))}
 
-                  {dropdownOpen[candidate?.user?.email] && (
-                    <div className="dropdown-content absolute left-0 mt-2 bg-white shadow-lg z-10 w-48 border rounded">
-                      {statusOptions
-                        .filter((option) => option.value !== "All")
-                        .map((status) => (
-                          <div
-                            key={status.value}
-                            className="p-2 hover:bg-gray-200 cursor-pointer"
-                            onClick={() =>
-                              handleStatusChange(
-                                candidate?.user?.email,
-                                status.value,
-                                candidate?.application?._id
-                              )
-                            }
-                          >
-                            {status.label}
-                          </div>
-                        ))}
-                    </div>
-                  )}
-                </div>
+                <button
+                  className="btn bg-gradient-to-r from-green-500 to-green-700 flex items-center text-white"
+                  onClick={() => openInterviewScheduler(candidate)}
+                  disabled={
+                    candidate.application.status === "Interview Scheduled"
+                  }
+                >
+                  Schedule Interview
+                </button>
 
                 <Link
                   to={`/dashboard/candidate-resume/${candidate?.user?.email}`}
@@ -184,6 +259,84 @@ const AppliedCandidates = () => {
             </div>
           </div>
         ))}
+
+        {schedulingCandidate && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg shadow-lg p-4 w-full max-w-md">
+              <h2 className="text-lg font-bold mb-4">
+                Schedule Interview with {schedulingCandidate.user.name}
+              </h2>
+              <form onSubmit={scheduleInterview}>
+                <div className="mb-4">
+                  <label htmlFor="date" className="block">
+                    Date:
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    required
+                    value={interviewDetails.date}
+                    onChange={(e) =>
+                      setInterviewDetails({
+                        ...interviewDetails,
+                        date: e.target.value,
+                      })
+                    }
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="time" className="block">
+                    Time:
+                  </label>
+                  <input
+                    type="time"
+                    id="time"
+                    required
+                    value={interviewDetails.time}
+                    onChange={(e) =>
+                      setInterviewDetails({
+                        ...interviewDetails,
+                        time: e.target.value,
+                      })
+                    }
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="roomId" className="block">
+                    Room ID:
+                  </label>
+                  <input
+                    type="text"
+                    id="roomId"
+                    required
+                    value={interviewDetails.roomId}
+                    onChange={(e) =>
+                      setInterviewDetails({
+                        ...interviewDetails,
+                        roomId: e.target.value,
+                      })
+                    }
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    className="btn bg-gray-300 mr-2"
+                    onClick={() => setSchedulingCandidate(null)}
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn bg-blue-500 text-white">
+                    Schedule
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
