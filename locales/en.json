@@ -496,7 +496,7 @@
   "description_label": "Description:",
   "add_experience_button": "Add Experience",
   "projects_title": "Projects",
-  "project_label": "Project {index}",
+  "project_label": "Project {{index}}",
   "project_title_label": "Project Title:",
   "project_link_label": "Project Link:",
   "technologies_label": "Technologies Used:",
