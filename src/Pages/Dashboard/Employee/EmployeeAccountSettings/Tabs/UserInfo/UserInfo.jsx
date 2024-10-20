@@ -8,8 +8,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const UserInfo = () => {
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [about, setAbout] = useState("");
@@ -25,11 +27,9 @@ const UserInfo = () => {
         const response = await axiosSecure.get(`/users/${currentUser?.email}`);
         const userData = response.data;
 
-
         if (userData && userData.userInfo && userData.userInfo.length > 0) {
           setAbout(userData?.userInfo[0]?.about || "");
           setPhone(userData?.userInfo[0]?.phone || "");
-
           setSocialLinks(userData?.userInfo[0]?.socialLinks || "");
         }
       } catch (error) {
@@ -91,7 +91,7 @@ const UserInfo = () => {
       };
 
       await axiosSecure.post("/userInfo-updating", postData);
-      toast.success("Profile saved successfully");
+      toast.success(t("profile_saved_successfully"));
     } catch (error) {
       // console.error("Error submitting profile:", error);
     } finally {
@@ -106,7 +106,7 @@ const UserInfo = () => {
           <div className="w-full lg:flex-1">
             <DragAndDropInput
               type="logo"
-              label="Upload Your Profile Photo"
+              label={t("upload_your_profile_photo")}
               file={logoFile}
               onFileUpload={handleLogoUpload}
             />
@@ -115,7 +115,7 @@ const UserInfo = () => {
           <div className="w-full lg:flex-1">
             <div className="flex flex-col md:my-4 w-full">
               <label htmlFor="Phone" className="text-lg font-medium mb-2">
-                Phone
+                {t("phone")}
               </label>
               <PhoneInput
                 country={"bd"}
@@ -128,7 +128,7 @@ const UserInfo = () => {
 
             <div className="flex flex-col md:my-4">
               <label htmlFor="Email" className="text-lg font-medium">
-                Email
+                {t("email")}
               </label>
               <div className="relative">
                 <TfiEmail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400 font-bold" />
@@ -140,7 +140,7 @@ const UserInfo = () => {
                   value={email}
                   readOnly
                   className="border border-gray-300 p-2 pl-10 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-2"
-                  placeholder="Email"
+                  placeholder={t("email_placeholder")}
                   disabled
                 />
               </div>
@@ -150,14 +150,14 @@ const UserInfo = () => {
           <div className="w-full lg:flex-1">
             <div className="flex flex-col">
               <label htmlFor="textInput" className="text-lg font-medium mb-2">
-                Your Name
+                {t("your_name")}
               </label>
               <input
                 id="textInput"
                 type="text"
                 value={name}
                 onChange={handleChangeName}
-                placeholder="Type here..."
+                placeholder={t("type_here")}
                 className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 disabled
               />
@@ -167,12 +167,12 @@ const UserInfo = () => {
 
         <div className="flex flex-col lg:flex-row gap-6">
           <section className="mt-4 w-full lg:w-1/2">
-            <h3 className="text-lg font-medium mb-2">About yourself</h3>
+            <h3 className="text-lg font-medium mb-2">{t("about_yourself")}</h3>
             <div className="quill-wrapper relative border rounded-lg bg-white">
               <ReactQuill
                 value={about}
                 onChange={handleAboutChange}
-                placeholder="Write down your biography here. Let the employers know who you are..."
+                placeholder={t("write_down_your_biography")}
                 modules={{
                   toolbar: [
                     ["bold", "italic", "underline"],
@@ -180,14 +180,7 @@ const UserInfo = () => {
                     ["link"],
                   ],
                 }}
-                formats={[
-                  "bold",
-                  "italic",
-                  "underline",
-                  "list",
-                  "bullet",
-                  "link",
-                ]}
+                formats={["bold", "italic", "underline", "list", "bullet", "link"]}
                 className="custom-quill-editor h-[600px]"
               />
             </div>
@@ -196,7 +189,7 @@ const UserInfo = () => {
           <div className="w-full lg:w-1/2">
             <SocialMediaProfileForEmployee
               socialLinks={socialLinks}
-              setSocialLinks={setSocialLinks} // Pass setter to update social links
+              setSocialLinks={setSocialLinks}
             />
           </div>
         </div>
@@ -207,7 +200,7 @@ const UserInfo = () => {
             className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"
             disabled={loading}
           >
-            {loading ? "Saving..." : "Save All Changes"}
+            {loading ? t("saving") : t("save_changes")}
           </button>
         </div>
       </form>

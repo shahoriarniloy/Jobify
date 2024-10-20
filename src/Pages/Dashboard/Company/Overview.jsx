@@ -11,8 +11,10 @@ import {
 } from "react-icons/ai";
 import { BiTask } from "react-icons/bi";
 import DashboardLoader from "../../../Shared/DashboardLoader";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const CompanyDashboard = () => {
+  const { t } = useTranslation(); // Destructure t from useTranslation
   const currentUser = useSelector((state) => state.user.currentUser);
   const [company, setCompany] = useState({});
   const [jobStats, setJobStats] = useState({
@@ -87,11 +89,9 @@ const CompanyDashboard = () => {
     <>
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">
-          Hello, {company?.company_name || "Company"}
+          {t("hello_message", { company_name: company?.company_name || t("default_company_name") })}
         </h2>
-        <p className="text-sm">
-          Here is your company overview and recent activities
-        </p>
+        <p className="text-sm">{t("company_overview_message")}</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mt-4">
@@ -99,7 +99,7 @@ const CompanyDashboard = () => {
           <AiOutlineUser size={32} className="text-blue-700" />
           <div>
             <h4 className="text-lg font-bold text-blue-700">
-              Total Applicants
+              {t("total_applicants")}
             </h4>
             <p className="text-2xl text-blue-700">{jobStats.totalApplicants}</p>
           </div>
@@ -108,7 +108,7 @@ const CompanyDashboard = () => {
           <AiOutlineCheckCircle size={32} className="text-red-700" />
           <div>
             <h4 className="text-lg font-bold text-red-700">
-              Interviews Scheduled
+              {t("interviews_scheduled")}
             </h4>
             <p className="text-2xl text-red-700">
               {jobStats.interviewsScheduled}
@@ -119,9 +119,9 @@ const CompanyDashboard = () => {
           <AiOutlineFileDone size={32} className="text-green-700" />
           <div>
             <h4 className="text-lg font-bold text-green-700">
-              Offers Extended
+              {t("offers_extended")}
             </h4>
-            <p className="text-2xl  text-green-700 ">
+            <p className="text-2xl text-green-700">
               {jobStats.offersExtended}
             </p>
           </div>
@@ -129,7 +129,7 @@ const CompanyDashboard = () => {
         <div className="p-4 bg-[#c3b1df] rounded-lg flex items-center gap-4">
           <BiTask size={32} className="text-purple-700" />
           <div>
-            <h4 className="text-lg font-bold text-purple-700 ">Jobs Filled</h4>
+            <h4 className="text-lg font-bold text-purple-700">{t("jobs_filled")}</h4>
             <p className="text-2xl text-purple-700">{jobStats.jobsFilled}</p>
           </div>
         </div>
@@ -140,22 +140,22 @@ const CompanyDashboard = () => {
           <img
             className="w-16 h-16 rounded-full"
             src={company?.company_logo || "default-logo.png"}
-            alt="Company Logo"
+            alt={t("company_logo_alt")}
           />
           <div className="text-white">
             <h2 className="text-xl font-semibold">
-              {company?.company_name || "Your company profile is incomplete."}
+              {company?.company_name || t("incomplete_profile_message")}
             </h2>
             <p>
               {company?.company_description ||
-                "Complete your profile to attract more applicants."}
+                t("complete_profile_message")}
             </p>
           </div>
         </div>
         <Link to="/dashboard/company-settings">
           <button>
             <ButtonWithIcon
-              btnName={"Edit Profile"}
+              btnName={t("edit_profile")}
               customStyle={"text-[#E05151] bg-white"}
             />
           </button>
@@ -164,10 +164,10 @@ const CompanyDashboard = () => {
 
       <div>
         <div className="flex items-center justify-between mt-8">
-          <h3 className="font-bold">Recent Job Postings</h3>
+          <h3 className="font-bold">{t("recent_job_postings")}</h3>
           <Link to="/dashboard/myJob">
             <button className="text-lg">
-              <ButtonWithIcon btnName={"View All Jobs"} />
+              <ButtonWithIcon btnName={t("view_all_jobs")} />
             </button>
           </Link>
         </div>

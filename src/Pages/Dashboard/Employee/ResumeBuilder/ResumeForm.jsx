@@ -5,6 +5,7 @@ import "./resume.css";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const predefinedSkills = [
   // Frontend Development
@@ -484,6 +485,7 @@ const languageList = [
 ];
 
 const ResumeForm = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -675,9 +677,9 @@ const ResumeForm = () => {
         updatedFormData
       );
 
-      toast.success("Resume Informations Updated");
+      toast.success(t("resume_information_updated")); // Wrapped for translation
     } catch (error) {
-      toast.error("Failed Saving Resume Information");
+      toast.error(t("failed_saving_resume_information")); // Wrapped for translation
     }
   };
 
@@ -685,25 +687,29 @@ const ResumeForm = () => {
     <div className="resume-form mb-8 text-sm ">
       <div className="flex flex-row justify-between">
         <div className="">
-          <h2 className="text-lg mb-8 text-center font-bold">Resume Builder</h2>
+          <h2 className="text-lg mb-8 text-center font-bold">
+            {t("resume_builder")}
+          </h2>{" "}
+          {/* Wrapped for translation */}
         </div>
         <div>
           <Link to={`/jobSeeker/resume/${currentUser.email}`}>
             <button className="px-4 py-2 bg-blue-400 rounded-md">
-              View Resume
-            </button>
+              {t("view_resume")}
+            </button>{" "}
+            {/* Wrapped for translation */}
           </Link>
         </div>
       </div>
 
       <form onSubmit={handleSubmit}>
         <div className="border p-6 rounded-md  shadow-md mb-4 ">
-          <h2 className="font-bold text-xl mb-4">Personal Info</h2>
+          <h2 className="font-bold text-xl mb-4">{t("personal_info")}</h2>
 
           <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
             <div className="w-full">
               <label htmlFor="name" className="block mt-2">
-                Name:
+                {t("name_label")}
               </label>
               <input
                 id="name"
@@ -717,7 +723,7 @@ const ResumeForm = () => {
             </div>
             <div className="w-full">
               <label htmlFor="email" className="block mt-2">
-                Email:
+                {t("email_label")}
               </label>
               <input
                 id="email"
@@ -732,7 +738,7 @@ const ResumeForm = () => {
 
             <div className="w-full">
               <label htmlFor="phone" className="block mt-2">
-                Phone:
+                {t("phone_label")}
               </label>
               <input
                 id="phone"
@@ -748,7 +754,7 @@ const ResumeForm = () => {
           <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
             <div className="w-full">
               <label htmlFor="linkedin" className="block mt-2">
-                LinkedIn:
+                {t("linkedin_label")}
               </label>
               <input
                 id="linkedin"
@@ -762,7 +768,7 @@ const ResumeForm = () => {
 
             <div className="w-full">
               <label htmlFor="github" className="block mt-2">
-                GitHub:
+                {t("github_label")}
               </label>
               <input
                 id="github"
@@ -775,12 +781,12 @@ const ResumeForm = () => {
             </div>
           </div>
         </div>
-        <div className=" border p-6 rounded-md  shadow-md mb-4">
-          <h3 className=" font-bold text-xl">Summary & Skills</h3>
-          <div className="flex lg:flex-row flex-col justify-between w-full gap-4 ">
-            <div className=" w-full">
+        <div className="border p-6 rounded-md shadow-md mb-4">
+          <h3 className="font-bold text-xl">{t("summary_skills_title")}</h3>
+          <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
+            <div className="w-full">
               <label htmlFor="objective" className="block mt-2">
-                Objective:
+                {t("objective_label")}
               </label>
               <textarea
                 id="objective"
@@ -793,13 +799,13 @@ const ResumeForm = () => {
 
             <div className="w-full flex flex-col">
               <label htmlFor="skills" className="block mt-2">
-                Skills:
+                {t("skills_label")}
               </label>
               <input
                 id="skills"
                 type="text"
                 value={skillInput}
-                placeholder="Type a skill..."
+                placeholder={t("skills_placeholder")}
                 onChange={handleSkillInputChange}
                 className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
               />
@@ -830,15 +836,16 @@ const ResumeForm = () => {
             </div>
           </div>
         </div>
-        <div className="border p-6 rounded-md   shadow-md mb-4">
-          <h3 className=" font-bold text-xl">Experience</h3>
+
+        <div className="border p-6 rounded-md shadow-md mb-4">
+          <h3 className="font-bold text-xl">{t("experience_title")}</h3>
 
           {formData.experiences.map((experience, index) => (
             <div key={index} className="mb-4">
               <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
                 <div className="w-full">
                   <label htmlFor="jobTitle" className="block mt-2">
-                    Job Position/Title:
+                    {t("job_title_label")}
                   </label>
                   <input
                     id="jobTitle"
@@ -852,7 +859,7 @@ const ResumeForm = () => {
 
                 <div className="w-full">
                   <label htmlFor="company" className="block mt-2">
-                    Company:
+                    {t("company_label")}
                   </label>
                   <input
                     id="company"
@@ -868,7 +875,7 @@ const ResumeForm = () => {
               <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
                 <div className="w-full">
                   <label htmlFor="date1" className="block mt-2">
-                    Start Date:
+                    {t("start_date_label")}
                   </label>
                   <input
                     id="date1"
@@ -882,7 +889,7 @@ const ResumeForm = () => {
 
                 <div className="w-full">
                   <label htmlFor="date2" className="block mt-2">
-                    End Date:
+                    {t("end_date_label")}
                   </label>
                   <input
                     id="date2"
@@ -896,7 +903,7 @@ const ResumeForm = () => {
               </div>
 
               <label htmlFor="description" className="block mt-2">
-                Description:
+                {t("description_label")}
               </label>
               <textarea
                 id="description"
@@ -913,17 +920,20 @@ const ResumeForm = () => {
             onClick={handleAddExperience}
             className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Add Experience
+            {t("add_experience_button")}
           </button>
         </div>
-        <div className="border p-6 rounded-md   shadow-md mb-4">
-          <h3 className="font-bold text-xl">Projects</h3>
+
+        <div className="border p-6 rounded-md shadow-md mb-4">
+          <h3 className="font-bold text-xl">{t("projects_title")}</h3>
 
           {formData.projects.map((project, index) => (
             <div key={index} className="mb-4">
-              <h4 className="font-semibold">Project {index + 1}</h4>
+              <h4 className="font-semibold">
+                {t("project_label", { index: index + 1 })}
+              </h4>
 
-              <label className="block mt-2">Project Title:</label>
+              <label className="block mt-2">{t("project_title_label")}</label>
               <input
                 type="text"
                 name="title"
@@ -932,7 +942,7 @@ const ResumeForm = () => {
                 className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
               />
 
-              <label className="block mt-2">Project Link:</label>
+              <label className="block mt-2">{t("project_link_label")}</label>
               <input
                 type="text"
                 name="link"
@@ -941,7 +951,7 @@ const ResumeForm = () => {
                 className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
               />
 
-              <label className="block mt-2">Description:</label>
+              <label className="block mt-2">{t("description_label")}</label>
               <textarea
                 name="description"
                 value={project.description}
@@ -949,7 +959,7 @@ const ResumeForm = () => {
                 className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
               ></textarea>
 
-              <label className="block mt-2">Technologies Used:</label>
+              <label className="block mt-2">{t("technologies_label")}</label>
               <input
                 type="text"
                 name="technologies"
@@ -965,13 +975,14 @@ const ResumeForm = () => {
             onClick={handleAddProject}
             className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Add Project
+            {t("add_project_button")}
           </button>
         </div>
-        <div className="border p-6 rounded-md   shadow-md mb-4">
-          <h3 className="font-bold text-xl">Education</h3>
 
-          <label className="block mt-2">Year of Graduation:</label>
+        <div className="border p-6 rounded-md shadow-md mb-4">
+          <h3 className="font-bold text-xl">{t("education_title")}</h3>
+
+          <label className="block mt-2">{t("graduation_year_label")}</label>
           <input
             type="text"
             name="educationYear"
@@ -980,12 +991,13 @@ const ResumeForm = () => {
             className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
           />
         </div>
+
         <div className="border p-6 rounded-md shadow-md mb-12">
-          <label className="block mt-2 text-xl">Languages:</label>
+          <label className="block mt-2 text-xl">{t("languages_label")}</label>
           <input
             type="text"
             value={languageInput}
-            placeholder="Type a language..."
+            placeholder={t("language_placeholder")}
             onChange={handleLanguageInputChange}
             className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
           />
@@ -1021,7 +1033,7 @@ const ResumeForm = () => {
             type="submit"
             className="mt-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           >
-            Generate Resume
+            {t("generate_resume")}
           </button>
         </div>
       </form>

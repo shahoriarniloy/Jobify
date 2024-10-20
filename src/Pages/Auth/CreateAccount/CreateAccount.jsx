@@ -193,7 +193,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               setSignUpModalOpen(false);
             }}
           >
-            {t("login.login")}
+            {t("login")}
           </button>
         </p>
       </div>
