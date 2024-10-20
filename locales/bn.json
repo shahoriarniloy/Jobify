@@ -486,7 +486,7 @@
   "description_label": "বিবরণ:",
   "add_experience_button": "অভিজ্ঞতা যোগ করুন",
   "projects_title": "প্রকল্পসমূহ",
-  "project_label": "প্রকল্প {index}",
+  "project_label": "প্রকল্প {{index}}",
   "project_title_label": "প্রকল্পের শিরোনাম:",
   "project_link_label": "প্রকল্পের লিংক:",
   "technologies_label": "ব্যবহৃত প্রযুক্তি:",
