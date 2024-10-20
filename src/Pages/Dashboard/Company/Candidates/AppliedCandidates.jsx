@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   TagIcon,
   DocumentTextIcon,
@@ -14,14 +15,20 @@ const AppliedCandidates = () => {
   const location = useLocation();
   const { jobId } = location.state;
   const [candidates, setCandidates] = useState([]);
+  const [company, setCompany] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({});
-  const [dropdownOpen, setDropdownOpen] = useState({});
   const [filterStatus, setFilterStatus] = useState("All");
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const [interviewDetails, setInterviewDetails] = useState({
+    date: "",
+    time: "",
+    roomId: "",
+  });
+  const [schedulingCandidate, setSchedulingCandidate] = useState(null);
 
   const statusOptions = [
-    { value: "All", label: "All Statuses" },
     { value: "Pending", label: "Pending" },
     { value: "Under Review", label: "Under Review" },
     { value: "Shortlisted", label: "Shortlisted" },
@@ -39,9 +46,7 @@ const AppliedCandidates = () => {
           `/appliedCandidates?job_id=${jobId}`
         );
         setCandidates(response.data);
-        // console.log("Candidates fetched:", response.data);
       } catch (err) {
-        // console.error(err);
         setError(err.response ? err.response.data.message : err.message);
       } finally {
         setLoading(false);
@@ -51,31 +56,64 @@ const AppliedCandidates = () => {
     fetchCandidates();
   }, [jobId]);
 
-  const handleStatusChange = (email, newStatus, applicationId) => {
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        if (!currentUser?.email) {
+          throw new Error("User not found");
+        }
+        setLoading(true);
+
+        const companyResponse = await axiosSecure.get(
+          `/companies/${currentUser.email}`
+        );
+        setCompany(companyResponse.data);
+      } catch (error) {
+        // Handle error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (currentUser?.email) {
+      fetchCompanyData();
+    } else {
+      setLoading(false);
+    }
+  }, [currentUser]);
+
+  const handleStatusChange = (email, newStatus, applicationId, name) => {
     setSelectedStatus((prevStatus) => ({
       ...prevStatus,
       [email]: newStatus,
     }));
 
+    const statusUpdatePayload = {
+      email,
+      status: newStatus,
+      applicationId,
+      name,
+      company: company?.company_name,
+      jobId,
+    };
+
+    if (newStatus === "Interview Scheduled") {
+      statusUpdatePayload.interviewDate = interviewDetails.date;
+      statusUpdatePayload.interviewTime = interviewDetails.time;
+      statusUpdatePayload.roomId = interviewDetails.roomId;
+
+      console.log("Status Update Payload:", statusUpdatePayload);
+    }
+
     axiosSecure
-      .patch(`/updateCandidateStatus`, {
-        email,
-        status: newStatus,
-        applicationId,
-      })
+      .patch(`/updateCandidateStatus`, statusUpdatePayload)
       .then((response) => {
-        // console.log("Status updated:", response.data);
+        console.log("Candidate status updated successfully:", response.data);
       })
       .catch((error) => {
-        // console.error("Error updating status:", error);
+        console.error("Error updating candidate status:", error);
+        console.error("Response data:", error.response.data);
       });
-  };
-
-  const toggleDropdown = (email) => {
-    setDropdownOpen((prevDropdown) => ({
-      ...prevDropdown,
-      [email]: !prevDropdown[email],
-    }));
   };
 
   const handleFilterChange = (event) => {
@@ -86,6 +124,28 @@ const AppliedCandidates = () => {
     if (filterStatus === "All") return true;
     return candidate.application.status === filterStatus;
   });
+
+  const openInterviewScheduler = (candidate) => {
+    setSchedulingCandidate(candidate);
+  };
+
+  const scheduleInterview = (e) => {
+    e.preventDefault();
+
+    handleStatusChange(
+      schedulingCandidate?.user?.email,
+      "Interview Scheduled",
+      schedulingCandidate?.application?._id,
+      schedulingCandidate?.user?.name
+    );
+
+    console.log(
+      `Scheduled interview for ${schedulingCandidate.user.name} on ${interviewDetails.date} at ${interviewDetails.time} in room ${interviewDetails.roomId}`
+    );
+
+    setSchedulingCandidate(null);
+    setInterviewDetails({ date: "", time: "", roomId: "" });
+  };
 
   if (loading) {
     return <DashboardLoader />;
@@ -111,6 +171,7 @@ const AppliedCandidates = () => {
             onChange={handleFilterChange}
             className="select select-bordered"
           >
+            <option value="All">All Statuses</option>
             {statusOptions.map((status) => (
               <option key={status.value} value={status.value}>
                 {status.label}
@@ -142,40 +203,30 @@ const AppliedCandidates = () => {
                 Email: {candidate?.user?.email}
               </p>
 
-              <div className="card-actions justify-end">
-                <div className="relative inline-block">
+              <div className="card-actions flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+                {statusOptions.map((status) => (
                   <button
-                    className="btn bg-gradient-to-r from-orange-400 to-orange-500 flex items-center text-white"
-                    onClick={() => toggleDropdown(candidate?.user?.email)}
+                    key={status.value}
+                    className="btn bg-gradient-to-r from-orange-400 to-orange-500 text-white"
+                    onClick={() =>
+                      handleStatusChange(
+                        candidate?.user?.email,
+                        status.value,
+                        candidate?.application?._id,
+                        candidate?.user?.name
+                      )
+                    }
                   >
-                    <TagIcon className="h-5 w-5 mr-2" />
-                    {selectedStatus[candidate?.user?.email] ||
-                      candidate.application.status}
-                    <ChevronDownIcon className="h-5 w-5 ml-2" />
+                    {status.label}
                   </button>
+                ))}
 
-                  {dropdownOpen[candidate?.user?.email] && (
-                    <div className="dropdown-content absolute left-0 mt-2 bg-white shadow-lg z-10 w-48 border rounded">
-                      {statusOptions
-                        .filter((option) => option.value !== "All")
-                        .map((status) => (
-                          <div
-                            key={status.value}
-                            className="p-2 hover:bg-gray-200 cursor-pointer"
-                            onClick={() =>
-                              handleStatusChange(
-                                candidate?.user?.email,
-                                status.value,
-                                candidate?.application?._id
-                              )
-                            }
-                          >
-                            {status.label}
-                          </div>
-                        ))}
-                    </div>
-                  )}
-                </div>
+                <button
+                  className="btn bg-gradient-to-r from-green-500 to-green-700 flex items-center text-white"
+                  onClick={() => openInterviewScheduler(candidate)}
+                >
+                  Schedule Interview
+                </button>
 
                 <Link
                   to={`/dashboard/candidate-resume/${candidate?.user?.email}`}
@@ -188,12 +239,90 @@ const AppliedCandidates = () => {
             </div>
           </div>
         ))}
+
+        {schedulingCandidate && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg shadow-lg p-4 w-full max-w-md">
+              <h2 className="text-lg font-bold mb-4">
+                Schedule Interview with {schedulingCandidate.user.name}
+              </h2>
+              <form onSubmit={scheduleInterview}>
+                <div className="mb-4">
+                  <label htmlFor="date" className="block">
+                    Date:
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    required
+                    value={interviewDetails.date}
+                    onChange={(e) =>
+                      setInterviewDetails({
+                        ...interviewDetails,
+                        date: e.target.value,
+                      })
+                    }
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="time" className="block">
+                    Time:
+                  </label>
+                  <input
+                    type="time"
+                    id="time"
+                    required
+                    value={interviewDetails.time}
+                    onChange={(e) =>
+                      setInterviewDetails({
+                        ...interviewDetails,
+                        time: e.target.value,
+                      })
+                    }
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="roomId" className="block">
+                    Room ID:
+                  </label>
+                  <input
+                    type="text"
+                    id="roomId"
+                    required
+                    value={interviewDetails.roomId}
+                    onChange={(e) =>
+                      setInterviewDetails({
+                        ...interviewDetails,
+                        roomId: e.target.value,
+                      })
+                    }
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    className="btn bg-gradient-to-r from-green-500 to-green-700 text-white"
+                  >
+                    Confirm Schedule
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSchedulingCandidate(null)}
+                    className="btn bg-red-500 text-white ml-2"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
-
-  // function viewCV(email) {
-  // }
 };
 
 export default AppliedCandidates;

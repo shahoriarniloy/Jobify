@@ -54,7 +54,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       navigate(from, { replace: true });
     } catch (error) {
       // console.error("Error during login:", error);
-      toast.error(t("login.failed")); // Change to use translation
+      toast.error(t("login.failed"));
     }
   };
 
