@@ -204,7 +204,7 @@
 
   "candidate_name": "{{name}}",
   "designation": "{{designation}}",
-  "location": "{{location}}",
+  "location_candidate_card": "{{location}}",
   "experience_duration": "Duration:",
   "duration_not_available": "Duration not available",
   "experience": "experience",
@@ -562,5 +562,18 @@
   "company_advanced_search": "Company: {{company}}",
   "job_type_advanced_search": "Job Type: {{jobType}}",
   "salary_advanced_search": "Salary: {{salaryRange}}",
-  "view_details": "View Details →"
+  "view_details": "View Details →",
+
+  "please_log_in_to_bookmark_jobs": "Please log in to bookmark jobs.",
+  "job_bookmarked_successfully": "Job bookmarked successfully!",
+  "job_already_bookmarked": "Job already bookmarked.",
+  "failed_to_bookmark_job": "Failed to bookmark job.",
+
+  "already_applied": "Already Applied",
+  "job_expires_in": "Job expires in",
+  "job_overview": "Job Overview",
+  "job_posted": "JOB POSTED",
+  "related_jobs": "Related Jobs",
+  "location_Alphabet": "LOCATION",
+  "location": "Location"
 }

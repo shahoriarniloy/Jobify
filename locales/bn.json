@@ -204,7 +204,7 @@
 
   "candidate_name": "{{name}}",
   "designation": "{{designation}}",
-  "location": "{{location}}",
+  "location_candidate_card": "{{location}}",
   "experience_duration": "মেয়াদ:",
   "duration_not_available": "মেয়াদ উপলব্ধ নয়",
   "experience": "অভিজ্ঞতা",
@@ -556,5 +556,18 @@
   "company_advanced_search": "কোম্পানি: {{company}}",
   "job_type_advanced_search": "কাজের প্রকার: {{jobType}}",
   "salary_advanced_search": "বেতন: {{salaryRange}}",
-   "view_details": "বিস্তারিত দেখুন →"
+  "view_details": "বিস্তারিত দেখুন →",
+
+  "please_log_in_to_bookmark_jobs": "দয়া করে কাজগুলিতে বুকমার্ক করতে লগইন করুন।",
+  "job_bookmarked_successfully": "কাজ সফলভাবে বুকমার্ক করা হয়েছে!",
+  "job_already_bookmarked": "কাজ ইতিমধ্যেই বুকমার্ক করা হয়েছে।",
+  "failed_to_bookmark_job": "কাজ বুকমার্ক করতে ব্যর্থ হয়েছে।",
+
+  "already_applied": "আবেদন করা হয়েছে",
+  "job_expires_in": "কাজের মেয়াদ শেষ হচ্ছে",
+  "job_overview": "কর্মের সারাংশ",
+  "job_posted": "কর্ম পোস্ট করা হয়েছে",
+  "related_jobs": "সংশ্লিষ্ট কর্ম",
+  "location_Alphabet": "অবস্থান",
+  "location": "অবস্থান"
 }
