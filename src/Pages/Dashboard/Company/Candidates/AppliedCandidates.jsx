@@ -187,7 +187,7 @@ const AppliedCandidates = () => {
             key={candidate?.user?.email}
             className="card lg:card-side bg-base-100 shadow-xl"
           >
-            <figure className="w-24 h-24">
+            <figure className="w-48 h-auto">
               <img
                 src={candidate?.user?.photoURL || ""}
                 alt={candidate?.user?.name}
@@ -207,7 +207,11 @@ const AppliedCandidates = () => {
                 {statusOptions.map((status) => (
                   <button
                     key={status.value}
-                    className="btn bg-gradient-to-r from-orange-400 to-orange-500 text-white"
+                    className={`btn ${
+                      candidate.application.status === status.value
+                        ? "bg-gradient-to-r from-orange-400 to-orange-500 text-white"
+                        : "bg-white text-black"
+                    }`}
                     onClick={() =>
                       handleStatusChange(
                         candidate?.user?.email,
@@ -224,6 +228,9 @@ const AppliedCandidates = () => {
                 <button
                   className="btn bg-gradient-to-r from-green-500 to-green-700 flex items-center text-white"
                   onClick={() => openInterviewScheduler(candidate)}
+                  disabled={
+                    candidate.application.status === "Interview Scheduled"
+                  }
                 >
                   Schedule Interview
                 </button>
@@ -303,17 +310,14 @@ const AppliedCandidates = () => {
                 </div>
                 <div className="flex justify-end">
                   <button
-                    type="submit"
-                    className="btn bg-gradient-to-r from-green-500 to-green-700 text-white"
-                  >
-                    Confirm Schedule
-                  </button>
-                  <button
                     type="button"
+                    className="btn bg-gray-300 mr-2"
                     onClick={() => setSchedulingCandidate(null)}
-                    className="btn bg-red-500 text-white ml-2"
                   >
                     Cancel
+                  </button>
+                  <button type="submit" className="btn bg-blue-500 text-white">
+                    Schedule
                   </button>
                 </div>
               </form>
