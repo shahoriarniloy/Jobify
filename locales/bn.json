@@ -493,7 +493,7 @@
   "add_project_button": "প্রকল্প যোগ করুন",
   "education_title": "শিক্ষা",
   "graduation_year_label": "স্নাতকের বছর:",
-   "languages_label": "ভাষাসমূহ:",
+  "languages_label": "ভাষাসমূহ:",
   "language_placeholder": "একটি ভাষা টাইপ করুন:",
   "generate_resume": "রিজিউমে তৈরি করুন",
 
@@ -512,5 +512,10 @@
   "deadline_expired": "শেষ সময়সীমা অতিক্রান্ত",
   "applied": "আবেদন করা হয়েছে",
   "remove_bookmark": "বুকমার্ক মুছে ফেলুন",
-  "no_bookmarked_jobs": "কোন বুকমার্ক করা চাকরি পাওয়া যায়নি।"
+  "no_bookmarked_jobs": "কোন বুকমার্ক করা চাকরি পাওয়া যায়নি।",
+
+  "loading_role": "ভূমিকা লোড হচ্ছে...",
+  "error_fetching_role": "ভূমিকা পুনরুদ্ধারে ত্রুটি",
+  "edit_resume": "রিজুমে সম্পাদনা করুন",
+  "profile_setting": "প্রোফাইল সেটিং"
 }

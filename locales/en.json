@@ -522,5 +522,10 @@
   "deadline_expired": "Deadline Expired",
   "applied": "Applied",
   "remove_bookmark": "Remove Bookmark",
-  "no_bookmarked_jobs": "No bookmarked jobs found."
+  "no_bookmarked_jobs": "No bookmarked jobs found.",
+
+  "loading_role": "Loading role...",
+  "error_fetching_role": "Error fetching role",
+  "edit_resume": "Edit Resume",
+  "profile_setting": "Profile Setting"
 }
