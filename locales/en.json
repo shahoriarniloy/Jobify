@@ -505,6 +505,14 @@
   "graduation_year_label": "Year of Graduation:",
   "languages_label": "Languages:",
   "language_placeholder": "Type a language:",
-   "generate_resume": "Generate Resume"
-  
+  "generate_resume": "Generate Resume",
+
+  "error_fetching_applied_jobs": "Error fetching applied jobs.",
+  "no_applied_jobs_found": "No applied jobs found.",
+  "Pending": "Pending",
+  "Under Review": "Under Review",
+  "Shortlisted": "Shortlisted",
+  "Interview Scheduled": "Interview Scheduled",
+  "Assessment Task": "Assessment Task",
+  "Hired": "Hired"
 }

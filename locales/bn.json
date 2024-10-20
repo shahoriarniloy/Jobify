@@ -495,5 +495,14 @@
   "graduation_year_label": "স্নাতকের বছর:",
    "languages_label": "ভাষাসমূহ:",
   "language_placeholder": "একটি ভাষা টাইপ করুন:",
-  "generate_resume": "রিজিউমে তৈরি করুন"
+  "generate_resume": "রিজিউমে তৈরি করুন",
+
+  "error_fetching_applied_jobs": "আবেদনকৃত চাকরি আনার সময় সমস্যা হয়েছে।",
+  "no_applied_jobs_found": "কোনো আবেদনকৃত চাকরি পাওয়া যায়নি।",
+  "Pending": "অপেক্ষমাণ",
+  "Under Review": "পর্যালোচনাধীন",
+  "Shortlisted": "শর্টলিস্টেড",
+  "Interview Scheduled": "সাক্ষাৎকার নির্ধারিত",
+  "Assessment Task": "মূল্যায়ন কাজ",
+  "Hired": "নিয়োগপ্রাপ্ত"
 }

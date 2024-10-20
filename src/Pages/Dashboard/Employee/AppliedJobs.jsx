@@ -1,9 +1,10 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { FaDollarSign, FaCheckCircle, FaMapMarkerAlt } from "react-icons/fa";
 import DashboardLoader from "../../../Shared/DashboardLoader";
+import { useTranslation } from "react-i18next";
+
 const statusSteps = [
   { value: "Pending", label: "Pending" },
   { value: "Under Review", label: "Under Review" },
@@ -14,6 +15,7 @@ const statusSteps = [
 ];
 
 const AppliedJobs = () => {
+  const { t } = useTranslation();
   const currentUser = useSelector((state) => state.user.currentUser);
   const [appliedJobs, setAppliedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,10 +29,8 @@ const AppliedJobs = () => {
             `/check-applied-jobs?email=${currentUser.email}`
           );
           setAppliedJobs(response.data);
-          //   console.log(response);
         } catch (error) {
-          setError("Error fetching applied jobs.");
-          //   console.error("Error fetching applied jobs:", error);
+          setError(t("error_fetching_applied_jobs"));
         } finally {
           setLoading(false);
         }
@@ -38,7 +38,7 @@ const AppliedJobs = () => {
     };
 
     fetchAppliedJobs();
-  }, [currentUser]);
+  }, [currentUser, t]);
 
   if (loading) return <DashboardLoader />;
   if (error) return <p>{error}</p>;
@@ -50,7 +50,7 @@ const AppliedJobs = () => {
           appliedJobs.map((job) => (
             <div
               key={job._id}
-              className="h-fit p-6 bg-base-100 shadow-xl rounded-xl "
+              className="h-fit p-6 bg-base-100 shadow-xl rounded-xl"
             >
               <div className="flex lg:flex-row md:flex-row flex-col justify-between items-center">
                 <div className="flex flex-col">
@@ -60,11 +60,15 @@ const AppliedJobs = () => {
                   <div className="flex lg:flex-row flex-col gap-4 text-xs">
                     <div className="flex items-center">
                       <FaDollarSign className="mr-1" />
-                      <p className="text-base-400">Salary: {job.salaryRange}</p>
+                      <p className="text-base-400">
+                        {t("salary")}: {job.salaryRange}
+                      </p>
                     </div>
                     <div className="flex items-center">
                       <FaMapMarkerAlt className="mr-1" />
-                      <p className="text-base-400">Location: {job.location}</p>
+                      <p className="text-base-400">
+                        {t("location")}: {job.location}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -95,7 +99,7 @@ const AppliedJobs = () => {
               </div>
 
               <div className="hidden lg:flex">
-                <ul className="steps mt-4 ">
+                <ul className="steps mt-4">
                   {statusSteps.map((step, index) => {
                     const currentIndex = statusSteps.findIndex(
                       (s) => s.value === job.status
@@ -110,7 +114,7 @@ const AppliedJobs = () => {
 
                     return (
                       <li key={step.value} className={`step ${stepClass}`}>
-                        {step.label}
+                        {t(step.label)}
                       </li>
                     );
                   })}
@@ -119,7 +123,7 @@ const AppliedJobs = () => {
             </div>
           ))
         ) : (
-          <p>No applied jobs found.</p>
+          <p>{t("no_applied_jobs_found")}</p>
         )}
       </div>
     </div>
