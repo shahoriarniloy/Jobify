@@ -15,7 +15,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const accountType = selectedIndex === 0 ? t("job_seeker") : t("employer");
+  const accountType = selectedIndex === 0 ? "Job Seeker" : "Employer";
 
   const { loading, error } = useSelector((state) => state.user);
 
@@ -25,6 +25,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
+    console.log(email);
 
     try {
       const userCredential = await dispatch(
@@ -65,7 +66,9 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   return (
     <div className="bg-white flex justify-center w-[400px] max-w-2xl">
       <div className="w-full p-7">
-        <h2 className="text-4xl font-semibold text-center">{t("create_account")}</h2>
+        <h2 className="text-4xl font-semibold text-center">
+          {t("create_account")}
+        </h2>
 
         <form className="mt-8" onSubmit={handleRegister}>
           <Tabs
@@ -77,18 +80,14 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               <TabList className="flex space-x-4 border-b">
                 <Tab
                   className={`pb-2 cursor-pointer ${
-                    selectedIndex === 0
-                      ? "border-b-4"
-                      : "text-gray-700"
+                    selectedIndex === 0 ? "border-b-4" : "text-gray-700"
                   }`}
                 >
                   {t("employee")}
                 </Tab>
                 <Tab
                   className={`pb- cursor-pointer ${
-                    selectedIndex === 1
-                      ? "border-b-4"
-                      : "text-gray-700"
+                    selectedIndex === 1 ? "border-b-4" : "text-gray-700"
                   }`}
                 >
                   {t("hr_manager")}
