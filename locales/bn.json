@@ -504,5 +504,13 @@
   "Shortlisted": "শর্টলিস্টেড",
   "Interview Scheduled": "সাক্ষাৎকার নির্ধারিত",
   "Assessment Task": "মূল্যায়ন কাজ",
-  "Hired": "নিয়োগপ্রাপ্ত"
+  "Hired": "নিয়োগপ্রাপ্ত",
+
+  "bookmark_deleted": "বুকমার্ক মুছে ফেলা হয়েছে",
+  "deadline": "শেষ সময়সীমা",
+  "tap_to_apply": "আবেদন করতে ট্যাপ করুন",
+  "deadline_expired": "শেষ সময়সীমা অতিক্রান্ত",
+  "applied": "আবেদন করা হয়েছে",
+  "remove_bookmark": "বুকমার্ক মুছে ফেলুন",
+  "no_bookmarked_jobs": "কোন বুকমার্ক করা চাকরি পাওয়া যায়নি।"
 }

@@ -514,5 +514,13 @@
   "Shortlisted": "Shortlisted",
   "Interview Scheduled": "Interview Scheduled",
   "Assessment Task": "Assessment Task",
-  "Hired": "Hired"
+  "Hired": "Hired",
+
+  "bookmark_deleted": "Bookmark Deleted",
+  "deadline": "Deadline",
+  "tap_to_apply": "Tap to Apply",
+  "deadline_expired": "Deadline Expired",
+  "applied": "Applied",
+  "remove_bookmark": "Remove Bookmark",
+  "no_bookmarked_jobs": "No bookmarked jobs found."
 }
