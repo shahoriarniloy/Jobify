@@ -5,8 +5,7 @@ import { MdOutlineLocationOn } from "react-icons/md";
 import CandidateModal from "./CandidateModal";
 
 const CandidateCard = ({ candidate }) => {
-  const { candidate_name, image, designation, experience, location } =
-    candidate;
+  const { name, photoURL, userInfo } = candidate;
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -23,14 +22,14 @@ const CandidateCard = ({ candidate }) => {
         <figure>
           <img
             className=" rounded-lg"
-            src={image}
-            alt={candidate_name}
+            src={photoURL}
+            alt={name}
             style={{ height: "100px", width: "auto" }}
           />
         </figure>
         <div className="card-body p-4">
-          <h2 className="card-title w-96">{candidate_name}</h2>
-          <p>{designation}</p>
+          <h2 className="card-title w-96">{name}</h2>
+          <p>{name}</p>
           {/* <div className='flex lg:flex-row flex-col items-center mr-52'>
                         <MdOutlineLocationOn className="mr-2 text-2xl" />
                         <p className="mr-2">{location}</p>
