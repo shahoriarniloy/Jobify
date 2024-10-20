@@ -457,6 +457,10 @@
   "your_name": "Your Name",
   "about_yourself": "About yourself",
   "save_all_changes": "Save All Changes",
-  "profile_saved_successfully": "Profile saved successfully"
+  "profile_saved_successfully": "Profile saved successfully",
+
+  "welcome": "Welcome",
+  "your_basic_info": "Your Basic Info",
+  "education_info": "Education Info"
 
 }

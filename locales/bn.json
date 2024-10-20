@@ -446,5 +446,9 @@
   "your_name": "আপনার নাম",
   "about_yourself": "নিজের সম্পর্কে",
   "save_all_changes": "সমস্ত পরিবর্তন সংরক্ষণ করুন",
-  "profile_saved_successfully": "প্রোফাইল সফলভাবে সংরক্ষিত হয়েছে"
+  "profile_saved_successfully": "প্রোফাইল সফলভাবে সংরক্ষিত হয়েছে",
+
+  "welcome": "স্বাগতম",
+  "your_basic_info": "আপনার মৌলিক তথ্য",
+  "education_info": "শিক্ষা তথ্য"
 }
