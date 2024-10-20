@@ -430,5 +430,23 @@
   "drag_and_drop_message": "Drag and drop an image here, or click to select one",
   "replace": "Replace",
 
-  "job_alerts": "Job Alerts"
+  "job_alerts": "Job Alerts",
+
+  "profile_updated_successfully": "Profile updated successfully",
+  "error_updating_profile": "Error updating profile",
+  "school": "School",
+  "type_school_name": "Type a school name...",
+  "degree": "Degree",
+  "choose_degree": "Choose your degree",
+  "field_of_study": "Field of Study",
+  "choose_field": "Choose your Field",
+  "start_date": "Start Date",
+  "end_date": "End Date",
+  "cgpa": "C-GPA",
+  "enter_cgpa": "Enter your C-GPA",
+  "type_a_school_name": "Type a school name...",
+  "choose_your_degree": "Choose your degree",
+  "choose_your_field": "Choose your Field",
+  "enter_your_cgpa": "Enter your C-GPA",
+  "write_down_your_biography": "Write down your biography here. Let the employers know who you are..."
 }

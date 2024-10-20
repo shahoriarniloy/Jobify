@@ -420,5 +420,23 @@
   "drag_and_drop_message": "এখানে একটি ইমেজ টেনে আনুন বা একটি নির্বাচন করতে ক্লিক করুন",
   "replace": "বদলান",
 
-  "job_alerts": "চাকরির এলার্ট"
+  "job_alerts": "চাকরির এলার্ট",
+
+  "profile_updated_successfully": "প্রোফাইল সফলভাবে আপডেট হয়েছে",
+  "error_updating_profile": "প্রোফাইল আপডেট করতে সমস্যা হয়েছে",
+  "school": "স্কুল",
+  "type_school_name": "স্কুলের নাম লিখুন...",
+  "degree": "ডিগ্রি",
+  "choose_degree": "আপনার ডিগ্রি নির্বাচন করুন",
+  "field_of_study": "অধ্যয়নের ক্ষেত্র",
+  "choose_field": "আপনার ক্ষেত্র নির্বাচন করুন",
+  "start_date": "শুরুর তারিখ",
+  "end_date": "শেষ তারিখ",
+  "cgpa": "সি-জিপিএ",
+  "enter_cgpa": "আপনার সি-জিপিএ লিখুন",
+  "type_a_school_name": "স্কুলের নাম লিখুন...",
+  "choose_your_degree": "আপনার ডিগ্রি নির্বাচন করুন",
+  "choose_your_field": "আপনার ক্ষেত্র নির্বাচন করুন",
+  "enter_your_cgpa": "আপনার C-GPA লিখুন",
+  "write_down_your_biography": "এখানে আপনার জীবনী লিখুন। নিয়োগকর্তাদের জানিয়ে দিন আপনি কে..."
 }
