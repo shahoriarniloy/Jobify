@@ -452,5 +452,10 @@
   "your_basic_info": "আপনার মৌলিক তথ্য",
   "education_info": "শিক্ষা তথ্য",
 
-  "your_messages": "আপনার বার্তা"
+  "your_messages": "আপনার বার্তা",
+
+  "loading": "লোড হচ্ছে...",
+  "no_messages_found": "কোনো বার্তা পাওয়া যায়নি।",
+  "type_your_message": "আপনার বার্তা লিখুন..."
+
 }

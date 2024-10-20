@@ -450,7 +450,6 @@
   "enter_your_cgpa": "Enter your C-GPA",
   "write_down_your_biography": "Write down your biography here. Let the employers know who you are...",
 
-
   "your_social_media_profile": "Your Social Media Profile",
 
   "upload_your_profile_photo": "Upload Your Profile Photo",
@@ -463,6 +462,9 @@
   "your_basic_info": "Your Basic Info",
   "education_info": "Education Info",
 
-   "your_messages": "Your Messages"
+  "your_messages": "Your Messages",
 
+  "loading": "Loading...",
+  "no_messages_found": "No messages found.",
+  "type_your_message": "Type your message..."
 }

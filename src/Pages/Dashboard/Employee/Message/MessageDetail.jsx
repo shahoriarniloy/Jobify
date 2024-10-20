@@ -3,8 +3,10 @@ import { useParams, useLocation } from "react-router-dom";
 import axiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useSelector } from "react-redux";
 import { FaPaperPlane } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const MessageDetail = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const { otherPartyEmail } = useParams();
   const { state } = useLocation();
   const { otherPartyName, otherPartyPhoto } = state || {};
@@ -54,7 +56,7 @@ const MessageDetail = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>{t("loading")}</div>; // Loading text translated
   }
 
   return (
@@ -78,7 +80,7 @@ const MessageDetail = () => {
 
       {messages.length === 0 ? (
         <div className="text-gray-500 text-center flex justify-center items-center">
-          No messages found.
+          {t("no_messages_found")} {/* Translated text for no messages */}
         </div>
       ) : (
         <div
@@ -147,7 +149,7 @@ const MessageDetail = () => {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           className="flex-1 p-2 border rounded-l-lg"
-          placeholder="Type your message..."
+          placeholder={t("type_your_message")} // Translated placeholder
         />
         <button
           onClick={handleSendMessage}
