@@ -569,5 +569,9 @@
   "job_posted": "কর্ম পোস্ট করা হয়েছে",
   "related_jobs": "সংশ্লিষ্ট কর্ম",
   "location_Alphabet": "অবস্থান",
-  "location": "অবস্থান"
+  "location": "অবস্থান",
+
+  "failed_to_load_data": "কোম্পানি বা চাকরির তথ্য লোড করতে ব্যর্থ হয়েছে। পরে আবার চেষ্টা করুন।",
+  "company_type": "কোম্পানির ধরন",
+  "open_positions": "মুক্ত পদ"
 }

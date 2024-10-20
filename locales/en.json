@@ -575,5 +575,9 @@
   "job_posted": "JOB POSTED",
   "related_jobs": "Related Jobs",
   "location_Alphabet": "LOCATION",
-  "location": "Location"
+  "location": "Location",
+
+  "failed_to_load_data": "Failed to load company or job data. Please try again later.",
+  "company_type": "Company Type",
+  "open_positions": "Open Positions"
 }
