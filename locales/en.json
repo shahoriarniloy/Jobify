@@ -527,5 +527,40 @@
   "loading_role": "Loading role...",
   "error_fetching_role": "Error fetching role",
   "edit_resume": "Edit Resume",
-  "profile_setting": "Profile Setting"
+  "profile_setting": "Profile Setting",
+
+  "error_fetching_company_info": "Error fetching company info",
+
+  "job_title_company_name_placeholder": "Job title, Company Name...",
+
+  "location_placeholder": "Location",
+
+  "hide_advanced_filters": "Hide Advanced Filters",
+  "show_advanced_filters": "Show Advanced Filters",
+
+  "find_job_button": "Find Job",
+
+  "experience_heading": "Experience",
+
+  "job_type_heading": "Job Type",
+
+  "salary_heading": "Salary",
+  "salary_500_1000": "$500-$1000",
+  "salary_1000_2000": "$1000-$2000",
+  "salary_3000_4000": "$3000-$4000",
+  "salary_4000_6000": "$4000-$6000",
+  "salary_6000_8000": "$6000-$8000",
+  "salary_8000_10000": "$8000-$10000",
+  "salary_10000_15000": "$10000-$15000",
+  "salary_15000_plus": "$15000+",
+
+  "view_list": "List View",
+  "view_grid": "Grid View",
+
+  "bookmark": "Bookmark",
+
+  "company_advanced_search": "Company: {{company}}",
+  "job_type_advanced_search": "Job Type: {{jobType}}",
+  "salary_advanced_search": "Salary: {{salaryRange}}",
+  "view_details": "View Details →"
 }
