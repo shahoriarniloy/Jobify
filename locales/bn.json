@@ -460,7 +460,9 @@
 
   "no_conversations_found": "কোনো আলাপ পাওয়া যায়নি।",
   "unknown": "অজানা",
-  "no_message_available": "কোনো বার্তা নেই"
+  "no_message_available": "কোনো বার্তা নেই",
 
+  "error_fetching_resume_data": "রিজিউম ডেটা নিয়ে সমস্যা",
+  "no_resume_data_found": "কোন রিজিউম ডেটা পাওয়া যায়নি।"
 
 }

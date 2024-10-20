@@ -58,7 +58,7 @@ const Messages = () => {
 
         setConversations(Object.values(groupedMessages));
       } catch (error) {
-        // console.error("Error fetching messages:", error);
+        console.error("Error fetching messages:", error); // Log the error for debugging
       }
     };
 
@@ -69,7 +69,7 @@ const Messages = () => {
     <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto pt-8 min-h-screen">
         {conversations.length === 0 ? (
-          <div className="text-gray-500">{t("no_conversations_found")}</div> {/* Translated text for no conversations */}
+          <div className="text-gray-500">{t("no_conversations_found")}</div>
         ) : (
           <div className="space-y-4">
             {conversations.map((conversation, index) => (
@@ -89,16 +89,14 @@ const Messages = () => {
                 />
                 <div className="flex-1">
                   <h2
-                    className={
-                      theme === "dark "
-                        ? "text-lg font-semibold truncate text-slate-700"
-                        : "text-lg font-semibold truncate"
-                    }
+                    className={`text-lg font-semibold truncate ${
+                      theme === "dark" ? "text-slate-700" : ""
+                    }`}
                   >
-                    {conversation.otherPartyName || t("unknown")} {/* Translated text for unknown */}
+                    {conversation.otherPartyName || t("unknown")}
                   </h2>
                   <p className="text-gray-500 text-sm truncate w-1/2">
-                    {conversation.lastMessage || t("no_message_available")} {/* Translated text for no message */}
+                    {conversation.lastMessage || t("no_message_available")}
                   </p>
                   <span className="text-sm text-gray-400 mt-1 block">
                     {new Date(conversation.updatedAt).toLocaleTimeString([], {

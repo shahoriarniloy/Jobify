@@ -470,5 +470,8 @@
 
   "no_conversations_found": "No conversations found.",
   "unknown": "Unknown",
-  "no_message_available": "No message available"
+  "no_message_available": "No message available",
+
+  "error_fetching_resume_data": "Error fetching resume data",
+  "no_resume_data_found": "No resume data found."
 }
