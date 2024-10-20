@@ -451,6 +451,12 @@
   "write_down_your_biography": "Write down your biography here. Let the employers know who you are...",
 
 
-  "your_social_media_profile": "Your Social Media Profile"
+  "your_social_media_profile": "Your Social Media Profile",
+
+  "upload_your_profile_photo": "Upload Your Profile Photo",
+  "your_name": "Your Name",
+  "about_yourself": "About yourself",
+  "save_all_changes": "Save All Changes",
+  "profile_saved_successfully": "Profile saved successfully"
 
 }
