@@ -456,6 +456,11 @@
 
   "loading": "লোড হচ্ছে...",
   "no_messages_found": "কোনো বার্তা পাওয়া যায়নি।",
-  "type_your_message": "আপনার বার্তা লিখুন..."
+  "type_your_message": "আপনার বার্তা লিখুন...",
+
+  "no_conversations_found": "কোনো আলাপ পাওয়া যায়নি।",
+  "unknown": "অজানা",
+  "no_message_available": "কোনো বার্তা নেই"
+
 
 }

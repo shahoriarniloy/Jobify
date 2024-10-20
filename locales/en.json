@@ -466,5 +466,9 @@
 
   "loading": "Loading...",
   "no_messages_found": "No messages found.",
-  "type_your_message": "Type your message..."
+  "type_your_message": "Type your message...",
+
+  "no_conversations_found": "No conversations found.",
+  "unknown": "Unknown",
+  "no_message_available": "No message available"
 }
