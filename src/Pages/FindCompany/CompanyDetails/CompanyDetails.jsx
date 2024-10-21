@@ -53,6 +53,14 @@ const CompanyDetails = () => {
               src={company?.company_logo}
               alt={t("company_banner_alt")}
             />
+
+            {/* Favorite btn */}
+            <div className="absolute top-4 right-4">
+              <button type="button">
+              <MdFavoriteBorder className="md:text-6xl text-4xl text-red-500" />
+              </button>
+            </div>
+
           </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
@@ -214,22 +222,11 @@ const CompanyDetails = () => {
 
           <div className="md:ml-10 md:w-1/2">
             <div className="lg:flex lg:justify-end hidden">
-              <div>
-                <div>
-                  <Link to={`/messages/${company.email}`}>
-                    <button className=" bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-2 mb-2 w-full">
-                    <MdFavoriteBorder className="mx-auto" />
-                    </button>
-                  </Link>
-                </div>
-                <div>
-                  <Link to={`/messages/${company.email}`}>
-                    <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2  mb-2 ">
-                      {t("message")}
-                    </button>
-                  </Link>
-                </div>
-              </div>
+              <Link to={`/messages/${company.email}`}>
+                <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 mb-2 ">
+                  {t("message")}
+                </button>
+              </Link>
             </div>
             <div className="p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
               <div>
