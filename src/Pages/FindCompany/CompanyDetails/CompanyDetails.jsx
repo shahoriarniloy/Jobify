@@ -9,7 +9,7 @@ import {
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
-import { MdFavoriteBorder } from "react-icons/md";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { FiCalendar, FiGlobe } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
@@ -19,15 +19,21 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import OpenPosition from "../../../components/OpenPositions/OpenPositions";
 import { useTranslation } from "react-i18next";
-import axiosSecure from "../../../Hooks/useAxiosSecure";
+import axiosSecure from "../../../Hooks/UseAxiosSecure.jsx";
 import ButtonLoader from "../../../Shared/ButtonLoader.jsx";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const CompanyDetails = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [company, setCompany] = useState([]);
   const { companyId } = useParams();
   const { t } = useTranslation(); // Initialize the translation function
+  const [isFavorite, setIsFavorite] = useState(false);
 
-  const { _id, email } = company;
+  const companyEmail = company?.email;
+  const userEmail = currentUser?.email;
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -41,6 +47,55 @@ const CompanyDetails = () => {
 
     fetchCompanyData();
   }, [companyId]);
+
+  // Function to fetch favorite status when the component mounts
+  useEffect(() => {
+    const checkFavoriteStatus = async () => {
+      try {
+        const response = await axiosSecure.get(
+          `/users/${userEmail}/favorite-company`
+        );
+        const data = response.data;
+
+        // Check if the company is in the user's favorites
+        setIsFavorite(data.favoriteCompany.includes(company.email));
+      } catch (error) {
+        console.error("Error fetching favorite status:", error);
+      }
+    };
+
+    checkFavoriteStatus();
+  }, [company.email, userEmail]);
+
+  const toggleFavorite = async () => {
+    try {
+      // Determine the HTTP method and URL based on the current favorite status
+      const method = isFavorite ? "DELETE" : "POST";
+      const url = isFavorite
+        ? `/users/${userEmail}/favorite-company/${company.email}`
+        : `/users/${userEmail}/favorite-company`;
+
+      // Make the API call
+      await axiosSecure({
+        method,
+        url,
+        data: isFavorite ? null : { companyEmail: company.email }, // Only send data when adding
+      });
+      // Toggle the state after the API call succeeds
+      setIsFavorite(!isFavorite);
+
+      // Show Toast for success
+      toast.success(
+        isFavorite
+          ? "Company removed from favorites"
+          : "Company added to favorites"
+      );
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+      // Show Toast for error
+      toast.error("Something went wrong while updating favorites.");
+    }
+  };
 
   return (
     <div className="bg-secondary">
@@ -56,11 +111,14 @@ const CompanyDetails = () => {
 
             {/* Favorite btn */}
             <div className="absolute top-4 right-4">
-              <button type="button">
-              <MdFavoriteBorder className="md:text-6xl text-4xl text-red-500" />
+              <button type="button" onClick={toggleFavorite}>
+                {isFavorite ? (
+                  <MdFavorite className="text-red-500 md:text-6xl text-4xl" />
+                ) : (
+                  <MdFavoriteBorder className="md:text-6xl text-4xl text-red-500" />
+                )}
               </button>
             </div>
-
           </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
