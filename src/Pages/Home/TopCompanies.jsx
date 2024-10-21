@@ -16,7 +16,6 @@ const TopCompanies = () => {
         }
     })
     if (isLoading) return <DashboardLoader />
-    console.log(data)
     return (
         <div>
             <div className='container mx-auto py-24'> 
