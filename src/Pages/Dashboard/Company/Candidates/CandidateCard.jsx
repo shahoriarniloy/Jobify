@@ -6,8 +6,7 @@ import CandidateModal from "./CandidateModal";
 import { useTranslation } from "react-i18next";
 
 const CandidateCard = ({ candidate }) => {
-  const { candidate_name, image, designation, experience, location } =
-    candidate;
+  const { name, photoURL, userInfo } = candidate;
   const [isModalOpen, setModalOpen] = useState(false);
   const { t } = useTranslation();
 
@@ -24,31 +23,33 @@ const CandidateCard = ({ candidate }) => {
       <div className="card card-side bg-base-100 shadow-xl mb-5">
         <figure>
           <img
-            className="rounded-lg"
-            src={image}
-            alt={candidate_name}
+
+            className=" rounded-lg"
+            src={photoURL}
+            alt={name}
+
             style={{ height: "100px", width: "auto" }}
           />
         </figure>
         <div className="card-body p-4">
-          <h2 className="card-title w-96">{t("candidate_name", { name: candidate_name })}</h2>
-          <p>{t("designation", { designation })}</p>
-          <div className='flex lg:flex-row flex-col items-center mr-52'>
-            <MdOutlineLocationOn className="mr-2 text-2xl" />
-            <p className="mr-2">{t("location_candidate_card", { location })}</p>
-            <div className="candidate-experience flex items-center">
-              <BsCurrencyDollar className="mr-2" />
-              <ul>
-                {experience.map((exp, index) => (
-                  <li key={index} className="experience-item">
-                    <p>
-                      <strong>{t("experience_duration")}</strong> {exp.duration ? exp.duration : t("duration_not_available")} {t("experience")}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+
+          <h2 className="card-title w-96">{name}</h2>
+          <p>{name}</p>
+          {/* <div className='flex lg:flex-row flex-col items-center mr-52'>
+                        <MdOutlineLocationOn className="mr-2 text-2xl" />
+                        <p className="mr-2">{location}</p>
+                        <div className="candidate-experience flex items-center">
+                            <BsCurrencyDollar className="mr-2" />
+                            <ul>
+                                {experience.map((exp, index) => (
+                                    <li key={index} className="experience-item">
+                                        <p><strong></strong> {exp.duration ? exp.duration : "Duration not available"} experience</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div> */}
+
         </div>
         <div className="card-actions justify-center mr-5">
           <GoBookmark className="mt-14" />
