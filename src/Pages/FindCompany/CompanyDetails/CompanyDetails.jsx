@@ -22,7 +22,6 @@ import { useTranslation } from "react-i18next";
 import axiosSecure from "../../../Hooks/UseAxiosSecure.jsx";
 import ButtonLoader from "../../../Shared/ButtonLoader.jsx";
 import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 const CompanyDetails = () => {
@@ -41,7 +40,7 @@ const CompanyDetails = () => {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
       } catch (error) {
-        // console.error("Error fetching company data:", error);
+        console.error("Error fetching company data:", error);
       }
     };
 
@@ -50,22 +49,24 @@ const CompanyDetails = () => {
 
   // Function to fetch favorite status when the component mounts
   useEffect(() => {
-    const checkFavoriteStatus = async () => {
-      try {
-        const response = await axiosSecure.get(
-          `/users/${userEmail}/favorite-company`
-        );
-        const data = response.data;
+    if (userEmail && companyEmail) {
+      const checkFavoriteStatus = async () => {
+        try {
+          const response = await axiosSecure.get(
+            `/users/${userEmail}/favorite-company`
+          );
+          const data = response.data;
 
-        // Check if the company is in the user's favorites
-        setIsFavorite(data.favoriteCompany.includes(company.email));
-      } catch (error) {
-        console.error("Error fetching favorite status:", error);
-      }
-    };
+          // Check if the company is in the user's favorites
+          setIsFavorite(data.favoriteCompany.includes(companyEmail));
+        } catch (error) {
+          console.error("Error fetching favorite status:", error);
+        }
+      };
 
-    checkFavoriteStatus();
-  }, [company.email, userEmail]);
+      checkFavoriteStatus();
+    }
+  }, [companyEmail, userEmail]);
 
   const toggleFavorite = async () => {
     try {
