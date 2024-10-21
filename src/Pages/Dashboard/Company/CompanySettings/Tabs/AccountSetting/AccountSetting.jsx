@@ -6,8 +6,10 @@ import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const AccountSetting = () => {
+  const { t } = useTranslation();
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const [location, setLocation] = useState([51.505, -0.09]);
@@ -104,16 +106,16 @@ const AccountSetting = () => {
   return (
     <div className="flex flex-col md:flex-row">
       <section className="md:w-1/2">
-        <h2 className="font-bold mb-4 text-xl">Map Location</h2>
+        <h2 className="font-bold mb-4 text-xl">{t("map_location")}</h2>
         <div id="map" style={{ height: "400px", width: "100%" }}></div>
       </section>
 
       <section className="md:w-1/2">
-        <h2 className="font-bold mb-4 text-xl">Account Settings</h2>
+        <h2 className="font-bold mb-4 text-xl">{t("account_settings")}</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label htmlFor="email" className="block mb-2">
-              Email
+              {t("email")}
             </label>
             <input
               type="email"
@@ -123,13 +125,13 @@ const AccountSetting = () => {
               readOnly
             />
             {errors.email && (
-              <span className="text-red-500">This field is required</span>
+              <span className="text-red-500">{t("field_required")}</span>
             )}
           </div>
 
           <div className="mb-4">
             <label htmlFor="phone" className="block mb-2">
-              Phone
+              {t("phone")}
             </label>
             <input
               type="tel"
@@ -138,7 +140,7 @@ const AccountSetting = () => {
               className="input"
             />
             {errors.phone && (
-              <span className="text-red-500">This field is required</span>
+              <span className="text-red-500">{t("field_required")}</span>
             )}
           </div>
 
@@ -146,7 +148,7 @@ const AccountSetting = () => {
             type="submit"
             className="btn bg-blue-600 text-white mt-4 px-6 py-3 rounded-lg w-full md:w-auto"
           >
-            Save Changes
+            {t("save_changes")}
           </button>
         </form>
       </section>

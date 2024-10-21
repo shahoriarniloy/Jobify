@@ -1,4 +1,5 @@
 import { useState, Fragment } from "react";
+import { useTranslation } from "react-i18next"; // Importing useTranslation
 import {
   FaFacebook,
   FaInstagram,
@@ -19,15 +20,17 @@ import {
 import { MdAddCircleOutline, MdOutlineCancel } from "react-icons/md";
 
 const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
+  const { t } = useTranslation(); // Destructuring t from useTranslation
+
   const socialOptions = [
-    { name: "Facebook", icon: <FaFacebook />, value: "facebook" },
-    { name: "Twitter", icon: <FaTwitter />, value: "twitter" },
-    { name: "Instagram", icon: <FaInstagram />, value: "instagram" },
-    { name: "LinkedIn", icon: <FaLinkedin />, value: "linkedin" },
-    { name: "YouTube", icon: <FaYoutube />, value: "youtube" },
-    { name: "Pinterest", icon: <FaPinterest />, value: "pinterest" },
-    { name: "Snapchat", icon: <FaSnapchat />, value: "snapchat" },
-    { name: "TikTok", icon: <FaTiktok />, value: "tiktok" },
+    { name: t("facebook"), icon: <FaFacebook />, value: "facebook" },
+    { name: t("twitter"), icon: <FaTwitter />, value: "twitter" },
+    { name: t("instagram"), icon: <FaInstagram />, value: "instagram" },
+    { name: t("linkedin"), icon: <FaLinkedin />, value: "linkedin" },
+    { name: t("youtube"), icon: <FaYoutube />, value: "youtube" },
+    { name: t("pinterest"), icon: <FaPinterest />, value: "pinterest" },
+    { name: t("snapchat"), icon: <FaSnapchat />, value: "snapchat" },
+    { name: t("tiktok"), icon: <FaTiktok />, value: "tiktok" },
   ];
 
   const [fields, setFields] = useState([{ socialMedia: "", link: "" }]);
@@ -68,7 +71,7 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
   return (
     <div className="p-4 md:p-8">
       <form>
-        <h3 className="text-lg font-medium mb-2">Your Social Media Profile</h3>
+        <h3 className="text-lg font-medium mb-2">{t("your_social_media_profile")}</h3>
         {fields.map((field, index) => (
           <div key={index} className="flex items-center mb-3">
             <Listbox
@@ -82,7 +85,7 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
                       ? socialOptions.find(
                           (option) => option.value === field.socialMedia
                         )?.name
-                      : "Select Social Media"}
+                      : t("select_social_media")}
                   </span>
                 </ListboxButton>
                 <Transition
@@ -132,7 +135,7 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
 
             <input
               type="url"
-              placeholder="Profile link/url..."
+              placeholder={t("profile_link_placeholder")}
               className="h-10 p-2 w-2/3 ml-2 border rounded"
               value={field.link}
               onChange={(e) => handleInputChange(index, e.target.value)}
@@ -159,7 +162,7 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
             disabled={fields.length === socialOptions.length}
           >
             <MdAddCircleOutline />
-            Add New Social Link
+            {t("add_new_social_link")}
           </button>
 
           <button
@@ -167,14 +170,14 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
             className="btn btn-outline hover:border-none hover:bg-blue-500 hover:text-white rounded-lg w-full md:w-auto"
             onClick={handleSaveChanges}
           >
-            Save Changes
+            {t("save_changes")}
           </button>
         </div>
       </form>
 
       {/* Display all submitted links */}
       <div className="mt-6">
-        <h3 className="text-sm font-semibold">Submitted Social Links:</h3>
+        <h3 className="text-sm font-semibold">{t("submitted_social_links")}:</h3>
         <ul>
           {socialLinks.map((field, index) => (
             <li key={index} className="flex items-center">

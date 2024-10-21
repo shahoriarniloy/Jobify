@@ -2,8 +2,10 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaEdit, FaTrashAlt } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next";
 
 const AllCompanies = () => {
+  const { t } = useTranslation();
   const [companies, setCompanies] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -27,8 +29,7 @@ const AllCompanies = () => {
       setPages([...Array(totalPages).keys()]);
       setError(null);
     } catch (error) {
-      // console.error("Failed to fetch companies", error);
-      setError("Failed to load companies. Please try again later.");
+      setError(t("fetch_error"));
     }
   };
 
@@ -64,14 +65,11 @@ const AllCompanies = () => {
   };
 
   const handleDelete = async (email) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this company?"
-    );
+    const confirmDelete = window.confirm(t("delete_confirm"));
     if (confirmDelete) {
       try {
         await axiosSecure.delete(`/deleteCompany/${email}`);
         fetchCompanies();
-        // console.log(`Deleted company with ID: ${companyId}`);
       } catch (error) {
         // console.error("Failed to delete company", error);
       }
@@ -86,17 +84,14 @@ const AllCompanies = () => {
           type="text"
           value={searchTerm}
           onChange={handleSearch}
-          placeholder="Search Companies..."
+          placeholder={t("search_companies")}
           className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
         />
       </div>
 
       <div className="flex items-center justify-center lg:gap-4 md:gap-4 gap-2 mt-4">
-        <label
-          htmlFor="itemsPerPage"
-          className="text-sm font-medium text-blue-900"
-        >
-          Number of Companies Per Page:
+        <label htmlFor="itemsPerPage" className="text-sm font-medium text-blue-900">
+          {t("items_per_page")}
         </label>
         <select
           id="itemsPerPage"
@@ -115,9 +110,9 @@ const AllCompanies = () => {
           <table className="min-w-full text-xs sm:text-sm">
             <thead className="dark:bg-gray-300">
               <tr className="text-left">
-                <th className="p-3">Company Name</th>
-                <th className="p-3">Industry</th>
-                <th className="p-3 hidden md:table-cell">Actions</th>
+                <th className="p-3">{t("company_name")}</th>
+                <th className="p-3">{t("industry")}</th>
+                <th className="p-3 hidden md:table-cell">{t("actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -129,12 +124,6 @@ const AllCompanies = () => {
                   <td className="p-3">{company.company_name}</td>
                   <td className="p-3">{company.industry}</td>
                   <td className="p-3 flex space-x-4 hidden md:table-cell">
-                    {/* <button
-                      onClick={() => handleEdit(company._id)}
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      <FaEdit className="h-5 w-5" />
-                    </button> */}
                     <button
                       onClick={() => handleDelete(company.email)}
                       className="text-red-500 hover:text-red-700"
@@ -174,7 +163,6 @@ const AllCompanies = () => {
           className="px-4 py-2 ml-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
           onClick={handleNextPage}
           disabled={currentPage === pages.length - 1}
-          aria-label="Next"
         >
           <FaArrowRight />
         </button>
