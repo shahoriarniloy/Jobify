@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import CandidateCard from "./CandidateCard";
 import CandidatesFilter from "./CandidatesFilter";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next";
 
 const Candidates = () => {
+  const { t } = useTranslation();
   const [candidates, setCandidates] = useState([]);
 
   useEffect(() => {
@@ -21,13 +23,18 @@ const Candidates = () => {
   }, []);
 
   return (
-    <div className="flex lg:flex-row flex-col  gap-2 w-full justify-between">
+    <div className="flex lg:flex-row flex-col gap-2 w-full justify-between">
+      <h1>{t("title_candidates")}</h1>
       <div>
-        {candidates.map((candidate) => (
-          <CandidateCard key={candidate._id} candidate={candidate} />
-        ))}
+        {candidates.length === 0 ? (
+          <p>{t("no_candidates")}</p>
+        ) : (
+          candidates.map((candidate) => (
+            <CandidateCard key={candidate._id} candidate={candidate} />
+          ))
+        )}
       </div>
-      <CandidatesFilter></CandidatesFilter>
+      <CandidatesFilter />
     </div>
   );
 };

@@ -10,8 +10,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const AppliedCandidates = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const { jobId } = location.state;
   const [candidates, setCandidates] = useState([]);
@@ -29,6 +32,15 @@ const AppliedCandidates = () => {
   const [schedulingCandidate, setSchedulingCandidate] = useState(null);
 
   const statusOptions = [
+    //     { value: "All", label: t("all_statuses") },
+    //     { value: "Pending", label: t("pending") },
+    //     { value: "Under Review", label: t("under_review") },
+    //     { value: "Shortlisted", label: t("shortlisted") },
+    //     { value: "Interview Scheduled", label: t("interview_scheduled") },
+    //     { value: "Assessment Task", label: t("assessment_task") },
+    //     { value: "Rejected", label: t("rejected") },
+    //     { value: "Hired", label: t("hired") },
+    // =======
     { value: "Pending", label: "Pending" },
     { value: "Under Review", label: "Under Review" },
     { value: "Shortlisted", label: "Shortlisted" },
@@ -69,7 +81,6 @@ const AppliedCandidates = () => {
         );
         setCompany(companyResponse.data);
       } catch (error) {
-        // Handle error
       } finally {
         setLoading(false);
       }
@@ -88,7 +99,7 @@ const AppliedCandidates = () => {
       [email]: newStatus,
     }));
 
-    const statusUpdatePayload = {
+    const statusUpdate = {
       email,
       status: newStatus,
       applicationId,
@@ -98,17 +109,19 @@ const AppliedCandidates = () => {
     };
 
     if (newStatus === "Interview Scheduled") {
-      statusUpdatePayload.interviewDate = interviewDetails.date;
-      statusUpdatePayload.interviewTime = interviewDetails.time;
-      statusUpdatePayload.roomId = interviewDetails.roomId;
+      statusUpdate.interviewDate = interviewDetails.date;
+      statusUpdate.interviewTime = interviewDetails.time;
+      statusUpdate.roomId = interviewDetails.roomId;
 
-      console.log("Status Update Payload:", statusUpdatePayload);
+      console.log("Status Update Payload:", statusUpdate);
     }
 
     axiosSecure
-      .patch(`/updateCandidateStatus`, statusUpdatePayload)
+
+      .patch(`/updateCandidateStatus`, statusUpdate)
       .then((response) => {
         console.log("Candidate status updated successfully:", response.data);
+        toast.success(`Status Updated to ${statusUpdate.status}`);
       })
       .catch((error) => {
         console.error("Error updating candidate status:", error);
@@ -152,18 +165,22 @@ const AppliedCandidates = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div>
+        {t("error")}: {error}
+      </div>
+    );
   }
 
   return (
     <div>
       <div className="mb-4 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Applied Candidates</h1>
+          <h1 className="text-2xl font-bold">{t("applied_candidates")}</h1>
         </div>
         <div>
           <label htmlFor="filter-status" className="mr-2">
-            Filter by Status:
+            {t("filter_by_status")}:
           </label>
           <select
             id="filter-status"
@@ -200,7 +217,7 @@ const AppliedCandidates = () => {
                   icon={faEnvelope}
                   style={{ marginRight: "8px" }}
                 />
-                Email: {candidate?.user?.email}
+                {t("email")}: {candidate?.user?.email}
               </p>
 
               <div className="card-actions flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
@@ -239,7 +256,8 @@ const AppliedCandidates = () => {
                   to={`/dashboard/candidate-resume/${candidate?.user?.email}`}
                 >
                   <button className="btn bg-gradient-to-r from-blue-500 to-blue-700 flex items-center text-white">
-                    <DocumentTextIcon className="h-5 w-5 mr-2" /> View Resume
+                    <DocumentTextIcon className="h-5 w-5 mr-2" />{" "}
+                    {t("view_resume")}
                   </button>
                 </Link>
               </div>
