@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -35,7 +36,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInUser = (email, password) => {
-    console.log(email,password)
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -96,6 +96,7 @@ const AuthProvider = ({ children }) => {
     logOut: logOutUser,
     updateUserProfile,
     loading,
+    setLoading
   };
 
   return (

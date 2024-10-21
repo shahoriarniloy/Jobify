@@ -5,29 +5,37 @@ import "react-toastify/dist/ReactToastify.css";
 import { TiArrowRight } from "react-icons/ti";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { useDispatch, useSelector } from "react-redux";
-import { createUser } from "../../../Redux/userSlice";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
+import ButtonLoader from "../../../Shared/ButtonLoader";
 
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const { t } = useTranslation();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
   const accountType = selectedIndex === 0 ? t("job_seeker") : t("employer");
-  console.log(accountType)
+  const { createUser, loading, setLoading } = useCurrentUser();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
-
     // for employee
     if (accountType == "Job Seeker") {
       const name = form.name.value;
       const email = form.email.value;
       const password = form.password.value;
-      console.log("object")
+      createUser(email, password)
+        .then(res => {
+          toast.success("Account creation successful");
+          setSignUpModalOpen(false);
+        })
+        .catch(err => {
+          toast.error(err);
+
+
+        })
+
     }
 
     // for company
@@ -35,25 +43,19 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       const companyEmail = form.companyEmail.value;
       const companyName = form.companyName.value;
 
-      console.log(companyEmail)
+      createUser(companyEmail, companyName)
+        .then(res => {
+          toast.success("Account creation successful");
+          setSignUpModalOpen(false);
+        })
+        .catch(err => {
+          toast.error(err);
+
+
+        })
     }
+    setLoading(false);
 
-    // const response = await axiosSecure.post("/users", {
-    //   name,
-    //   email: userEmail,
-    //   uid: uid,
-    //   photoURL: photoURL || "",
-    //   role: accountType,
-    // });
-
-
-
-
-    // toast.success(t("account_created_successfully"));
-    // setSignUpModalOpen(false);
-    // setLoginModalOpen(true);
-    // toast.error(t("failed_to_save_user_data"));
-    // toast.error(t("registration_failed"));
 
   };
 
@@ -166,11 +168,11 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
           <div className="mt-6">
             <button
+              disabled={loading}
               type="submit"
               className="btn w-full bg-[#0A65CC] text-white"
-              
             >
-              <TiArrowRight className="text-2xl" />
+              {loading ? <ButtonLoader /> : <>Create Now <TiArrowRight className="text-2xl" /></>}
             </button>
           </div>
 

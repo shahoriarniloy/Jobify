@@ -80,7 +80,7 @@ const PopularCategory = () => {
                 <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-10 md:mt-16'>
                     {
                         allCategories.map(category=>
-                            <div className='flex items-center gap-4'>
+                            <div key={category.name} className='flex items-center gap-4'>
                                 <div className='p-2 md:p-4 text-sm md:text-xl bg-[#e7f0fa] rounded-xl flex items-center justify-center w-fit link-color'>{category.icon}</div>
                                 <div>
                                     <h1 className='cursor-pointer hover:text-blue-500 text-sm md:text-base'>{category.name}</h1>
