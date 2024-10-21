@@ -33,7 +33,6 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
         .catch(err => {
           toast.error(err);
 
-
         })
 
     }

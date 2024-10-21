@@ -8,49 +8,22 @@ import homeBg from '../../assets/homebg.png'
 import { IoPeopleSharp } from "react-icons/io5";
 import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme } from "../../Redux/themeSlice";
+import { useQuery } from "@tanstack/react-query";
 
-const SearchBar = () => {
+const SearchBar = ({jobCount, companyCount}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
-  const [jobs, setJobs] = useState([]);
-  const [error, setError] = useState("");
-  const [totalJobs, setTotalJobs] = useState(0);
-  const [totalCompanies, setTotalCompanies] = useState(0);
   const theme = useSelector((state) => state.theme.theme);
 
-  useEffect(() => {
-    const fetchTotals = async () => {
-      try {
-        const jobsResponse = await axiosSecure.get("/jobs-count");
-        setTotalJobs(jobsResponse?.data?.totalJobs);
-
-        const companiesResponse = await axiosSecure.get("/companies/count");
-        setTotalCompanies(companiesResponse.data.totalCompanies);
-      } catch (error) {
-        // console.error('Error fetching totals:', error);
-      }
-    };
-
-    fetchTotals();
-  }, []);
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!searchTerm && !location) {
-      setError("Please enter something first");
-      return;
+  const {data:jobs,refetch} = useQuery({
+    queryKey:["search-data"],
+    queryFn: async ()=>{
+      const {data} = await axiosSecure.get("/jobs/search", {params: { searchTerm, location }});
+      return data;
     }
-    setError("");
-    try {
-      const response = await axiosSecure.get("/jobs/search", {
-        params: { searchTerm, location },
-      });
-      setJobs(response.data);
-    } catch (error) {
-      // console.error('Error fetching jobs:', error);
-    }
-  };
+  })
+
+  
   return (
     <div className="bg-secondary py-28">
       <div className="container mx-auto">
@@ -82,7 +55,6 @@ const SearchBar = () => {
               >
                 <form
                   className="flex flex-col sm:flex-row gap-4 sm:gap-2  rounded-lg"
-                  onSubmit={handleSearch}
                 >
                   <div className="relative flex-1 ">
                     <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2  text-[#0a65cc] w-5 h-5" />
@@ -114,7 +86,7 @@ const SearchBar = () => {
 
                   <div className="flex justify-center mt-4 sm:mt-0 sm:ml-2">
                     <button
-                      type="submit"
+                      onClick={()=>refetch()}
                       className="w-full sm:w-auto px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white font-semibold text-base transition duration-300 ease-in-out hover:from-blue-700 hover:to-blue-900"
                     >
                       Find Job
@@ -133,15 +105,15 @@ const SearchBar = () => {
                 </span>
               </p>
               <div
-                className={`mt-3 ${jobs.length > 0 ? "opacity-100" : "opacity-0"
+                className={`mt-3 ${jobs?.length > 0 ? "opacity-100" : "opacity-0"
                   } transition-opacity duration-300`}
               >
-                {jobs.length > 0 ? (
+                {jobs?.length > 0 ? (
                   <div className="flex items-center gap-2">
                     <h2 className="text-[#9199A3]">Job Results:</h2>
                     <div className="max-h-60 overflow-y-auto flex flex-wrap items-center gap-4">
-                      {jobs.map((job) => (
-                        <Link key={job._id} to={`/job/${job._id}`}>
+                      {jobs?.map((job) => (
+                        <Link key={job?._id} to={`/job/${job?._id}`}>
                           <h3 className="font-semibold link-color">
                             {job?.title}
                           </h3>
@@ -174,7 +146,7 @@ const SearchBar = () => {
               <FaBriefcase className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{totalJobs}</h2>
+              <h2 className="text-2xl font-bold">{jobCount}</h2>
               <p className="text-[#767F8C]">Live Jobs</p>
             </div>
           </div>
@@ -184,7 +156,7 @@ const SearchBar = () => {
               <FaBuilding className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{totalCompanies}</h2>
+              <h2 className="text-2xl font-bold">{companyCount}</h2>
               <p className="text-[#767F8C]">Companies</p>
             </div>
 
@@ -195,7 +167,7 @@ const SearchBar = () => {
               <IoPeopleSharp className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{totalCompanies}</h2>
+              <h2 className="text-2xl font-bold">{}</h2>
               <p className="text-[#767F8C]">Candidates</p>
             </div>
 
@@ -206,7 +178,7 @@ const SearchBar = () => {
               <RiPoliceBadgeFill className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{totalCompanies}</h2>
+              <h2 className="text-2xl font-bold">{}</h2>
               <p className="text-[#767F8C]">Successful</p>
             </div>
           </div>

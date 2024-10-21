@@ -6,6 +6,8 @@ import { MdVideoSettings } from "react-icons/md";
 import { IoMusicalNotesSharp } from "react-icons/io5";
 import { RiBarChartFill } from "react-icons/ri";
 import { PiFirstAidKitFill } from "react-icons/pi";
+import { useQuery } from '@tanstack/react-query';
+import axiosSecure from '../../Hooks/UseAxiosSecure';
 
 
 const PopularCategory = () => {
@@ -66,6 +68,14 @@ const PopularCategory = () => {
 
         }
     ]
+    // const {data} = useQuery({
+    //     queryKey:["all category"],
+    //     queryFn: async ()=>{
+    //         const result = await axiosSecure.get("/popular-job-categories");
+    //         return result.data;
+    //     }
+    // })
+
 
 
     return (
