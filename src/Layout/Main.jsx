@@ -33,7 +33,7 @@ const Main = () => {
         <Outlet />
 
         {/* Massage components */}
-        <div className={isOpenMessage ? "fixed bottom-24 right-9 w-full max-w-xl h-full max-h-56 bg-blue-400 shadow-lg" : "hidden"}>
+        <div className={isOpenMessage ? "fixed bottom-24 right-9 w-full max-w-xl h-full max-h-[50vh] rounded-lg bg-blue-400 shadow-lg" : "hidden"}>
           
         </div>
       </div>
