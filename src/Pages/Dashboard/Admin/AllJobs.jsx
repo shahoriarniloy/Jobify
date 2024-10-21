@@ -1,12 +1,14 @@
 import React from "react";
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import Bookmark from "../../Find Job/Bookmark";
+import { useTranslation } from "react-i18next";
 
 const AllJobs = () => {
+  const { t } = useTranslation();
+  
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -60,7 +62,7 @@ const AllJobs = () => {
           htmlFor="itemsPerPage"
           className="text-sm font-medium text-blue-900"
         >
-          Number of Jobs Per Page:
+          {t("number_of_jobs_per_page")}:
         </label>
         <select
           id="itemsPerPage"
@@ -79,10 +81,10 @@ const AllJobs = () => {
           <table className="min-w-full text-xs sm:text-sm">
             <thead className="dark:bg-gray-300">
               <tr className="text-left">
-                <th className="p-3">Job Title</th>
-                <th className="p-3 hidden md:table-cell">Company</th>
-                <th className="p-3 hidden md:table-cell">Salary</th>
-                <th className="p-3">Details</th>
+                <th className="p-3">{t("job_title")}</th>
+                <th className="p-3 hidden md:table-cell">{t("company")}</th>
+                <th className="p-3 hidden md:table-cell">{t("salary")}</th>
+                <th className="p-3">{t("details")}</th>
               </tr>
             </thead>
             <tbody>
@@ -122,7 +124,7 @@ const AllJobs = () => {
           className="px-4 py-2 mr-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
           onClick={handlePreviousPage}
           disabled={currentPage === 0}
-          aria-label="Previous Page"
+          aria-label={t("previous_page")}
         >
           <FaArrowLeft />
         </button>
@@ -134,7 +136,7 @@ const AllJobs = () => {
                 page === currentPage ? "bg-blue-200" : "bg-white"
               } border border-blue-300`}
               onClick={() => setCurrentPage(page)}
-              aria-label={`Page ${page + 1}`}
+              aria-label={`${t("page")} ${page + 1}`}
             >
               {page + 1}
             </button>
@@ -144,7 +146,7 @@ const AllJobs = () => {
           className="px-4 py-2 ml-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
           onClick={handleNextPage}
           disabled={currentPage === pages.length - 1}
-          aria-label="Next Page"
+          aria-label={t("next_page")}
         >
           <FaArrowRight />
         </button>

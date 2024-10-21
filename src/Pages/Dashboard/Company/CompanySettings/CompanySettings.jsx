@@ -8,33 +8,35 @@ import CompanyInfo from "./Tabs/CompanyInfo/CompanyInfo";
 import FoundingInfo from "./Tabs/FoundingInfo/FoundingInfo";
 import SocialMediaProfile from "./Tabs/SocialMediaProfile/SocialMediaProfile";
 import AccountSetting from "./Tabs/AccountSetting/AccountSetting";
-
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const CompanySettings = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const [tabIndex, setTabIndex] = useState(0);
+  
   return (
     <div>
-      <h2 className="font-bold">Settings</h2>
+      <h2 className="font-bold">{t("settings")}</h2> {/* Wrapped string */}
       <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
         <TabList>
           <Tab>
             <div className="flex items-center gap-2">
-              <LuUser2 /> Company Info
+              <LuUser2 /> {t("company_info")} {/* Wrapped string */}
             </div>
           </Tab>
           <Tab>
             <div className="flex items-center gap-2">
-              <LuUserCircle2 /> Founding Info
+              <LuUserCircle2 /> {t("founding_info")} {/* Wrapped string */}
             </div>
           </Tab>
           <Tab>
             <div className="flex items-center gap-2">
-              <GoGlobe /> Social Media Profile
+              <GoGlobe /> {t("social_media_profile")} {/* Wrapped string */}
             </div>
           </Tab>
           <Tab>
             <div className="flex items-center gap-2">
-              <IoSettingsOutline /> Account Setting
+              <IoSettingsOutline /> {t("account_setting")} {/* Wrapped string */}
             </div>
           </Tab>
         </TabList>

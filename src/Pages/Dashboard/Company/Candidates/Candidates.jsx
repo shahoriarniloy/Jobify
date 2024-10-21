@@ -1,10 +1,14 @@
+
 import React, { useEffect, useState } from "react";
 import CandidateCard from "./CandidateCard";
 import CandidatesFilter from "./CandidatesFilter";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
+  import { useTranslation } from "react-i18next";
+
 
 const Candidates = () => {
   const [candidates, setCandidates] = useState([]);
+
 
   useEffect(() => {
     const fetchCandidates = async () => {
@@ -16,6 +20,7 @@ const Candidates = () => {
         console.error("Error fetching candidates:", err);
       }
     };
+
 
     fetchCandidates();
   }, []);
@@ -30,6 +35,7 @@ const Candidates = () => {
       <CandidatesFilter></CandidatesFilter>
     </div>
   );
+
 };
 
 export default Candidates;

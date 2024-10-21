@@ -5,8 +5,10 @@ import axiosSecure from "./../../../../../../Hooks/UseAxiosSecure";
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next"; // Importing useTranslation
 
 const CareerInfo = () => {
+  const { t } = useTranslation(); // Destructuring useTranslation
   const currentUser = useSelector((state) => state.user.currentUser);
   const [description, setDescription] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -61,8 +63,6 @@ const CareerInfo = () => {
     const endDate = form.endDate.value;
     const cgpa = form.cgpa.value;
 
-    // console.log(currentUser.currentUser);
-
     const data = {
       schoolName: inputValue,
       degree: inputDegree,
@@ -78,10 +78,10 @@ const CareerInfo = () => {
       const response = await axiosSecure.post("/profile-updating", data);
 
       if (response.status === 200) {
-        toast.success("Profile updated successfully");
+        toast.success(t("profile_updated_successfully"));
       }
     } catch (error) {
-      toast.warn("Error updating profile");
+      toast.warn(t("error_updating_profile"));
     }
   };
 
@@ -91,7 +91,7 @@ const CareerInfo = () => {
         <div className="grid md:grid-cols-3 gap-4">
           <div className="relative">
             <label className="font-bold" htmlFor="schoolName">
-              School
+              {t("school")}
             </label>
             <input
               required
@@ -101,7 +101,7 @@ const CareerInfo = () => {
               className="border mt-2 border-gray-300 p-2 rounded w-full"
               value={inputValue}
               onChange={handleInputChange}
-              placeholder="Type a school name..."
+              placeholder={t("type_a_school_name")}
             />
 
             {!isLoading && uniqueSchools.length > 0 && (
@@ -124,8 +124,8 @@ const CareerInfo = () => {
           </div>
 
           <div>
-            <label className="font-bold" htmlFor="industryType">
-              Degree
+            <label className="font-bold" htmlFor="degree">
+              {t("degree")}
             </label>
             <select
               name="degree"
@@ -133,7 +133,7 @@ const CareerInfo = () => {
               className="border mt-2 border-gray-300 p-2 rounded w-full"
               onChange={(e) => setInputDegree(e.target.value)}
             >
-              <option value="default">Choose your degree</option>
+              <option value="default">{t("choose_your_degree")}</option>
 
               {degrees?.map((degree) => (
                 <option key={degree._id} value={degree?.degree}>
@@ -142,16 +142,17 @@ const CareerInfo = () => {
               ))}
             </select>
           </div>
+
           <div>
-            <label className="font-bold" htmlFor="industryType">
-              Field of Study
+            <label className="font-bold" htmlFor="filedOfStudy">
+              {t("field_of_study")}
             </label>
             <select
               name="filedOfStudy"
               required
               className="border mt-2 border-gray-300 p-2 rounded w-full"
             >
-              <option value="">Choose your Field</option>
+              <option value="">{t("choose_your_field")}</option>
 
               {fields &&
                 fields?.fields.map((field, idx) => (
@@ -164,7 +165,7 @@ const CareerInfo = () => {
 
           <div>
             <label className="font-bold" htmlFor="startDate">
-              Start Date
+              {t("start_date")}
             </label>
             <input
               type="date"
@@ -176,7 +177,7 @@ const CareerInfo = () => {
 
           <div>
             <label className="font-bold" htmlFor="endDate">
-              End Date
+              {t("end_date")}
             </label>
             <input
               type="date"
@@ -188,30 +189,30 @@ const CareerInfo = () => {
 
           <div>
             <label className="font-bold" htmlFor="cgpa">
-              C-GPA
+              {t("cgpa")}
             </label>
             <div className="relative mt-2">
               <input
                 type="text"
                 name="cgpa"
                 required
-                className="border border-gray-300 p-2 rounded w-full" // Padding for icon
-                placeholder="Enter your C-GPA"
+                className="border border-gray-300 p-2 rounded w-full"
+                placeholder={t("enter_your_cgpa")}
               />
             </div>
           </div>
         </div>
 
         <div className="mt-4">
-          <label className="font-bold" htmlFor="companyVision">
-            Description
+          <label className="font-bold" htmlFor="description">
+            {t("description")}
           </label>
           <div className="quill-wrapper relative border rounded-lg mt-2">
             <ReactQuill
               required
               value={description}
               onChange={(value) => setDescription(value)}
-              placeholder="Write down your biography here. Let the employers know who you are..."
+              placeholder={t("write_down_your_biography")}
               modules={{
                 toolbar: [
                   ["bold", "italic", "underline"],
@@ -219,14 +220,7 @@ const CareerInfo = () => {
                   ["link"],
                 ],
               }}
-              formats={[
-                "bold",
-                "italic",
-                "underline",
-                "list",
-                "bullet",
-                "link",
-              ]}
+              formats={["bold", "italic", "underline", "list", "bullet", "link"]}
               className="custom-quill-editor"
               style={{ direction: "ltr" }}
             />
@@ -237,7 +231,7 @@ const CareerInfo = () => {
           type="submit"
           className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"
         >
-          Save Changes
+          {t("save_changes")}
         </button>
       </form>
     </div>

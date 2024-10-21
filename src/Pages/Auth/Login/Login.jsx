@@ -49,12 +49,14 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
       );
 
       toast.success(
-        t("login.sign_in") + " " + t("login.login") + " " + t("login.success")
+        t("sign_in") + " " + t("login") + " " + t("success")
       ); // Optional success message
       navigate(from, { replace: true });
     } catch (error) {
       // console.error("Error during login:", error);
+
       toast.error(t("login.failed"));
+
     }
   };
 
@@ -70,11 +72,11 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   return (
     <div className="bg-white w-[400px] max-w-2xl">
       <Helmet>
-        <title>{t("login.login")}</title> {/* Title translation */}
+        <title>{t("login")}</title> {/* Title translation */}
       </Helmet>
 
       <div className="p-7">
-        <h2 className="text-4xl font-semibold">{t("login.sign_in")}</h2>{" "}
+        <h2 className="text-4xl font-semibold">{t("sign_in")}</h2>{" "}
         {/* Sign In translation */}
         <div className="mt-8">
           <form onSubmit={handleLogin}>
@@ -82,7 +84,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               <input
                 type="email"
                 name="email"
-                placeholder={t("login.email_placeholder")} // Email placeholder translation
+                placeholder={t("email_placeholder")} // Email placeholder translation
                 className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 required
               />
@@ -90,7 +92,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
-                  placeholder={t("login.password_placeholder")} // Password placeholder translation
+                  placeholder={t("password_placeholder")} // Password placeholder translation
                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   required
                 />
@@ -106,13 +108,12 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
             </div>
             <div className="mt-6">
               <button className="btn w-full bg-[#0A65CC] text-white">
-                {loading ? <ButtonLoader /> : t("login.sign_in_button")}{" "}
+                {loading ? <ButtonLoader /> : t("sign_in_button")}{" "}
                 {/* Sign In button translation */}
               </button>
             </div>
           </form>
-          <p className="text-center my-3">{t("login.or")}</p>{" "}
-          {/* "or" translation */}
+          <p className="text-center my-3">{t("or")}</p> {/* "or" translation */}
           <button
             onClick={handleGoogleSignIn}
             className="bg-white w-full flex items-center text-gray-700 justify-center gap-x-3 text-sm rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-6 py-2.5"
@@ -122,10 +123,10 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               alt="Google Logo"
               className="h-6 w-6"
             />
-            {t("login.google_sign_in")} {/* Google sign-in translation */}
+            {t("google_sign_in")} {/* Google sign-in translation */}
           </button>
           <p className="mt-4 text-xs text-center">
-            Don't have an account?
+            {t("dont_have_account")}
             <span className="link-color">
               <button
                 onClick={() => {
@@ -133,7 +134,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                   setSignUpModalOpen(true);
                 }}
               >
-                {t("login.create_account")} {/* Create account translation */}
+                {t("create_account")} {/* Create account translation */}
               </button>
             </span>
           </p>

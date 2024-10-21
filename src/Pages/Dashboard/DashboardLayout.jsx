@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FiLayers } from "react-icons/fi";
-import { FaBriefcase } from "react-icons/fa";
-import { FaEdit, FaUsers } from "react-icons/fa";
+import { FaBriefcase, FaEdit, FaUsers } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { logOut as logOutAction } from "../../Redux/userSlice";
+import { useTranslation } from "react-i18next";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -50,7 +51,7 @@ const DashboardLayout = () => {
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
-                <FiLayers className="text-xl" /> Overview
+                <FiLayers className="text-xl" /> {t("overview")}
               </NavLink>
               <NavLink
                 to="/dashboard/postJob"
@@ -60,7 +61,7 @@ const DashboardLayout = () => {
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
-                <FaEdit className="text-xl" /> Post a Job
+                <FaEdit className="text-xl" /> {t("post_a_job")}
               </NavLink>
               <NavLink
                 to="/dashboard/myJob"
@@ -70,18 +71,8 @@ const DashboardLayout = () => {
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
-                <FaBriefcase className="text-xl" /> My Jobs
+                <FaBriefcase className="text-xl" /> {t("my_jobs")}
               </NavLink>
-              {/* <NavLink
-                to="/dashboard/candidates"
-                className={({ isActive }) =>
-                  isActive
-                    ? "isActiveRoute"
-                    : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
-                }
-              >
-                <FaUsers className="text-xl" /> Candidates
-              </NavLink> */}
               <NavLink
                 to="/dashboard/company-settings"
                 className={({ isActive }) =>
@@ -90,7 +81,7 @@ const DashboardLayout = () => {
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
-                <IoSettingsOutline className="text-xl" /> Settings
+                <IoSettingsOutline className="text-xl" /> {t("settings")}
               </NavLink>
             </div>
 
@@ -103,13 +94,13 @@ const DashboardLayout = () => {
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
-                <MdHome className="text-xl" /> Home
+                <MdHome className="text-xl" /> {t("home")}
               </NavLink>
               <NavLink
                 onClick={handleLogOut}
                 className="flex items-center pl-5 py-2 text-[#767F8C] gap-2"
               >
-                <MdOutlineLogout className="text-xl" /> Log-out
+                <MdOutlineLogout className="text-xl" /> {t("log_out")}
               </NavLink>
             </div>
           </div>
