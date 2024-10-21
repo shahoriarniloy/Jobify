@@ -23,16 +23,13 @@ const CandidateCard = ({ candidate }) => {
       <div className="card card-side bg-base-100 shadow-xl mb-5">
         <figure>
           <img
-
             className=" rounded-lg"
             src={photoURL}
             alt={name}
-
             style={{ height: "100px", width: "auto" }}
           />
         </figure>
         <div className="card-body p-4">
-
           <h2 className="card-title w-96">{name}</h2>
           <p>{name}</p>
           {/* <div className='flex lg:flex-row flex-col items-center mr-52'>
@@ -49,7 +46,6 @@ const CandidateCard = ({ candidate }) => {
                             </ul>
                         </div>
                     </div> */}
-
         </div>
         <div className="card-actions justify-center mr-5">
           <GoBookmark className="mt-14" />
@@ -62,7 +58,6 @@ const CandidateCard = ({ candidate }) => {
         </div>
       </div>
 
-      {/* Render the modal */}
       {isModalOpen && (
         <CandidateModal candidate={candidate} onClose={handleCloseModal} />
       )}

@@ -11,7 +11,7 @@ import {
 } from "../../../Redux/userSlice";
 import ButtonLoader from "../../../Shared/ButtonLoader";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
-import { useTranslation } from "react-i18next"; // Import useTranslation
+import { useTranslation } from "react-i18next";
 import useCurrentUser from "./../../../Hooks/useCurrentUser";
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
@@ -48,15 +48,12 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
         })
       );
 
-      toast.success(
-        t("sign_in") + " " + t("login") + " " + t("success")
-      ); // Optional success message
+      toast.success(t("sign_in") + " " + t("login") + " " + t("success")); // Optional success message
       navigate(from, { replace: true });
     } catch (error) {
       // console.error("Error during login:", error);
 
       toast.error(t("login.failed"));
-
     }
   };
 
