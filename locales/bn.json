@@ -573,5 +573,7 @@
 
   "failed_to_load_data": "কোম্পানি বা চাকরির তথ্য লোড করতে ব্যর্থ হয়েছে। পরে আবার চেষ্টা করুন।",
   "company_type": "কোম্পানির ধরন",
-  "open_positions": "মুক্ত পদ"
+  "open_positions": "মুক্ত পদ",
+
+  "favorite_company": "প্রিয় কোম্পানি"
 }

@@ -579,5 +579,7 @@
 
   "failed_to_load_data": "Failed to load company or job data. Please try again later.",
   "company_type": "Company Type",
-  "open_positions": "Open Positions"
+  "open_positions": "Open Positions",
+
+  "favorite_company": "Favorite Company"
 }
