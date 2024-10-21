@@ -226,7 +226,7 @@ const AppliedCandidates = () => {
                     key={status.value}
                     className={`btn ${
                       candidate.application.status === status.value
-                        ? "bg-gradient-to-r from-orange-400 to-orange-500 text-white"
+                        ? "bg-gradient-to-r from-blue-400 to-blue-500 text-white"
                         : "bg-white text-black"
                     }`}
                     onClick={() =>
