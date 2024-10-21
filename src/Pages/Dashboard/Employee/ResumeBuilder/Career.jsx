@@ -81,7 +81,7 @@ const Career = () => {
 
   return (
     <div className="">
-      <h1 className="text-3xl text-center">Career Roadmap for {user.name}</h1>
+      <h1 className="text-4xl text-center">Career Roadmap for {user.name}</h1>
       <div>
         <p className="text-xl text-blue-500 mb-2">{user.name},</p>
         <p className="text-lg text-gray-800 mb-2">
