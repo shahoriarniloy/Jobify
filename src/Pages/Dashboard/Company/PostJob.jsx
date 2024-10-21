@@ -193,14 +193,14 @@ const PostJob = () => {
                     </div>
 
                     <div className="w-1/3">
-                      <label htmlFor="location">Location</label>
+                      <label htmlFor="location">{t("location")}</label>
                       <input
                         type="text"
                         name="location"
                         value={jobData.location}
                         onChange={handleChange}
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                        placeholder="Location"
+                        placeholder={t("location")}
                         required
                       />
                     </div>

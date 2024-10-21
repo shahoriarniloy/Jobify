@@ -204,7 +204,7 @@
 
   "candidate_name": "{{name}}",
   "designation": "{{designation}}",
-  "location": "{{location}}",
+  "location_candidate_card": "{{location}}",
   "experience_duration": "Duration:",
   "duration_not_available": "Duration not available",
   "experience": "experience",
@@ -496,7 +496,7 @@
   "description_label": "Description:",
   "add_experience_button": "Add Experience",
   "projects_title": "Projects",
-  "project_label": "Project {index}",
+  "project_label": "Project {{index}}",
   "project_title_label": "Project Title:",
   "project_link_label": "Project Link:",
   "technologies_label": "Technologies Used:",
@@ -527,5 +527,57 @@
   "loading_role": "Loading role...",
   "error_fetching_role": "Error fetching role",
   "edit_resume": "Edit Resume",
-  "profile_setting": "Profile Setting"
+  "profile_setting": "Profile Setting",
+
+  "error_fetching_company_info": "Error fetching company info",
+
+  "job_title_company_name_placeholder": "Job title, Company Name...",
+
+  "location_placeholder": "Location",
+
+  "hide_advanced_filters": "Hide Advanced Filters",
+  "show_advanced_filters": "Show Advanced Filters",
+
+  "find_job_button": "Find Job",
+
+  "experience_heading": "Experience",
+
+  "job_type_heading": "Job Type",
+
+  "salary_heading": "Salary",
+  "salary_500_1000": "$500-$1000",
+  "salary_1000_2000": "$1000-$2000",
+  "salary_3000_4000": "$3000-$4000",
+  "salary_4000_6000": "$4000-$6000",
+  "salary_6000_8000": "$6000-$8000",
+  "salary_8000_10000": "$8000-$10000",
+  "salary_10000_15000": "$10000-$15000",
+  "salary_15000_plus": "$15000+",
+
+  "view_list": "List View",
+  "view_grid": "Grid View",
+
+  "bookmark": "Bookmark",
+
+  "company_advanced_search": "Company: {{company}}",
+  "job_type_advanced_search": "Job Type: {{jobType}}",
+  "salary_advanced_search": "Salary: {{salaryRange}}",
+  "view_details": "View Details →",
+
+  "please_log_in_to_bookmark_jobs": "Please log in to bookmark jobs.",
+  "job_bookmarked_successfully": "Job bookmarked successfully!",
+  "job_already_bookmarked": "Job already bookmarked.",
+  "failed_to_bookmark_job": "Failed to bookmark job.",
+
+  "already_applied": "Already Applied",
+  "job_expires_in": "Job expires in",
+  "job_overview": "Job Overview",
+  "job_posted": "JOB POSTED",
+  "related_jobs": "Related Jobs",
+  "location_Alphabet": "LOCATION",
+  "location": "Location",
+
+  "failed_to_load_data": "Failed to load company or job data. Please try again later.",
+  "company_type": "Company Type",
+  "open_positions": "Open Positions"
 }

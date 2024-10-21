@@ -35,7 +35,7 @@ const CandidateCard = ({ candidate }) => {
           <p>{t("designation", { designation })}</p>
           <div className='flex lg:flex-row flex-col items-center mr-52'>
             <MdOutlineLocationOn className="mr-2 text-2xl" />
-            <p className="mr-2">{t("location", { location })}</p>
+            <p className="mr-2">{t("location_candidate_card", { location })}</p>
             <div className="candidate-experience flex items-center">
               <BsCurrencyDollar className="mr-2" />
               <ul>
