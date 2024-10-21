@@ -39,34 +39,42 @@ const CompanyDetails = () => {
       try {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
+  
+        // After fetching company data, check if it is a favorite
+        if (userEmail && companyEmail) {
+          const favoriteResponse = await axiosSecure.get(
+            `/users/${userEmail}/favorite-company/${companyEmail}`
+          );
+          setIsFavorite(favoriteResponse.data.isFavorite);
+        }
       } catch (error) {
-        console.error("Error fetching company data:", error);
+        console.error("Error fetching company data or checking favorite status:", error);
       }
     };
-
+  
     fetchCompanyData();
-  }, [companyId]);
+  }, [companyId, userEmail, companyEmail]);
 
   // Function to fetch favorite status when the component mounts
-  useEffect(() => {
-    if (userEmail && companyEmail) {
-      const checkFavoriteStatus = async () => {
-        try {
-          const response = await axiosSecure.get(
-            `/users/${userEmail}/favorite-company`
-          );
-          const data = response.data;
+  // useEffect(() => {
+  //   if (userEmail && companyEmail) {
+  //     const checkFavoriteStatus = async () => {
+  //       try {
+  //         const response = await axiosSecure.get(
+  //           `/users/${userEmail}/favorite-company`
+  //         );
+  //         const data = response.data;
 
-          // Check if the company is in the user's favorites
-          setIsFavorite(data.favoriteCompany.includes(companyEmail));
-        } catch (error) {
-          console.error("Error fetching favorite status:", error);
-        }
-      };
+  //         // Check if the company is in the user's favorites
+  //         setIsFavorite(data.favoriteCompany.includes(companyEmail));
+  //       } catch (error) {
+  //         console.error("Error fetching favorite status:", error);
+  //       }
+  //     };
 
-      checkFavoriteStatus();
-    }
-  }, [companyEmail, userEmail]);
+  //     checkFavoriteStatus();
+  //   }
+  // }, [companyEmail, userEmail]);
 
   const toggleFavorite = async () => {
     try {
