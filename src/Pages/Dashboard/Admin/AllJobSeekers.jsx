@@ -8,8 +8,10 @@ import {
   FaTrash,
 } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const AllJobSeekers = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const [jobSeekers, setJobSeekers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -68,7 +70,7 @@ const AllJobSeekers = () => {
   };
 
   const handleDelete = async (email) => {
-    if (window.confirm("Are you sure you want to delete this job seeker?")) {
+    if (window.confirm(t("confirm_delete_job_seeker"))) {
       try {
         await axiosSecure.delete(`/deleteUser/${email}`);
         fetchJobSeekers();
@@ -85,7 +87,7 @@ const AllJobSeekers = () => {
           type="text"
           value={searchTerm}
           onChange={handleSearch}
-          placeholder="Search Job Seekers by Name..."
+          placeholder={t("search_placeholder")}
           className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
         />
         <FaSearch className="text-blue-500" />
@@ -96,7 +98,7 @@ const AllJobSeekers = () => {
           htmlFor="itemsPerPage"
           className="text-sm font-medium text-blue-900"
         >
-          Number of Job Seekers Per Page:
+          {t("number_of_job_seekers_per_page")}:
         </label>
         <select
           id="itemsPerPage"
@@ -115,10 +117,10 @@ const AllJobSeekers = () => {
           <table className="min-w-full text-xs sm:text-sm">
             <thead className="dark:bg-gray-300">
               <tr className="text-left">
-                <th className="p-3">Name</th>
-                <th className="p-3 hidden md:table-cell">Email</th>
-                <th className="p-3 hidden md:table-cell">Role</th>
-                <th className="p-3">Actions</th>
+                <th className="p-3">{t("table_name")}</th>
+                <th className="p-3 hidden md:table-cell">{t("table_email")}</th>
+                <th className="p-3 hidden md:table-cell">{t("table_role")}</th>
+                <th className="p-3">{t("table_actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -135,12 +137,12 @@ const AllJobSeekers = () => {
                   </td>
                   <td className="p-3 hidden md:table-cell">{jobSeeker.role}</td>
                   <td className="p-3 flex gap-4">
-                    {/* <button
+                    <button
                       className="text-blue-600 hover:text-blue-800"
                       onClick={() => handleEdit(jobSeeker._id)}
                     >
                       <FaEdit />
-                    </button> */}
+                    </button>
                     <button
                       className="text-red-600 hover:text-red-800"
                       onClick={() => handleDelete(jobSeeker.email)}

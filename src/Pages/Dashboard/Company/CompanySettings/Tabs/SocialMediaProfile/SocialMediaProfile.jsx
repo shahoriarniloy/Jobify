@@ -1,4 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next"; // Importing useTranslation
 import {
   Listbox,
   ListboxButton,
@@ -24,6 +25,7 @@ import { toast } from "react-toastify";
 
 const SocialMediaProfile = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
+  const { t } = useTranslation(); // Destructuring t function for translation
 
   const socialOptions = [
     { name: "Facebook", icon: <FaFacebook />, value: "facebook" },
@@ -113,7 +115,7 @@ const SocialMediaProfile = () => {
         socialMediaLinks: socialMediaLinks,
       });
 
-      toast.success("Social Info Saved");
+      toast.success(t("social_info_saved"));
       setSubmittedLinks(fields);
     } catch (error) {
       // console.error("Error saving links:", error);
@@ -125,9 +127,10 @@ const SocialMediaProfile = () => {
       <form>
         {fields.map((field, index) => (
           <div key={index}>
-            <label htmlFor={`Social Link ${index + 1}`}>{`Social Link ${
-              index + 1
-            }`}</label>
+            <label htmlFor={`Social Link ${index + 1}`}>
+              {t("social_link")} {index + 1}
+            </label>
+
             <div className="flex justify-between items-center my-2 ">
               <div className="md:flex items-center border rounded w-full ">
                 <Listbox
@@ -141,7 +144,7 @@ const SocialMediaProfile = () => {
                           ? socialOptions.find(
                               (option) => option.value === field.socialMedia
                             )?.name
-                          : "Select Social Media"}
+                          : t("select_social_media")}
                       </span>
 
                       {field.socialMedia && (
@@ -205,7 +208,7 @@ const SocialMediaProfile = () => {
 
                 <input
                   type="url"
-                  placeholder="Profile link/url..."
+                  placeholder={t("profile_link_placeholder")}
                   className="h-10 p-2 w-full"
                   value={field.link}
                   onChange={(e) => handleInputChange(index, e.target.value)}
@@ -233,7 +236,7 @@ const SocialMediaProfile = () => {
           disabled={fields.length === socialOptions.length}
         >
           <MdAddCircleOutline />
-          Add New Social Link
+          {t("add_new_social_link")}
         </button>
 
         <button
@@ -241,12 +244,12 @@ const SocialMediaProfile = () => {
           className="btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto"
           onClick={handleSaveChanges}
         >
-          Save Changes
+          {t("save_changes")}
         </button>
       </form>
 
       <div className="mt-6">
-        <h3 className="text-lg font-semibold">Submitted Social Links:</h3>
+        <h3 className="text-lg font-semibold">{t("submitted_social_links")}</h3>
         <ul>
           {submittedLinks.map((field, index) => (
             <li key={index} className="flex items-center">

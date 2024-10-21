@@ -17,8 +17,10 @@ import {
 import { useReactToPrint } from "react-to-print";
 import { PiBag } from "react-icons/pi";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
+import { useTranslation } from "react-i18next";
 
 const Resume = () => {
+  const { t } = useTranslation();
   const { email } = useParams();
   const [resumeData, setResumeData] = useState(null);
   const loading = useSelector((state) => state.user.loading);
@@ -34,19 +36,19 @@ const Resume = () => {
         const response = await axiosSecure.get(`/resume/${currentUser?.email}`);
         setResumeData(response?.data);
       } catch (err) {
-        setError("Error fetching resume data");
+        setError(t("error_fetching_resume_data"));
       }
     };
 
     if (currentUser) {
       fetchResume();
     }
-  }, [currentUser]);
+  }, [currentUser, t]);
 
   if (loading) {
     return (
       <div>
-        <DashboardLoader></DashboardLoader>
+        <DashboardLoader />
       </div>
     );
   }
@@ -56,7 +58,7 @@ const Resume = () => {
   }
 
   if (!resumeData) {
-    return <div>No resume data found.</div>;
+    return <div>{t("no_resume_data_found")}</div>;
   }
 
   return (
@@ -68,7 +70,7 @@ const Resume = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
           >
             <FaDownload className="inline mr-2" />
-            Download Resume
+            {t("download_resume")}
           </button>
         </div>
       )}
@@ -95,53 +97,52 @@ const Resume = () => {
           </p>
         </div>
 
-        <h2 className="text-sm font-semibold my-2">Objective</h2>
+        <h2 className="text-sm font-semibold my-2">{t("objective")}</h2>
         <p>{resumeData?.objective}</p>
 
         <h2 className="text-sm font-semibold my-2">
-          <FaTools className="inline mr-2" /> Skills
+          <FaTools className="inline mr-2" /> {t("skills")}
         </h2>
         <p>{resumeData.skills.join(", ")}</p>
 
         <h2 className="text-sm font-semibold my-2">
-          <FaBriefcase className="inline mr-2" /> Experience
+          <FaBriefcase className="inline mr-2" /> {t("experience")}
         </h2>
         {resumeData.experiences.map((exp, index) => (
           <div key={index} className="my-1">
             <h3 className="font-bold">
-              {exp?.jobTitle} at {exp?.company}
+              {exp?.jobTitle} {t("at")} {exp?.company}
             </h3>
             <p>
-              {exp?.startDate} - {exp?.endDate}
+              {exp?.startDate} {t("to")} {exp?.endDate}
             </p>
             <p>{exp?.description}</p>
           </div>
         ))}
 
         <h2 className="text-sm font-semibold my-2">
-          <FaProjectDiagram className="inline mr-2" /> Projects
+          <FaProjectDiagram className="inline mr-2" /> {t("projects")}
         </h2>
         {resumeData.projects.map((project, index) => (
           <div key={index} className="my-1">
             <h3 className="font-bold">{project?.title}</h3>
             <p>
-              Link: <a href={project?.link}>{project?.link}</a>
+              {t("link")}: <a href={project?.link}>{project?.link}</a>
             </p>
-            <p>Description: {project?.description}</p>
-            <p>Technologies: {project?.technologies}</p>
+            <p>{t("description")}: {project?.description}</p>
+            <p>{t("technologies")}: {project?.technologies}</p>
           </div>
         ))}
 
         <h2 className="text-sm font-semibold my-2">
-          <FaGraduationCap className="inline mr-2" /> Education
+          <FaGraduationCap className="inline mr-2" /> {t("education")}
         </h2>
-        <p>Institution: {resumeData?.education[0]?.schoolName}</p>
+        <p>{t("institution")}: {resumeData?.education[0]?.schoolName}</p>
         <p>{resumeData.education[0].degree}</p>
-
-        <p>Year of Graduation: {resumeData?.education[0]?.endDate}</p>
+        <p>{t("year_of_graduation")}: {resumeData?.education[0]?.endDate}</p>
 
         <h2 className="text-sm font-semibold my-2">
-          <FaLanguage className="inline mr-2" /> Languages
+          <FaLanguage className="inline mr-2" /> {t("languages")}
         </h2>
         <p>{resumeData.languages.join(", ")}</p>
         <div className="absolute bottom-0 right-0 flex items-center justify-end gap-2 text-[#0a65cc] mb-2 p-2 mr-2">

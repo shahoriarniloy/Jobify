@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const CompanyInfo = () => {
+  const { t } = useTranslation(); // Destructure t from useTranslation
   const [companyName, setCompanyName] = useState("");
   const [aboutUs, setAboutUs] = useState("");
   const [logoFile, setLogoFile] = useState(null);
@@ -91,7 +93,7 @@ const CompanyInfo = () => {
       };
 
       const response = await axiosSecure.post("/companyInfo", companyData);
-      toast.success("Company Info Saved");
+      toast.success(t("company_info_saved")); // Use translation key
       setCompanyName("");
       setAboutUs("");
       setLogoFile(null);
@@ -105,28 +107,28 @@ const CompanyInfo = () => {
 
   return (
     <div className="p-4 md:p-8">
-      <h2 className="font-bold mt-8 mb-4 text-xl">Logo & Banner Image</h2>
+      <h2 className="font-bold mt-8 mb-4 text-xl">{t("logo_banner_image")}</h2> {/* Use translation key */}
 
       <form onSubmit={handleSubmit}>
         <section className="flex flex-col md:flex-row md:gap-6 gap-4">
           <div className="md:w-2/6">
             <DragAndDropInput
               type="logo"
-              label="Upload Logo"
+              label={t("upload_logo")} // Use translation key
               file={logoFile}
               onFileUpload={handleLogoUpload}
             />
-            <p className="text-gray-400 mt-2">Maximum 3.5 MB</p>
+            <p className="text-gray-400 mt-2">{t("maximum_size_3_5mb")}</p> {/* Use translation key */}
           </div>
 
           <div className="w-full">
             <DragAndDropInput
               type="banner"
-              label="Upload Banner"
+              label={t("upload_banner")} // Use translation key
               file={bannerFile}
               onFileUpload={handleBannerUpload}
             />
-            <p className="text-gray-400 mt-2">Maximum 4.3 MB</p>
+            <p className="text-gray-400 mt-2">{t("maximum_size_4_3mb")}</p> {/* Use translation key */}
           </div>
         </section>
 
@@ -134,25 +136,25 @@ const CompanyInfo = () => {
 
         <div className="flex flex-col">
           <label htmlFor="textInput" className="text-lg font-medium mb-2">
-            Company Name
+            {t("company_name")} {/* Use translation key */}
           </label>
           <input
             id="textInput"
             type="text"
             value={companyName}
             onChange={handleChangeCompanyName}
-            placeholder="Type here..."
+            placeholder={t("type_here")} // Use translation key
             className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <section className="mt-4">
-          <h3 className="text-lg font-medium mb-2">About us</h3>
+          <h3 className="text-lg font-medium mb-2">{t("about_us")}</h3> {/* Use translation key */}
           <div className="quill-wrapper relative border rounded-lg bg-white">
             <ReactQuill
               value={aboutUs}
               onChange={handleAboutUsChange}
-              placeholder="Write down your biography here..."
+              placeholder={t("write_biography")} // Use translation key
               modules={{
                 toolbar: [
                   ["bold", "italic", "underline"],
@@ -180,7 +182,7 @@ const CompanyInfo = () => {
           }`}
           disabled={isLoading}
         >
-          {isLoading ? "Saving..." : "Save Changes"}
+          {isLoading ? t("saving") : t("save_changes")} {/* Use translation key */}
         </button>
       </form>
     </div>
