@@ -226,7 +226,7 @@ const AppliedCandidates = () => {
                     key={status.value}
                     className={`btn ${
                       candidate.application.status === status.value
-                        ? "bg-gradient-to-r from-orange-400 to-orange-500 text-white"
+                        ? "bg-gradient-to-r from-blue-400 to-blue-500 text-white"
                         : "bg-white text-black"
                     }`}
                     onClick={() =>
@@ -269,7 +269,10 @@ const AppliedCandidates = () => {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow-lg p-4 w-full max-w-md">
               <h2 className="text-lg font-bold mb-4">
-                Schedule Interview with {schedulingCandidate.user.name}
+                Schedule Interview with{" "}
+                <span className="text-blue-500">
+                  {schedulingCandidate.user.name}
+                </span>
               </h2>
               <form onSubmit={scheduleInterview}>
                 <div className="mb-4">
