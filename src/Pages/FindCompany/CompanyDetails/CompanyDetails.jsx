@@ -9,6 +9,7 @@ import {
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
+import { MdFavoriteBorder } from "react-icons/md";
 import { FiCalendar, FiGlobe } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
@@ -213,11 +214,22 @@ const CompanyDetails = () => {
 
           <div className="md:ml-10 md:w-1/2">
             <div className="lg:flex lg:justify-end hidden">
-              <Link to={`/messages/${company.email}`}>
-                <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 mb-2 ">
-                  {t("message")}
-                </button>
-              </Link>
+              <div>
+                <div>
+                  <Link to={`/messages/${company.email}`}>
+                    <button className=" bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-2 mb-2 w-full">
+                    <MdFavoriteBorder className="mx-auto" />
+                    </button>
+                  </Link>
+                </div>
+                <div>
+                  <Link to={`/messages/${company.email}`}>
+                    <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2  mb-2 ">
+                      {t("message")}
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </div>
             <div className="p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
               <div>
