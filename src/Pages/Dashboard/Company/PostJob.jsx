@@ -1,32 +1,56 @@
-import { useState } from 'react';
-import Swal from 'sweetalert2';
-import axiosSecure from '../../../Hooks/UseAxiosSecure';
-import useCurrentUser from '../../../Hooks/useCurrentUser';
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import axiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useSelector } from "react-redux";
 
 const PostJob = () => {
-  const {currentUser} = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const [jobData, setJobData] = useState({
-    title: '',
-    company: '',
-    experience: '',
-    salaryRange: '',
-    location: '',
-    education: '',
-    jobType: '',
-    vacancy: '',
-    deadline: '',
-    jobLevel: '',
-    jobDescription: '',
+    title: "",
+    company: "",
+    experience: "",
+    salaryRange: "",
+    location: "",
+    education: "",
+    jobType: "",
+    vacancy: "",
+    deadline: "",
+    jobLevel: "",
+    jobDescription: "",
     responsibilities: [],
-    
   });
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axiosSecure.get(
+          `/companies/${currentUser.email}`
+        );
+
+        const userData = response.data;
+
+        if (userData) {
+          setJobData((prevJobData) => ({
+            ...prevJobData,
+            company: userData.company_name,
+          }));
+        }
+      } catch (error) {
+        // console.error("Error fetching user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, [currentUser.email]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setJobData({
       ...jobData,
       [name]: value,
-      hrEmail:currentUser?.email,
+      hrEmail: currentUser?.email,
     });
   };
 
@@ -36,59 +60,60 @@ const PostJob = () => {
 
     const newJobData = {
       ...rest,
-      responsibilities: responsibilities.split('\n'),
-      posted: new Date().toISOString().split('T')[0],
+      responsibilities: responsibilities.split("\n"),
+      posted: new Date().toISOString().split("T")[0],
     };
 
     try {
-      const response = await axiosSecure.post('/postJob', newJobData);
-      if (response?.status == 200) {
+      const response = await axiosSecure.post("/postJob", newJobData);
+      if (response?.status == 201) {
         Swal.fire({
-          icon: 'success',
-          title: 'Job posted successfully!',
-          text: 'The job listing has been created and posted on the platform.',
+          icon: "success",
+          title: "Job posted successfully!",
+          text: "The job listing has been created and posted on the platform.",
         });
 
-        // Reset job data
         setJobData({
-          title: '',
-          company: '',
-          experience: '',
-          salaryRange: '',
-          location: '',
-          education: '',
-          jobType: '',
-          vacancy: '',
-          deadline: '',
-          jobLevel: '',
-          jobDescription: '',
-          responsibilities: '',
+          title: "",
+          company: "",
+          experience: "",
+          salaryRange: "",
+          location: "",
+          education: "",
+          jobType: "",
+          vacancy: "",
+          deadline: "",
+          jobLevel: "",
+          jobDescription: "",
+          responsibilities: "",
         });
       } else {
         Swal.fire({
-          icon: 'error',
-          title: 'Failed to post job',
-          text: 'Something went wrong. Please try again.',
+          icon: "error",
+          title: "Failed to post job",
+          text: "Something went wrong. Please try again.",
         });
       }
     } catch (error) {
       // console.error('Error:', error);
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'There was a problem with the server.',
+        icon: "error",
+        title: "Error",
+        text: "There was a problem with the server.",
       });
     }
   };
 
   return (
-    <div className="container max-w-screen-lg mx-auto pb-6">
+    <div className="container pb-6 mx-auto  w-full">
       <div>
         <h2 className="font-semibold text-3xl text-black mb-4">Post a Job</h2>
-        <p className="text-stone-500 mb-6">Fill Up This Form to Post a Job on The Platform.</p>
+        <p className="text-stone-500 mb-6">
+          Fill Up This Form to Post a Job on The Platform.
+        </p>
         <div className="rounded p-6 mb-6">
           <div className="grid gap-6 text-sm grid-cols-1 lg:grid-cols-3">
-            <form className="lg:col-span-2" onSubmit={handleSubmit}>
+            <form className="lg:col-span-3" onSubmit={handleSubmit}>
               <div className="grid gap-6 text-sm grid-cols-1 md:grid-cols-5">
                 <div className="md:col-span-5">
                   <label htmlFor="title">Job Title</label>
@@ -98,7 +123,8 @@ const PostJob = () => {
                     value={jobData.title}
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                    placeholder="Add job title, role, vacancies etc"
+                    placeholder="Add job title"
+                    required
                   />
                 </div>
 
@@ -111,12 +137,14 @@ const PostJob = () => {
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                     placeholder="Company name"
+                    disabled
                   />
                 </div>
 
                 <div className="md:col-span-2">
                   <label htmlFor="experience">Experience</label>
                   <select
+                    required
                     name="experience"
                     value={jobData.experience}
                     onChange={handleChange}
@@ -139,6 +167,7 @@ const PostJob = () => {
                     <div className="w-1/3">
                       <label htmlFor="salaryRange">Salary Range</label>
                       <select
+                        required
                         name="salaryRange"
                         value={jobData.salaryRange}
                         onChange={handleChange}
@@ -165,21 +194,23 @@ const PostJob = () => {
                         onChange={handleChange}
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                         placeholder="Location"
+                        required
                       />
                     </div>
 
                     <div className="md:col-span-5">
-                  <label htmlFor="vacancy">Vacancy</label>
-                  <input
-                    type="number"
-                    name="vacancy"
-                    value={jobData.vacancy}
-                    onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                    placeholder="Number of vacancies"
-                    min="1" 
-                  />
-                </div>
+                      <label htmlFor="vacancy">Vacancy</label>
+                      <input
+                        type="number"
+                        name="vacancy"
+                        value={jobData.vacancy}
+                        onChange={handleChange}
+                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                        placeholder="Number of vacancies"
+                        required
+                        min="1"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -187,6 +218,7 @@ const PostJob = () => {
                   <div>
                     <label htmlFor="jobLevel">Job Level</label>
                     <select
+                      required
                       name="jobLevel"
                       value={jobData.jobLevel}
                       onChange={handleChange}
@@ -199,7 +231,6 @@ const PostJob = () => {
                     </select>
                   </div>
 
-
                   <div>
                     <label htmlFor="deadline">Application Deadline</label>
                     <input
@@ -208,9 +239,9 @@ const PostJob = () => {
                       value={jobData.deadline}
                       onChange={handleChange}
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                      required
                     />
                   </div>
-
                 </div>
 
                 <div className="md:col-span-5">
@@ -218,6 +249,7 @@ const PostJob = () => {
                     <div className="w-1/3">
                       <label htmlFor="education">Education</label>
                       <select
+                        required
                         name="education"
                         value={jobData.education}
                         onChange={handleChange}
@@ -234,6 +266,7 @@ const PostJob = () => {
                     <div className="w-1/3">
                       <label htmlFor="jobType">Job Type</label>
                       <select
+                        required
                         name="jobType"
                         value={jobData.jobType}
                         onChange={handleChange}
@@ -260,25 +293,30 @@ const PostJob = () => {
                     onChange={handleChange}
                     className="h-20 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                     placeholder="Enter job description"
+                    required
                   />
                 </div>
 
                 <div className="md:col-span-5">
-                  <label htmlFor="responsibilities">Responsibilities (one per line)</label>
+                  <label htmlFor="responsibilities">
+                    Responsibilities (one per line)
+                  </label>
                   <textarea
                     name="responsibilities"
                     value={jobData.responsibilities}
                     onChange={handleChange}
                     className="h-20 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                     placeholder="Enter job responsibilities (e.g., Collect and test water samples)"
+                    required
                   />
                 </div>
 
                 <div className="md:col-span-5 text-right">
                   <button
                     type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
                   >
+                    <PaperAirplaneIcon className="h-5 w-5 mr-2" />
                     Post Job
                   </button>
                 </div>

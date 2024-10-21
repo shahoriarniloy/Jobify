@@ -1,114 +1,385 @@
 import { PiBag } from "react-icons/pi";
-import { Link } from "react-router-dom";
-import useCurrentUser from '../Hooks/useCurrentUser';
-import { useState } from 'react';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
+import { Link, useNavigate } from "react-router-dom";
+import { useCallback, useState, useRef, useEffect } from "react";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+import { io } from "socket.io-client";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
+import useUserRole from "../Hooks/useUserRole";
+import { FaRegHeart, FaBriefcase, FaBell, FaEdit } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineVideoCall } from "react-icons/md";
+import { useSelector, useDispatch } from "react-redux";
+import { logOut as logOutAction } from "../Redux/userSlice";
+import { toggleTheme } from "../Redux/themeSlice";
+import { useTranslation } from "react-i18next";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { switchLanguage } from "../Redux/languageSlice";
+import Swal from "sweetalert2";
 
 const Navbar2 = () => {
-    const { currentUser, logout } = useCurrentUser();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [loginModalOpen , setLoginModalOpen] = useState(false);
-    const [signUpModalOpen , setSignUpModalOpen] = useState(false);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const theme = useSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [signUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [roomModal, setRoomModal] = useState(false);
+  const [roomID, setRoomID] = useState();
+  const { role } = useUserRole();
+  const menuRef = useRef(null);
+  const { t } = useTranslation();
+  const currentLanguage = useSelector((state) => state.language.language);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+  const [jobNotifications, setJobNotifications] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const socket = io("https://jobify-server-ujo0.onrender.com");
+
+    socket.on("jobPosted", (notification) => {
+      setJobNotifications((prev) => [...prev, notification]);
+      Swal.fire({
+        title: "New Job Posted!",
+        text: `New job '${notification.jobTitle}' at ${notification.company}`,
+        icon: "info",
+        confirmButtonText: "Ok",
+      });
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  const handleLogOut = () => {
+    dispatch(logOutAction());
+    navigate("/");
+  };
+
+  const handleJoinRoom = useCallback(() => {
+    setRoomModal(false);
+    navigate(`/rooms/${roomID}`);
+  }, [navigate, roomID]);
+
+  const handleThemeToggle = () => {
+    dispatch(toggleTheme());
+  };
+
+  const handleMarkAllAsRead = () => {
+    setJobNotifications([]);
+  };
+
+  const handleModalToggle = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
     };
 
-    return (
-        <div className="">
-            <div className="navbar bg-white shadow-md pt-2">
-                <div className="navbar-start">
-                    <div className="flex items-center text-[#0a65cc] gap-2 lg:pl-24 md:pl-12 pl-12">
-                        <PiBag className="w-6 h-6" />
-                        <Link to="/" className="text-xl font-bold text-[#0a65cc]">Jobify</Link>
-                    </div>
-                </div>
-                <div className="navbar-end">
-                    <div className="flex gap-4 lg:gap-5 items-center lg:pr-24 md:pr-12 pr-4">
-                        {currentUser ? (
-                            <>
-                                <div className="relative flex items-center gap-4">
-                                    <div className="lg:block md:block hidden">{currentUser.name}</div>
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-                                    <img
-                                        src={currentUser.photoURL || 'https://via.placeholder.com/150'}
-                                        alt="User Profile"
-                                        className="w-10 h-10 rounded-full cursor-pointer"
-                                        onClick={toggleMenu}
-                                    />
+  useEffect(() => {
+    const handleClickOutsideModal = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        handleModalToggle();
+      }
+    };
 
-                                    {isMenuOpen && (
-                                        <div className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"> {/* Set z-index here */}
-                                            <ul className="py-1 text-gray-700">
-                                                <li>
-                                                    <Link
-                                                        to="/dashboard/favorite-jobs"
-                                                        className="block px-4 py-2 hover:bg-gray-100"
-                                                        onClick={() => setIsMenuOpen(false)}
-                                                    >
-                                                        Dashboard
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link
-                                                        to="/dashboard/overview"
-                                                        className="block px-4 py-2 hover:bg-gray-100"
-                                                        onClick={() => setIsMenuOpen(false)}
-                                                    >
-                                                        Favorite Jobs
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <button
-                                                        onClick={logout}
-                                                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                                                    >
-                                                        Logout
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    )}
-                                </div>
-                            </>
-                        ) : (
-                            <>
+    if (isModalOpen) {
+      document.addEventListener("mousedown", handleClickOutsideModal);
+    }
 
-                                <button
-                                    onClick={()=> setLoginModalOpen(true)}
-                                    className="bg-white px-5 py-2 lg:px-7 lg:py-3 rounded-lg text-blue-500 border border-blue-400 ">
-                                    Join Us</button>
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideModal);
+    };
+  }, [isModalOpen]);
 
-                            </>
-                        )}
-                    </div>
-                </div>
+  const handleLanguageChange = (e) => {
+    const selectedLanguage = e.target.value;
+    dispatch(switchLanguage(selectedLanguage));
+  };
+
+  return (
+    <div
+      className={
+        theme === "dark" ? "bg-gray-800 text-white" : "bg-secondary text-black"
+      }
+    >
+      <div className="container mx-auto">
+        <div className="navbar pt-2">
+          <div className="navbar-start ">
+            <div className="flex items-center gap-2 text-[#0a65cc]">
+              <PiBag className="w-6 h-6" />
+              <Link
+                to="/"
+                className="text-xl border-none outline-none font-bold"
+              >
+                {t("Jobify")}
+              </Link>
+            </div>
+          </div>
+          <div className="navbar-end gap-3">
+            <div className="text-sm text-black">
+              <select
+                onChange={handleLanguageChange}
+                value={currentLanguage}
+                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
+                  theme === "dark"
+                    ? "bg-transparent text-white"
+                    : "bg-transparent text-black"
+                }`}
+              >
+                <option value="en">{t("english")}</option>
+                <option value="bn">{t("bangla")}</option>
+              </select>
             </div>
 
+            <div className="flex gap-4 lg:gap-5 items-center">
+              <button onClick={handleThemeToggle} className="p-2">
+                {theme === "light" ? (
+                  <FaMoon style={{ color: "#0a65cc" }} />
+                ) : (
+                  <FaSun style={{ color: "#0a65cc" }} />
+                )}
+              </button>
 
-
-
-            {/* Sign up modals */}
-            <Modal open={loginModalOpen} onClose={()=>setLoginModalOpen(false)} center>
-                <Login 
-                setSignUpModalOpen={setSignUpModalOpen}
-                setLoginModalOpen={setLoginModalOpen}/>
-            </Modal>
-
-            <Modal open={signUpModalOpen} onClose={()=>setSignUpModalOpen(false)} center>
-                <Register 
-                setLoginModalOpen={setLoginModalOpen}
-                setSignUpModalOpen={setSignUpModalOpen}
+              <div className="relative rounded-full p-2 hover:bg-[#e7f0fa]">
+                <FaBell
+                  className="cursor-pointer text-[#0a65cc]"
+                  onClick={handleModalToggle}
                 />
-            </Modal>
+                {jobNotifications.length > 0 && (
+                  <span className="absolute top-0 left-2 bg-red-500 text-white rounded-full text-xs px-1">
+                    {jobNotifications.length}
+                  </span>
+                )}
 
+                {isModalOpen && (
+                  <div
+                    ref={modalRef}
+                    className={
+                      theme === "dark"
+                        ? "bg-gray-900 text-slate-400 absolute top-10 right-0  p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                        : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                    }
+                  >
+                    <h2 className="text-lg font-bold mb-4">Notifications</h2>
 
+                    {jobNotifications.length > 0 && (
+                      <div className="flex justify-between items-center mb-4">
+                        <p className="text-sm">
+                          You have {jobNotifications.length} notifications
+                        </p>
+                        <button
+                          onClick={handleMarkAllAsRead}
+                          className="text-blue-600 text-sm hover:underline"
+                        >
+                          Mark all as read
+                        </button>
+                      </div>
+                    )}
 
+                    {jobNotifications.length > 0 ? (
+                      <ul className="text-sm">
+                        {jobNotifications.map((notification, index) => (
+                          <li
+                            key={index}
+                            className="py-2 text-gray-700 bg-[#f4f8fffa] rounded-md p-4 mb-2"
+                          >
+                            <Link
+                              to={`/job/${notification.jobId}`}
+                              className="hover:underline"
+                            >
+                              <strong>{notification.jobTitle} position</strong>{" "}
+                              at <strong>{notification.company}</strong>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>No notifications available</p>
+                    )}
+
+                    <div className="flex justify-end">
+                      <button
+                        className="btn bg-[#0a65cc] text-white mt-4"
+                        onClick={handleModalToggle}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {currentUser ? (
+                <>
+                  <div className="relative flex items-center gap-4">
+                    <img
+                      src={
+                        currentUser?.photoURL ||
+                        "https://via.placeholder.com/150"
+                      }
+                      alt={t("user_profile")}
+                      className="w-10 h-10 rounded-full cursor-pointer"
+                      onClick={toggleMenu}
+                    />
+                    {isMenuOpen && (
+                      <div
+                        ref={menuRef}
+                        className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"
+                      >
+                        <ul className="py-1 text-gray-700">
+                          {role === "Job Seeker" && (
+                            <>
+                              <li>
+                                <Link
+                                  to="jobSeeker/overview"
+                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                  onClick={() => setIsMenuOpen(false)}
+                                >
+                                  <MdOutlineDashboardCustomize />
+                                  {t("dashboard")}
+                                </Link>
+                              </li>
+                              <Link
+                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                onClick={() => {
+                                  setIsMenuOpen(false);
+                                  setRoomModal(true);
+                                }}
+                              >
+                                <MdOutlineVideoCall className="text-xl" />
+                                {t("join_call")}
+                              </Link>
+                            </>
+                          )}
+                          {role === "Employer" && (
+                            <li>
+                              <Link
+                                to="/dashboard/overview"
+                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                <MdOutlineDashboardCustomize />
+                                {t("dashboard")}
+                              </Link>
+                            </li>
+                          )}
+
+                          {role === "Admin" && (
+                            <li>
+                              <Link
+                                to="/admin/overview"
+                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                <MdOutlineDashboardCustomize />
+                                {t("dashboard")}
+                              </Link>
+                              <li>
+                                <Link
+                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                  onClick={() => {
+                                    setIsMenuOpen(false);
+                                    setRoomModal(true);
+                                  }}
+                                >
+                                  <MdOutlineVideoCall className="text-xl" />
+                                  {t("join_call")}
+                                </Link>
+                              </li>
+                            </li>
+                          )}
+
+                          <li>
+                            <button
+                              onClick={handleLogOut}
+                              className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2 w-full"
+                            >
+                              <MdLogout />
+                              {t("logout")}
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <button
+                  onClick={() => setLoginModalOpen(true)}
+                  className="bg-white px-5 py-1 lg:px-7 lg:py-2 rounded-lg text-blue-500 border border-blue-400"
+                >
+                  {t("join_us")}
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-    );
+      </div>
+
+      {/* Login Modal */}
+      <Modal
+        open={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+        center
+      >
+        <Login
+          setLoginModalOpen={setLoginModalOpen}
+          setSignUpModalOpen={setSignUpModalOpen}
+        />
+      </Modal>
+
+      {/* Sign Up Modal */}
+      <Modal
+        open={signUpModalOpen}
+        onClose={() => setSignUpModalOpen(false)}
+        center
+      >
+        <Register
+          setLoginModalOpen={setLoginModalOpen}
+          setSignUpModalOpen={setSignUpModalOpen}
+        />
+      </Modal>
+
+      {/* Room Modal */}
+      <Modal open={roomModal} onClose={() => setRoomModal(false)} center>
+        <h2>Enter Room ID</h2>
+        <input
+          type="text"
+          value={roomID}
+          onChange={(e) => setRoomID(e.target.value)}
+          className="border rounded-md p-2 w-full"
+          placeholder="Room ID"
+        />
+        <button
+          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
+          onClick={handleJoinRoom}
+        >
+          Join Room
+        </button>
+      </Modal>
+    </div>
+  );
 };
 
 export default Navbar2;

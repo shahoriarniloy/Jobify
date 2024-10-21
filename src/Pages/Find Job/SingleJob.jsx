@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import ApplyJobModal from "../../components/Modal/ApplyJobModal";
-import socialLogo from "../../assets/image/CompanyDetails/instagram_logo.png";
 import { FaLink, FaArrowRight } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { TfiEmail } from "react-icons/tfi";
@@ -10,9 +9,10 @@ import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
-import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
 import RelatedJobs from "../../components/RelatedJobs/RelatedJobs";
 import Bookmark from "./Bookmark";
+import DashboardLoader from "../../Shared/DashboardLoader";
 
 const SingleJob = () => {
   const [job, setJob] = useState(null);
@@ -20,9 +20,31 @@ const SingleJob = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [companyLogos, setCompanyLogos] = useState({});
+
+  useEffect(() => {
+    const fetchCompanyInfo = async (email) => {
+      try {
+        const response = await axiosSecure.get(`/companies/${email}`);
+        return response.data.company_logo;
+      } catch (error) {
+        console.error("Error fetching company info:", error);
+        return null;
+      }
+    };
+
+    const fetchLogos = async () => {
+      if (job?.hrEmail) {
+        const logo = await fetchCompanyInfo(job.hrEmail);
+        setCompanyLogos(logo);
+      }
+    };
+
+    fetchLogos();
+  }, [job]);
 
   const { id } = useParams();
-  const { currentUser } = useCurrentUser();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const fetchJobData = async () => {
@@ -112,7 +134,7 @@ const SingleJob = () => {
   };
 
   if (!job) {
-    return <div>Loading Job Details...</div>;
+    return <DashboardLoader />;
   }
 
   return (
@@ -122,7 +144,7 @@ const SingleJob = () => {
           <div>
             <img
               className="rounded-full h-16 w-16"
-              src={socialLogo}
+              src={companyLogos}
               alt="Company Logo"
             />
           </div>

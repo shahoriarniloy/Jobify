@@ -1,160 +1,204 @@
-import { useState, useContext } from "react";
-import { Helmet } from "react-helmet";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import auth from "../firebase/firebase.config";
+import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { AuthContext } from "./AuthContext";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { useForm } from "react-hook-form";
-import axiosSecure from "../../../Hooks/UseAxiosSecure";
-import accountBg from '../../../assets/logo/loginbg.png';
-import { IoBagHandleSharp } from "react-icons/io5";
+import "react-toastify/dist/ReactToastify.css";
 import { TiArrowRight } from "react-icons/ti";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "../../../Redux/userSlice";
+import axiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next";
 
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
-    const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { updateUserProfile, signInUser, setUser } = useContext(AuthContext);
+  const { t } = useTranslation();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const accountType = selectedIndex === 0 ? "Job Seeker" : "Employer";
 
-    const [registerError, setRegisterError] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
+  const { loading, error } = useSelector((state) => state.user);
 
-    const password = watch("password");
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email);
 
-    const onSubmit = async (data) => {
-        const { name, email, password, role } = data;
+    try {
+      const userCredential = await dispatch(
+        createUser({ email, password })
+      ).unwrap();
+      const { email: userEmail, uid, photoURL } = userCredential;
 
-        try {
-            const result = await createUserWithEmailAndPassword(auth, email, password);
-            await updateProfile(result.user, { displayName: name });
+      try {
+        const response = await axiosSecure.post("/users", {
+          name,
+          email: userEmail,
+          uid: uid,
+          photoURL: photoURL || "",
+          role: accountType,
+        });
 
-            const userInfo = { name, email, role: "Job Seeker" };
-            const userResponse = await axiosSecure.post('/users', userInfo);
+        const dbResult = response.data;
 
-            if (userResponse.status !== 200) {
-                throw new Error('Failed to register user');
-            }
-
-            navigate(location?.state ? location.state : '/');
-            toast.success("Registered successfully");
-        } catch (error) {
-            // console.error(error);
-            setRegisterError(error.message);
+        if (dbResult.insertedId) {
+          // console.log("User added to the database:", dbResult);
+        } else {
+          // console.log(dbResult.message || "User already exists");
         }
-    };
 
-    return (
-        <div className="bg-white flex justify-center w-[400px] max-w-2xl ">
-            <Helmet>
-                <title>Sign Up</title>
-            </Helmet>
+        toast.success(t("account_created_successfully"));
+        setSignUpModalOpen(false);
+        setLoginModalOpen(true);
+      } catch (dbError) {
+        // console.error("Failed to add user to the database:", dbError);
+        toast.error(t("failed_to_save_user_data"));
+      }
+    } catch (error) {
+      // console.error("Registration failed:", error);
+      toast.error(t("registration_failed"));
+    }
+  };
 
-            <div className="w-full p-7">
+  return (
+    <div className="bg-white flex justify-center w-[400px] max-w-2xl">
+      <div className="w-full p-7">
+        <h2 className="text-4xl font-semibold text-center">
+          {t("create_account")}
+        </h2>
 
-
-                <h2 className='text-4xl font-semibold'>Create Account</h2>
-
-                <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
-                    <div className='flex gap-5'>
-                        <input
-                            type="text"
-                            {...register("name", { required: "Name is required" })}
-                            placeholder="Full Name"
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                    <div className='space-y-5 mt-5'>
-                        <input
-                            type="email"
-                            {...register("email", { required: "Email is required" })}
-                            placeholder="Email Address"
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                        <div className="relative">
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                {...register("password", {
-                                    required: "Password is required",
-                                    minLength: { value: 6, message: "Password must be at least 6 characters long" },
-                                    validate: {
-                                        hasUpperCase: value => /[A-Z]/.test(value) || "Password must contain an uppercase letter",
-                                        hasLowerCase: value => /[a-z]/.test(value) || "Password must contain a lowercase letter"
-                                    }
-                                })}
-                                placeholder="Password"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                            />
-                            <button
-                                type="button"
-                                className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                                onClick={() => setShowPassword(!showPassword)}>
-                                {showPassword ? <FaEyeSlash /> : <FaEye />}
-                            </button>
-                        </div>
-                        {errors.password && <p className="text-red-500">{errors.password.message}</p>}
-                        <div className="relative">
-                            <input
-                                type={showConfirmedPassword ? "text" : "password"}
-                                {...register("confirmPassword", {
-                                    required: "Confirm Password is required",
-                                    validate: value => {
-                                        if (value !== password) {
-                                            return "Passwords do not match";
-                                        }
-                                        return true;
-                                    }
-                                })}
-                                placeholder="Confirm Password"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                            />
-                            <button
-                                type="button"
-                                className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                                onClick={() => setShowConfirmedPassword(!showConfirmedPassword)}>
-                                {showConfirmedPassword ? <FaEyeSlash /> : <FaEye />}
-                            </button>
-                        </div>
-                        {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
-                    </div>
-                    {registerError && <p className="text-red-500 text-center">{registerError}</p>}
-                    <div className="mt-6">
-                        <button type="submit" className='btn w-full bg-[#0A65CC] text-white'>
-                            Create Account <TiArrowRight className='text-2xl' />
-                        </button>
-                    </div>
-                </form>
-                <p className='text-center my-3'>or</p>
-                <div className="flex flex-col gap-3 justify-between">
-                    <button
-
-                        className="bg-white flex items-center text-gray-700 justify-center gap-x-3 text-sm rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-6 py-2.5"
-                    >
-                        <img
-                            src="https://i.ibb.co/tzD10YQ/6929234-google-logo-icon.png"
-                            alt="Google Logo"
-                            className="h-6 w-6"
-                        />
-                        Sign in with Google
-                    </button>
-                </div>
-
-                <p className="text-xs text-center mt-3">Already have an account? <span className='link-color'>
-                    <button
-                        onClick={() => { setLoginModalOpen(true); setSignUpModalOpen(false) }}
-
-                    >Login</button>
-                </span>
-                </p>
-
-
+        <form className="mt-8" onSubmit={handleRegister}>
+          <Tabs
+            selectedIndex={selectedIndex}
+            onSelect={(index) => setSelectedIndex(index)}
+          >
+            <div className="flex items-center justify-between">
+              <p className="text-[#0A65CC]">{t("your_account_type")} </p>
+              <TabList className="flex space-x-4 border-b">
+                <Tab
+                  className={`pb-2 cursor-pointer ${
+                    selectedIndex === 0 ? "border-b-4" : "text-gray-700"
+                  }`}
+                >
+                  {t("employee")}
+                </Tab>
+                <Tab
+                  className={`pb- cursor-pointer ${
+                    selectedIndex === 1 ? "border-b-4" : "text-gray-700"
+                  }`}
+                >
+                  {t("hr_manager")}
+                </Tab>
+              </TabList>
             </div>
 
-        </div>
-    );
+            <TabPanel>
+              <div className="flex gap-5 mt-4">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder={t("full_name")}
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  required
+                />
+              </div>
+              <div className="space-y-5 mt-5">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder={t("email_address")}
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  required
+                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder={t("password")}
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </div>
+            </TabPanel>
+
+            <TabPanel>
+              <div className="flex gap-5 mt-4">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder={t("full_name")}
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  required
+                />
+              </div>
+              <div className="space-y-5 mt-5">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder={t("email_address")}
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  required
+                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder={t("password")}
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </div>
+            </TabPanel>
+          </Tabs>
+
+          <div className="mt-6">
+            <button
+              type="submit"
+              className="btn w-full bg-[#0A65CC] text-white"
+              disabled={loading}
+            >
+              {loading ? t("creating_account") : t("create_account")}
+              <TiArrowRight className="text-2xl" />
+            </button>
+          </div>
+
+          {error && <p className="text-red-500 mt-2">{error}</p>}
+        </form>
+
+        <p className="text-xs text-center mt-3">
+          {t("already_have_account")}
+          <button
+            className="text-blue-500 font-semibold underline"
+            onClick={() => {
+              setLoginModalOpen(true);
+              setSignUpModalOpen(false);
+            }}
+          >
+            {t("login.login")}
+          </button>
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default Register;
