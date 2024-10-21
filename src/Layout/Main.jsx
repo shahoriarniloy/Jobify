@@ -22,24 +22,29 @@ const Main = () => {
 
   return (
     <div
-      className={`roboto-regular relative ${theme === "dark" ? "bg-[#1E1E1E] text-white" : "bg-white text-black"
+      className={`roboto-regular ${theme === "dark" ? "bg-[#1E1E1E] text-white" : "bg-white text-black"
         }`}
     >
       <Navbar2 />
       <Navbar />
 
-      
-        <div className="min-h-[calc(100vh-240px)]">
-          <Outlet />
-        </div>
 
-        <button
-          onClick={()=>setIsOpenMessage(!isOpenMessage)}
-          className="fixed bottom-8 right-8 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition"
-        >
-          <FaEnvelope size={24} />
-        </button>
-      
+      <div className="min-h-[calc(100vh-240px)] relative">
+        <Outlet />
+
+        {/* Massage components */}
+        <div className={isOpenMessage ? "fixed bottom-24 right-9 w-full max-w-xl h-full max-h-56 bg-blue-400 shadow-lg" : "hidden"}>
+          
+        </div>
+      </div>
+
+      <button
+        onClick={() => setIsOpenMessage(!isOpenMessage)}
+        className="fixed bottom-8 right-8 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition"
+      >
+        <FaEnvelope size={24} />
+      </button>
+
       <Footer />
 
       {/* <Modal
@@ -51,9 +56,7 @@ const Main = () => {
         <h1>akane massage asbe</h1>
       </Modal> */}
 
-      <div className={isOpenMessage?"sticky right-0 w-full max-w-4xl h-full max-h-56 bg-blue-400":"hidden"}>
 
-      </div>
     </div>
   );
 };
