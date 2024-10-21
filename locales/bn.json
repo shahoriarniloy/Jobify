@@ -204,7 +204,7 @@
 
   "candidate_name": "{{name}}",
   "designation": "{{designation}}",
-  "location": "{{location}}",
+  "location_candidate_card": "{{location}}",
   "experience_duration": "মেয়াদ:",
   "duration_not_available": "মেয়াদ উপলব্ধ নয়",
   "experience": "অভিজ্ঞতা",
@@ -486,7 +486,7 @@
   "description_label": "বিবরণ:",
   "add_experience_button": "অভিজ্ঞতা যোগ করুন",
   "projects_title": "প্রকল্পসমূহ",
-  "project_label": "প্রকল্প {index}",
+  "project_label": "প্রকল্প {{index}}",
   "project_title_label": "প্রকল্পের শিরোনাম:",
   "project_link_label": "প্রকল্পের লিংক:",
   "technologies_label": "ব্যবহৃত প্রযুক্তি:",
@@ -517,5 +517,61 @@
   "loading_role": "ভূমিকা লোড হচ্ছে...",
   "error_fetching_role": "ভূমিকা পুনরুদ্ধারে ত্রুটি",
   "edit_resume": "রিজুমে সম্পাদনা করুন",
-  "profile_setting": "প্রোফাইল সেটিং"
+  "profile_setting": "প্রোফাইল সেটিং",
+
+  "error_fetching_company_info": "কোম্পানির তথ্য আনতে সমস্যা হয়েছে",
+
+  "job_title_company_name_placeholder": "চাকরির শিরোনাম, কোম্পানির নাম...",
+
+  "location_placeholder": "অবস্থান",
+
+  "hide_advanced_filters": "এডভান্সড ফিল্টার লুকান",
+  "show_advanced_filters": "এডভান্সড ফিল্টার দেখান",
+
+  "find_job_button": "চাকরি খুঁজুন",
+
+  "experience_heading": "অভিজ্ঞতা",
+
+  "job_type_heading": "চাকরির প্রকার",
+
+  "salary_heading": "বেতন",
+  "salary_500_1000": "$500-$1000",
+  "salary_1000_2000": "$1000-$2000",
+  "salary_3000_4000": "$3000-$4000",
+  "salary_4000_6000": "$4000-$6000",
+  "salary_6000_8000": "$6000-$8000",
+  "salary_8000_10000": "$8000-$10000",
+  "salary_10000_15000": "$10000-$15000",
+  "salary_15000_plus": "$15000+",
+
+  "view_list": "তালিকা ভিউ",
+  "view_grid": "গ্রিড ভিউ",
+
+  "bookmark": "বুকমার্ক",
+
+  "job_title_advanced_search": "{{title}}",
+  "job_company_advanced_search": "{{name}}",
+  "salary_range_advanced_search": "{{range}}",
+
+  "company_advanced_search": "কোম্পানি: {{company}}",
+  "job_type_advanced_search": "কাজের প্রকার: {{jobType}}",
+  "salary_advanced_search": "বেতন: {{salaryRange}}",
+  "view_details": "বিস্তারিত দেখুন →",
+
+  "please_log_in_to_bookmark_jobs": "দয়া করে কাজগুলিতে বুকমার্ক করতে লগইন করুন।",
+  "job_bookmarked_successfully": "কাজ সফলভাবে বুকমার্ক করা হয়েছে!",
+  "job_already_bookmarked": "কাজ ইতিমধ্যেই বুকমার্ক করা হয়েছে।",
+  "failed_to_bookmark_job": "কাজ বুকমার্ক করতে ব্যর্থ হয়েছে।",
+
+  "already_applied": "আবেদন করা হয়েছে",
+  "job_expires_in": "কাজের মেয়াদ শেষ হচ্ছে",
+  "job_overview": "কর্মের সারাংশ",
+  "job_posted": "কর্ম পোস্ট করা হয়েছে",
+  "related_jobs": "সংশ্লিষ্ট কর্ম",
+  "location_Alphabet": "অবস্থান",
+  "location": "অবস্থান",
+
+  "failed_to_load_data": "কোম্পানি বা চাকরির তথ্য লোড করতে ব্যর্থ হয়েছে। পরে আবার চেষ্টা করুন।",
+  "company_type": "কোম্পানির ধরন",
+  "open_positions": "মুক্ত পদ"
 }
