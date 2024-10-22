@@ -115,10 +115,10 @@ export const router = createBrowserRouter([
         path: "/find-job-seekers",
         element: <FindJobSeeker />,
       },
-      {
-        path: "/messages",
-        element: <Messages></Messages>,
-      },
+      // {
+      //   path: "/messages",
+      //   element: <Messages></Messages>,
+      // },
       {
         path: "/inbox/:otherPartyEmail",
         element: <Inbox></Inbox>,

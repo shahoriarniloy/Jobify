@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser, logOut } from "../../../Redux/userSlice";
 import auth from "../Firebase/firebase.config";
 
+
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -23,6 +24,7 @@ const AuthProvider = ({ children }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -35,19 +37,7 @@ const AuthProvider = ({ children }) => {
 
   const signInUser = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        const serializableUser = {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        };
-        dispatch(setCurrentUser(serializableUser));
-        localStorage.setItem("currentUser", JSON.stringify(serializableUser));
-      })
-      .finally(() => setLoading(false));
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const signInWithGoogle = () => {
@@ -106,6 +96,7 @@ const AuthProvider = ({ children }) => {
     logOut: logOutUser,
     updateUserProfile,
     loading,
+    setLoading
   };
 
   return (

@@ -4,58 +4,46 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  signInWithGoogle,
-  signInWithEmail,
-  setCurrentUser,
-} from "../../../Redux/userSlice";
 import ButtonLoader from "../../../Shared/ButtonLoader";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
-import { useTranslation } from "react-i18next";
-import useCurrentUser from "./../../../Hooks/useCurrentUser";
+import { useTranslation } from "react-i18next"; // Import useTranslation
+import useCurrentUser from './../../../Hooks/useCurrentUser';
+import { use } from "i18next";
+
+
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
+  const { signInWithGoogle, signInUser } = useCurrentUser();
   const { t } = useTranslation(); // Initialize translation
-  const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const from = location.state?.from?.pathname || "/";
+
   const { signInWithGoogle } = useCurrentUser();
 
-  const [showPassword, setShowPassword] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
+  // my test
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { email, password } = e.target.elements;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-    try {
-      const result = await dispatch(
-        signInWithEmail({ email: email.value, password: password.value })
-      ).unwrap();
+    signInUser(email, password)
+      .then(res => {
+        console.log(res)
+      })
 
-      const user = result;
-      const userEmail = user.email;
 
-      const response = await axiosSecure.get(`/users/${userEmail}`);
-      const userData = response.data;
+    // toast.success(t("login.sign_in") + " " + t("login.login") + " " + t("login.success")); // Optional success message
+    // navigate(from, { replace: true });
+    // setLoginModalOpen(false)
 
-      dispatch(
-        setCurrentUser({
-          ...user,
-          role: userData.role,
-          photoURL: userData.photoURL || user.photoURL,
-        })
-      );
 
-      toast.success(t("sign_in") + " " + t("login") + " " + t("success")); // Optional success message
-      navigate(from, { replace: true });
-    } catch (error) {
-      // console.error("Error during login:", error);
-
-      toast.error(t("login.failed"));
-    }
   };
+
 
   const handleGoogleSignIn = async () => {
     signInWithGoogle().then((result) => {
