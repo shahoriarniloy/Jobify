@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FiLayers } from "react-icons/fi";
-import { FaBriefcase } from "react-icons/fa";
-import { FaEdit, FaUsers } from "react-icons/fa";
+import { FaBriefcase, FaEdit } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { logOut as logOutAction } from "../../../Redux/userSlice";
+import { useTranslation } from "react-i18next";
 
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation(); // Initialize the translation 
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -49,7 +49,7 @@ const AdminLayout = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FiLayers className="text-xl" /> Overview
+                  <FiLayers className="text-xl" /> {t("overview")}
                 </NavLink>
                 <NavLink
                   to="/admin/allCompanies"
@@ -59,7 +59,7 @@ const AdminLayout = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaEdit className="text-xl" /> Employer
+                  <FaEdit className="text-xl" /> {t("employer")}
                 </NavLink>
 
                 <NavLink
@@ -70,7 +70,7 @@ const AdminLayout = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaBriefcase className="text-xl" /> Candidates
+                  <FaBriefcase className="text-xl" /> {t("candidates")}
                 </NavLink>
                 <NavLink
                   to="/admin/alljobs"
@@ -80,19 +80,8 @@ const AdminLayout = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaBriefcase className="text-xl" /> Jobs
+                  <FaBriefcase className="text-xl" /> {t("jobs")}
                 </NavLink>
-
-                {/* <NavLink
-                  to="/dashboard/companySettings"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "isActiveRoute"
-                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
-                  }
-                >
-                  <IoSettingsOutline className="text-xl" /> Settings
-                </NavLink> */}
               </>
             </div>
 
@@ -105,7 +94,7 @@ const AdminLayout = () => {
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
-                <MdHome className="text-xl" /> Home
+                <MdHome className="text-xl" /> {t("home")}
               </NavLink>
               <NavLink
                 onClick={() => {
@@ -114,7 +103,7 @@ const AdminLayout = () => {
                 }}
                 className="flex items-center pl-5 py-2 text-[#767F8C] gap-2"
               >
-                <MdOutlineLogout className="text-xl" /> Log-out
+                <MdOutlineLogout className="text-xl" /> {t("log_out")}
               </NavLink>
             </div>
           </div>

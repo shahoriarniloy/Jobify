@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { ImPen } from "react-icons/im";
 import { FaCode, FaDatabase } from "react-icons/fa6";
 import { FcAdvertising } from "react-icons/fc";
@@ -46,9 +46,13 @@ const PopularCategory = ({ categoryCounts }) => {
                         )
                     }
                 </div>
+
             </div>
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default PopularCategory;

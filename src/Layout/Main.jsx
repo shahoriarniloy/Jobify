@@ -20,11 +20,15 @@ const Main = () => {
 
   return (
     <div
-      className={`roboto-regular ${theme === "dark" ? "bg-[#1E1E1E] text-white" : "bg-white text-black"
-        }`}
+      className={`roboto-regular ${
+        theme === "dark"
+          ? "bg-gradient-to-r from-gray-800 to-slate-900 text-white"
+          : "bg-white text-black"
+      }`}
     >
       <Navbar2 />
       <Navbar />
+
 
 
       <div className="min-h-[calc(100vh-240px)] relative">
@@ -38,6 +42,7 @@ const Main = () => {
 
       <button
         onClick={() => setIsOpenMessage(!isOpenMessage)}
+
         className="fixed bottom-8 right-8 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition"
       >
         <FaEnvelope size={24} />

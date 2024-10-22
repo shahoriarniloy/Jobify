@@ -9,7 +9,7 @@
   color: #0a65cc;
   font-weight: 600;
 }
-.bg-secondary{
+.bg-secondary {
   background-color: #f1f2f4;
 }
 
@@ -199,13 +199,11 @@ body.dark {
   --text-color: white;
 }
 
-
 .active-nav {
   border-bottom: 3px solid #007bff;
   /* color: #007bff; */
   font-weight: bold;
 }
-
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -367,7 +365,6 @@ body.dark {
 }
 
 @keyframes spin {
-
   0%,
   100% {
     box-shadow: 0.2em 0px 0 0px currentcolor;
@@ -402,14 +399,9 @@ body.dark {
   }
 }
 
-
-
-
-
 /* Room page styles */
 .sCsSbKP9yxvw4LQAeaTz {
   background-color: white !important;
-
 }
 
 .GBqD5akUB0siCNWbAPQr {
@@ -422,15 +414,14 @@ body.dark {
 
 .ji5jASszKFf2CGCmbxEh {
   background-color: #0a65cc !important;
-
 }
 
-.tQCB5Tj6hsWzMNzTg5og{
+.tQCB5Tj6hsWzMNzTg5og {
   background-color: rgb(255, 73, 73) !important;
 }
 
 /* React Tab Styles */
-.react-tabs__tab--selected{
+.react-tabs__tab--selected {
   border-color: #007bff !important;
   color: #007bff !important;
   font-weight: bold !important;

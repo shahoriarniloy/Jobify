@@ -13,8 +13,11 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
+import DashboardLoader from "../../../Shared/DashboardLoader";
+import { useTranslation } from "react-i18next";
 
 const BookmarkedJobs = () => {
+  const { t } = useTranslation();
   const currentUser = useSelector((state) => state.user.currentUser);
   const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,7 +63,7 @@ const BookmarkedJobs = () => {
       setBookmarkedJobs((prevJobs) =>
         prevJobs.filter((job) => job._id !== jobId)
       );
-      toast.success("Bookmark Deleted");
+      toast.success(t("bookmark_deleted"));
     } catch (error) {
       // console.error("Error deleting bookmark:", error);
     }
@@ -83,17 +86,10 @@ const BookmarkedJobs = () => {
     setIsModalOpen(false);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <DashboardLoader />;
 
   return (
     <div className="">
-      {/* <div className="flex  items-center gap-2 lg:px-24">
-        <FaRegHeart />
-
-        <h1 className="text-3xl text-gray-700 font-bold mb-4 ">
-          Favorite Jobs
-        </h1>
-      </div> */}
       <div className="flex flex-col gap-2 pt-2">
         {bookmarkedJobs.map((job) => {
           const isDeadlineExpired = new Date(job.deadline) < new Date();
@@ -109,17 +105,17 @@ const BookmarkedJobs = () => {
                     <div className="flex items-center">
                       <FaBriefcase className="mr-1" />
                       <p className="text-base-400">
-                        Experience: {job.experience}
+                        {t("experience")}: {job.experience}
                       </p>
                     </div>
                     <div className="flex items-center">
                       <FaDollarSign className="mr-1" />
-                      <p className="text-base-400">Salary: {job.salaryRange}</p>
+                      <p className="text-base-400">{t("salary")}: {job.salaryRange}</p>
                     </div>
                     <div className="flex items-center">
                       <FaClock className="mr-1" />
                       <p className="text-base-400">
-                        Deadline: {new Date(job.deadline).toLocaleDateString()}
+                        {t("deadline")}: {new Date(job.deadline).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
@@ -128,7 +124,7 @@ const BookmarkedJobs = () => {
                 <div className="card-actions justify-end mt-6 flex items-center">
                   {!job.hasApplied ? (
                     <button
-                      title="Tap to Apply"
+                      title={t("tap_to_apply")}
                       onClick={openModal}
                       className={`btn ${
                         isDeadlineExpired ? "btn-disabled" : "btn-primary"
@@ -136,7 +132,7 @@ const BookmarkedJobs = () => {
                       disabled={isDeadlineExpired}
                     >
                       {isDeadlineExpired ? (
-                        "Deadline Expired"
+                        t("deadline_expired")
                       ) : (
                         <>
                           <ApplyJobModal
@@ -146,28 +142,28 @@ const BookmarkedJobs = () => {
                             user={currentUser}
                             onApplicationSuccess={handleApplicationSuccess}
                           />
-                          <span className="ml-2">Apply Now →</span>
+                          <span className="ml-2">{t("apply_now")} →</span>
                         </>
                       )}
                     </button>
                   ) : (
                     <div className="flex items-center">
                       <FaCheckCircle className="text-green-500 mr-2" />
-                      <p className="text-green-400">Applied</p>
+                      <p className="text-green-400">{t("applied")}</p>
                     </div>
                   )}
 
                   <FaTrash
                     className="ml-4 text-red-500 cursor-pointer hover:text-red-700"
                     onClick={() => handleDeleteBookmark(job._id)}
-                    title="Remove Bookmark"
+                    title={t("remove_bookmark")}
                   />
                 </div>
               </div>
             </div>
           );
         })}
-        {bookmarkedJobs.length === 0 && <p>No bookmarked jobs found.</p>}
+        {bookmarkedJobs.length === 0 && <p>{t("no_bookmarked_jobs")}</p>}
       </div>
     </div>
   );

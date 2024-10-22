@@ -4,12 +4,13 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration from environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyCg23oV6o7myvSLKmfxAobGghrOSd72itI",
-  authDomain: "jobi-fy.firebaseapp.com",
-  projectId: "jobi-fy",
-  storageBucket: "jobi-fy.appspot.com",
-  messagingSenderId: "663299811683",
-  appId: "1:663299811683:web:0ba9e925bef54d48348b56"
+
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID,
 };
 
 // Initialize Firebase

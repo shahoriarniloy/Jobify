@@ -19,8 +19,8 @@ import { PiBag } from "react-icons/pi";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 
-const Resume = () => {
-  const { t } = useTranslation();
+const CandidateResume = () => {
+  const { t } = useTranslation(); // Destructuring useTranslation
   const { email } = useParams();
   const [resumeData, setResumeData] = useState(null);
   const loading = useSelector((state) => state.user.loading);
@@ -33,17 +33,17 @@ const Resume = () => {
   useEffect(() => {
     const fetchResume = async () => {
       try {
-        const response = await axiosSecure.get(`/resume/${currentUser?.email}`);
+        const response = await axiosSecure.get(`/resume/${email}`);
         setResumeData(response?.data);
       } catch (err) {
-        setError(t("error_fetching_resume_data"));
+        setError(t("error_fetching_resume")); // Translated error message
       }
     };
 
     if (currentUser) {
       fetchResume();
     }
-  }, [currentUser, t]);
+  }, [currentUser, email, t]);
 
   if (loading) {
     return (
@@ -54,11 +54,11 @@ const Resume = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>{t("error")}: {error}</div>; // Translated error display
   }
 
   if (!resumeData) {
-    return <div>{t("no_resume_data_found")}</div>;
+    return <div>{t("no_resume_data")}</div>; // Translated no data message
   }
 
   return (
@@ -70,7 +70,7 @@ const Resume = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
           >
             <FaDownload className="inline mr-2" />
-            {t("download_resume")}
+            {t("download_resume")} {/* Translated button text */}
           </button>
         </div>
       )}
@@ -156,4 +156,4 @@ const Resume = () => {
   );
 };
 
-export default Resume;
+export default CandidateResume;

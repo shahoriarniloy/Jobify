@@ -10,8 +10,10 @@ import {
 import { BiTask } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import DashboardLoader from "../../../Shared/DashboardLoader";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const CompanyOverview = () => {
+  const { t } = useTranslation(); // Destructure t from useTranslation
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const [company, setCompany] = useState({});
@@ -79,17 +81,17 @@ const CompanyOverview = () => {
   }, [currentUser]);
 
   if (loading) {
-    return <DashboardLoader/>;
+    return <DashboardLoader />;
   }
 
   return (
     <>
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">
-          Hello, {company?.company_name || "Company"}
+          {t("hello")} {company?.company_name || t("company")}
         </h2>
         <p className="text-sm">
-          Here is your company overview and recent activities
+          {t("company_overview_message")}
         </p>
       </div>
 
@@ -98,7 +100,7 @@ const CompanyOverview = () => {
           <AiOutlineUser size={32} className="text-blue-700" />
           <div>
             <h4 className="text-lg font-bold text-blue-700">
-              Total Applicants
+              {t("total_applicants")}
             </h4>
             <p className="text-2xl text-blue-700">{jobStats.totalApplicants}</p>
           </div>
@@ -107,7 +109,7 @@ const CompanyOverview = () => {
           <AiOutlineCheckCircle size={32} className="text-red-700" />
           <div>
             <h4 className="text-lg font-bold text-red-700">
-              Interviews Scheduled
+              {t("interviews_scheduled")}
             </h4>
             <p className="text-2xl text-red-700">
               {jobStats.interviewsScheduled}
@@ -118,7 +120,7 @@ const CompanyOverview = () => {
           <AiOutlineFileDone size={32} className="text-green-700" />
           <div>
             <h4 className="text-lg font-bold text-green-700">
-              Offers Extended
+              {t("offers_extended")}
             </h4>
             <p className="text-2xl text-green-700">{jobStats.offersExtended}</p>
           </div>
@@ -126,7 +128,7 @@ const CompanyOverview = () => {
         <div className="p-4 bg-[#c3b1df] rounded-lg flex items-center gap-4">
           <BiTask size={32} className="text-purple-700" />
           <div>
-            <h4 className="text-lg font-bold text-purple-700">Jobs Filled</h4>
+            <h4 className="text-lg font-bold text-purple-700">{t("jobs_filled")}</h4>
             <p className="text-2xl text-purple-700">{jobStats.jobsFilled}</p>
           </div>
         </div>
@@ -137,21 +139,21 @@ const CompanyOverview = () => {
           <img
             className="w-16 h-16 rounded-full"
             src={company?.company_logo || "default-logo.png"}
-            alt="Company Logo"
+            alt={t("company_logo_alt")}
           />
           <div className="text-white">
             <h2 className="text-xl font-semibold">
-              {company?.company_name || "Your company profile is incomplete."}
+              {company?.company_name || t("incomplete_profile")}
             </h2>
             <p>
               {company?.company_description ||
-                "Complete your profile to attract more applicants."}
+                t("complete_profile_message")}
             </p>
           </div>
         </div>
-        <Link to="/dashboard/CompanySettings">
+        <Link to="/dashboard/company-settings">
           <ButtonWithIcon
-            btnName={"Edit Profile"}
+            btnName={t("edit_profile")}
             customStyle={"text-[#E05151] bg-white"}
           />
         </Link>

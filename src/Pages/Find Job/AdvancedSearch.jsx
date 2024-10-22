@@ -11,8 +11,13 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa";
 import ButtonLoader from "../../Shared/ButtonLoader";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const AdvancedSearch = () => {
+  const theme = useSelector((state) => state.theme.theme);
+
+  const { t } = useTranslation();
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
@@ -143,7 +148,7 @@ const AdvancedSearch = () => {
       const response = await axiosSecure.get(`/companies/${email}`);
       return response.data.company_logo;
     } catch (error) {
-      console.error("Error fetching company info:", error);
+      console.error(t("error_fetching_company_info"), error);
       return null;
     }
   };
@@ -161,7 +166,7 @@ const AdvancedSearch = () => {
   }, [jobs]);
 
   return (
-    <div className="bg-secondary">
+    <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto">
         <div className="w-full  rounded-lg  p-6 flex-1">
           <form
@@ -172,10 +177,14 @@ const AdvancedSearch = () => {
               <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
               <input
                 type="text"
-                placeholder="Job title, Company Name..."
+                placeholder={t("job_title_company_name_placeholder")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                className={
+                  theme === "dark"
+                    ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-white text-slate-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                    : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                }
               />
             </div>
 
@@ -185,21 +194,31 @@ const AdvancedSearch = () => {
               <HiOutlineLocationMarker className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
               <input
                 type="text"
-                placeholder="Location"
+                placeholder={t("location_placeholder")}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                className={
+                  theme === "dark"
+                    ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-white text-slate-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                    : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                }
               />
             </div>
-            <div className=" bg-white text-gray-400 rounded-md">
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-gray-400 rounded-md"
+                  : "bg-white text-gray-400 rounded-md"
+              }
+            >
               <button
                 type="button"
                 onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
                 className="pl-8 py-3"
               >
                 {showAdvancedFilters
-                  ? "Hide Advanced Filters"
-                  : "Show Advanced Filters"}
+                  ? t("hide_advanced_filters")
+                  : t("show_advanced_filters")}
               </button>
               <button
                 type="button"
@@ -229,7 +248,7 @@ const AdvancedSearch = () => {
                 type="submit"
                 className="w-full sm:w-auto px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white font-semibold text-base transition duration-300 ease-in-out hover:from-blue-700 hover:to-blue-900"
               >
-                Find Job
+                {t("find_job_button")}
               </button>
             </div>
           </form>
@@ -237,17 +256,24 @@ const AdvancedSearch = () => {
         </div>
         {showAdvancedFilters && (
           <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-1 px-24 py-8 rounded-lg mt-4 bg-white shadow-xl">
-            <div className="mb-4">
-              <h3 className="font-medium">Experience</h3>
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
+              <h3 className="font-medium">{t("experience_heading")}</h3>
+
               {[
-                "Freshers",
-                "1-2 Years",
-                "2-4 Years",
-                "4-6 Years",
-                "6-8 Years",
-                "8-10 Years",
-                "10-15 Years",
-                "15+ Years",
+                t("freshers"),
+                t("one_to_two_years"),
+                t("two_to_four_years"),
+                t("four_to_six_years"),
+                t("six_to_eight_years"),
+                t("eight_to_ten_years"),
+                t("ten_to_fifteen_years"),
+                t("fifteen_plus_years"),
               ].map((exp) => (
                 <label key={exp} className="flex items-center mb-2">
                   <input
@@ -262,16 +288,22 @@ const AdvancedSearch = () => {
               ))}
             </div>
 
-            <div className="mb-4">
-              <h3 className="font-medium">Job Type</h3>
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
+              <h3 className="font-medium">{t("job_type_heading")}</h3>
               {[
-                "All",
-                "Full Time",
-                "Part Time",
-                "Internship",
-                "Remote",
-                "Temporary",
-                "Contract Based",
+                t("all"),
+                t("full_time"),
+                t("part_time"),
+                t("internship"),
+                t("remote"),
+                t("temporary"),
+                t("contract_based"),
               ].map((type) => (
                 <label key={type} className="flex items-center mb-2">
                   <input
@@ -286,14 +318,20 @@ const AdvancedSearch = () => {
               ))}
             </div>
 
-            <div className="mb-4">
-              <h3 className="font-medium">Education</h3>
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
+              <h3 className="font-medium">{t("education")}</h3>
               {[
-                "High School",
-                "Intermediate",
-                "Graduation",
-                "Bachelor Degree",
-                "Master Degree",
+                t("high_school"),
+                t("intermediate"),
+                t("graduation"),
+                t("bachelor_degree"),
+                t("master_degree"),
               ].map((edu) => (
                 <label key={edu} className="flex items-center mb-2">
                   <input
@@ -308,33 +346,47 @@ const AdvancedSearch = () => {
               ))}
             </div>
 
-            <div className="mb-4">
-              <h3 className="font-medium">Job Level</h3>
-              {["Entry Level", "Mid Level", "Expert Level"].map((level) => (
-                <label key={level} className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    value={level}
-                    checked={filters.jobLevel.includes(level)}
-                    onChange={() => handleCheckboxChange("jobLevel", level)}
-                    className="w-5 h-5 relative bg-white rounded-[3px] border border-[#9dc1eb] focus:outline-none cursor-pointer"
-                  />
-                  <span className="ml-2">{level}</span>
-                </label>
-              ))}
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
+              <h3 className="font-medium">{t("job_level")}</h3>
+              {[t("entry_level"), t("mid_level"), t("expert_level")].map(
+                (level) => (
+                  <label key={level} className="flex items-center mb-2">
+                    <input
+                      type="checkbox"
+                      value={level}
+                      checked={filters.jobLevel.includes(level)}
+                      onChange={() => handleCheckboxChange("jobLevel", level)}
+                      className="w-5 h-5 relative bg-white rounded-[3px] border border-[#9dc1eb] focus:outline-none cursor-pointer"
+                    />
+                    <span className="ml-2">{level}</span>
+                  </label>
+                )
+              )}
             </div>
 
-            <div className="mb-4">
-              <h3 className="font-medium">Salary</h3>
+            <div
+              className={
+                theme === "dark"
+                  ? "bg-white text-slate-900 mb-4"
+                  : "bg-white mb-4"
+              }
+            >
+              <h3 className="font-medium">{t("salary_heading")}</h3>
               {[
-                "$500-$1000",
-                "$1000-$2000",
-                "$3000-$4000",
-                "$4000-$6000",
-                "$6000-$8000",
-                "$8000-$10000",
-                "$10000-$15000",
-                "$15000+",
+                t("salary_500_1000"),
+                t("salary_1000_2000"),
+                t("salary_3000_4000"),
+                t("salary_4000_6000"),
+                t("salary_6000_8000"),
+                t("salary_8000_10000"),
+                t("salary_10000_15000"),
+                t("salary_15000_plus"),
               ].map((salary) => (
                 <label key={salary} className="flex items-center mb-2">
                   <input
@@ -355,15 +407,19 @@ const AdvancedSearch = () => {
           <div className="flex items-center justify-center lg:gap-4 md:gap-4 gap-2 mt-4">
             <label
               htmlFor="itemsPerPage"
-              className="text-sm font-medium text-blue-900 "
+              className="text-sm font-medium text-blue-900"
             >
-              Number of Jobs Per Page:
+              {t("number_of_jobs_per_page")}
             </label>
             <select
               id="itemsPerPage"
               value={itemsPerPage}
               onChange={handleItemsPerPage}
-              className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+              className={
+                theme === "dark"
+                  ? "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-gray-400 text-slate-800 border border-slate-800 focus:border-slate-900 focus:ring focus:ring-blue-200"
+                  : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+              }
             >
               <option value="10">10</option>
               <option value="20">20</option>
@@ -377,15 +433,18 @@ const AdvancedSearch = () => {
               className="flex items-center"
             >
               <FaList className="mr-2" />
+              {t("view_list")}
             </button>
             <button
               onClick={() => setViewMode("grid")}
               className="flex items-center"
             >
               <FaTh className="mr-2" />
+              {t("view_grid")}
             </button>
           </div>
         </div>
+
         {viewMode === "list" ? (
           <div className=" p-2 sm:p-4 dark:text-gray-800 mt-4">
             <div className="overflow-x-auto">
@@ -393,11 +452,15 @@ const AdvancedSearch = () => {
                 <table className="min-w-full text-xs sm:text-sm">
                   <thead className="dark:bg-gray-300">
                     <tr className="text-left">
-                      <th className="p-3">Job Title</th>
-                      <th className="p-3 hidden md:table-cell">Company</th>
-                      <th className="p-3 hidden md:table-cell">Salary</th>
-                      <th className="p-3">Details</th>
-                      <th className="p-3  lg:table-cell">Bookmark</th>
+                      <th className="p-3">{t("job_title")}</th>
+                      <th className="p-3 hidden md:table-cell">
+                        {t("company")}
+                      </th>
+                      <th className="p-3 hidden md:table-cell">
+                        {t("salary")}
+                      </th>
+                      <th className="p-3">{t("details")}</th>
+                      <th className="p-3 lg:table-cell">{t("bookmark")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -472,18 +535,24 @@ const AdvancedSearch = () => {
                       <Bookmark jobId={job._id} />
                     </div>
 
-                    <p className="font-semibold ">Company: {job.company}</p>
-                    <p className=" text-sm tracking-wide">
-                      Job Type:{job.jobType}
+                    <p className="font-semibold">
+                      {t("company_advanced_search", { company: job.company })}
                     </p>
-                    <p className="text-sm">Salary: {job.salaryRange}</p>
+                    <p className="text-sm tracking-wide">
+                      {t("job_type_advanced_search", { jobType: job.jobType })}
+                    </p>
+                    <p className="text-sm">
+                      {t("salary_advanced_search", {
+                        salaryRange: job.salaryRange,
+                      })}
+                    </p>
                   </div>
                   <div className="pt-5 text-base font-semibold leading-7">
                     <Link
                       to={`/job/${job._id}`}
                       className="text-slate-500 transition-all duration-300 group-hover:text-white flex items-center"
                     >
-                      View Details &rarr;
+                      {t("view_details")}
                     </Link>
                   </div>
                 </div>
@@ -499,12 +568,13 @@ const AdvancedSearch = () => {
           >
             <FaArrowLeft />
           </button>
-          <div className="flex gap-2">
+          <div className="flex gap-2 text-slate-800">
             {pages.map((page) => (
               <button
                 key={page}
-                className={`px-4 py-2 rounded-lg ${page === currentPage ? "bg-blue-200" : "bg-white"
-                  } border border-blue-300`}
+                className={`px-4 py-2 rounded-lg ${
+                  page === currentPage ? "bg-blue-200" : "bg-gray-300"
+                } border border-blue-300`}
                 onClick={() => setCurrentPage(page)}
               >
                 {page + 1}

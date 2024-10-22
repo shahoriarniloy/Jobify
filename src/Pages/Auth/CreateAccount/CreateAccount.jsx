@@ -14,12 +14,16 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const { t } = useTranslation();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
+
   const accountType = selectedIndex === 0 ? t("job_seeker") : t("employer");
   const { createUser, loading, setLoading } = useCurrentUser();
+
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
+
     // for employee
     if (accountType == "Job Seeker") {
       const name = form.name.value;
@@ -68,6 +72,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
 
         })
+
     }
     setLoading(false);
 
@@ -77,7 +82,9 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   return (
     <div className="bg-white flex justify-center w-[400px] max-w-2xl">
       <div className="w-full p-7">
-        <h2 className="text-4xl font-semibold text-center">{t("create_account")}</h2>
+        <h2 className="text-4xl font-semibold text-center">
+          {t("create_account")}
+        </h2>
 
         <form className="mt-8" onSubmit={handleRegister}>
           <Tabs
@@ -92,6 +99,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                     ? "border-b-4"
                     : "text-gray-700"
                     }`}
+
                 >
                   {t("employee")}
                 </Tab>
@@ -100,6 +108,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                     ? "border-b-4"
                     : "text-gray-700"
                     }`}
+
                 >
                   {t("hr_manager")}
                 </Tab>
@@ -202,7 +211,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               setSignUpModalOpen(false);
             }}
           >
-            {t("login.login")}
+            {t("login")}
           </button>
         </p>
       </div>

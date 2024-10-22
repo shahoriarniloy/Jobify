@@ -7,8 +7,10 @@ import Loader from "../../../Shared/Loader";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useQuery } from "@tanstack/react-query";
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const JobTable = () => {
+  const { t } = useTranslation(); // Destructure t from useTranslation
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const {
@@ -35,10 +37,10 @@ const JobTable = () => {
       <table className="table-auto w-full text-left border-collapse">
         <thead>
           <tr>
-            <th className="px-4 py-2">Jobs</th>
-            <th className="px-4 py-2">Status</th>
-            <th className="px-4 py-2">Applications</th>
-            <th className="px-4 py-2">Actions</th>
+            <th className="px-4 py-2">{t("jobs")}</th>
+            <th className="px-4 py-2">{t("status")}</th>
+            <th className="px-4 py-2">{t("applications")}</th>
+            <th className="px-4 py-2">{t("actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +48,7 @@ const JobTable = () => {
             <tr key={job._id} className="border-b">
               <td className="px-4 py-2">{job.title}</td>
               <td className="px-4 py-2 text-green-500">
-                <button>Open</button>
+                <button>{t("open")}</button>
               </td>
               <td className="px-4 py-2">{job?.applicationsCount || 0}</td>
 
@@ -57,7 +59,7 @@ const JobTable = () => {
                   className="btn bg-blue-100 px-3 py-1 text-blue-700 rounded flex items-center"
                 >
                   <ClipboardDocumentListIcon className="h-5 w-5 mr-2" />
-                  View Applications
+                  {t("view_applications")}
                 </Link>
               </td>
             </tr>

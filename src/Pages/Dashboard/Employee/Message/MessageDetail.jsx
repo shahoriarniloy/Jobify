@@ -3,8 +3,10 @@ import { useParams, useLocation } from "react-router-dom";
 import axiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useSelector } from "react-redux";
 import { FaPaperPlane } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const MessageDetail = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const { otherPartyEmail } = useParams();
   const { state } = useLocation();
   const { otherPartyName, otherPartyPhoto } = state || {};
@@ -12,6 +14,7 @@ const MessageDetail = () => {
   const [newMessage, setNewMessage] = useState("");
   const currentUser = useSelector((state) => state.user.currentUser);
   const loading = useSelector((state) => state.user.loading);
+  const theme = useSelector((state) => state.theme.theme);
 
   const fetchMessages = async () => {
     if (!currentUser) return;
@@ -53,7 +56,7 @@ const MessageDetail = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>{t("loading")}</div>; // Loading text translated
   }
 
   return (
@@ -64,12 +67,20 @@ const MessageDetail = () => {
           alt={otherPartyName}
           className="w-12 h-12 rounded-full object-cover mr-4"
         />
-        <h1 className="text-2xl font-bold roboto-regular">{otherPartyName}</h1>
+        <h1
+          className={
+            theme === "dark "
+              ? "text-2xl font-bold roboto-regular text-black"
+              : "text-2xl font-bold roboto-regular"
+          }
+        >
+          {otherPartyName}
+        </h1>
       </div>
 
       {messages.length === 0 ? (
         <div className="text-gray-500 text-center flex justify-center items-center">
-          No messages found.
+          {t("no_messages_found")} {/* Translated text for no messages */}
         </div>
       ) : (
         <div
@@ -138,7 +149,7 @@ const MessageDetail = () => {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           className="flex-1 p-2 border rounded-l-lg"
-          placeholder="Type your message..."
+          placeholder={t("type_your_message")} // Translated placeholder
         />
         <button
           onClick={handleSendMessage}

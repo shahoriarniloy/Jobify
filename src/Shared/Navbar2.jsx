@@ -99,22 +99,19 @@ const Navbar2 = () => {
   useEffect(() => {
     const handleClickOutsideModal = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        handleModalToggle(); // Close the modal if clicking outside
+        handleModalToggle();
       }
     };
 
-    // Add event listener if the modal is open
     if (isModalOpen) {
       document.addEventListener("mousedown", handleClickOutsideModal);
     }
 
-    // Cleanup the event listener when the modal is closed or component unmounts
     return () => {
       document.removeEventListener("mousedown", handleClickOutsideModal);
     };
   }, [isModalOpen]);
 
-  // Language Switcher functions
   const handleLanguageChange = (e) => {
     const selectedLanguage = e.target.value;
     dispatch(switchLanguage(selectedLanguage));
@@ -131,21 +128,24 @@ const Navbar2 = () => {
           <div className="navbar-start ">
             <div className="flex items-center gap-2 text-[#0a65cc]">
               <PiBag className="w-6 h-6" />
-              <Link to="/" className="text-xl border-none outline-none font-bold">
+              <Link
+                to="/"
+                className="text-xl border-none outline-none font-bold"
+              >
                 {t("Jobify")}
               </Link>
             </div>
           </div>
           <div className="navbar-end gap-3">
-            {/* Language Switcher */}
             <div className="text-sm text-black">
               <select
                 onChange={handleLanguageChange}
                 value={currentLanguage}
-                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${theme === "dark"
+                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
+                  theme === "dark"
                     ? "bg-transparent text-white"
                     : "bg-transparent text-black"
-                  }`}
+                }`}
               >
                 <option value="en">{t("english")}</option>
                 <option value="bn">{t("bangla")}</option>
@@ -161,7 +161,6 @@ const Navbar2 = () => {
                 )}
               </button>
 
-              {/* Notifications Bell Icon */}
               <div className="relative rounded-full p-2 hover:bg-[#e7f0fa]">
                 <FaBell
                   className="cursor-pointer text-[#0a65cc]"
@@ -173,15 +172,17 @@ const Navbar2 = () => {
                   </span>
                 )}
 
-                {/* Notifications Modal */}
                 {isModalOpen && (
                   <div
                     ref={modalRef}
-                    className="absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                    className={
+                      theme === "dark"
+                        ? "bg-gray-900 text-slate-400 absolute top-10 right-0  p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                        : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                    }
                   >
                     <h2 className="text-lg font-bold mb-4">Notifications</h2>
 
-                    {/* Mark all as read button */}
                     {jobNotifications.length > 0 && (
                       <div className="flex justify-between items-center mb-4">
                         <p className="text-sm">
@@ -259,6 +260,16 @@ const Navbar2 = () => {
                                   {t("dashboard")}
                                 </Link>
                               </li>
+                              <Link
+                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                onClick={() => {
+                                  setIsMenuOpen(false);
+                                  setRoomModal(true);
+                                }}
+                              >
+                                <MdOutlineVideoCall className="text-xl" />
+                                {t("join_call")}
+                              </Link>
                             </>
                           )}
                           {role === "Employer" && (
@@ -271,7 +282,6 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
-
                             </li>
                           )}
 
@@ -285,6 +295,18 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
+                              <li>
+                                <Link
+                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                  onClick={() => {
+                                    setIsMenuOpen(false);
+                                    setRoomModal(true);
+                                  }}
+                                >
+                                  <MdOutlineVideoCall className="text-xl" />
+                                  {t("join_call")}
+                                </Link>
+                              </li>
                             </li>
                           )}
                           <li>
@@ -299,6 +321,7 @@ const Navbar2 = () => {
                               {t("join_call")}
                             </button>
                           </li>
+
                           <li>
                             <button
                               onClick={handleLogOut}
@@ -308,7 +331,6 @@ const Navbar2 = () => {
                               {t("logout")}
                             </button>
                           </li>
-                          
                         </ul>
                       </div>
                     )}
@@ -333,7 +355,10 @@ const Navbar2 = () => {
         onClose={() => setLoginModalOpen(false)}
         center
       >
-        <Login setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen} />
+        <Login
+          setLoginModalOpen={setLoginModalOpen}
+          setSignUpModalOpen={setSignUpModalOpen}
+        />
       </Modal>
 
       {/* Sign Up Modal */}
@@ -342,7 +367,10 @@ const Navbar2 = () => {
         onClose={() => setSignUpModalOpen(false)}
         center
       >
-        <Register setLoginModalOpen={setLoginModalOpen} setSignUpModalOpen={setSignUpModalOpen} />
+        <Register
+          setLoginModalOpen={setLoginModalOpen}
+          setSignUpModalOpen={setSignUpModalOpen}
+        />
       </Modal>
 
       {/* Room Modal */}
