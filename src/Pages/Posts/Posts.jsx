@@ -7,7 +7,7 @@ import PostStatus from "./PostStatus";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { FaUserPlus } from "react-icons/fa";
-import axiosSecure from "../../Hooks/useAxiosSecure";
+import axiosSecure from "../../Hooks/UseAxiosSecure";
 
 const PostCard = () => {
   const currentUser = useSelector((state) => state.user.currentUser);

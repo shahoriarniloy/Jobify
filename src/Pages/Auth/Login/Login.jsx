@@ -7,10 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ButtonLoader from "../../../Shared/ButtonLoader";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next"; // Import useTranslation
-import useCurrentUser from './../../../Hooks/useCurrentUser';
+import useCurrentUser from "./../../../Hooks/useCurrentUser";
 import { use } from "i18next";
-
-
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const { signInWithGoogle, signInUser } = useCurrentUser();
@@ -21,9 +19,6 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const dispatch = useDispatch();
   const from = location.state?.from?.pathname || "/";
 
-  const { signInWithGoogle } = useCurrentUser();
-
-
   const [showPassword, setShowPassword] = useState(false);
   // my test
   const handleLogin = async (e) => {
@@ -31,19 +26,14 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    signInUser(email, password)
-      .then(res => {
-        console.log(res)
-      })
-
+    signInUser(email, password).then((res) => {
+      console.log(res);
+    });
 
     // toast.success(t("login.sign_in") + " " + t("login.login") + " " + t("login.success")); // Optional success message
     // navigate(from, { replace: true });
     // setLoginModalOpen(false)
-
-
   };
-
 
   const handleGoogleSignIn = async () => {
     signInWithGoogle().then((result) => {
