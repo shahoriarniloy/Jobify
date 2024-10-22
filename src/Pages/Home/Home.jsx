@@ -18,10 +18,11 @@ const Home = () => {
     }
   })
   if(isLoading) return;
+  console.log(data)
   return (
     <div>
       <SearchBar jobCount={data.jobCount} companyCount={data.companyCount}></SearchBar>
-      <PopularCategory  />
+      <PopularCategory categoryCounts={data.categoryCounts} />
       <HowItWorks></HowItWorks>
       <TopCompanies />
       <Testimonial/>
