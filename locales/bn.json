@@ -575,5 +575,11 @@
   "company_type": "কোম্পানির ধরন",
   "open_positions": "মুক্ত পদ",
 
-  "favorite_company": "প্রিয় কোম্পানি"
+  "favorite_company": "প্রিয় কোম্পানি",
+
+
+  "error_dynamic": "ত্রুটি: {{error}}",
+  "fetching_jobs_for_user_email": "ইমেইল এর জন্য চাকরি খোঁজা হচ্ছে:",
+  "error_fetching_jobs": "চাকরি আনতে ত্রুটি",
+  "logo": "লোগো"
 }

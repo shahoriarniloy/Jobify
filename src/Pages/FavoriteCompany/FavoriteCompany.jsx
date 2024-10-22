@@ -12,36 +12,33 @@ const FavoriteCompany = () => {
   const userEmail = currentUser?.email;
 
   const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true); // New loading state
-  const [error, setError] = useState(null); // Error state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [companyLogos, setCompanyLogos] = useState({});
 
   useEffect(() => {
     const fetchJobs = async () => {
       if (!userEmail) {
-        setLoading(false); // Stop loading if email is undefined
+        setLoading(false);
         return;
       }
 
-      console.log("Fetching jobs for userEmail:", userEmail);
+      console.log(t("fetching_jobs_for_user_email"), userEmail);
 
       try {
-        const response = await axiosSecure.get(
-          `/users/${userEmail}/latest-jobs`
-        );
+        const response = await axiosSecure.get(`/users/${userEmail}/latest-jobs`);
         setJobs(response.data.jobs);
       } catch (error) {
-        console.error("Error fetching jobs", error);
-        setError(error.message); // Set error message if fetch fails
+        console.error(t("error_fetching_jobs"), error);
+        setError(error.message);
       } finally {
-        setLoading(false); // Stop loading regardless of success or failure
+        setLoading(false);
       }
     };
 
     fetchJobs();
   }, [userEmail]);
 
-  // Function to fetch company info based on hrEmail
   const fetchCompanyInfo = async (email) => {
     try {
       const response = await axiosSecure.get(`/companies/${email}`);
@@ -64,8 +61,8 @@ const FavoriteCompany = () => {
     fetchLogos();
   }, [jobs]);
 
-  if (loading) return <p>Loading...</p>; // Show loading message
-  if (error) return <p>Error: {error}</p>; // Show error message if any
+  if (loading) return <p>{t("loading")}</p>;
+  if (error) return <p>{t("error_dynamic", { error })}</p>;
 
   return (
     <div className="container mx-auto">
@@ -79,17 +76,15 @@ const FavoriteCompany = () => {
             <div className="relative z-10 mx-auto max-w-md">
               <span>
                 <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-300 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                  <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-300 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                    {companyLogos[job._id] ? (
-                      <img
-                        src={companyLogos[job._id]}
-                        alt={`${job.title} logo`}
-                        className="h-full w-full rounded-full transition-all"
-                      />
-                    ) : (
-                      <ButtonLoader />
-                    )}
-                  </span>
+                  {companyLogos[job._id] ? (
+                    <img
+                      src={companyLogos[job._id]}
+                      alt={`${job.title} ${t("logo")}`}
+                      className="h-full w-full rounded-full transition-all"
+                    />
+                  ) : (
+                    <ButtonLoader />
+                  )}
                 </span>
               </span>
 

@@ -581,5 +581,11 @@
   "company_type": "Company Type",
   "open_positions": "Open Positions",
 
-  "favorite_company": "Favorite Company"
+  "favorite_company": "Favorite Company",
+
+
+  "error_dynamic": "Error: {{error}}",
+  "fetching_jobs_for_user_email": "Fetching jobs for userEmail:",
+  "error_fetching_jobs": "Error fetching jobs",
+  "logo": "logo"
 }
