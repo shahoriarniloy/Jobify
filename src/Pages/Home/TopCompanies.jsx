@@ -4,11 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "./../../Shared/DashboardLoader";
 import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const TopCompanies = () => {
-  const theme = useSelector((state) => state.theme.theme);
-
   const { data, isLoading } = useQuery({
     queryKey: ["top-companies"],
     queryFn: async () => {
@@ -17,17 +14,10 @@ const TopCompanies = () => {
     },
   });
   if (isLoading) return <DashboardLoader />;
-  // console.log(data);
   return (
     <div>
       <div className="container mx-auto py-24">
-        <h1
-          className={
-            theme === "dark"
-              ? "text-3xl font-semibold mb-2 tracking-wider text-slate-200 text-center"
-              : "text-3xl font-semibold mb-2 tracking-wider text-black text-center"
-          }
-        >
+        <h1 className="text-3xl font-semibold mb-2 tracking-wider text-black text-center ">
           Top Companies
         </h1>
 
@@ -54,7 +44,7 @@ const TopCompanies = () => {
                 </div>
                 <Link to={`/company-details/${email}`}>
                   <button className="btn bg-[#E7F0FA] rounded-sm link-color hover:bg-[#0a65cc] hover:text-white w-full">
-                    Open Positions
+                    Open Position
                   </button>
                 </Link>
               </div>

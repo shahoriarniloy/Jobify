@@ -236,7 +236,7 @@ const Navbar2 = () => {
                     <img
                       src={
                         currentUser?.photoURL ||
-                        "https://via.placeholder.com/150"
+                        "https://i.ibb.co.com/sVhMSY5/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
                       }
                       alt={t("user_profile")}
                       className="w-10 h-10 rounded-full cursor-pointer"
@@ -309,6 +309,18 @@ const Navbar2 = () => {
                               </li>
                             </li>
                           )}
+                          <li>
+                            <button
+                              className="px-4 py-2 w-full hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setRoomModal(true);
+                              }}
+                            >
+                              <MdOutlineVideoCall className="text-xl" />
+                              {t("join_call")}
+                            </button>
+                          </li>
 
                           <li>
                             <button

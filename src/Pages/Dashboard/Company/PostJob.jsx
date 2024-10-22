@@ -37,7 +37,7 @@ const PostJob = () => {
         console.log(categoryData);
 
         if (categoryData) {
-          setCategories(categoryData); // Directly set the categoryData
+          setCategories(categoryData);
         }
       } catch (error) {
         // console.error("Error fetching user info:", error);
@@ -46,7 +46,6 @@ const PostJob = () => {
 
     fetchAndSetCategories();
   }, []);
-  console.log(categories);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -118,6 +117,8 @@ const PostJob = () => {
           jobLevel: "",
           jobDescription: "",
           responsibilities: "",
+          jobCategory: "",
+          jobSubCategory: "",
         });
       } else {
         Swal.fire({
