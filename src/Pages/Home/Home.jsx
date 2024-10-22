@@ -33,7 +33,7 @@ const Home = () => {
       <PopularCategory categoryCounts={data.categoryCounts} />
       <HowItWorks></HowItWorks>
       <TopCompanies />
-      <Testimonial/>
+      <Testimonial reviews={data?.reviews}/>
 
       {/* <OurTeam></OurTeam> */}
       {/* <Feedback></Feedback> */}
