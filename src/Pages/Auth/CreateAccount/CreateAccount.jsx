@@ -29,6 +29,15 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
         .then(res => {
           toast.success("Account creation successful");
           setSignUpModalOpen(false);
+          axiosSecure.post("/users", {
+            email, name, role: accountType
+          })
+            .then(res => {
+              if (res?.data?.acknowledged) {
+                toast.success("Account creation successful");
+              }
+            })
+          setSignUpModalOpen(false);
         })
         .catch(err => {
           toast.error(err);
@@ -44,7 +53,14 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
       createUser(companyEmail, companyName)
         .then(res => {
-          toast.success("Account creation successful");
+          axiosSecure.options("/users", {
+            email: companyEmail, name: companyName, role: accountType
+          })
+            .then(res => {
+              if (res?.data?.acknowledged) {
+                toast.success("Account creation successful");
+              }
+            })
           setSignUpModalOpen(false);
         })
         .catch(err => {
