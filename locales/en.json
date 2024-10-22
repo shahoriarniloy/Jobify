@@ -587,5 +587,20 @@
   "error_dynamic": "Error: {{error}}",
   "fetching_jobs_for_user_email": "Fetching jobs for userEmail:",
   "error_fetching_jobs": "Error fetching jobs",
-  "logo": "logo"
+  "logo": "logo",
+
+   "company_removed_from_favorites": "Company removed from favorites",
+  "company_added_to_favorites": "Company added to favorites",
+
+  "error_toggling_favorite_with_colon": "Error toggling favorite:",
+  "something_went_wrong_while_updating_favorites": "Something went wrong while updating favorites.",
+
+  "number_of_companies_per_page": "Number of companies per page",
+  "size": "Size",
+  "no_matching_data_found": "No matching data found.",
+  "failed_to_fetch_companies": "Failed to fetch companies.",
+
+  "option_5": "5", 
+  "option_10": "10",
+  "option_15": "15"
 }

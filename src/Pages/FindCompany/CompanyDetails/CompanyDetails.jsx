@@ -39,7 +39,7 @@ const CompanyDetails = () => {
       try {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
-  
+
         // After fetching company data, check if it is a favorite
         if (userEmail && companyEmail) {
           const favoriteResponse = await axiosSecure.get(
@@ -48,10 +48,13 @@ const CompanyDetails = () => {
           setIsFavorite(favoriteResponse.data.isFavorite);
         }
       } catch (error) {
-        console.error("Error fetching company data or checking favorite status:", error);
+        console.error(
+          "Error fetching company data or checking favorite status:",
+          error
+        );
       }
     };
-  
+
     fetchCompanyData();
   }, [companyId, userEmail, companyEmail]);
 
@@ -96,14 +99,15 @@ const CompanyDetails = () => {
       // Show Toast for success
       toast.success(
         isFavorite
-          ? "Company removed from favorites"
-          : "Company added to favorites"
+          ? t("company_removed_from_favorites")
+          : t("company_added_to_favorites")
       );
     } catch (error) {
-      console.error("Error toggling favorite:", error);
+      console.error(t("error_toggling_favorite_with_colon"), error);
       // Show Toast for error
-      toast.error("Something went wrong while updating favorites.");
-    }
+      toast.error(t("something_went_wrong_while_updating_favorites"));
+  }
+  
   };
 
   return (

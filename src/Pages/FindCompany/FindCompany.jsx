@@ -11,8 +11,10 @@ import TopCompanies from "./TopCompanies";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const FindCompany = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
@@ -66,11 +68,11 @@ const FindCompany = () => {
 
       setTotalCompanies(response.data.totalCompanies);
       if (!response.data.totalCompanies) {
-        toast.info("No matching data found");
+        toast.info(t("no_matching_data_found"));
       }
     } catch (err) {
       // console.error("Error fetching Companies:", err);
-      setError("Failed to fetch Companies. Please try again later.");
+      setError(t("failed_to_fetch_companies"));
     }
   };
 
@@ -100,7 +102,7 @@ const FindCompany = () => {
               htmlFor="itemsPerPage"
               className="text-sm font-medium text-blue-900 "
             >
-              Number of Companies Per Page:
+              {t("number_of_companies_per_page")}
             </label>
             <select
               id="itemsPerPage"
@@ -108,9 +110,9 @@ const FindCompany = () => {
               onChange={handleItemsPerPage}
               className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
             >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
+              <option value="5">{t("option_5")}</option>
+              <option value="10">{t("option_10")}</option>
+              <option value="15">{t("option_15")}</option>
             </select>
           </div>
 
@@ -138,7 +140,7 @@ const FindCompany = () => {
                   type="submit"
                   className="btn bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white  hover:from-blue-700 hover:to-blue-900"
                 >
-                  Find Company
+                  {t("find_company")}
                 </button>
               </div>
             </form>
@@ -167,10 +169,12 @@ const FindCompany = () => {
                 <table className="min-w-full text-xs sm:text-sm">
                   <thead className="dark:bg-gray-300">
                     <tr className="text-left">
-                      <th className="p-3">Company Name</th>
-                      <th className="p-3 hidden md:table-cell">Industry</th>
-                      <th className="p-3">Size</th>
-                      <th className="p-3">Details</th>
+                      <th className="p-3">{t("company_name")}</th>
+                      <th className="p-3 hidden md:table-cell">
+                        {t("industry")}
+                      </th>
+                      <th className="p-3">{t("size")}</th>
+                      <th className="p-3">{t("details")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -236,7 +240,7 @@ const FindCompany = () => {
                     </div>
                     <Link to={`/company-details/${company.email}`}>
                       <button className=" text-blue-500 px-3 py-2 rounded w-full underline">
-                        Details
+                      {t("details")}
                         {/* <EyeIcon className="h-5 w-5 inline-block mr-1" /> */}
                       </button>
                     </Link>

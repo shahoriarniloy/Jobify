@@ -577,9 +577,23 @@
 
   "favorite_company": "প্রিয় কোম্পানি",
 
-
   "error_dynamic": "ত্রুটি: {{error}}",
   "fetching_jobs_for_user_email": "ইমেইল এর জন্য চাকরি খোঁজা হচ্ছে:",
   "error_fetching_jobs": "চাকরি আনতে ত্রুটি",
-  "logo": "লোগো"
+  "logo": "লোগো",
+
+  "company_removed_from_favorites": "প্রিয় তালিকা থেকে কোম্পানি সরানো হয়েছে",
+  "company_added_to_favorites": "প্রিয় তালিকায় কোম্পানি যুক্ত হয়েছে",
+
+  "error_toggling_favorite_with_colon": "পছন্দ পরিবর্তনে ত্রুটি:",
+  "something_went_wrong_while_updating_favorites": "পছন্দ আপডেট করার সময় কিছু ভুল হয়েছে।",
+
+  "number_of_companies_per_page": "প্রতি পৃষ্ঠায় কোম্পানির সংখ্যা",
+  "size": "আকার",
+  "no_matching_data_found": "মেলানো কোনো তথ্য পাওয়া যায়নি।",
+  "failed_to_fetch_companies": "কোম্পানিগুলি আনতে ব্যর্থ।",
+
+  "option_5": "৫", 
+  "option_10": "১০",
+  "option_15": "১৫"
 }
