@@ -6,16 +6,14 @@ import { FaEnvelope } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Loader from "../Shared/Loader";
 import "../../locales/i18";
-import Modal from "react-responsive-modal";
 import { useState } from "react";
+import useCurrentUser from "../Hooks/useCurrentUser";
 
 const Main = () => {
   const [isOpenMessage, setIsOpenMessage] = useState(false);
   const navigate = useNavigate();
   const theme = useSelector((state) => state.theme.theme);
-
-  const { loading } = useSelector((state) => state.user);
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const {loading} = useCurrentUser();
 
 
   if (loading) return <Loader />;

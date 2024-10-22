@@ -1,7 +1,10 @@
-import React, { useRef, useState } from 'react';
+import { useState } from 'react'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import Rating from 'react-rating'
+import { IoIosStarOutline } from "react-icons/io";
+import { IoIosStar } from "react-icons/io";
+import { FaQuoteLeft } from "react-icons/fa";
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -25,8 +28,38 @@ const Testimonial = () => {
                     modules={[FreeMode, Pagination]}
                     className="mySwiper"
                 >
-                    <SwiperSlide>Slide 1</SwiperSlide>
-                    
+                    <SwiperSlide>
+                        <div className='bg-white w-full p-8 rounded-md shadow-sm'>
+                            <Rating
+                                emptySymbol=<IoIosStarOutline className='text-3xl'/>
+                                fullSymbol=<IoIosStar className='text-3xl text-[#FFAA00]'/>
+                                placeholderSymbol=<IoIosStar className='text-3xl text-[#FFAA00]'/>
+                                readonly="true"
+                                placeholderRating="2"
+                            />
+
+                            <p className='text-[#464D61] mt-4'>“Ut ullamcorper hendrerit tempor. Aliquam in rutrum dui. Maecenas ac placerat metus, in faucibus est.”</p>
+
+                            <div className='flex justify-between items-center mt-[80px]'>
+                                <div className='flex items-center gap-3'>
+                                    <div>
+                                        <img
+                                        className='w-[38px] h-[38px] rounded-full'
+                                        src="" alt="" />
+                                    </div>
+                                    <div>
+                                        <h1 className='font-bold'>Name</h1>
+                                        <p className='text-[#767E94]'>UI/UX Designer</p>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <FaQuoteLeft className='text-5xl text-[#DADDE5]'/>
+                                </div>
+                            </div>
+                        </div>
+                    </SwiperSlide>
+
                 </Swiper>
             </div>
         </div>
