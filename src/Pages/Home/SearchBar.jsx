@@ -10,7 +10,7 @@ import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 
-const SearchBar = ({jobCount, companyCount}) => {
+const SearchBar = ({jobCount, companyCount,candidates,successPeoples}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
   const theme = useSelector((state) => state.theme.theme);
@@ -22,7 +22,10 @@ const SearchBar = ({jobCount, companyCount}) => {
       return data;
     }
   })
-
+  const handelSearch =(e)=>{
+    e.preventDefault();
+    refetch()
+  }
   
   return (
     <div className="bg-secondary py-28">
@@ -54,6 +57,7 @@ const SearchBar = ({jobCount, companyCount}) => {
                 }
               >
                 <form
+                onSubmit={handelSearch}
                   className="flex flex-col sm:flex-row gap-4 sm:gap-2  rounded-lg"
                 >
                   <div className="relative flex-1 ">
@@ -86,7 +90,7 @@ const SearchBar = ({jobCount, companyCount}) => {
 
                   <div className="flex justify-center mt-4 sm:mt-0 sm:ml-2">
                     <button
-                      onClick={()=>refetch()}
+                      type="submit"
                       className="w-full sm:w-auto px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white font-semibold text-base transition duration-300 ease-in-out hover:from-blue-700 hover:to-blue-900"
                     >
                       Find Job
@@ -167,7 +171,7 @@ const SearchBar = ({jobCount, companyCount}) => {
               <IoPeopleSharp className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{}</h2>
+              <h2 className="text-2xl font-bold">{candidates}</h2>
               <p className="text-[#767F8C]">Candidates</p>
             </div>
 
@@ -178,7 +182,7 @@ const SearchBar = ({jobCount, companyCount}) => {
               <RiPoliceBadgeFill className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{}</h2>
+              <h2 className="text-2xl font-bold">{successPeoples}</h2>
               <p className="text-[#767F8C]">Successful</p>
             </div>
           </div>
