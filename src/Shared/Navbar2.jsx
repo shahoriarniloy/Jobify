@@ -309,6 +309,18 @@ const Navbar2 = () => {
                               </li>
                             </li>
                           )}
+                          <li>
+                            <button
+                              className="px-4 py-2 w-full hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setRoomModal(true);
+                              }}
+                            >
+                              <MdOutlineVideoCall className="text-xl" />
+                              {t("join_call")}
+                            </button>
+                          </li>
 
                           <li>
                             <button
