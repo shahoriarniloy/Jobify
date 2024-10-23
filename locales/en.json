@@ -647,5 +647,16 @@
   "live_jobs_label": "Live Jobs",
   "companies_label": "Companies",
   "candidates_label": "Candidates",
-   "successful_label": "Successful"
+  "successful_label": "Successful",
+
+  "failed_to_fetch_data": "Failed to fetch data",
+  "failed_to_load_post": "Failed to load post.",
+  "failed_to_post_comment": "Failed to post comment.",
+  "failed_to_update_like_status": "Failed to update like status.",
+  "loading_post": "Loading post...",
+   "comments": "Comments",
+  "no_comments_yet": "No comments yet.",
+  "add_a_comment": "Add a comment",
+  "submitting": "Submitting...",
+  "submit": "Submit"
 }

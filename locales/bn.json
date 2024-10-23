@@ -593,7 +593,7 @@
   "no_matching_data_found": "মেলানো কোনো তথ্য পাওয়া যায়নি।",
   "failed_to_fetch_companies": "কোম্পানিগুলি আনতে ব্যর্থ।",
 
-  "option_5": "৫", 
+  "option_5": "৫",
   "option_10": "১০",
   "option_15": "১৫",
 
@@ -638,8 +638,19 @@
   "animation_label": "অ্যানিমেশন",
   "job_results_label": "কর্মসংস্থান ফলাফল:",
   "no_matching_jobs_label": "মিলছে না এমন কোনো চাকরি পাওয়া যায়নি।",
-   "live_jobs_label": "লাইভ চাকরিসমূহ",
-   "companies_label": "কোম্পনিসমূহ",
-   "candidates_label": "প্রার্থীরা",
-   "successful_label": "সফল"
+  "live_jobs_label": "লাইভ চাকরিসমূহ",
+  "companies_label": "কোম্পনিসমূহ",
+  "candidates_label": "প্রার্থীরা",
+  "successful_label": "সফল",
+
+  "failed_to_fetch_data": "ডেটা আনতে ব্যর্থ",
+  "failed_to_load_post": "পোস্ট লোড করতে ব্যর্থ।",
+  "failed_to_post_comment": "মন্তব্য পোস্ট করতে ব্যর্থ।",
+  "failed_to_update_like_status": "পছন্দের স্থিতি আপডেট করতে ব্যর্থ।",
+  "loading_post": "পোস্ট লোড হচ্ছে...",
+  "comments": "মন্তব্য",
+  "no_comments_yet": "এখনো কোনো মন্তব্য নেই।",
+  "add_a_comment": "একটি মন্তব্য যোগ করুন",
+  "submitting": "জমা দেওয়া হচ্ছে...",
+  "submit": "জমা দিন"
 }
