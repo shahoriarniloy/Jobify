@@ -28,7 +28,7 @@ const CompanyDetails = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [company, setCompany] = useState([]);
   const { companyId } = useParams();
-  const { t } = useTranslation(); // Initialize the translation function
+  const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(false);
 
   const companyEmail = company?.email;
@@ -47,7 +47,8 @@ const CompanyDetails = () => {
     fetchCompanyData();
   }, [companyId]);
 
-  // Function to fetch favorite status when the component mounts
+  console.log(company);
+
   useEffect(() => {
     if (userEmail && companyEmail) {
       const checkFavoriteStatus = async () => {
@@ -57,7 +58,6 @@ const CompanyDetails = () => {
           );
           const data = response.data;
 
-          // Check if the company is in the user's favorites
           setIsFavorite(data.favoriteCompany.includes(companyEmail));
         } catch (error) {
           console.error("Error fetching favorite status:", error);
@@ -70,22 +70,18 @@ const CompanyDetails = () => {
 
   const toggleFavorite = async () => {
     try {
-      // Determine the HTTP method and URL based on the current favorite status
       const method = isFavorite ? "DELETE" : "POST";
       const url = isFavorite
         ? `/users/${userEmail}/favorite-company/${company.email}`
         : `/users/${userEmail}/favorite-company`;
 
-      // Make the API call
       await axiosSecure({
         method,
         url,
-        data: isFavorite ? null : { companyEmail: company.email }, // Only send data when adding
+        data: isFavorite ? null : { companyEmail: company.email },
       });
-      // Toggle the state after the API call succeeds
       setIsFavorite(!isFavorite);
 
-      // Show Toast for success
       toast.success(
         isFavorite
           ? "Company removed from favorites"
@@ -93,7 +89,6 @@ const CompanyDetails = () => {
       );
     } catch (error) {
       console.error("Error toggling favorite:", error);
-      // Show Toast for error
       toast.error("Something went wrong while updating favorites.");
     }
   };
@@ -102,15 +97,13 @@ const CompanyDetails = () => {
     <div className="bg-secondary">
       <div className="relative container mx-auto">
         <div className="relative">
-          {/* Banner */}
           <div>
             <img
               className="w-full h-56 object-cover md:h-72 lg:h-96"
-              src={company?.company_logo}
+              src={company?.company_banner}
               alt={t("company_banner_alt")}
             />
 
-            {/* Favorite btn */}
             <div className="absolute top-4 right-4">
               <button type="button" onClick={toggleFavorite}>
                 {isFavorite ? (
@@ -123,7 +116,6 @@ const CompanyDetails = () => {
           </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
-              {/* Logo */}
               {company?.company_logo ? (
                 <img
                   src={company?.company_logo}
