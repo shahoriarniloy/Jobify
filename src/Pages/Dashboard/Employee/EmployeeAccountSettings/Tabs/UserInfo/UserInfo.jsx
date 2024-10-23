@@ -26,6 +26,7 @@ const UserInfo = () => {
       try {
         const response = await axiosSecure.get(`/users/${currentUser?.email}`);
         const userData = response.data;
+        console.log(userData);
 
         if (userData && userData.userInfo && userData.userInfo.length > 0) {
           setAbout(userData?.userInfo[0]?.about || "");
@@ -180,7 +181,14 @@ const UserInfo = () => {
                     ["link"],
                   ],
                 }}
-                formats={["bold", "italic", "underline", "list", "bullet", "link"]}
+                formats={[
+                  "bold",
+                  "italic",
+                  "underline",
+                  "list",
+                  "bullet",
+                  "link",
+                ]}
                 className="custom-quill-editor h-[600px]"
               />
             </div>

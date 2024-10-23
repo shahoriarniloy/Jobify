@@ -181,12 +181,12 @@ const Navbar2 = () => {
                         : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
                     }
                   >
-                    <h2 className="text-lg font-bold mb-4">Notifications</h2>
+                    <h2 className="text-lg font-bold mb-4">Job Alert</h2>
 
                     {jobNotifications.length > 0 && (
                       <div className="flex justify-between items-center mb-4">
                         <p className="text-sm">
-                          You have {jobNotifications.length} notifications
+                          You have {jobNotifications.length} Job Alerts
                         </p>
                         <button
                           onClick={handleMarkAllAsRead}
@@ -215,7 +215,7 @@ const Navbar2 = () => {
                         ))}
                       </ul>
                     ) : (
-                      <p>No notifications available</p>
+                      <p>No New Jobs Posted</p>
                     )}
 
                     <div className="flex justify-end">
