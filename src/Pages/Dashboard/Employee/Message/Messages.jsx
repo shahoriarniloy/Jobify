@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import axiosSecure from "../../../../Hooks/useAxiosSecure";
+import axiosSecure from "../../../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next";
 
 const Messages = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const [conversations, setConversations] = useState([]);
   const currentUser = useSelector((state) => state.user.currentUser);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -55,7 +58,7 @@ const Messages = () => {
 
         setConversations(Object.values(groupedMessages));
       } catch (error) {
-        // console.error("Error fetching messages:", error);
+        console.error("Error fetching messages:", error); // Log the error for debugging
       }
     };
 
@@ -63,10 +66,10 @@ const Messages = () => {
   }, [currentUser]);
 
   return (
-    <div className="bg-secondary">
+    <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto pt-8 min-h-screen">
         {conversations.length === 0 ? (
-          <div className="text-gray-500">No conversations found.</div>
+          <div className="text-gray-500">{t("no_conversations_found")}</div>
         ) : (
           <div className="space-y-4">
             {conversations.map((conversation, index) => (
@@ -81,15 +84,19 @@ const Messages = () => {
               >
                 <img
                   src={conversation.otherPartyPhoto || "default-avatar.png"}
-                  alt={conversation.otherPartyName || "Unknown"}
+                  alt={conversation.otherPartyName || t("unknown")}
                   className="w-12 h-12 rounded-full object-cover mr-4"
                 />
                 <div className="flex-1">
-                  <h2 className="text-lg font-semibold truncate">
-                    {conversation.otherPartyName || "Unknown"}
+                  <h2
+                    className={`text-lg font-semibold truncate ${
+                      theme === "dark" ? "text-slate-700" : ""
+                    }`}
+                  >
+                    {conversation.otherPartyName || t("unknown")}
                   </h2>
                   <p className="text-gray-500 text-sm truncate w-1/2">
-                    {conversation.lastMessage || "No message available"}
+                    {conversation.lastMessage || t("no_message_available")}
                   </p>
                   <span className="text-sm text-gray-400 mt-1 block">
                     {new Date(conversation.updatedAt).toLocaleTimeString([], {

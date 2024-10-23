@@ -9,6 +9,8 @@ import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
 import ButtonLoader from "../../../Shared/ButtonLoader";
+import { updateProfile } from "firebase/auth";
+import auth from "../Firebase/firebase.config";
 
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const { t } = useTranslation();
@@ -23,10 +25,13 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
     // for employee
     if (accountType == "Job Seeker") {
       const name = form.name.value;
-      const email = form.email.value;
+      const email = form.email.value.toLocaleLowerCase();
       const password = form.password.value;
       createUser(email, password)
         .then(res => {
+          updateProfile(auth.currentUser, {
+            displayName: name,
+          })
           toast.success("Account creation successful");
           setSignUpModalOpen(false);
           axiosSecure.post("/users", {
@@ -48,11 +53,14 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
     // for company
     else if (accountType == "Employer") {
-      const companyEmail = form.companyEmail.value;
+      const companyEmail = form.companyEmail.value.toLocaleLowerCase();
       const companyName = form.companyName.value;
 
       createUser(companyEmail, companyName)
         .then(res => {
+          updateProfile(auth.currentUser, {
+            displayName: companyName,
+          })
           axiosSecure.options("/users", {
             email: companyEmail, name: companyName, role: accountType
           })
@@ -77,7 +85,9 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   return (
     <div className="bg-white flex justify-center w-[400px] max-w-2xl">
       <div className="w-full p-7">
-        <h2 className="text-4xl font-semibold text-center">{t("create_account")}</h2>
+        <h2 className="text-4xl font-semibold text-center">
+          {t("create_account")}
+        </h2>
 
         <form className="mt-8" onSubmit={handleRegister}>
           <Tabs
@@ -202,7 +212,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
               setSignUpModalOpen(false);
             }}
           >
-            {t("login.login")}
+            {t("login")}
           </button>
         </p>
       </div>

@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.currentUser);
+  console.log(currentUser)
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -36,7 +37,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInUser = (email, password) => {
-    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -50,16 +50,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     signOut(auth)
       .then(() => {
-        toast.success("You have successfully logged out.", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success("You have successfully logged out.");
         dispatch(logOut());
         localStorage.removeItem("currentUser");
       })

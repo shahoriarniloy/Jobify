@@ -1,18 +1,21 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const [errorMessage, setErrorMessage] = useState("");
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
 
-  const logoSizeLimit = 3.5 * 1024 * 1024;
-  const bannerSizeLimit = 4.3 * 1024 * 1024;
+  const logoSizeLimit = 3.5 * 1024 * 1024; // Limit for logo files (3.5 MB)
+  const bannerSizeLimit = 4.3 * 1024 * 1024; // Limit for banner files (4.3 MB)
 
+  // Handle file drop
   const onDrop = useCallback(
     (acceptedFiles) => {
       if (!acceptedFiles || acceptedFiles.length === 0) {
-        setErrorMessage("No file selected or invalid file format.");
+        setErrorMessage(t("no_file_selected"));
         onFileUpload(null);
         return;
       }
@@ -22,9 +25,9 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
 
       if (uploadedFile.size > fileSizeLimit) {
         setErrorMessage(
-          `File size exceeds the limit. Maximum allowed size is ${
-            type === "logo" ? "3.5 MB" : "4.3 MB"
-          }.`
+          t("file_size_exceeds", {
+            maxSize: type === "logo" ? "3.5 MB" : "4.3 MB",
+          })
         );
         onFileUpload(null);
         setPreview(null);
@@ -34,7 +37,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
         setPreview(URL.createObjectURL(uploadedFile));
       }
     },
-    [type, onFileUpload]
+    [type, onFileUpload, t] // Added t to dependencies
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -44,6 +47,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
     noClick: true,
   });
 
+  // Set preview when file is updated
   useEffect(() => {
     if (file) {
       setPreview(URL.createObjectURL(file));
@@ -52,11 +56,12 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
     }
     return () => {
       if (preview) {
-        URL.revokeObjectURL(preview);
+        URL.revokeObjectURL(preview); // Revoke URL to avoid memory leaks
       }
     };
   }, [file]);
 
+  // Handle replace file button click
   const handleReplaceClick = () => {
     setPreview(null);
     onFileUpload(null);
@@ -65,12 +70,11 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
 
   return (
     <div className="mb-6">
-      <label className="block mb-2 font-bold">{label}</label>
+      <label className="block mb-2 font-bold">{t(label)}</label>
       <div
         {...getRootProps()}
-        className={`p-6 rounded-md cursor-pointer transition ${
-          isDragActive ? "bg-blue-100 border-blue-400" : "bg-gray-200"
-        }`}
+        className={`p-6 rounded-md cursor-pointer transition ${isDragActive ? "bg-blue-100 border-blue-400" : "bg-gray-200"
+          }`}
         style={{ minHeight: "150px" }}
         onClick={() => fileInputRef.current.click()}
       >
@@ -88,9 +92,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
             style={{ maxHeight: "150px", objectFit: "cover" }}
           />
         ) : (
-          <p className="text-gray-500">
-            Drag and drop an image here, or click to select one
-          </p>
+          <p className="text-gray-500">{t("drag_and_drop_message")}</p>
         )}
       </div>
       {file && (
@@ -99,7 +101,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
           onClick={handleReplaceClick}
           className="text-blue-500 mt-2"
         >
-          Replace
+          {t("replace")}
         </button>
       )}
     </div>

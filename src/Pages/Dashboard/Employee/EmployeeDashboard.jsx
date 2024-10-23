@@ -6,9 +6,10 @@ import { IoSettingsOutline } from "react-icons/io5";
 import useUserRole from "../../../Hooks/useUserRole";
 import { useSelector } from "react-redux";
 import { FiLayers } from "react-icons/fi";
-
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const EmployeeDashboard = () => {
+  const { t } = useTranslation(); // Destructure t from useTranslation
   const currentUser = useSelector((state) => state.user.currentUser);
   const {
     role,
@@ -22,8 +23,8 @@ const EmployeeDashboard = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  if (roleLoading) return <div>Loading role...</div>;
-  if (roleError) return <div>Error fetching role: {roleError}</div>;
+  if (roleLoading) return <div>{t("loading_role")}</div>; // Translated string
+  if (roleError) return <div>{t("error_fetching_role")}: {roleError}</div>; // Translated string
 
   return (
     <div className="relative">
@@ -47,7 +48,6 @@ const EmployeeDashboard = () => {
               {role === "Job Seeker" && (
                 <div>
                   <NavLink
-
                     to="/jobSeeker/overview"
                     className={({ isActive }) =>
                       isActive
@@ -55,10 +55,9 @@ const EmployeeDashboard = () => {
                         : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                     }
                   >
-                    <FiLayers className="text-xl" /> Overview
+                    <FiLayers className="text-xl" /> {t("overview")}
                   </NavLink>
                   <NavLink
-
                     to="/jobSeeker/appliedjobs"
                     className={({ isActive }) =>
                       isActive
@@ -66,7 +65,7 @@ const EmployeeDashboard = () => {
                         : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                     }
                   >
-                    <FaBriefcase /> Applied Jobs
+                    <FaBriefcase /> {t("applied_jobs")}
                   </NavLink>
                   <NavLink
                     to="/jobSeeker/favorite-jobs"
@@ -76,7 +75,7 @@ const EmployeeDashboard = () => {
                         : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                     }
                   >
-                    <FaRegHeart /> Favorite Jobs
+                    <FaRegHeart /> {t("favorite_jobs")}
                   </NavLink>
                   <NavLink
                     to="/jobSeeker/resume-builder"
@@ -86,7 +85,7 @@ const EmployeeDashboard = () => {
                         : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                     }
                   >
-                    <FaEdit /> Edit Resume
+                    <FaEdit /> {t("edit_resume")}
                   </NavLink>
                   <NavLink
                     to="/jobSeeker/employee-settings"
@@ -96,7 +95,7 @@ const EmployeeDashboard = () => {
                         : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                     }
                   >
-                    <IoSettingsOutline /> Profile Setting
+                    <IoSettingsOutline /> {t("profile_setting")}
                   </NavLink>
                 </div>
               )}
@@ -112,7 +111,7 @@ const EmployeeDashboard = () => {
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
-                <MdHome className="text-xl" /> Home
+                <MdHome className="text-xl" /> {t("home")}
               </NavLink>
               <NavLink
                 to="/logout"
@@ -122,7 +121,7 @@ const EmployeeDashboard = () => {
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
-                <MdOutlineLogout className="text-xl" /> Log-out
+                <MdOutlineLogout className="text-xl" /> {t("log_out")}
               </NavLink>
             </div>
           </div>

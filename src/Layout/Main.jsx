@@ -20,8 +20,11 @@ const Main = () => {
 
   return (
     <div
-      className={`roboto-regular ${theme === "dark" ? "bg-[#1E1E1E] text-white" : "bg-white text-black"
-        }`}
+      className={`roboto-regular ${
+        theme === "dark"
+          ? "bg-gradient-to-r from-gray-800 to-slate-900 text-white"
+          : "bg-white text-black"
+      }`}
     >
       <Navbar2 />
       <Navbar />
@@ -44,16 +47,6 @@ const Main = () => {
       </button>
 
       <Footer />
-
-      {/* <Modal
-      classNames="absolute bottom-0"
-      open={isOpenMessage}
-      onClose={()=>setIsOpenMessage(false)}
-      center
-      >
-        <h1>akane massage asbe</h1>
-      </Modal> */}
-
 
     </div>
   );
