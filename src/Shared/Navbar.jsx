@@ -108,8 +108,8 @@ const Navbar = () => {
       socket.on("jobPosted", (data) => {
         Swal.fire({
           icon: "info",
-          title: t("new_job_posted_title"), // Translated title
-          text: `${t("new_job_posted_text")} "${data.jobTitle}" ${t("by")} ${data.company}`,
+          title: "New Job Posted!",
+          text: `A new job "${data.jobTitle}" was posted by ${data.company}`,
           background: "#f4f8ff",
           color: "#333",
           customClass: {
@@ -117,10 +117,10 @@ const Navbar = () => {
             content: "swal-content",
             confirmButton: "swal-confirm",
           },
-          confirmButtonText: t("view_job"), // Translated button text
+          confirmButtonText: "View Job",
           confirmButtonColor: "#007bff",
           showCancelButton: true,
-          cancelButtonText: t("close"), // Translated button text
+          cancelButtonText: "Close",
           cancelButtonColor: "#dc3545",
         }).then((result) => {
           if (result.isConfirmed) {
@@ -134,9 +134,10 @@ const Navbar = () => {
         ]);
       });
     }
-  }, [socket, currentUser?.email, t]); // Add `t` to dependencies
+  }, [socket, currentUser?.email]);
 
   const toggleModal = () => {
+    // console.log("Bell icon clicked! Modal state:", isModalOpen);
     setIsModalOpen((prevState) => !prevState);
   };
 
@@ -156,7 +157,11 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className={`navbar shadow-sm ${isSticky ? "sticky top-0 z-50" : ""} roboto-regular ${theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"}`}
+        className={`navbar shadow-sm ${
+          isSticky ? "sticky top-0 z-50" : ""
+        } roboto-regular ${
+          theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"
+        }`}
       >
         <div className="navbar-start">
           <div className="dropdown">
@@ -196,18 +201,18 @@ const Navbar = () => {
               className="absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
               style={{ marginRight: "20px" }}
             >
-              <h2 className="text-lg font-bold mb-4">{t("notifications")}</h2> {/* Translated title */}
+              <h2 className="text-lg font-bold mb-4">Notifications</h2>
 
               {jobNotifications.length > 0 && (
                 <div className="flex justify-between items-center mb-4">
                   <p className="text-sm">
-                    {t("you_have")} {jobNotifications.length} {t("notifications_count")} {/* Translated text */}
+                    You have {jobNotifications.length} notifications
                   </p>
                   <button
                     onClick={() => setJobNotifications([])}
                     className="text-blue-600 text-sm hover:underline"
                   >
-                    {t("mark_all_as_read")} {/* Translated button text */}
+                    Mark all as read
                   </button>
                 </div>
               )}
@@ -223,13 +228,14 @@ const Navbar = () => {
                         to={`/job/${notification.jobId}`}
                         className="hover:underline"
                       >
-                        <strong>{`'${notification.title}' ${t("position")}`}</strong> {t("at")} <strong>{notification.company}</strong>
+                        <strong>'{notification.title}' position</strong> at{" "}
+                        <strong>{notification.company}</strong>
                       </Link>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p>{t("no_notifications_available")}</p> {/* Translated text */}
+                <p>No notifications available</p>
               )}
 
               <div className="flex justify-end">
@@ -237,7 +243,7 @@ const Navbar = () => {
                   className="btn btn-primary mt-4"
                   onClick={() => setIsModalOpen(false)}
                 >
-                  {t("close")} {/* Translated button text */}
+                  Close
                 </button>
               </div>
             </div>

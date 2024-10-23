@@ -691,7 +691,8 @@
   "copyright": "Copyright",
   "all_rights_reserved": "All rights reserved by CodeBusters",
 
-  "New Job Posted!",
+  
+  "new_job_posted_title": "New Job Posted!",
   "new_job_posted_text": "A new job",
   "by": "posted by",
   "view_job": "View Job",
