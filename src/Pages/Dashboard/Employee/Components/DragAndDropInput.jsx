@@ -8,9 +8,10 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
 
-  const logoSizeLimit = 3.5 * 1024 * 1024;
-  const bannerSizeLimit = 4.3 * 1024 * 1024;
+  const logoSizeLimit = 3.5 * 1024 * 1024; // Limit for logo files (3.5 MB)
+  const bannerSizeLimit = 4.3 * 1024 * 1024; // Limit for banner files (4.3 MB)
 
+  // Handle file drop
   const onDrop = useCallback(
     (acceptedFiles) => {
       if (!acceptedFiles || acceptedFiles.length === 0) {
@@ -46,6 +47,7 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
     noClick: true,
   });
 
+  // Set preview when file is updated
   useEffect(() => {
     if (file) {
       setPreview(URL.createObjectURL(file));
@@ -54,11 +56,12 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
     }
     return () => {
       if (preview) {
-        URL.revokeObjectURL(preview);
+        URL.revokeObjectURL(preview); // Revoke URL to avoid memory leaks
       }
     };
   }, [file]);
 
+  // Handle replace file button click
   const handleReplaceClick = () => {
     setPreview(null);
     onFileUpload(null);
@@ -70,9 +73,8 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
       <label className="block mb-2 font-bold">{t(label)}</label>
       <div
         {...getRootProps()}
-        className={`p-6 rounded-md cursor-pointer transition ${
-          isDragActive ? "bg-blue-100 border-blue-400" : "bg-gray-200"
-        }`}
+        className={`p-6 rounded-md cursor-pointer transition ${isDragActive ? "bg-blue-100 border-blue-400" : "bg-gray-200"
+          }`}
         style={{ minHeight: "150px" }}
         onClick={() => fileInputRef.current.click()}
       >

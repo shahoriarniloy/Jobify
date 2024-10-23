@@ -12,12 +12,9 @@ import { useTranslation } from "react-i18next";
 
 const SearchBar = () => {
   const { t } = useTranslation();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
-  const [jobs, setJobs] = useState([]);
-  const [error, setError] = useState("");
-  const [totalJobs, setTotalJobs] = useState(0);
-  const [totalCompanies, setTotalCompanies] = useState(0);
   const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
@@ -50,8 +47,14 @@ const SearchBar = () => {
       setJobs(response.data);
     } catch (error) {
       // console.error('Error fetching jobs:', error);
+
     }
-  };
+  })
+  const handelSearch =(e)=>{
+    e.preventDefault();
+    refetch()
+  }
+  
   return (
     <div
       className={
@@ -95,8 +98,8 @@ const SearchBar = () => {
                 }
               >
                 <form
+                onSubmit={handelSearch}
                   className="flex flex-col sm:flex-row gap-4 sm:gap-2  rounded-lg"
-                  onSubmit={handleSearch}
                 >
                   <div className="relative flex-1 ">
                     <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2  text-[#0a65cc] w-5 h-5" />
@@ -170,16 +173,16 @@ const SearchBar = () => {
                 </span>
               </p>
               <div
-                className={`mt-3 ${
-                  jobs.length > 0 ? "opacity-100" : "opacity-0"
-                } transition-opacity duration-300`}
+                className={`mt-3 ${jobs?.length > 0 ? "opacity-100" : "opacity-0"
+                  } transition-opacity duration-300`}
+
               >
-                {jobs.length > 0 ? (
+                {jobs?.length > 0 ? (
                   <div className="flex items-center gap-2">
                     <h2 className="text-[#9199A3]">{t("job_results_label")}</h2>
                     <div className="max-h-60 overflow-y-auto flex flex-wrap items-center gap-4">
-                      {jobs.map((job) => (
-                        <Link key={job._id} to={`/job/${job._id}`}>
+                      {jobs?.map((job) => (
+                        <Link key={job?._id} to={`/job/${job?._id}`}>
                           <h3 className="font-semibold link-color">
                             {job?.title}
                           </h3>
@@ -220,6 +223,7 @@ const SearchBar = () => {
               <h2 className="text-2xl font-bold">{totalJobs}</h2>
               <p className="text-[#767F8C]">{t("live_jobs_label")}</p>
 
+
             </div>
           </div>
 
@@ -236,6 +240,7 @@ const SearchBar = () => {
             <div>
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
               <p className="text-[#767F8C]">{t("companies_label")}</p>
+
 
             </div>
           </div>
@@ -254,6 +259,7 @@ const SearchBar = () => {
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
               <p className="text-[#767F8C]">{t("candidates_label")}</p>
 
+
             </div>
           </div>
 
@@ -270,6 +276,7 @@ const SearchBar = () => {
             <div>
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
               <p className="text-[#767F8C]">{t("successful_label")}</p>
+
 
             </div>
           </div>

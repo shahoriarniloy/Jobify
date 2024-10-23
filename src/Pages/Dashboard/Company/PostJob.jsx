@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next"; // Import useTranslation
 const PostJob = () => {
   const { t } = useTranslation(); // Initialize useTranslation
   const currentUser = useSelector((state) => state.user.currentUser);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
   const [jobData, setJobData] = useState({
     title: "",
@@ -22,7 +24,28 @@ const PostJob = () => {
     jobLevel: "",
     jobDescription: "",
     responsibilities: [],
+    jobCategory: "",
+    jobSubCategory: "",
   });
+
+  useEffect(() => {
+    const fetchAndSetCategories = async () => {
+      try {
+        const response = await axiosSecure.get(`/jobCategories`);
+
+        const categoryData = response.data;
+        console.log(categoryData);
+
+        if (categoryData) {
+          setCategories(categoryData);
+        }
+      } catch (error) {
+        // console.error("Error fetching user info:", error);
+      }
+    };
+
+    fetchAndSetCategories();
+  }, []);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -49,13 +72,19 @@ const PostJob = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setJobData({
-      ...jobData,
+    setJobData((prevJobData) => ({
+      ...prevJobData,
       [name]: value,
       hrEmail: currentUser?.email,
-    });
-  };
+    }));
 
+    if (name === "jobCategory") {
+      const selectedCategory = categories.find(
+        (category) => category.name === value
+      );
+      setSubCategories(selectedCategory?.subcategories || []);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { responsibilities, ...rest } = jobData;
@@ -88,6 +117,8 @@ const PostJob = () => {
           jobLevel: "",
           jobDescription: "",
           responsibilities: "",
+          jobCategory: "",
+          jobSubCategory: "",
         });
       } else {
         Swal.fire({
@@ -117,6 +148,18 @@ const PostJob = () => {
           <div className="grid gap-6 text-sm grid-cols-1 lg:grid-cols-3">
             <form className="lg:col-span-3" onSubmit={handleSubmit}>
               <div className="grid gap-6 text-sm grid-cols-1 md:grid-cols-5">
+                <div className="md:col-span-3">
+                  <label htmlFor="company">{t("company")}</label>
+                  <input
+                    type="text"
+                    name="company"
+                    value={jobData.company}
+                    onChange={handleChange}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    placeholder={t("company_name")}
+                    disabled
+                  />
+                </div>
                 <div className="md:col-span-5">
                   <label htmlFor="title">{t("job_title")}</label>
                   <input
@@ -129,18 +172,41 @@ const PostJob = () => {
                     required
                   />
                 </div>
-
-                <div className="md:col-span-3">
-                  <label htmlFor="company">{t("company")}</label>
-                  <input
-                    type="text"
-                    name="company"
-                    value={jobData.company}
+                <div className="md:col-span-3 text-black">
+                  <label htmlFor="jobCategory">Job Category</label>
+                  <select
+                    required
+                    name="jobCategory"
+                    value={jobData.jobCategory}
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                    placeholder={t("company_name")}
-                    disabled
-                  />
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((category) => (
+                      <option key={category.name} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="md:col-span-2">
+                  <label htmlFor="jobSubCategory">Job Sub Category</label>
+                  <select
+                    required
+                    name="jobSubCategory"
+                    value={jobData.jobSubCategory}
+                    onChange={handleChange}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    disabled={!subCategories.length}
+                  >
+                    <option value="">Select Subcategory</option>
+                    {subCategories.map((subCategory, index) => (
+                      <option key={index} value={subCategory.name}>
+                        {subCategory.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="md:col-span-2">

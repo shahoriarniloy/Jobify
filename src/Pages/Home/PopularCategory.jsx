@@ -5,6 +5,7 @@ import { MdVideoSettings } from "react-icons/md";
 import { IoMusicalNotesSharp } from "react-icons/io5";
 import { RiBarChartFill } from "react-icons/ri";
 import { PiFirstAidKitFill } from "react-icons/pi";
+
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
@@ -84,11 +85,10 @@ const PopularCategory = () => {
                   {category.totalJobs} {t("open_position")}
                 </p>
               </div>
+
             </div>
-          ))}
+
         </div>
-      </div>
-    </div>
   );
 };
 

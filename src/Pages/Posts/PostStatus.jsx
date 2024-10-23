@@ -10,6 +10,7 @@ const PostStatus = ({}) => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const currentUser = useSelector((state) => state.user.currentUser);
+  console.log(currentUser);
 
   return (
     <div className="post-status">
@@ -19,6 +20,7 @@ const PostStatus = ({}) => {
       >
         <p className="text-gray-600">
           {t("whats_on_your_mind")}, {currentUser?.displayName}?
+
         </p>
       </div>
 

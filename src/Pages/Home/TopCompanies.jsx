@@ -11,10 +11,11 @@ const TopCompanies = () => {
   const { t } = useTranslation(); // Destructure useTranslation
   const theme = useSelector((state) => state.theme.theme);
 
+
   const { data, isLoading } = useQuery({
     queryKey: ["top-companies"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/companies");
+      const { data } = await axiosSecure.get("/companies")
       return data?.Companies;
     },
   });
@@ -32,6 +33,7 @@ const TopCompanies = () => {
         >
           {t("top_companies")} {/* Use translation key */}
         </h1>
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
           {data
@@ -57,6 +59,7 @@ const TopCompanies = () => {
                 <Link to={`/company-details/${email}`}>
                   <button className="btn bg-[#E7F0FA] rounded-sm link-color hover:bg-[#0a65cc] hover:text-white w-full">
                     {t("open_positions")} {/* Use translation key */}
+
                   </button>
                 </Link>
               </div>
