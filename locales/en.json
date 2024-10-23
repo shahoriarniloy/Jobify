@@ -675,5 +675,12 @@
   "like_post": "Like post",
   "view_comments": "View Comments",
 
-   "whats_on_your_mind": "What's on your mind"
+   "whats_on_your_mind": "What's on your mind",
+
+   "create_a_post": "Create a Post",
+   "emoji_picker": "Emoji Picker",
+   "selected_image": "Selected Image",
+   "posting": "Posting...",
+   "post": "Post",
+   "please_add_content_or_image": "Please add some content or an image to post"
 }

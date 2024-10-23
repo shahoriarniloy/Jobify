@@ -669,5 +669,12 @@
   "like_post": "পোস্টটি পছন্দ করুন",
   "view_comments": "মন্তব্যগুলি দেখুন",
 
-  "whats_on_your_mind": "আপনার মনে কী আছে"
+  "whats_on_your_mind": "আপনার মনে কী আছে",
+
+  "create_a_post": "একটি পোস্ট তৈরি করুন",
+  "emoji_picker": "ইমোজি পিকার",
+  "selected_image": "নির্বাচিত ছবি",
+  "posting": "পোস্ট করা হচ্ছে...",
+  "post": "পোস্ট করুন",
+  "please_add_content_or_image": "দয়া করে কিছু কন্টেন্ট বা একটি ছবি যুক্ত করুন"
 }
