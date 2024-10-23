@@ -16,6 +16,7 @@ import auth from "../Firebase/firebase.config";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 
 
+
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -37,6 +38,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInUser = (email, password) => {
+
     return signInWithEmailAndPassword(auth, email, password);
   };
 

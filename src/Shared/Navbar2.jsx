@@ -235,7 +235,7 @@ const Navbar2 = () => {
                     <img
                       src={
                         currentUser?.photoURL ||
-                        "https://via.placeholder.com/150"
+                        "https://i.ibb.co.com/sVhMSY5/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
                       }
                       alt={t("user_profile")}
                       className="w-10 h-10 rounded-full cursor-pointer"
@@ -300,6 +300,7 @@ const Navbar2 = () => {
                               {t("join_call")}
                             </button>
                           </li>
+
                           <li>
                             <button
                               onClick={handleLogOut}

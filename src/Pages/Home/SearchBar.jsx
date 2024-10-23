@@ -10,6 +10,7 @@ import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 
+
 const SearchBar = ({jobCount, companyCount,candidates,successPeoples}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
@@ -143,6 +144,7 @@ const SearchBar = ({jobCount, companyCount,candidates,successPeoples}) => {
               <div
                 className={`mt-3 ${jobs?.length > 0 ? "opacity-100" : "opacity-0"
                   } transition-opacity duration-300`}
+
               >
                 {jobs?.length > 0 ? (
                   <div className="flex items-center gap-2">

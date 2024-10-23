@@ -46,6 +46,7 @@ const PopularCategory = ({ categoryCounts }) => {
                         )
                     }
                 </div>
+
             </div>
 
         </div>

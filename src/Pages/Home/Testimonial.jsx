@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Rating from 'react-rating'
@@ -41,11 +42,13 @@ const Testimonial = ({ reviews }) => {
         }
     }, [screenWidth])
 
+
     return (
         <div className='bg-secondary'>
             <div className='container mx-auto py-24'>
                 <Swiper
                     slidesPerView={slidePerPage}
+
                     spaceBetween={30}
                     freeMode={true}
                     pagination={{
@@ -79,6 +82,7 @@ const Testimonial = ({ reviews }) => {
                                             <div>
                                                 <h1 className='font-bold'>{review?.username}</h1>
                                                 <p className='text-[#767E94]'>{review?.accountType ? review?.accountType : "UI/UX Designer"}</p>
+
                                             </div>
                                         </div>
 
