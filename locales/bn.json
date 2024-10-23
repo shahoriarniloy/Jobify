@@ -595,5 +595,9 @@
 
   "option_5": "৫", 
   "option_10": "১০",
-  "option_15": "১৫"
+  "option_15": "১৫",
+
+  "top_companies": "শীর্ষ কোম্পানি",
+  "view_company_details": "কোম্পানি বিস্তারিত দেখুন",
+  "no_companies_found": "কোনো কোম্পানি পাওয়া যায়নি।"
 }

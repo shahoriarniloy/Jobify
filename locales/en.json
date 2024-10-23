@@ -602,5 +602,9 @@
 
   "option_5": "5", 
   "option_10": "10",
-  "option_15": "15"
+  "option_15": "15",
+
+  "top_companies": "Top Companies",
+  "view_company_details": "View Company Details",
+  "no_companies_found": "No companies found."
 }
