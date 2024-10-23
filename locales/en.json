@@ -654,7 +654,7 @@
   "failed_to_post_comment": "Failed to post comment.",
   "failed_to_update_like_status": "Failed to update like status.",
   "loading_post": "Loading post...",
-   "comments": "Comments",
+  "comments": "Comments",
   "no_comments_yet": "No comments yet.",
   "add_a_comment": "Add a comment",
   "submitting": "Submitting...",
@@ -675,14 +675,19 @@
   "like_post": "Like post",
   "view_comments": "View Comments",
 
-   "whats_on_your_mind": "What's on your mind",
+  "whats_on_your_mind": "What's on your mind",
 
-   "create_a_post": "Create a Post",
-   "emoji_picker": "Emoji Picker",
-   "selected_image": "Selected Image",
-   "posting": "Posting...",
-   "post": "Post",
-   "please_add_content_or_image": "Please add some content or an image to post",
+  "create_a_post": "Create a Post",
+  "emoji_picker": "Emoji Picker",
+  "selected_image": "Selected Image",
+  "posting": "Posting...",
+  "post": "Post",
+  "please_add_content_or_image": "Please add some content or an image to post",
 
-   "page_not_found": "Page Not Found"
+  "page_not_found": "Page Not Found",
+
+  "contact": "Contact",
+  "companies": "Companies",
+  "copyright": "Copyright",
+  "all_rights_reserved": "All rights reserved by CodeBusters"
 }
