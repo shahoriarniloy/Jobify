@@ -9,7 +9,12 @@ import {
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import {
+  MdBookmark,
+  MdBookmarkBorder,
+  MdFavorite,
+  MdFavoriteBorder,
+} from "react-icons/md";
 import { FiCalendar, FiGlobe } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
@@ -39,34 +44,45 @@ const CompanyDetails = () => {
       try {
         const response = await axiosSecure.get(`/companies/${companyId}`);
         setCompany(response.data);
+
+        // After fetching company data, check if it is a favorite
+        if (userEmail && companyEmail) {
+          const favoriteResponse = await axiosSecure.get(
+            `/users/${userEmail}/favorite-company/${companyEmail}`
+          );
+          setIsFavorite(favoriteResponse.data.isFavorite);
+        }
       } catch (error) {
-        console.error("Error fetching company data:", error);
+        console.error(
+          "Error fetching company data or checking favorite status:",
+          error
+        );
       }
     };
 
     fetchCompanyData();
-  }, [companyId]);
+  }, [companyId, userEmail, companyEmail]);
 
   // Function to fetch favorite status when the component mounts
-  useEffect(() => {
-    if (userEmail && companyEmail) {
-      const checkFavoriteStatus = async () => {
-        try {
-          const response = await axiosSecure.get(
-            `/users/${userEmail}/favorite-company`
-          );
-          const data = response.data;
+  // useEffect(() => {
+  //   if (userEmail && companyEmail) {
+  //     const checkFavoriteStatus = async () => {
+  //       try {
+  //         const response = await axiosSecure.get(
+  //           `/users/${userEmail}/favorite-company`
+  //         );
+  //         const data = response.data;
 
-          // Check if the company is in the user's favorites
-          setIsFavorite(data.favoriteCompany.includes(companyEmail));
-        } catch (error) {
-          console.error("Error fetching favorite status:", error);
-        }
-      };
+  //         // Check if the company is in the user's favorites
+  //         setIsFavorite(data.favoriteCompany.includes(companyEmail));
+  //       } catch (error) {
+  //         console.error("Error fetching favorite status:", error);
+  //       }
+  //     };
 
-      checkFavoriteStatus();
-    }
-  }, [companyEmail, userEmail]);
+  //     checkFavoriteStatus();
+  //   }
+  // }, [companyEmail, userEmail]);
 
   const toggleFavorite = async () => {
     try {
@@ -88,13 +104,13 @@ const CompanyDetails = () => {
       // Show Toast for success
       toast.success(
         isFavorite
-          ? "Company removed from favorites"
-          : "Company added to favorites"
+          ? t("company_removed_from_favorites")
+          : t("company_added_to_favorites")
       );
     } catch (error) {
-      console.error("Error toggling favorite:", error);
+      console.error(t("error_toggling_favorite_with_colon"), error);
       // Show Toast for error
-      toast.error("Something went wrong while updating favorites.");
+      toast.error(t("something_went_wrong_while_updating_favorites"));
     }
   };
 
@@ -109,17 +125,6 @@ const CompanyDetails = () => {
               src={company?.company_logo}
               alt={t("company_banner_alt")}
             />
-
-            {/* Favorite btn */}
-            <div className="absolute top-4 right-4">
-              <button type="button" onClick={toggleFavorite}>
-                {isFavorite ? (
-                  <MdFavorite className="text-red-500 md:text-6xl text-4xl" />
-                ) : (
-                  <MdFavoriteBorder className="md:text-6xl text-4xl text-red-500" />
-                )}
-              </button>
-            </div>
           </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
@@ -151,11 +156,37 @@ const CompanyDetails = () => {
         </div>
 
         <div className="lg:hidden flex justify-end mt-48 md:mb-2 mb-2">
-          <Link to={`/messages/${company.email}`}>
-            <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 ">
-              {t("message")}
+          {/* Buttons Container */}
+          <div className="flex space-x-4">
+            {" "}
+            {/* Add space between buttons */}
+            {/* Favorite button */}
+            <button
+              className={`flex items-center justify-center 
+                ${isFavorite ? "bg-red-500" : "bg-green-500"} 
+                text-white hover:bg-blue-400 
+                rounded-lg p-2 mt-8 
+                transition duration-300 ease-in-out 
+                shadow-md hover:shadow-lg`}
+              type="button"
+              onClick={toggleFavorite}
+            >
+              {isFavorite ? (
+                <MdBookmark className="text-white md:text-2xl text-xl" />
+              ) : (
+                <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
+              )}
+              <span className="ml-2">
+                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+              </span>
             </button>
-          </Link>
+            {/* Message button */}
+            <Link to={`/messages/${company.email}`}>
+              <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-8">
+                {t("message")}
+              </button>
+            </Link>
+          </div>
         </div>
 
         <div className="flex flex-col md:flex-row md:mb-48 gap-6 justify-between">
@@ -281,12 +312,37 @@ const CompanyDetails = () => {
 
           <div className="md:ml-10 md:w-1/2">
             <div className="lg:flex lg:justify-end hidden">
-              <Link to={`/messages/${company.email}`}>
-                <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 mb-2 ">
-                  {t("message")}
+              <div className="flex space-x-4 mt-20 mb-5">
+                {" "}
+                {/* Favorite button */}
+                <button
+                  className={`flex items-center justify-center 
+                ${isFavorite ? "bg-red-500" : "bg-green-500"} 
+                text-white hover:bg-blue-400 
+                rounded-lg p-2 mt-3 
+                transition duration-300 ease-in-out 
+                shadow-md hover:shadow-lg`}
+                  type="button"
+                  onClick={toggleFavorite}
+                >
+                  {isFavorite ? (
+                    <MdBookmark className="text-white md:text-2xl text-xl" />
+                  ) : (
+                    <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
+                  )}
+                  <span className="ml-2">
+                    {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                  </span>
                 </button>
-              </Link>
+                {/* Message button */}
+                <Link to={`/messages/${company.email}`}>
+                  <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-3">
+                    {t("message")}
+                  </button>
+                </Link>
+              </div>
             </div>
+
             <div className="p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
               <div>
                 <FiCalendar className="text-2xl text-blue-500" />

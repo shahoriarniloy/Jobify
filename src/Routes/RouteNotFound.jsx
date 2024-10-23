@@ -1,7 +1,13 @@
+import { useTranslation } from "react-i18next";
+
 import { Link } from "react-router-dom";
 
+
 const RouteNotFound = () => {
+  const { t } = useTranslation();
+  
   return (
+
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-secondary p-6">
       <div className="text-center lg:text-left mb-8 lg:mb-0 lg:mr-12">
         <h1 className="text-4xl font-bold text-gray-800">
