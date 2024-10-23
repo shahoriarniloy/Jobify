@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser, logOut } from "../../../Redux/userSlice";
 import auth from "../Firebase/firebase.config";
+import axiosSecure from "../../../Hooks/UseAxiosSecure";
 
 
 export const AuthContext = createContext(null);
@@ -22,7 +23,6 @@ const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.currentUser);
-  console.log(currentUser)
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -58,14 +58,13 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (user) => {
+    const unSubscribe = onAuthStateChanged(auth,async (user) => {
       setLoading(true);
       if (user) {
+        console.log(user)
+        const {data} = await axiosSecure.get(`/users/${user.email}`);
         const serializableUser = {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
+          data
         };
         dispatch(setCurrentUser(serializableUser));
         localStorage.setItem("currentUser", JSON.stringify(serializableUser));

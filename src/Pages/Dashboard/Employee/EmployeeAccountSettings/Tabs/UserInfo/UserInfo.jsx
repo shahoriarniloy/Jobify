@@ -34,26 +34,6 @@ const UserInfo = () => {
     }
   })
 
-  //   const fetchUserInfo = async () => {
-  //     try {
-  //       const response = await axiosSecure.get(`/users/${currentUser?.email}`);
-  //       const userData = response.data;
-
-  //       if (userData && userData.userInfo && userData.userInfo.length > 0) {
-  //         setAbout(userData?.userInfo[0]?.about || "");
-  //         setPhone(userData?.userInfo[0]?.phone || "");
-  //         setSocialLinks(userData?.userInfo[0]?.socialLinks || "");
-  //       }
-  //     } catch (error) {
-  //       // console.error("Error fetching user info:", error);
-  //     }
-  //   };
-
-  //   fetchUserInfo();
-  // }, [currentUser?.email]);
-
-
-
   const handleAboutChange = (value) => {
     setAbout(value);
   };
