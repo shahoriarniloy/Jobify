@@ -660,5 +660,7 @@
   "comments_title": "মন্তব্য",
   "add_comment_placeholder": "একটি মন্তব্য যুক্ত করুন",
   "emoji_picker_label": "ইমোজি পিকার",
-  "comment_button": "মন্তব্য করুন"
+  "comment_button": "মন্তব্য করুন",
+
+  "no_posts_available": "কোন পোস্ট নেই"
 }

@@ -666,5 +666,7 @@
   "comments_title": "Comments",
   "add_comment_placeholder": "Add a comment",
   "emoji_picker_label": "Emoji Picker",
-  "comment_button": "Comment"
+  "comment_button": "Comment",
+
+  "no_posts_available": "No posts available"
 }
