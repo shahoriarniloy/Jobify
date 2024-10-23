@@ -9,7 +9,12 @@ import {
   FaTwitter,
   FaYoutube,
 } from "react-icons/fa";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import {
+  MdBookmark,
+  MdBookmarkBorder,
+  MdFavorite,
+  MdFavoriteBorder,
+} from "react-icons/md";
 import { FiCalendar, FiGlobe } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
@@ -151,36 +156,36 @@ const CompanyDetails = () => {
         </div>
 
         <div className="lg:hidden flex justify-end mt-48 md:mb-2 mb-2">
-          <div>
+          {/* Buttons Container */}
+          <div className="flex space-x-4">
+            {" "}
+            {/* Add space between buttons */}
             {/* Favorite button */}
-            <div className="flex justify-center w-full">
-              <button
-                className={`flex items-center justify-center 
+            <button
+              className={`flex items-center justify-center 
                 ${isFavorite ? "bg-red-500" : "bg-green-500"} 
                 text-white hover:bg-blue-400 
                 rounded-lg p-2 mt-8 
                 transition duration-300 ease-in-out 
                 shadow-md hover:shadow-lg`}
-                type="button"
-                onClick={toggleFavorite}
-              >
-                {isFavorite ? (
-                  <MdFavorite className="text-white md:text-2xl text-xl" />
-                ) : (
-                  <MdFavoriteBorder className="text-white md:text-2xl text-xl" />
-                )}
-                <span className="ml-2">
-                  {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-                </span>
+              type="button"
+              onClick={toggleFavorite}
+            >
+              {isFavorite ? (
+                <MdBookmark className="text-white md:text-2xl text-xl" />
+              ) : (
+                <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
+              )}
+              <span className="ml-2">
+                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+              </span>
+            </button>
+            {/* Message button */}
+            <Link to={`/messages/${company.email}`}>
+              <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-8">
+                {t("message")}
               </button>
-            </div>
-            <div className="flex justify-end w-full mt-5 mb-2">
-              <Link to={`/messages/${company.email}`}>
-                <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 ">
-                  {t("message")}
-                </button>
-              </Link>
-            </div>
+            </Link>
           </div>
         </div>
 
@@ -307,42 +312,37 @@ const CompanyDetails = () => {
 
           <div className="md:ml-10 md:w-1/2">
             <div className="lg:flex lg:justify-end hidden">
-              <div className="flex flex-col items-center">
+              <div className="flex space-x-4 mt-20 mb-5">
+                {" "}
                 {/* Favorite button */}
-                <div className="flex justify-center w-full">
-                  <button
-                    className={`flex items-center justify-center 
+                <button
+                  className={`flex items-center justify-center 
                 ${isFavorite ? "bg-red-500" : "bg-green-500"} 
                 text-white hover:bg-blue-400 
                 rounded-lg p-2 mt-3 
                 transition duration-300 ease-in-out 
                 shadow-md hover:shadow-lg`}
-                    type="button"
-                    onClick={toggleFavorite}
-                  >
-                    {isFavorite ? (
-                      <MdFavorite className="text-white md:text-2xl text-xl" />
-                    ) : (
-                      <MdFavoriteBorder className="text-white md:text-2xl text-xl" />
-                    )}
-                    <span className="ml-2">
-                      {isFavorite
-                        ? "Remove from Favorites"
-                        : "Add to Favorites"}
-                    </span>
-                  </button>
-                </div>
-
+                  type="button"
+                  onClick={toggleFavorite}
+                >
+                  {isFavorite ? (
+                    <MdBookmark className="text-white md:text-2xl text-xl" />
+                  ) : (
+                    <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
+                  )}
+                  <span className="ml-2">
+                    {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                  </span>
+                </button>
                 {/* Message button */}
-                <div className="flex justify-end w-full mt-5 mb-2">
-                  <Link to={`/messages/${company.email}`}>
-                    <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2">
-                      {t("message")}
-                    </button>
-                  </Link>
-                </div>
+                <Link to={`/messages/${company.email}`}>
+                  <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-3">
+                    {t("message")}
+                  </button>
+                </Link>
               </div>
             </div>
+
             <div className="p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
               <div>
                 <FiCalendar className="text-2xl text-blue-500" />
