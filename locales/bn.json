@@ -662,5 +662,10 @@
   "emoji_picker_label": "ইমোজি পিকার",
   "comment_button": "মন্তব্য করুন",
 
-  "no_posts_available": "কোন পোস্ট নেই"
+  "no_posts_available": "কোন পোস্ট নেই",
+
+  "posts_from_people_you_follow": "আপনার অনুসরণ করা লোকদের পোস্ট",
+  "unlike_post": "পোস্টটি পছন্দ করা বন্ধ করুন",
+  "like_post": "পোস্টটি পছন্দ করুন",
+  "view_comments": "মন্তব্যগুলি দেখুন"
 }
