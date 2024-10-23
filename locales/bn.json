@@ -683,5 +683,17 @@
   "contact": "যোগাযোগ",
   "companies": "কোম্পানিসমূহ",
   "copyright": "কপিরাইট",
-  "all_rights_reserved": "সমস্ত অধিকার সংরক্ষিত কোডবাস্টার্স"
+  "all_rights_reserved": "সমস্ত অধিকার সংরক্ষিত কোডবাস্টার্স",
+
+  
+  "new_job_posted_title": "নতুন চাকরি পোস্ট করা হয়েছে!",
+  "new_job_posted_text": "একটি নতুন চাকরি",
+  "by": "দ্বারা",
+  "view_job": "চাকরি দেখুন",
+  "notifications": "বিজ্ঞপ্তি",
+  "you_have": "আপনার আছে",
+  "notifications_count": "বিজ্ঞপ্তি",
+  "mark_all_as_read": "সবগুলো পড়া হিসাবে চিহ্নিত করুন",
+  "no_notifications_available": "কোন বিজ্ঞপ্তি নেই",
+  "position": "পদ"
 }
