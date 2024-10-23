@@ -30,7 +30,6 @@ const Main = () => {
       <Navbar />
 
 
-
       <div className="min-h-[calc(100vh-240px)] relative">
         <Outlet />
 
@@ -49,6 +48,7 @@ const Main = () => {
       </button>
 
       <Footer />
+
 
       {/* <Modal
       classNames="absolute bottom-0"

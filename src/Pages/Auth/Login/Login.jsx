@@ -1,23 +1,17 @@
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
-import { useDispatch, useSelector } from "react-redux";
 import ButtonLoader from "../../../Shared/ButtonLoader";
-import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next"; // Import useTranslation
-import useCurrentUser from "./../../../Hooks/useCurrentUser";
-import { use } from "i18next";
+import useCurrentUser from './../../../Hooks/useCurrentUser';
+
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
-  const { signInWithGoogle, signInUser } = useCurrentUser();
+  const { signInWithGoogle, signInUser,loading } = useCurrentUser();
   const { t } = useTranslation(); // Initialize translation
-  const { loading } = useSelector((state) => state.user);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const from = location.state?.from?.pathname || "/";
+
+
 
   const [showPassword, setShowPassword] = useState(false);
   // my test
@@ -26,14 +20,18 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    signInUser(email, password).then((res) => {
-      console.log(res);
-    });
+    signInUser(email, password)
+      .then(res => {
+        if (res.user) {
+          toast.success("Successfully logedIn");
+          setLoginModalOpen(false)
+        }
+      })
 
-    // toast.success(t("login.sign_in") + " " + t("login.login") + " " + t("login.success")); // Optional success message
-    // navigate(from, { replace: true });
-    // setLoginModalOpen(false)
+
+
   };
+
 
   const handleGoogleSignIn = async () => {
     signInWithGoogle().then((result) => {

@@ -141,11 +141,10 @@ const Navbar2 = () => {
               <select
                 onChange={handleLanguageChange}
                 value={currentLanguage}
-                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
-                  theme === "dark"
+                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${theme === "dark"
                     ? "bg-transparent text-white"
                     : "bg-transparent text-black"
-                }`}
+                  }`}
               >
                 <option value="en">{t("english")}</option>
                 <option value="bn">{t("bangla")}</option>
@@ -249,28 +248,19 @@ const Navbar2 = () => {
                       >
                         <ul className="py-1 text-gray-700">
                           {role === "Job Seeker" && (
-                            <>
-                              <li>
-                                <Link
-                                  to="jobSeeker/overview"
-                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                  onClick={() => setIsMenuOpen(false)}
-                                >
-                                  <MdOutlineDashboardCustomize />
-                                  {t("dashboard")}
-                                </Link>
-                              </li>
+
+                            <li>
                               <Link
+                                to="jobSeeker/overview"
                                 className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                onClick={() => {
-                                  setIsMenuOpen(false);
-                                  setRoomModal(true);
-                                }}
+                                onClick={() => setIsMenuOpen(false)}
                               >
-                                <MdOutlineVideoCall className="text-xl" />
-                                {t("join_call")}
+                                <MdOutlineDashboardCustomize />
+                                {t("dashboard")}
                               </Link>
-                            </>
+                            </li>
+
+
                           )}
                           {role === "Employer" && (
                             <li>
@@ -295,18 +285,7 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
-                              <li>
-                                <Link
-                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                  onClick={() => {
-                                    setIsMenuOpen(false);
-                                    setRoomModal(true);
-                                  }}
-                                >
-                                  <MdOutlineVideoCall className="text-xl" />
-                                  {t("join_call")}
-                                </Link>
-                              </li>
+
                             </li>
                           )}
                           <li>
