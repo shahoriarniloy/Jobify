@@ -658,5 +658,13 @@
   "no_comments_yet": "No comments yet.",
   "add_a_comment": "Add a comment",
   "submitting": "Submitting...",
-  "submit": "Submit"
+  "submit": "Submit",
+
+  "post_image_alt": "Post Image",
+  "unknown_date": "Unknown",
+  "like_post_title": "Like post",
+  "comments_title": "Comments",
+  "add_comment_placeholder": "Add a comment",
+  "emoji_picker_label": "Emoji Picker",
+  "comment_button": "Comment"
 }

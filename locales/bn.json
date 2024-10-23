@@ -652,5 +652,13 @@
   "no_comments_yet": "এখনো কোনো মন্তব্য নেই।",
   "add_a_comment": "একটি মন্তব্য যোগ করুন",
   "submitting": "জমা দেওয়া হচ্ছে...",
-  "submit": "জমা দিন"
+  "submit": "জমা দিন",
+
+  "post_image_alt": "পোস্টের ছবি",
+  "unknown_date": "অজানা",
+  "like_post_title": "পোস্টটি পছন্দ করুন",
+  "comments_title": "মন্তব্য",
+  "add_comment_placeholder": "একটি মন্তব্য যুক্ত করুন",
+  "emoji_picker_label": "ইমোজি পিকার",
+  "comment_button": "মন্তব্য করুন"
 }
