@@ -583,13 +583,12 @@
 
   "favorite_company": "Favorite Company",
 
-
   "error_dynamic": "Error: {{error}}",
   "fetching_jobs_for_user_email": "Fetching jobs for userEmail:",
   "error_fetching_jobs": "Error fetching jobs",
   "logo": "logo",
 
-   "company_removed_from_favorites": "Company removed from favorites",
+  "company_removed_from_favorites": "Company removed from favorites",
   "company_added_to_favorites": "Company added to favorites",
 
   "error_toggling_favorite_with_colon": "Error toggling favorite:",
@@ -600,7 +599,7 @@
   "no_matching_data_found": "No matching data found.",
   "failed_to_fetch_companies": "Failed to fetch companies.",
 
-  "option_5": "5", 
+  "option_5": "5",
   "option_10": "10",
   "option_15": "15",
 
@@ -632,5 +631,21 @@
   "music_audio": "Music & Audio",
   "account_finance": "Account & Finance",
   "health_care": "Health & Care",
-  "data_science": "Data & Science"
+  "data_science": "Data & Science",
+
+  "please_enter_something_first": "Please enter something first",
+  "find_job_suits_interest_skills": "Find a job that suits your interest & skills.",
+  "quickly_find_job_opportunities": "Quickly find job opportunities that match your skills and interests by searching for specific job titles, keywords, or locations.",
+  "suggestion_label": "Suggestion: ",
+  "designer_label": "Designer",
+  "programming_label": "Programming",
+  "digital_marketing_label": "Digital Marketing",
+  "video_label": "Video",
+  "animation_label": "Animation",
+  "job_results_label": "Job Results:",
+  "no_matching_jobs_label": "No matching jobs found.",
+  "live_jobs_label": "Live Jobs",
+  "companies_label": "Companies",
+  "candidates_label": "Candidates",
+   "successful_label": "Successful"
 }

@@ -625,5 +625,21 @@
   "music_audio": "সংগীত ও অডিও",
   "account_finance": "অ্যাকাউন্ট ও ফাইন্যান্স",
   "health_care": "স্বাস্থ্য ও যত্ন",
-  "data_science": "ডেটা ও বিজ্ঞান"
+  "data_science": "ডেটা ও বিজ্ঞান",
+
+  "please_enter_something_first": "দয়া করে আগে কিছু লিখুন",
+  "find_job_suits_interest_skills": "আপনার আগ্রহ এবং দক্ষতার সাথে মেলে এমন একটি চাকরি খুঁজুন।",
+  "quickly_find_job_opportunities": "নির্দিষ্ট চাকরির শিরোনাম, কীওয়ার্ড বা অবস্থানের জন্য অনুসন্ধান করে আপনার দক্ষতা এবং আগ্রহের সাথে মেলে এমন চাকরির সুযোগগুলি দ্রুত খুঁজুন।",
+  "suggestion_label": "প্রস্তাবনা: ",
+  "designer_label": "ডিজাইনার",
+  "programming_label": "প্রোগ্রামিং",
+  "digital_marketing_label": "ডিজিটাল মার্কেটিং",
+  "video_label": "ভিডিও",
+  "animation_label": "অ্যানিমেশন",
+  "job_results_label": "কর্মসংস্থান ফলাফল:",
+  "no_matching_jobs_label": "মিলছে না এমন কোনো চাকরি পাওয়া যায়নি।",
+   "live_jobs_label": "লাইভ চাকরিসমূহ",
+   "companies_label": "কোম্পনিসমূহ",
+   "candidates_label": "প্রার্থীরা",
+   "successful_label": "সফল"
 }
