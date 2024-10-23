@@ -30,7 +30,10 @@ const Navbar2 = () => {
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
   const [roomModal, setRoomModal] = useState(false);
   const [roomID, setRoomID] = useState();
-  const { role } = useUserRole();
+  const role = currentUser.data.role;
+
+  // const { role } = useUserRole();
+  // console.log(role);
   const menuRef = useRef(null);
   const { t } = useTranslation();
   const currentLanguage = useSelector((state) => state.language.language);
@@ -242,6 +245,7 @@ const Navbar2 = () => {
                       className="w-10 h-10 rounded-full cursor-pointer"
                       onClick={toggleMenu}
                     />
+
                     {isMenuOpen && (
                       <div
                         ref={menuRef}
@@ -249,28 +253,16 @@ const Navbar2 = () => {
                       >
                         <ul className="py-1 text-gray-700">
                           {role === "Job Seeker" && (
-                            <>
-                              <li>
-                                <Link
-                                  to="jobSeeker/overview"
-                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                  onClick={() => setIsMenuOpen(false)}
-                                >
-                                  <MdOutlineDashboardCustomize />
-                                  {t("dashboard")}
-                                </Link>
-                              </li>
+                            <li>
                               <Link
+                                to="jobSeeker/overview"
                                 className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                onClick={() => {
-                                  setIsMenuOpen(false);
-                                  setRoomModal(true);
-                                }}
+                                onClick={() => setIsMenuOpen(false)}
                               >
-                                <MdOutlineVideoCall className="text-xl" />
-                                {t("join_call")}
+                                <MdOutlineDashboardCustomize />
+                                {t("dashboard")}
                               </Link>
-                            </>
+                            </li>
                           )}
                           {role === "Employer" && (
                             <li>
@@ -295,18 +287,6 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
-                              <li>
-                                <Link
-                                  className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
-                                  onClick={() => {
-                                    setIsMenuOpen(false);
-                                    setRoomModal(true);
-                                  }}
-                                >
-                                  <MdOutlineVideoCall className="text-xl" />
-                                  {t("join_call")}
-                                </Link>
-                              </li>
                             </li>
                           )}
                           <li>

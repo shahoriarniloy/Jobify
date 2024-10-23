@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Rating from 'react-rating'
@@ -15,12 +16,39 @@ import 'swiper/css/pagination';
 import { FreeMode, Pagination } from 'swiper/modules';
 
 const Testimonial = ({ reviews }) => {
-    console.log(reviews)
+    const [screenWidth, setScreenWidth] = useState();
+    const [slidePerPage, setSlidePerPage] = useState(null);
+
+    // Getting current width for responsive offer cards
+    const getBrowserWidth = () => {
+        setScreenWidth(window.innerWidth);
+    }
+
+    useEffect(() => {
+        setScreenWidth(window.innerWidth);
+        // get resizing value
+        window.addEventListener('resize', getBrowserWidth);
+        return () => window.removeEventListener('resize', getBrowserWidth);
+    }, [])
+    useEffect(() => {
+        if (screenWidth <= 640) {
+            return setSlidePerPage(1);
+        }
+        else if (screenWidth <= 768 && screenWidth > 640) {
+            return setSlidePerPage(2);
+        }
+        else {
+            return setSlidePerPage(3);
+        }
+    }, [screenWidth])
+
+
     return (
         <div className='bg-secondary'>
             <div className='container mx-auto py-24'>
                 <Swiper
-                    slidesPerView={3}
+                    slidesPerView={slidePerPage}
+
                     spaceBetween={30}
                     freeMode={true}
                     pagination={{
@@ -49,11 +77,12 @@ const Testimonial = ({ reviews }) => {
                                                 <img
                                                     className='w-[38px] h-[38px] rounded-full'
                                                     src={review?.photoURL}
-                                                     alt="" />
+                                                    alt="" />
                                             </div>
                                             <div>
                                                 <h1 className='font-bold'>{review?.username}</h1>
-                                                <p className='text-[#767E94]'>{review?.accountType ? review?.accountType:"UI/UX Designer"}</p>
+                                                <p className='text-[#767E94]'>{review?.accountType ? review?.accountType : "UI/UX Designer"}</p>
+
                                             </div>
                                         </div>
 

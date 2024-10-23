@@ -519,6 +519,7 @@ const ResumeForm = () => {
     const fetchUserData = async () => {
       try {
         const response = await axiosSecure.get(`/users/${currentUser?.email}`);
+       
         const { name, phone, email, education, userInfo } = response.data;
         setFormData((prev) => ({
           ...prev,

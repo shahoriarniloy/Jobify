@@ -9,17 +9,16 @@ const TopCompanies = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["top-companies"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/companies");
+      const { data } = await axiosSecure.get("/companies")
       return data?.Companies;
-    },
-  });
-  if (isLoading) return <DashboardLoader />;
+    }
+  })
+  if (isLoading) return <DashboardLoader />
   return (
     <div>
-      <div className="container mx-auto py-24">
-        <h1 className="text-3xl font-semibold mb-2 tracking-wider text-black text-center ">
-          Top Companies
-        </h1>
+      <div className='container mx-auto py-24'>
+        <h1 className='text-3xl font-semibold mb-2 tracking-wider text-black text-center '>Top Companies</h1>
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
           {data
