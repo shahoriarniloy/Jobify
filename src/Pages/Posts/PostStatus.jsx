@@ -1,8 +1,10 @@
 import { useState } from "react";
 import PostStatusModal from "./PostStatusModal";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const PostStatus = ({}) => {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -16,7 +18,7 @@ const PostStatus = ({}) => {
         onClick={openModal}
       >
         <p className="text-gray-600">
-          What's on your mind, {currentUser?.displayName}?
+          {t("whats_on_your_mind")}, {currentUser?.displayName}?
         </p>
       </div>
 
