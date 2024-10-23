@@ -8,7 +8,7 @@ const CommentsModal = ({ isOpen, onClose }) => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [newComment, setNewComment] = useState("");
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [hasLiked, setHasLiked] = useState(false);
   const [commentLoading, setCommentLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -154,9 +154,8 @@ const CommentsModal = ({ isOpen, onClose }) => {
                     onClick={handleLike}
                   >
                     <HiHeart
-                      className={`w-5 h-5 ${
-                        hasLiked ? "text-blue-500" : "text-gray-500"
-                      }`}
+                      className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
+                        }`}
                     />
                     <span className="ml-1">{post.likes?.length || 0}</span>
                   </button>
@@ -199,9 +198,8 @@ const CommentsModal = ({ isOpen, onClose }) => {
                   />
                   <button
                     type="submit"
-                    className={`mt-2 bg-blue-500 text-white p-2 rounded-lg ${
-                      commentLoading ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`mt-2 bg-blue-500 text-white p-2 rounded-lg ${commentLoading ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     disabled={commentLoading}
                   >
                     {commentLoading ? "Submitting..." : "Submit"}

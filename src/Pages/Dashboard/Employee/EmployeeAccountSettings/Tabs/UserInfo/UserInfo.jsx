@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import "react-quill/dist/quill.snow.css";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../../../../../Shared/DashboardLoader";
+import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
 const UserInfo = () => {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ const UserInfo = () => {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [socialLinks, setSocialLinks] = useState([]);
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
 
   const { data, isLoading } = useQuery({
     queryKey: ["load initial data for user"],

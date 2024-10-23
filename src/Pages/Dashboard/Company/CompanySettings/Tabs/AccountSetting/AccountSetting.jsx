@@ -7,10 +7,11 @@ import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
 const AccountSetting = () => {
   const { t } = useTranslation();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
 
   const [location, setLocation] = useState([51.505, -0.09]);
   const {

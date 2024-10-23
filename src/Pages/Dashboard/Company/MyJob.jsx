@@ -8,10 +8,11 @@ import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useQuery } from "@tanstack/react-query";
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const JobTable = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
 
   const {
     data: jobs,

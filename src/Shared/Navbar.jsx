@@ -6,8 +6,10 @@ import { io } from "socket.io-client";
 import { FaBell } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { PiBag } from "react-icons/pi";
+import useCurrentUser from "../Hooks/useCurrentUser";
 
 const Navbar = () => {
+  const { currentUser } = useCurrentUser();
   const { t } = useTranslation();
   const [isSticky, setIsSticky] = useState(false);
   const [jobNotifications, setJobNotifications] = useState([]);
@@ -15,7 +17,7 @@ const Navbar = () => {
   const [socket, setSocket] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const currentUser = useSelector((state) => state.user.currentUser);
+
   const navItem = (
     <>
       <li>
@@ -36,7 +38,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("apply_job")}
+          {t("find_job")}
         </NavLink>
       </li>
       <li>
@@ -47,16 +49,6 @@ const Navbar = () => {
           }
         >
           {t("find_company")}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/messages"
-          className={({ isActive }) =>
-            isActive ? "active-nav nav-link" : "nav-link"
-          }
-        >
-          {t("messaging")}
         </NavLink>
       </li>
       <li>
@@ -147,11 +139,9 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className={`navbar shadow-sm ${
-          isSticky ? "sticky top-0 z-50" : ""
-        } roboto-regular ${
-          theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"
-        }`}
+        className={`navbar shadow-sm ${isSticky ? "sticky top-0 z-50" : ""
+          } roboto-regular ${theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"
+          }`}
       >
         <div className="navbar-start">
           <div className="dropdown">

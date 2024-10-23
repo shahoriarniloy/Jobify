@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FaBriefcase, FaRegHeart, FaEdit } from "react-icons/fa";
 import { MdHome, MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import useUserRole from "../../../Hooks/useUserRole";
-import { useSelector } from "react-redux";
 import { FiLayers } from "react-icons/fi";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const EmployeeDashboard = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const role = currentUser?.role;
+  const { currentUser, logOutUser } = useCurrentUser();
+  const navigate = useNavigate();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -38,60 +38,58 @@ const EmployeeDashboard = () => {
         duration-300 ease-in-out lg:relative`}
           >
             <div className="space-y-2">
-              {role === "Job Seeker" && (
-                <div>
-                  <NavLink
-                    to="/jobSeeker/overview"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "isActiveRoute"
-                        : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
-                    }
-                  >
-                    <FiLayers className="text-xl" /> {t("overview")}
-                  </NavLink>
-                  <NavLink
-                    to="/jobSeeker/appliedjobs"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
-                        : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
-                    }
-                  >
-                    <FaBriefcase /> {t("applied_jobs")}
-                  </NavLink>
-                  <NavLink
-                    to="/jobSeeker/favorite-jobs"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
-                        : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
-                    }
-                  >
-                    <FaRegHeart /> {t("favorite_jobs")}
-                  </NavLink>
-                  <NavLink
-                    to="/jobSeeker/resume-builder"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
-                        : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
-                    }
-                  >
-                    <FaEdit /> {t("edit_resume")}
-                  </NavLink>
-                  <NavLink
-                    to="/jobSeeker/employee-settings"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
-                        : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
-                    }
-                  >
-                    <IoSettingsOutline /> {t("profile_setting")}
-                  </NavLink>
-                </div>
-              )}
+              <div>
+                <NavLink
+                  to="/jobSeeker/overview"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <FiLayers className="text-xl" /> {t("overview")}
+                </NavLink>
+                <NavLink
+                  to="/jobSeeker/appliedjobs"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <FaBriefcase /> {t("applied_jobs")}
+                </NavLink>
+                <NavLink
+                  to="/jobSeeker/favorite-jobs"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <FaRegHeart /> {t("favorite_jobs")}
+                </NavLink>
+                <NavLink
+                  to="/jobSeeker/resume-builder"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <FaEdit /> {t("edit_resume")}
+                </NavLink>
+                <NavLink
+                  to="/jobSeeker/employee-settings"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <IoSettingsOutline /> {t("profile_setting")}
+                </NavLink>
+              </div>
             </div>
 
             {/* General links */}
@@ -106,16 +104,15 @@ const EmployeeDashboard = () => {
               >
                 <MdHome className="text-xl" /> {t("home")}
               </NavLink>
-              <NavLink
-                to="/logout"
-                className={({ isActive }) =>
-                  isActive
-                    ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
-                    : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
-                }
+              <button
+                onClick={() => {
+                  logOutUser();
+                  navigate("/");
+                }}
+                className="flex items-center pl-5 py-2 text-[#767F8C] gap-2"
               >
                 <MdOutlineLogout className="text-xl" /> {t("log_out")}
-              </NavLink>
+              </button>
             </div>
           </div>
 

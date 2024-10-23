@@ -7,23 +7,21 @@ import { io } from "socket.io-client";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
 import useUserRole from "../Hooks/useUserRole";
-import { FaRegHeart, FaBriefcase, FaBell, FaEdit } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineVideoCall } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
-import { logOut as logOutAction } from "../Redux/userSlice";
 import { toggleTheme } from "../Redux/themeSlice";
 import { useTranslation } from "react-i18next";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { switchLanguage } from "../Redux/languageSlice";
 import Swal from "sweetalert2";
+import useCurrentUser from "../Hooks/useCurrentUser";
+import { toast } from "react-toastify";
 
 const Navbar2 = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
-  console.log(currentUser);
-  const role = currentUser?.role;
+  const { currentUser, logOutUser } = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +30,7 @@ const Navbar2 = () => {
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
   const [roomModal, setRoomModal] = useState(false);
   const [roomID, setRoomID] = useState();
+  const { role } = useUserRole();
   const menuRef = useRef(null);
   const { t } = useTranslation();
   const currentLanguage = useSelector((state) => state.language.language);
@@ -63,8 +62,10 @@ const Navbar2 = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(logOutAction());
-    navigate("/");
+    logOutUser().then(() => {
+      toast.success("You have successfully logged out.");
+      navigate("/");
+    });
   };
 
   const handleJoinRoom = useCallback(() => {
@@ -182,12 +183,12 @@ const Navbar2 = () => {
                         : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
                     }
                   >
-                    <h2 className="text-lg font-bold mb-4">Job Alert</h2>
+                    <h2 className="text-lg font-bold mb-4">Notifications</h2>
 
                     {jobNotifications.length > 0 && (
                       <div className="flex justify-between items-center mb-4">
                         <p className="text-sm">
-                          You have {jobNotifications.length} Job Alerts
+                          You have {jobNotifications.length} notifications
                         </p>
                         <button
                           onClick={handleMarkAllAsRead}
@@ -216,7 +217,7 @@ const Navbar2 = () => {
                         ))}
                       </ul>
                     ) : (
-                      <p>No New Jobs Posted</p>
+                      <p>No notifications available</p>
                     )}
 
                     <div className="flex justify-end">
@@ -237,13 +238,12 @@ const Navbar2 = () => {
                     <img
                       src={
                         currentUser?.photoURL ||
-                        "https://i.ibb.co.com/sVhMSY5/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
+                        "https://i.ibb.co.com/P6RfpHT/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
                       }
                       alt={t("user_profile")}
                       className="w-10 h-10 rounded-full cursor-pointer"
                       onClick={toggleMenu}
                     />
-
                     {isMenuOpen && (
                       <div
                         ref={menuRef}
@@ -299,7 +299,6 @@ const Navbar2 = () => {
                               {t("join_call")}
                             </button>
                           </li>
-
                           <li>
                             <button
                               onClick={handleLogOut}

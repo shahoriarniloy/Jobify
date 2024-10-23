@@ -6,10 +6,11 @@ import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next"; // Importing useTranslation
+import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
 const CareerInfo = () => {
   const { t } = useTranslation(); // Destructuring useTranslation
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [description, setDescription] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [popUpClose, setPopUpClose] = useState(false);
@@ -106,9 +107,8 @@ const CareerInfo = () => {
 
             {!isLoading && uniqueSchools.length > 0 && (
               <ul
-                className={`${
-                  popUpClose ? "hidden" : "absolute"
-                } z-10  border border-gray-300 rounded mt-2 bg-white shadow-lg max-h-60 overflow-auto`}
+                className={`${popUpClose ? "hidden" : "absolute"
+                  } z-10  border border-gray-300 rounded mt-2 bg-white shadow-lg max-h-60 overflow-auto`}
               >
                 {uniqueSchools.map((schoolName, index) => (
                   <li
