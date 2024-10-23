@@ -54,6 +54,7 @@ import Resume from "../Pages/Dashboard/Employee/ResumeBuilder/Resume";
 import ResumeBuilder from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeBuilder";
 import EmployeeDashboard from "../Pages/Dashboard/Employee/EmployeeDashboard";
 import CandidateResume from "../Pages/Dashboard/Company/Candidates/CandidateResume";
+import Career from "../Pages/Dashboard/Employee/ResumeBuilder/Career";
 
 export const router = createBrowserRouter([
   {
@@ -244,6 +245,11 @@ export const router = createBrowserRouter([
             path: "employee-settings",
             element: <EmployeeSettings />,
           },
+          {
+            path: "career",
+            element: <Career></Career>,
+          },
+
         ],
       },
     ],
