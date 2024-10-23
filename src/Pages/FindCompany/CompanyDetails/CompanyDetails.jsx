@@ -120,17 +120,6 @@ const CompanyDetails = () => {
               src={company?.company_logo}
               alt={t("company_banner_alt")}
             />
-
-            {/* Favorite btn */}
-            <div className="absolute top-4 right-4">
-              <button type="button" onClick={toggleFavorite}>
-                {isFavorite ? (
-                  <MdFavorite className="text-red-500 md:text-6xl text-4xl" />
-                ) : (
-                  <MdFavoriteBorder className="md:text-6xl text-4xl text-red-500" />
-                )}
-              </button>
-            </div>
           </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
@@ -162,11 +151,37 @@ const CompanyDetails = () => {
         </div>
 
         <div className="lg:hidden flex justify-end mt-48 md:mb-2 mb-2">
-          <Link to={`/messages/${company.email}`}>
-            <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 ">
-              {t("message")}
-            </button>
-          </Link>
+          <div>
+            {/* Favorite button */}
+            <div className="flex justify-center w-full">
+              <button
+                className={`flex items-center justify-center 
+                ${isFavorite ? "bg-red-500" : "bg-green-500"} 
+                text-white hover:bg-blue-400 
+                rounded-lg p-2 mt-8 
+                transition duration-300 ease-in-out 
+                shadow-md hover:shadow-lg`}
+                type="button"
+                onClick={toggleFavorite}
+              >
+                {isFavorite ? (
+                  <MdFavorite className="text-white md:text-2xl text-xl" />
+                ) : (
+                  <MdFavoriteBorder className="text-white md:text-2xl text-xl" />
+                )}
+                <span className="ml-2">
+                  {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                </span>
+              </button>
+            </div>
+            <div className="flex justify-end w-full mt-5 mb-2">
+              <Link to={`/messages/${company.email}`}>
+                <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 ">
+                  {t("message")}
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col md:flex-row md:mb-48 gap-6 justify-between">
