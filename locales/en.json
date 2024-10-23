@@ -622,5 +622,15 @@
   "build_resume_description": "Utilize our resume builder to easily craft a professional and eye-catching resume that highlights your skills and experiences, making you stand out to potential employers.",
   "find_suitable_job": "Find suitable job",
   "find_suitable_job_description": "Explore our platform to find suitable job opportunities tailored to your skills and aspirations, connecting you with employers looking for talent like yours.",
-  "apply_job_description": "Apply to jobs effortlessly with our streamlined application process, making it easy for you to showcase your skills and land your dream position."
+  "apply_job_description": "Apply to jobs effortlessly with our streamlined application process, making it easy for you to showcase your skills and land your dream position.",
+
+  "popular_categories": "Popular Categories",
+  "graphics_design": "Graphics & Design",
+  "code_programming": "Code & Programming",
+  "digital_marketing": "Digital Marketing",
+  "video_animation": "Video & Animation",
+  "music_audio": "Music & Audio",
+  "account_finance": "Account & Finance",
+  "health_care": "Health & Care",
+  "data_science": "Data & Science"
 }
