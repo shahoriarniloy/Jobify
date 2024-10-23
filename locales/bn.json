@@ -599,5 +599,9 @@
 
   "top_companies": "শীর্ষ কোম্পানি",
   "view_company_details": "কোম্পানি বিস্তারিত দেখুন",
-  "no_companies_found": "কোনো কোম্পানি পাওয়া যায়নি।"
+  "no_companies_found": "কোনো কোম্পানি পাওয়া যায়নি।",
+
+  "valid_search_term": "একটি বৈধ অনুসন্ধান শব্দ প্রবেশ করুন।",
+  "find_people_to_follow": "অনুসরণ করার জন্য লোক খুঁজুন",
+  "find": "অনুসন্ধান"
 }
