@@ -50,33 +50,32 @@ const AdvancedSearch = () => {
   });
 
 
-  
 
-  const { data:jobs ,isLoading, refetch} = useQuery({
+
+  const { data: jobs, isLoading, refetch } = useQuery({
     queryKey: ["load"],
     queryFn: async () => {
-      
-        const {data} = await axiosSecure.get(
-          `/jobs/advanced-search?page=${currentPage}&size=${itemsPerPage}`,
-          {
-            params: {
-              searchTerm,
-              location,
-              experience: filters.experience.join(","),
-              jobType: filters.jobType.join(","),
-              education: filters.education.join(","),
-              jobLevel: filters.jobLevel.join(","),
-              salaryRange: filters.salaryRange.join(","),
-            },
-          }
-        );
-        if (!data.totalJobs) {
-          toast.info("No matching data found");
-        }  
-        return data.jobs;  
+
+      const { data } = await axiosSecure.get(
+        `/jobs/advanced-search?page=${currentPage}&size=${itemsPerPage}`,
+        {
+          params: {
+            searchTerm,
+            location,
+            experience: filters.experience.join(","),
+            jobType: filters.jobType.join(","),
+            education: filters.education.join(","),
+            jobLevel: filters.jobLevel.join(","),
+            salaryRange: filters.salaryRange.join(","),
+          },
+        }
+      );
+      if (!data.totalJobs) {
+        toast.info("No matching data found");
+      }
+      return data.jobs;
     }
   })
-
   useEffect(() => {
     refetch()
   }, [currentPage, itemsPerPage]);
@@ -123,6 +122,8 @@ const AdvancedSearch = () => {
 
 
   if (isLoading) return <DashboardLoader />
+  console.log(jobs[0])
+
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto">
@@ -411,8 +412,9 @@ const AdvancedSearch = () => {
                   <thead className="dark:bg-gray-300">
                     <tr className="text-left">
                       <th className="p-3">{t("job_title")}</th>
+                      <th className="p-3">Vacancy</th>
                       <th className="p-3 hidden md:table-cell">
-                        {t("company")}
+                        Job Type
                       </th>
                       <th className="p-3 hidden md:table-cell">
                         {t("salary")}
@@ -422,35 +424,52 @@ const AdvancedSearch = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {(filteredJobs.length > 0 ? filteredJobs : jobs).map(
-                      (job) => (
+                    {jobs?.map(
+                      ({ _id, jobInfo, companyInfo }) => (
                         <tr
-                          key={job._id}
+                          key={_id}
                           className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
                         >
                           <td className="p-3">
-                            <span className="block text-sm font-semibold">
-                              {job.title}
-                            </span>
-                            <span className="block text-xs text-gray-500 md:hidden">
-                              {job.company}
-                            </span>
-                          </td>
-                          <td className="p-3 hidden md:table-cell">
-                            {job.company}
-                          </td>
-                          <td className="p-3 hidden md:table-cell">
-                            {job.salaryRange}
+                            <div className="flex items-center gap-3">
+                              <div className="avatar">
+                                <div className="mask mask-squircle h-12 w-12">
+                                  <img
+                                    src={companyInfo?.company_logo}
+                                    alt="Avatar Tailwind CSS Component" />
+                                </div>
+                              </div>
+                              <div>
+                                <div className="font-bold">{jobInfo?.title}</div>
+                                <div className="text-sm opacity-50">{companyInfo?.company_name}</div>
+                              </div>
+                            </div>
                           </td>
                           <td className="p-3">
-                            <Link to={`/job/${job._id}`}>
-                              <button className=" hover:underline">
-                                <EyeIcon className="h-5 w-5 inline-block mr-1" />
+                            <span className="block text-sm font-semibold ">
+                              {jobInfo?.vacancy}
+                            </span>
+                            <span className="block text-xs text-gray-500 md:hidden">
+
+                            </span>
+                          </td>
+                          <td className="p-3 hidden md:table-cell">
+                            {jobInfo?.jobType}
+                          </td>
+                          <td className="p-3 hidden md:table-cell">
+                            {jobInfo?.salaryRange}
+                          </td>
+                          <td className="p-3">
+                            <Link to={`/job/${_id}`}>
+                              <button className="btn btn-outline btn-info btn-sm">
+                                View Details
                               </button>
                             </Link>
                           </td>
                           <td className="p-3  lg:table-cell">
-                            <Bookmark jobId={job._id} />
+                            <p className="btn btn-outline btn-accent btn-sm">
+                              <Bookmark jobId={_id} />
+                            </p>
                           </td>
                         </tr>
                       )
@@ -462,50 +481,56 @@ const AdvancedSearch = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-8 mt-4">
-            {(filteredJobs.length > 0 ? filteredJobs : jobs).map((job) => (
+            {jobs?.map(({ _id, jobInfo, companyInfo }) => (
               <div
-                key={job._id}
-                className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"
+                key={_id}
+                className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"
               >
                 <span className="absolute top-10 z-0 h-20 w-20 rounded-full  duration-300 "></span>
                 <div className="relative z-10 mx-auto max-w-md">
-                  <span>
-                    <span className="grid h-20 w-20 place-items-center rounded-full  transition-all duration-300 ">
-                      <span className="grid h-20 w-20 place-items-center rounded-full ">
+                  <span className="grid size-[60px] place-items-center rounded-full ">
 
-                        <img
-                          src={companyLogos[job._id]}
-                          alt={`${job.title} logo`}
-                          className="h-full w-full rounded-full transition-all"
-                        />
+                    <img
+                      src={companyInfo?.company_logo}
+                      className="h-full w-full rounded-full transition-all"
+                    />
 
-                      </span>
-                    </span>
                   </span>
+                  <div className="pt-5 text-base  text-gray-600 transition-all duration-300 ">
+                    <h2 className="text-2xl font-semibold tracking-wide flex gap-2">
+                      {jobInfo?.title}
+                      <div className="p-2 rounded-full text-xs bg-[#1d4fd83a] size-[28px] flex justify-center items-center">{jobInfo?.vacancy}</div>
 
-                  <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 ">
-                    <h2 className="text-2xl font-semibold tracking-wide">
-                      {job.title}
                     </h2>
-                    <div className="absolute -top-12 -right-6">
-                      <Bookmark jobId={job._id} />
-                    </div>
-
                     <p className="font-semibold">
-                      {t("company_advanced_search", { company: job.company })}
+                      {companyInfo?.company_name}
                     </p>
-                    <p className="text-sm tracking-wide">
-                      {t("job_type_advanced_search", { jobType: job.jobType })}
+                    <p className="text-sm tracking-wide mt-3">
+                      <span className="font-semibold">Category: </span>{jobInfo?.jobCategory}
                     </p>
-                    <p className="text-sm">
-                      {t("salary_advanced_search", {
-                        salaryRange: job.salaryRange,
-                      })}
+                    <p className="text-sm tracking-wide mt-1">
+                      <span className="font-semibold">Job Type: </span>{jobInfo?.jobType}
                     </p>
+                    <p className="text-sm mt-1">
+                      <span className="font-semibold">Salary Range : </span>{jobInfo?.salaryRange}
+                    </p>
+                    <p className="text-sm mt-1">
+                      <span className="font-semibold">Job Level : </span>{jobInfo?.jobLevel}
+                    </p>
+                    <p className="text-sm mt-1">
+                      <span className="font-semibold">Deadline : </span>{jobInfo?.deadline}
+                    </p>
+                    <p className="text-sm mt-1">
+                      <span className="font-semibold">Location : </span>{jobInfo?.location}
+                    </p>
+
+                    <div className="absolute -top-4 -right-6">
+                      <Bookmark jobId={_id} />
+                    </div>
                   </div>
                   <div className="pt-5 text-base font-semibold leading-7">
                     <Link
-                      to={`/job/${job._id}`}
+                      to={`/job/${_id}`}
                       className="text-slate-500 transition-all duration-300  flex items-center"
                     >
                       {t("view_details")}
