@@ -15,8 +15,6 @@ import { setCurrentUser, logOut } from "../../../Redux/userSlice";
 import auth from "../Firebase/firebase.config";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 
-
-
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -38,14 +36,11 @@ const AuthProvider = ({ children }) => {
   };
 
   const signInUser = (email, password) => {
-
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const signInWithGoogle = () => {
     return signInWithPopup(auth, googleProvider);
-    
-    
   };
 
   const logOutUser = () => {
@@ -60,15 +55,15 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth,async (user) => {
+    const unSubscribe = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
       if (user) {
-        console.log(user)
-        const {data} = await axiosSecure.get(`/users/${user.email}`);
+        console.log(user);
+        const { data } = await axiosSecure.get(`/users/${user.email}`);
         const serializableUser = {
-          data
+          data,
         };
-        dispatch(setCurrentUser(serializableUser));
+        dispatch(setCurrentUser(serializableUser?.data));
         localStorage.setItem("currentUser", JSON.stringify(serializableUser));
       } else {
         dispatch(logOut());
@@ -88,7 +83,7 @@ const AuthProvider = ({ children }) => {
     logOut: logOutUser,
     updateUserProfile,
     loading,
-    setLoading
+    setLoading,
   };
 
   return (

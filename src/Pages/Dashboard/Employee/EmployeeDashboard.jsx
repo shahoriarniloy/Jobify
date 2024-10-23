@@ -11,20 +11,13 @@ import { useTranslation } from "react-i18next"; // Import useTranslation
 const EmployeeDashboard = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
   const currentUser = useSelector((state) => state.user.currentUser);
-  const {
-    role,
-    loading: roleLoading,
-    error: roleError,
-  } = useUserRole(currentUser?.email);
+  const role = currentUser?.role;
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
-  if (roleLoading) return <div>{t("loading_role")}</div>; // Translated string
-  if (roleError) return <div>{t("error_fetching_role")}: {roleError}</div>; // Translated string
 
   return (
     <div className="relative">

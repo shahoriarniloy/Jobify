@@ -46,7 +46,6 @@ export const signInWithGoogle = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      // console.log("Google Sign-In Result:", result);
       return {
         uid: result.user.uid,
         email: result.user.email,
@@ -54,7 +53,6 @@ export const signInWithGoogle = createAsyncThunk(
         photoURL: result.user.photoURL,
       };
     } catch (error) {
-      // console.error("Google Sign-In Error:", error.message);
       return rejectWithValue(error.message);
     }
   }

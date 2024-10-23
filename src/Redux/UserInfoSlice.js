@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosSecure from "../Hooks/UseAxiosSecure";
-import useCurrentUser from "../Hooks/useCurrentUser";
-const { currentUser } = useCurrentUser();
 
 const initialState = {
   currentUser: null,

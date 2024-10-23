@@ -8,6 +8,7 @@ import axiosSecure from "../../../Hooks/UseAxiosSecure";
 
 const EmployeeHome = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
+  console.log('cu:',currentUser)
 
   const [appliedJobsCount, setAppliedJobsCount] = useState(0);
   const [favoriteJobsCount, setFavoriteJobsCount] = useState(0);

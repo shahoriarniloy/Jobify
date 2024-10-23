@@ -519,7 +519,7 @@ const ResumeForm = () => {
     const fetchUserData = async () => {
       try {
         const response = await axiosSecure.get(`/users/${currentUser?.email}`);
-       
+
         const { name, phone, email, education, userInfo } = response.data;
         setFormData((prev) => ({
           ...prev,
@@ -558,7 +558,7 @@ const ResumeForm = () => {
 
           setFormData({
             ...formData,
-            name: currentUser.displayName,
+            name: currentUser.displayName || currentUser.name,
             phone: userData?.userInfo[0]?.phone,
             email: currentUser.email,
             linkedin: userData.linkedin,
@@ -716,7 +716,7 @@ const ResumeForm = () => {
                 id="name"
                 type="text"
                 name="name"
-                value={currentUser?.displayName}
+                value={currentUser?.displayName || currentUser.name}
                 onChange={handleChange}
                 disabled
                 className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"

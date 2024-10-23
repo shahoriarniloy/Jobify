@@ -1,27 +1,17 @@
-import axiosSecure from "./UseAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
 import useCurrentUser from "./useCurrentUser";
+import { useState, useEffect } from "react";
 
 const useUserRole = () => {
-  // const currentUser = useSelector((state) => state?.user?.currentUser);
-  const { currentUser } = useCurrentUser();
+  const { currentUser, isLoading: isUserLoading } = useCurrentUser(); // Assuming useCurrentUser provides an isLoading state
+  const [role, setRole] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  console.log(currentUser);
-
-  const { data: role, isLoading } = useQuery({
-    queryKey: ["loadedRole", currentUser?.email],
-    queryFn: async () => {
-      if (currentUser?.email) {
-        const response = await axiosSecure.get(
-          `/user-role?email=${currentUser.email}`
-        );
-        return response.data;
-      }
-      return null;
-    },
-    enabled: !!currentUser?.email,
-  });
+  useEffect(() => {
+    if (!isUserLoading) {
+      setRole(currentUser?.data?.role);
+      setIsLoading(false); // Loading is done once currentUser is available
+    }
+  }, [currentUser, isUserLoading]);
 
   return { role, isLoading };
 };

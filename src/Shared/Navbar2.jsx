@@ -22,6 +22,8 @@ import Swal from "sweetalert2";
 
 const Navbar2 = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
+  console.log(currentUser);
+  const role = currentUser?.role;
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,10 +32,6 @@ const Navbar2 = () => {
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
   const [roomModal, setRoomModal] = useState(false);
   const [roomID, setRoomID] = useState();
-  const role = currentUser.data.role;
-
-  // const { role } = useUserRole();
-  // console.log(role);
   const menuRef = useRef(null);
   const { t } = useTranslation();
   const currentLanguage = useSelector((state) => state.language.language);
