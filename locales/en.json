@@ -615,4 +615,12 @@
   "open_dropdown": "Open dropdown",
   "unfollow": "Unfollow",
   "follow": "Follow",
+
+  "how_jobify_work": "How Jobify work",
+  "create_account_description": "Creating an account allows you to unlock personalized features, manage your job applications, and stay updated on opportunities tailored just for you.",
+  "build_resume": "Build Resume",
+  "build_resume_description": "Utilize our resume builder to easily craft a professional and eye-catching resume that highlights your skills and experiences, making you stand out to potential employers.",
+  "find_suitable_job": "Find suitable job",
+  "find_suitable_job_description": "Explore our platform to find suitable job opportunities tailored to your skills and aspirations, connecting you with employers looking for talent like yours.",
+  "apply_job_description": "Apply to jobs effortlessly with our streamlined application process, making it easy for you to showcase your skills and land your dream position."
 }
