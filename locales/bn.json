@@ -1,7 +1,16 @@
 {
-  "Jobify": "জবিফাই",
   "english": "English",
   "bangla": "বাংলা",
+  "arabic": "العربية",
+  "urdu": " اُردُو",
+  "spanish": "Español",
+  "french": "Français",
+  "China": "中国",
+  "german": "Deutsch",
+  "Portuguese": "Português",
+  "hindi": "हिन्दी",
+
+  "Jobify": "জবিফাই",
   "user_profile": "ব্যবহারকারী প্রোফাইল",
   "applied_jobs": "আবেদন করা চাকরি",
   "favorite_jobs": "পছন্দের চাকরি",
@@ -685,7 +694,6 @@
   "copyright": "কপিরাইট",
   "all_rights_reserved": "সমস্ত অধিকার সংরক্ষিত কোডবাস্টার্স",
 
-  
   "new_job_posted_title": "নতুন চাকরি পোস্ট করা হয়েছে!",
   "new_job_posted_text": "একটি নতুন চাকরি",
   "by": "দ্বারা",

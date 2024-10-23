@@ -1,7 +1,16 @@
 {
-  "Jobify": "Jobify",
   "english": "English",
   "bangla": "বাংলা",
+  "arabic": "العربية",
+  "urdu": " اُردُو",
+  "spanish": "Español",
+  "french": "Français",
+  "China": "中国",
+  "german": "Deutsch",
+  "Portuguese": "Português",
+  "hindi": "हिन्दी",
+
+  "Jobify": "Jobify",
   "user_profile": "User Profile",
   "applied_jobs": "Applied Jobs",
   "favorite_jobs": "Favorite Jobs",
@@ -691,7 +700,6 @@
   "copyright": "Copyright",
   "all_rights_reserved": "All rights reserved by CodeBusters",
 
-  
   "new_job_posted_title": "New Job Posted!",
   "new_job_posted_text": "A new job",
   "by": "posted by",
