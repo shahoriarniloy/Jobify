@@ -610,5 +610,9 @@
 
   "valid_search_term": "Please enter a valid search term.",
   "find_people_to_follow": "Find People to Follow",
-  "find": "Find"
+  "find": "Find",
+
+  "open_dropdown": "Open dropdown",
+  "unfollow": "Unfollow",
+  "follow": "Follow",
 }
