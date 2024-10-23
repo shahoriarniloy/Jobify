@@ -682,5 +682,7 @@
    "selected_image": "Selected Image",
    "posting": "Posting...",
    "post": "Post",
-   "please_add_content_or_image": "Please add some content or an image to post"
+   "please_add_content_or_image": "Please add some content or an image to post",
+
+   "page_not_found": "Page Not Found"
 }
