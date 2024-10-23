@@ -23,7 +23,7 @@ const AppliedCandidates = () => {
   const [error, setError] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({});
   const [filterStatus, setFilterStatus] = useState("All");
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [interviewDetails, setInterviewDetails] = useState({
     date: "",
     time: "",
@@ -224,11 +224,10 @@ const AppliedCandidates = () => {
                 {statusOptions.map((status) => (
                   <button
                     key={status.value}
-                    className={`btn ${
-                      candidate.application.status === status.value
+                    className={`btn ${candidate.application.status === status.value
                         ? "bg-gradient-to-r from-blue-400 to-blue-500 text-white"
                         : "bg-white text-black"
-                    }`}
+                      }`}
                     onClick={() =>
                       handleStatusChange(
                         candidate?.user?.email,

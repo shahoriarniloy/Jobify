@@ -4,11 +4,13 @@ import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../../Shared/DashboardLoader";
 
 const PostJob = () => {
   const { t } = useTranslation(); // Initialize useTranslation
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const [categories, setCategories] = useState([]);
+  const { currentUser } = useCurrentUser();
   const [subCategories, setSubCategories] = useState([]);
 
   const [jobData, setJobData] = useState({
@@ -26,78 +28,50 @@ const PostJob = () => {
     responsibilities: [],
     jobCategory: "",
     jobSubCategory: "",
+    posted: new Date().toISOString().split("T")[0],
   });
 
-  useEffect(() => {
-    const fetchAndSetCategories = async () => {
-      try {
-        const response = await axiosSecure.get(`/jobCategories`);
 
-        const categoryData = response.data;
-        console.log(categoryData);
+  // Load all categories
+  const { data: categories, isLoading } = useQuery({
+    queryKey: ["load category"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/jobCategories`);
+      return data;
+    }
+  })
+  // Load company info
+  const { data, isLoading: loadingCom } = useQuery({
+    queryKey: ["load company info"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/companies/${currentUser.email}`);
+      return data;
+    }
+  })
 
-        if (categoryData) {
-          setCategories(categoryData); // Directly set the categoryData
-        }
-      } catch (error) {
-        // console.error("Error fetching user info:", error);
-      }
-    };
-
-    fetchAndSetCategories();
-  }, []);
-  console.log(categories);
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const response = await axiosSecure.get(
-          `/companies/${currentUser.email}`
-        );
-
-        const userData = response.data;
-
-        if (userData) {
-          setJobData((prevJobData) => ({
-            ...prevJobData,
-            company: userData.company_name,
-          }));
-        }
-      } catch (error) {
-        // console.error("Error fetching user info:", error);
-      }
-    };
-
-    fetchUserInfo();
-  }, [currentUser.email]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setJobData((prevJobData) => ({
       ...prevJobData,
       [name]: value,
-      hrEmail: currentUser?.email,
     }));
-
-    if (name === "jobCategory") {
-      const selectedCategory = categories.find(
-        (category) => category.name === value
-      );
-      setSubCategories(selectedCategory?.subcategories || []);
-    }
   };
+
+  useEffect(() => {
+    const sub = categories?.find(cate => cate.name == jobData.jobCategory);
+    setSubCategories(sub?.subcategories);
+  }, [handleChange])
+
+
+
+  // post job
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { responsibilities, ...rest } = jobData;
-
-    const newJobData = {
-      ...rest,
-      responsibilities: responsibilities.split("\n"),
-      posted: new Date().toISOString().split("T")[0],
-    };
+    const newData = { jobInfo: jobData, companyInfo: data };
 
     try {
-      const response = await axiosSecure.post("/postJob", newJobData);
+      const response = await axiosSecure.post("/postJob", newData);
       if (response?.status == 201) {
         Swal.fire({
           icon: "success",
@@ -135,6 +109,8 @@ const PostJob = () => {
       });
     }
   };
+console.log(data)
+  if (loadingCom) return <DashboardLoader />
 
   return (
     <div className="container pb-6 mx-auto  w-full">
@@ -152,7 +128,7 @@ const PostJob = () => {
                   <input
                     type="text"
                     name="company"
-                    value={jobData.company}
+                    value={data?.company_name}
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                     placeholder={t("company_name")}
@@ -181,9 +157,9 @@ const PostJob = () => {
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                   >
                     <option value="">Select Category</option>
-                    {categories.map((category) => (
-                      <option key={category.name} value={category.name}>
-                        {category.name}
+                    {categories?.map((category) => (
+                      <option key={category?.name} value={category?.name}>
+                        {category?.name}
                       </option>
                     ))}
                   </select>
@@ -194,13 +170,13 @@ const PostJob = () => {
                   <select
                     required
                     name="jobSubCategory"
-                    value={jobData.jobSubCategory}
+                    value={jobData?.jobSubCategory}
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
-                    disabled={!subCategories.length}
+                    disabled={!subCategories?.length}
                   >
                     <option value="">Select Subcategory</option>
-                    {subCategories.map((subCategory, index) => (
+                    {subCategories?.map((subCategory, index) => (
                       <option key={index} value={subCategory.name}>
                         {subCategory.name}
                       </option>

@@ -13,6 +13,8 @@ import { FaBriefcase } from "react-icons/fa";
 import ButtonLoader from "../../Shared/ButtonLoader";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { useQuery } from '@tanstack/react-query';
+import DashboardLoader from "../../Shared/DashboardLoader";
 
 const AdvancedSearch = () => {
   const theme = useSelector((state) => state.theme.theme);
@@ -22,7 +24,6 @@ const AdvancedSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
-  const [jobs, setJobs] = useState([]);
 
   const [filteredJobs, setFilteredJobs] = useState([]);
 
@@ -48,64 +49,42 @@ const AdvancedSearch = () => {
     salaryRange: [],
   });
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const response = await axiosSecure.get(
-          `/jobs?page=${currentPage}&size=${itemsPerPage}`
-        );
-        // console.log(response.data);
-        setJobs(response.data.jobs);
-        setTotalJobs(response.data.totalJobs);
-        // console.log(totalJobs);
-      } catch (err) {
-        // console.error("Error fetching jobs:", err);
-      }
-    };
 
-    fetchJobs();
-  }, [currentPage, itemsPerPage, totalJobs]);
+  
+
+  const { data:jobs ,isLoading, refetch} = useQuery({
+    queryKey: ["load"],
+    queryFn: async () => {
+      
+        const {data} = await axiosSecure.get(
+          `/jobs/advanced-search?page=${currentPage}&size=${itemsPerPage}`,
+          {
+            params: {
+              searchTerm,
+              location,
+              experience: filters.experience.join(","),
+              jobType: filters.jobType.join(","),
+              education: filters.education.join(","),
+              jobLevel: filters.jobLevel.join(","),
+              salaryRange: filters.salaryRange.join(","),
+            },
+          }
+        );
+        if (!data.totalJobs) {
+          toast.info("No matching data found");
+        }  
+        return data.jobs;  
+    }
+  })
+
+  useEffect(() => {
+    refetch()
+  }, [currentPage, itemsPerPage]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    setError("");
-    setJobs([]);
-
     setShowAdvancedFilters(false);
-
-    // console.log("Search Term:", searchTerm);
-    // console.log("Location:", location);
-    // console.log("Filters:", filters);
-
-    try {
-      const response = await axiosSecure.get(
-        `/jobs/advanced-search?page=${currentPage}&size=${itemsPerPage}`,
-        {
-          params: {
-            searchTerm,
-            location,
-            experience: filters.experience.join(","),
-            jobType: filters.jobType.join(","),
-            education: filters.education.join(","),
-            jobLevel: filters.jobLevel.join(","),
-            salaryRange: filters.salaryRange.join(","),
-          },
-        }
-      );
-      setFilteredJobs(response.data.jobs);
-
-      // console.log("jobs", response.data);
-      // console.log("try:", response.data.jobs);
-      setTotalJobs(response.data.totalJobs);
-      if (!response.data.totalJobs) {
-        toast.info("No matching data found");
-      }
-
-      // console.log(response.data);
-    } catch (err) {
-      // console.error("Error fetching jobs:", err);
-      setError("Failed to fetch jobs. Please try again later.");
-    }
+    refetch();
   };
 
   const handleCheckboxChange = (category, value) => {
@@ -142,29 +121,8 @@ const AdvancedSearch = () => {
     }
   };
 
-  // Function to fetch company info based on hrEmail
-  const fetchCompanyInfo = async (email) => {
-    try {
-      const response = await axiosSecure.get(`/companies/${email}`);
-      return response.data.company_logo;
-    } catch (error) {
-      console.error(t("error_fetching_company_info"), error);
-      return null;
-    }
-  };
 
-  useEffect(() => {
-    const fetchLogos = async () => {
-      const logos = {};
-      for (const job of jobs) {
-        const logo = await fetchCompanyInfo(job?.hrEmail);
-        logos[job._id] = logo;
-      }
-      setCompanyLogos(logos);
-    };
-    fetchLogos();
-  }, [jobs]);
-
+  if (isLoading) return <DashboardLoader />
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto">
@@ -507,27 +465,25 @@ const AdvancedSearch = () => {
             {(filteredJobs.length > 0 ? filteredJobs : jobs).map((job) => (
               <div
                 key={job._id}
-                className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
+                className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"
               >
-                <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-gradient-to-r from-blue-300 to-blue-500 transition-all duration-300 group-hover:scale-[10]"></span>
+                <span className="absolute top-10 z-0 h-20 w-20 rounded-full  duration-300 "></span>
                 <div className="relative z-10 mx-auto max-w-md">
                   <span>
-                    <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-300 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                      <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-300 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                        {companyLogos[job._id] ? (
-                          <img
-                            src={companyLogos[job._id]}
-                            alt={`${job.title} logo`}
-                            className="h-full w-full rounded-full transition-all"
-                          />
-                        ) : (
-                          <ButtonLoader />
-                        )}
+                    <span className="grid h-20 w-20 place-items-center rounded-full  transition-all duration-300 ">
+                      <span className="grid h-20 w-20 place-items-center rounded-full ">
+
+                        <img
+                          src={companyLogos[job._id]}
+                          alt={`${job.title} logo`}
+                          className="h-full w-full rounded-full transition-all"
+                        />
+
                       </span>
                     </span>
                   </span>
 
-                  <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                  <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 ">
                     <h2 className="text-2xl font-semibold tracking-wide">
                       {job.title}
                     </h2>
@@ -550,7 +506,7 @@ const AdvancedSearch = () => {
                   <div className="pt-5 text-base font-semibold leading-7">
                     <Link
                       to={`/job/${job._id}`}
-                      className="text-slate-500 transition-all duration-300 group-hover:text-white flex items-center"
+                      className="text-slate-500 transition-all duration-300  flex items-center"
                     >
                       {t("view_details")}
                     </Link>
@@ -572,9 +528,8 @@ const AdvancedSearch = () => {
             {pages.map((page) => (
               <button
                 key={page}
-                className={`px-4 py-2 rounded-lg ${
-                  page === currentPage ? "bg-blue-200" : "bg-gray-300"
-                } border border-blue-300`}
+                className={`px-4 py-2 rounded-lg ${page === currentPage ? "bg-blue-200" : "bg-gray-300"
+                  } border border-blue-300`}
                 onClick={() => setCurrentPage(page)}
               >
                 {page + 1}

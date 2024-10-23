@@ -9,62 +9,51 @@ import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import RelatedJobs from "../../components/RelatedJobs/RelatedJobs";
 import Bookmark from "./Bookmark";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useQuery } from '@tanstack/react-query';
 
 const SingleJob = () => {
+  const { currentUser } = useCurrentUser();
   const { t } = useTranslation();
-  const [job, setJob] = useState(null);
+  // const [job, setJob] = useState(null);
   const [company, setCompany] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [companyLogos, setCompanyLogos] = useState({});
-
-  useEffect(() => {
-    const fetchCompanyInfo = async (email) => {
-      try {
-        const response = await axiosSecure.get(`/companies/${email}`);
-        return response.data.company_logo;
-      } catch (error) {
-        console.error("Error fetching company info:", error);
-        return null;
-      }
-    };
-
-    const fetchLogos = async () => {
-      if (job?.hrEmail) {
-        const logo = await fetchCompanyInfo(job.hrEmail);
-        setCompanyLogos(logo);
-      }
-    };
-
-    fetchLogos();
-  }, [job]);
-
   const { id } = useParams();
-  const currentUser = useSelector((state) => state.user.currentUser);
 
-  useEffect(() => {
-    const fetchJobData = async () => {
-      try {
-        const response = await axiosSecure.get(`/single-job/${id}`);
-        setJob(response.data);
-        setCompany(response.data.company);
+  // useEffect(() => {
+  //   const fetchJobData = async () => {
+  //     try {
+  //       const response = await axiosSecure.get(`/single-job/${id}`);
+  //       setJob(response.data);
+  //       setCompany(response.data.company);
+  //       await checkIfApplied(response.data._id, currentUser.email);
+  //       await checkIfBookmarked(response.data._id, currentUser.email);
+  //     } catch (error) {
+  //       // console.error("Error fetching job data:", error);
+  //     }
+  //   };
 
-        await checkIfApplied(response.data._id, currentUser.email);
+  //   fetchJobData();
+  // }, [id, currentUser?.email]);
 
-        await checkIfBookmarked(response.data._id, currentUser.email);
-      } catch (error) {
-        // console.error("Error fetching job data:", error);
-      }
-    };
+  const { data: job , isLoading} = useQuery({
+    queryKey: ["fetch company"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/single-job/${id}`);
+      // await checkIfApplied(data._id, currentUser.email);
+      // await checkIfBookmarked(data._id, currentUser.email);
+      return data;
+    }
+  })
 
-    fetchJobData();
-  }, [id, currentUser?.email]);
+  console.log(job)
 
   const checkIfApplied = async (jobId, userEmail) => {
     try {
@@ -85,43 +74,39 @@ const SingleJob = () => {
     }
   };
 
-  // const checkIfBookmarked = async (jobId, userEmail) => {
-  //   try {
-  //     const response = await axiosSecure.get("/check_bookmarks", {
-  //       params: {
-  //         job_id: jobId,
-  //         userEmail: userEmail,
-  //       },
-  //     });
+  const checkIfBookmarked = async (jobId, userEmail) => {
+    const response = await axiosSecure.get("/check_bookmarks", {
+      params: {
+        job_id: jobId,
+        userEmail: userEmail,
+      },
+    });
 
-  //     setIsBookmarked(response.data.bookmarked);
-  //     console.log(isBookmarked);
-  //   } catch (error) {
-  //     console.error("Error checking bookmark status:", error);
-  //   }
-  // };
+    setIsBookmarked(response.data.bookmarked);
+  }
+  
 
-  // const toggleBookmark = async () => {
-  //   try {
-  //     if (isBookmarked) {
-  //       await axiosSecure.delete(`/remove-bookmark`, {
-  //         data: {
-  //           userEmail: currentUser.email,
-  //           jobId: job._id,
-  //         },
-  //       });
-  //       setIsBookmarked(false);
-  //     } else {
-  //       await axiosSecure.post(`/add-bookmark`, {
-  //         userEmail: currentUser.email,
-  //         jobId: job._id,
-  //       });
-  //       setIsBookmarked(true);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error toggling bookmark:", error);
-  //   }
-  // };
+  const toggleBookmark = async () => {
+    try {
+      if (isBookmarked) {
+        await axiosSecure.delete(`/remove-bookmark`, {
+          data: {
+            userEmail: currentUser.email,
+            jobId: job._id,
+          },
+        });
+        setIsBookmarked(false);
+      } else {
+        await axiosSecure.post(`/add-bookmark`, {
+          userEmail: currentUser.email,
+          jobId: job._id,
+        });
+        setIsBookmarked(true);
+      }
+    } catch (error) {
+      console.error("Error toggling bookmark:", error);
+    }
+  };
 
   const handleApplicationSuccess = () => {
     setHasApplied(true);
@@ -135,7 +120,7 @@ const SingleJob = () => {
     setIsModalOpen(false);
   };
 
-  if (!job) {
+  if (isLoading) {
     return <DashboardLoader />;
   }
 
@@ -186,11 +171,10 @@ const SingleJob = () => {
             <div className="items-center">
               <button
                 onClick={openModal}
-                className={`flex items-center gap-3 px-4 py-2 rounded-md ${
-                  hasApplied || new Date() > new Date(job.deadline)
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-700"
-                } text-white`}
+                className={`flex items-center gap-3 px-4 py-2 rounded-md ${hasApplied || new Date() > new Date(job.deadline)
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-700"
+                  } text-white`}
                 disabled={hasApplied || new Date() > new Date(job.deadline)}
               >
                 {hasApplied ? t("already_applied") : t("apply_now")}{" "}

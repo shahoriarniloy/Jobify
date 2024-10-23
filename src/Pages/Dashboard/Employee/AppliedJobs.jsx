@@ -4,6 +4,7 @@ import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { FaDollarSign, FaCheckCircle, FaMapMarkerAlt } from "react-icons/fa";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const statusSteps = [
   { value: "Pending", label: "Pending" },
@@ -16,7 +17,7 @@ const statusSteps = [
 
 const AppliedJobs = () => {
   const { t } = useTranslation();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [appliedJobs, setAppliedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -79,11 +80,10 @@ const AppliedJobs = () => {
                 >
                   <div className="flex items-center">
                     <FaCheckCircle
-                      className={`mr-2 ${
-                        job.status === "Pending"
+                      className={`mr-2 ${job.status === "Pending"
                           ? "text-yellow-500"
                           : "text-green-500"
-                      }`}
+                        }`}
                     />
                     <p
                       className={

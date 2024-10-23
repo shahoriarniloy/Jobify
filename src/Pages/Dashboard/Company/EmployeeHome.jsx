@@ -4,10 +4,11 @@ import { useSelector } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next"; // Importing useTranslation
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const EmployeeHome = () => {
   const { t } = useTranslation(); // Destructuring t from useTranslation
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
 
   const [appliedJobsCount, setAppliedJobsCount] = useState(0);
   const [favoriteJobsCount, setFavoriteJobsCount] = useState(0);

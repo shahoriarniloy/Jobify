@@ -19,7 +19,6 @@ const Home = () => {
     }
   })
   if(isLoading) return;
-  console.log(data)
   return (
     <div>
       <SearchBar 

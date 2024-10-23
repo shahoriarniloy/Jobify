@@ -25,7 +25,7 @@ const CandidateResume = () => {
   const [resumeData, setResumeData] = useState(null);
   const loading = useSelector((state) => state.user.loading);
   const [error, setError] = useState("");
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const contentRef = useRef();
 
   const reactToPrintFn = useReactToPrint({ contentRef });

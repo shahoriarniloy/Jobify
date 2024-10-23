@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 
 const EmployeeHome = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
 
   const [appliedJobsCount, setAppliedJobsCount] = useState(0);
   const [favoriteJobsCount, setFavoriteJobsCount] = useState(0);

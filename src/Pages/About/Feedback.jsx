@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import axiosSecure from "../../Hooks/useAxiosSecure";
+import axiosSecure from "../../Hooks/UseAxiosSecure";
+import useCurrentUser from "../../Hooks/useCurrentUser";
+
 
 const Feedback = () => {
+  const { currentUser } = useCurrentUser();
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
@@ -16,7 +18,6 @@ const Feedback = () => {
   const [totalPages, setTotalPages] = useState(1);
   const { t } = useTranslation(); // Initialize the translation function
 
-  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const fetchReviews = async (page = 1) => {

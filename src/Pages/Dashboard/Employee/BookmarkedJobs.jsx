@@ -15,10 +15,11 @@ import "react-toastify/dist/ReactToastify.css";
 import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const BookmarkedJobs = () => {
   const { t } = useTranslation();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -126,9 +127,8 @@ const BookmarkedJobs = () => {
                     <button
                       title={t("tap_to_apply")}
                       onClick={openModal}
-                      className={`btn ${
-                        isDeadlineExpired ? "btn-disabled" : "btn-primary"
-                      }`}
+                      className={`btn ${isDeadlineExpired ? "btn-disabled" : "btn-primary"
+                        }`}
                       disabled={isDeadlineExpired}
                     >
                       {isDeadlineExpired ? (

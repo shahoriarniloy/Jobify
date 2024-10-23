@@ -7,6 +7,7 @@ import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
 const CompanyInfo = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
@@ -15,7 +16,7 @@ const CompanyInfo = () => {
   const [logoFile, setLogoFile] = useState(null);
   const [bannerFile, setBannerFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -57,8 +58,7 @@ const CompanyInfo = () => {
     const formData = new FormData();
     formData.append("image", image);
     const response = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${
-        import.meta.env.VITE_IMGBB_API_KEY
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY
       }`,
       formData
     );
@@ -177,9 +177,8 @@ const CompanyInfo = () => {
 
         <button
           type="submit"
-          className={`btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto ${
-            isLoading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
+          className={`btn bg-blue-600 text-white mt-4 md:mt-8 px-6 py-3 rounded-lg w-full md:w-auto ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           disabled={isLoading}
         >
           {isLoading ? t("saving") : t("save_changes")} {/* Use translation key */}

@@ -13,7 +13,7 @@ const CommentsPage = () => {
   const [newComment, setNewComment] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const emojiPickerRef = useRef(null);
 
   const {
@@ -136,9 +136,8 @@ const CommentsPage = () => {
                   onClick={handleLike}
                 >
                   <HiHeart
-                    className={`w-5 h-5 ${
-                      hasLiked ? "text-blue-500" : "text-gray-500"
-                    }`}
+                    className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
+                      }`}
                   />
                   <span className="ml-1">{post.likes?.length || 0}</span>
                 </button>

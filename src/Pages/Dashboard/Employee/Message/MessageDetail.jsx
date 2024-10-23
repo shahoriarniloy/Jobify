@@ -12,7 +12,7 @@ const MessageDetail = () => {
   const { otherPartyName, otherPartyPhoto } = state || {};
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const loading = useSelector((state) => state.user.loading);
   const theme = useSelector((state) => state.theme.theme);
 

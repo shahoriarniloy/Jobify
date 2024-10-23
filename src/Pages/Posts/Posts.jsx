@@ -7,10 +7,11 @@ import PostStatus from "./PostStatus";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { FaUserPlus } from "react-icons/fa";
-import axiosSecure from "../../Hooks/useAxiosSecure";
+import axiosSecure from "../../Hooks/UseAxiosSecure";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 
 const PostCard = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
 
   const {
@@ -118,9 +119,8 @@ const PostCard = () => {
                           onClick={() => handleLike(post._id, hasLiked)}
                         >
                           <HiHeart
-                            className={`w-5 h-5 ${
-                              hasLiked ? "text-blue-500" : "text-gray-500"
-                            }`}
+                            className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
+                              }`}
                           />
                           <span className="ml-1">{post.likes.length || 0}</span>
                         </button>

@@ -7,21 +7,21 @@ import { io } from "socket.io-client";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
 import useUserRole from "../Hooks/useUserRole";
-import { FaRegHeart, FaBriefcase, FaBell, FaEdit } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineVideoCall } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
-import { logOut as logOutAction } from "../Redux/userSlice";
 import { toggleTheme } from "../Redux/themeSlice";
 import { useTranslation } from "react-i18next";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { switchLanguage } from "../Redux/languageSlice";
 import Swal from "sweetalert2";
+import useCurrentUser from "../Hooks/useCurrentUser";
+import { toast } from "react-toastify";
 
 const Navbar2 = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser, logOutUser} = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -62,8 +62,11 @@ const Navbar2 = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(logOutAction());
-    navigate("/");
+    logOutUser()
+      .then(() => {
+        toast.success("You have successfully logged out.");
+        navigate("/")
+      })
   };
 
   const handleJoinRoom = useCallback(() => {
@@ -142,8 +145,8 @@ const Navbar2 = () => {
                 onChange={handleLanguageChange}
                 value={currentLanguage}
                 className={`py-1 px-2 rounded-md  transition-colors duration-300 ${theme === "dark"
-                    ? "bg-transparent text-white"
-                    : "bg-transparent text-black"
+                  ? "bg-transparent text-white"
+                  : "bg-transparent text-black"
                   }`}
               >
                 <option value="en">{t("english")}</option>

@@ -21,11 +21,11 @@ import OpenPosition from "../../../components/OpenPositions/OpenPositions";
 import { useTranslation } from "react-i18next";
 import axiosSecure from "../../../Hooks/UseAxiosSecure.jsx";
 import ButtonLoader from "../../../Shared/ButtonLoader.jsx";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import useCurrentUser from "../../../Hooks/useCurrentUser.jsx";
 
 const CompanyDetails = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [company, setCompany] = useState([]);
   const { companyId } = useParams();
   const { t } = useTranslation(); // Initialize the translation function

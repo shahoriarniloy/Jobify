@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../../../Hooks/useCurrentUser";
 
 const predefinedSkills = [
   // Frontend Development
@@ -510,7 +511,7 @@ const ResumeForm = () => {
 
   const [skillInput, setSkillInput] = useState("");
   const [skillSuggestions, setSkillSuggestions] = useState([]);
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [languageInput, setLanguageInput] = useState("");
   const [languageSuggestions, setLanguageSuggestions] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
@@ -519,7 +520,7 @@ const ResumeForm = () => {
     const fetchUserData = async () => {
       try {
         const response = await axiosSecure.get(`/users/${currentUser?.email}`);
-       
+
         const { name, phone, email, education, userInfo } = response.data;
         setFormData((prev) => ({
           ...prev,
@@ -566,7 +567,7 @@ const ResumeForm = () => {
           });
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
