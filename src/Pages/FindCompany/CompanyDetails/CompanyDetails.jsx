@@ -106,7 +106,7 @@ const CompanyDetails = () => {
           <div>
             <img
               className="w-full h-56 object-cover md:h-72 lg:h-96"
-              src={company?.company_logo}
+              src={company?.company_banner}
               alt={t("company_banner_alt")}
             />
 
