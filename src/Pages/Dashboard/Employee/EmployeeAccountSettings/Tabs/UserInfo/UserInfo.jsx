@@ -28,7 +28,9 @@ const UserInfo = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["load initial data for user"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/users/${currentUser?.email}`);
+      const { data = {} } = await axiosSecure.get(
+        `/users/${currentUser?.email}`
+      );
       setSocialLinks(data?.userInfo[0]?.socialLinks || "");
       return data.userInfo[0];
     },
@@ -79,7 +81,7 @@ const UserInfo = () => {
       setLoading(false);
     }
   };
-  if (isLoading) return <DashboardLoader />;
+  // if (isLoading) return <DashboardLoader />;
   return (
     <div className="p-4 md:p-8">
       <form onSubmit={handleSubmit}>
