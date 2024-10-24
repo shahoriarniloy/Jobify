@@ -1,15 +1,6 @@
 import { useState, useEffect } from "react";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedin,
-  FaPinterest,
-  FaSnapchatGhost,
-  FaTiktok,
-  FaTwitter,
-  FaYoutube,
-} from "react-icons/fa";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+
+import { MdBookmark, MdBookmarkBorder, MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { FiCalendar, FiGlobe } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
@@ -20,84 +11,45 @@ import { Link } from "react-router-dom";
 import OpenPosition from "../../../components/OpenPositions/OpenPositions";
 import { useTranslation } from "react-i18next";
 import axiosSecure from "../../../Hooks/UseAxiosSecure.jsx";
-import ButtonLoader from "../../../Shared/ButtonLoader.jsx";
 import { toast } from "react-toastify";
 import useCurrentUser from "../../../Hooks/useCurrentUser.jsx";
-
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../../Shared/DashboardLoader.jsx";
+import useUserRole from "../../../Hooks/useUserRole.jsx";
+import { LuMessageCircle } from "react-icons/lu";
 const CompanyDetails = () => {
+  const role = useUserRole();
   const { currentUser } = useCurrentUser();
-  const [company, setCompany] = useState([]);
-  const { companyId } = useParams();
+  const { companyEmail } = useParams();
   const { t } = useTranslation(); // Initialize the translation function
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const companyEmail = company?.email;
-  const userEmail = currentUser?.email;
-
-  useEffect(() => {
-    const fetchCompanyData = async () => {
-      try {
-        const response = await axiosSecure.get(`/companies/${companyId}`);
-        setCompany(response.data);
-      } catch (error) {
-        console.error("Error fetching company data:", error);
-      }
-    };
-
-    fetchCompanyData();
-  }, [companyId]);
-
-  // Function to fetch favorite status when the component mounts
-  useEffect(() => {
-    if (userEmail && companyEmail) {
-      const checkFavoriteStatus = async () => {
-        try {
-          const response = await axiosSecure.get(
-            `/users/${userEmail}/favorite-company`
-          );
-          const data = response.data;
-
-          // Check if the company is in the user's favorites
-          setIsFavorite(data.favoriteCompany.includes(companyEmail));
-        } catch (error) {
-          console.error("Error fetching favorite status:", error);
-        }
-      };
-
-      checkFavoriteStatus();
-    }
-  }, [companyEmail, userEmail]);
-
-  const toggleFavorite = async () => {
-    try {
-      // Determine the HTTP method and URL based on the current favorite status
-      const method = isFavorite ? "DELETE" : "POST";
-      const url = isFavorite
-        ? `/users/${userEmail}/favorite-company/${company.email}`
-        : `/users/${userEmail}/favorite-company`;
-
-      // Make the API call
-      await axiosSecure({
-        method,
-        url,
-        data: isFavorite ? null : { companyEmail: company.email }, // Only send data when adding
-      });
-      // Toggle the state after the API call succeeds
-      setIsFavorite(!isFavorite);
-
-      // Show Toast for success
-      toast.success(
-        isFavorite
-          ? "Company removed from favorites"
-          : "Company added to favorites"
+  const { data: company, isLoading,refetch } = useQuery({
+    queryKey: ["load company details"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/companies/${companyEmail}`);
+      const { data: response } = await axiosSecure.get(
+        `/users/${currentUser.email}/favorite-company`
       );
-    } catch (error) {
-      console.error("Error toggling favorite:", error);
-      // Show Toast for error
-      toast.error("Something went wrong while updating favorites.");
+      setIsFavorite(response?.favoriteCompanies?.includes(companyEmail));
+      return data;
     }
-  };
 
+  })
+
+  const addToFavorite = async () => {
+    const res = await axiosSecure.post(`/users/${currentUser?.email}/favorite-company`, { companyEmail: company?.email })
+    if (res.status == 200) {
+      refetch();
+      toast.success("Company added to favorites");
+    }
+    else{
+
+        toast.error("Something went wrong while updating favorites.");
+    }
+    
+  };
+  if (isLoading) return <DashboardLoader />
   return (
     <div className="bg-secondary">
       <div className="relative container mx-auto">
@@ -108,31 +60,15 @@ const CompanyDetails = () => {
               className="w-full h-56 object-cover md:h-72 lg:h-96"
               src={company?.company_banner}
               alt={t("company_banner_alt")}
-            />
-
-            {/* Favorite btn */}
-            <div className="absolute top-4 right-4">
-              <button type="button" onClick={toggleFavorite}>
-                {isFavorite ? (
-                  <MdFavorite className="text-red-500 md:text-6xl text-4xl" />
-                ) : (
-                  <MdFavoriteBorder className="md:text-6xl text-4xl text-red-500" />
-                )}
-              </button>
-            </div>
-          </div>
+            />         </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
               {/* Logo */}
-              {company?.company_logo ? (
-                <img
-                  src={company?.company_logo}
-                  className="w-16 h-16 object-cover rounded-full"
-                  alt={t("company_logo_alt")}
-                />
-              ) : (
-                <ButtonLoader />
-              )}
+              <img
+                src={company?.company_logo}
+                className="w-16 h-16 object-cover rounded-full"
+                alt={t("company_logo_alt")}
+              />
               <div className="md:pl-4">
                 <h3 className="font-bold text-xl md:text-2xl lg:text-3xl">
                   {company?.company_name}
@@ -150,35 +86,47 @@ const CompanyDetails = () => {
           </div>
         </div>
 
-        <div className="lg:hidden flex justify-end mt-48 md:mb-2 mb-2">
-          <Link to={`/messages/${company.email}`}>
-            <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 ">
+        <div className="lg:hidden flex justify-center mt-56 md:mt-28  mb-2">
+
+          <Link to={`/messages/${company?.email}`}>
+            <button className="bg-blue-500 text-white hover:bg-blue-400 btn">
+              <LuMessageCircle />
               {t("message")}
             </button>
           </Link>
+
+          {role?.role == "Job Seeker" && <button
+            disabled={isFavorite}
+            className={`btn 
+                ${isFavorite ? "bg-red-500" : "bg-blue-500"} 
+                text-white hover:bg-blue-400 `}
+            type="button"
+            onClick={addToFavorite}
+          >
+            {isFavorite ? (
+              <MdBookmark className="text-xl" />
+            ) : (
+              <MdBookmarkBorder className="text-xl" />
+            )}
+            <span className="">
+              {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+            </span>
+          </button>}
         </div>
 
-        <div className="flex flex-col md:flex-row md:mb-48 gap-6 justify-between">
+        <div className="flex flex-col md:flex-row  md:mb-48 gap-6 justify-between md:mt-20">
           <div className="md:w-1/2 mt-12">
             <h2 className="font-bold lg:mt-2 text-xl md:text-2xl lg:text-3xl">
               {t("description")}
             </h2>
-            <p className="text-gray-500 mb-4">{company?.company_description}</p>
+            <p className="text-gray-500 my-4 text-justify">{company?.company_description}</p>
 
             <h2 className="font-bold my-5 text-xl md:text-2xl lg:text-3xl">
-              {t("company_benefits")}
+              Company Vision
             </h2>
-            <p className="text-gray-500 mb-4">{t("benefits_intro")}</p>
-            <ul className="list-disc text-gray-500 ml-5">
-              <li>{t("benefit_1")}</li>
-              <li>{t("benefit_2")}</li>
-              <li>{t("benefit_3")}</li>
-              <li>{t("benefit_4")}</li>
-              <li>{t("benefit_5")}</li>
-              <li>{t("benefit_6")}</li>
-            </ul>
+            <div dangerouslySetInnerHTML={{ __html: company?.company_vision }} />
 
-            <div className="flex flex-wrap items-center gap-5 my-5">
+            {/* <div className="flex flex-wrap items-center gap-5 my-5">
               <p>{t("share_profile")}</p>
 
               {company?.social_media_links?.facebook && (
@@ -276,16 +224,36 @@ const CompanyDetails = () => {
                   <p>{t("tiktok")}</p>
                 </a>
               )}
-            </div>
+            </div> */}
           </div>
 
           <div className="md:ml-10 md:w-1/2">
-            <div className="lg:flex lg:justify-end hidden">
-              <Link to={`/messages/${company.email}`}>
-                <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-12 mb-2 ">
+
+            <div className="lg:flex lg:justify-end items-center hidden gap-4 mb-4">
+              <Link to={`/messages/${company?.email}`}>
+                <button className="bg-blue-500 text-white hover:bg-blue-400 btn">
+                  <LuMessageCircle />
                   {t("message")}
                 </button>
               </Link>
+
+              {role?.role == "Job Seeker"&&<button
+                disabled={isFavorite}
+                className={`btn 
+                ${isFavorite ? "bg-red-500" : "bg-blue-500"} 
+                text-white hover:bg-blue-400 `}
+                type="button"
+                onClick={addToFavorite}
+              >
+                {isFavorite ? (
+                  <MdBookmark className="text-xl" />
+                ) : (
+                  <MdBookmarkBorder className="text-xl" />
+                )}
+                <span className="">
+                  {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                </span>
+              </button>}
             </div>
             <div className="p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
               <div>

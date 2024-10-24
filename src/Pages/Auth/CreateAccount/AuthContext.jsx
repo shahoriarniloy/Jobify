@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
 
     onAuthStateChanged(auth, async (user) => {
       if (user?.email) {
-        const { data } = await axiosSecure.get(`/users/${user.email}`);
+        // const { data } = await axiosSecure.get(`/users/${user.email}`);
         // const serializableUser = {
         //   data
         // };
@@ -63,8 +63,7 @@ const AuthProvider = ({ children }) => {
       }
     });
 
-
-  }, [loading,logOutUser]);
+  }, [loading, logOutUser]);
 
   const authInfo = {
     currentUser,

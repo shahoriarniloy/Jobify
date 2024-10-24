@@ -61,7 +61,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
           updateProfile(auth.currentUser, {
             displayName: companyName,
           })
-          axiosSecure.options("/users", {
+          axiosSecure.post("/users", {
             email: companyEmail, name: companyName, role: accountType
           })
             .then(res => {

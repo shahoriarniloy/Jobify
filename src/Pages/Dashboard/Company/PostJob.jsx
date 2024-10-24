@@ -109,7 +109,6 @@ const PostJob = () => {
       });
     }
   };
-console.log(data)
   if (loadingCom) return <DashboardLoader />
 
   return (
