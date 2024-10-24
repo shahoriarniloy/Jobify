@@ -8,8 +8,11 @@ import { RiBarChartFill } from "react-icons/ri";
 import { PiFirstAidKitFill } from "react-icons/pi";
 import { useQuery } from "@tanstack/react-query";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next";
 
 const PopularCategory = ({ categoryCounts }) => {
+  const { t } = useTranslation(); // Destructure useTranslation
+
   const iconMapping = {
     FaPaintBrush: <ImPen />,
     FaCode: <FaCode />,
@@ -27,7 +30,7 @@ const PopularCategory = ({ categoryCounts }) => {
       <div className="container mx-auto py-24">
         {/* header */}
         <h1 className="text-3xl font-semibold mb-2 tracking-wider text-black text-center ">
-          Popular Categories
+          {t("popular_categories")}
         </h1>
 
         {/* carts */}
@@ -35,7 +38,6 @@ const PopularCategory = ({ categoryCounts }) => {
           {categoryCounts.map((category) => (
             <div key={category.name} className="flex items-center gap-4">
               <div className="p-2 md:p-4 text-sm md:text-xl bg-[#e7f0fa] rounded-xl flex items-center justify-center w-fit link-color">
-                {" "}
                 {iconMapping[category.icon]}
               </div>
               <div>
@@ -43,7 +45,7 @@ const PopularCategory = ({ categoryCounts }) => {
                   {category.name}
                 </h1>
                 <p className="text-[#5E6670] text-xs md:text-sm">
-                  {category.count} Open Position
+                  {category.count} {t("open_position")}
                 </p>
               </div>
             </div>
