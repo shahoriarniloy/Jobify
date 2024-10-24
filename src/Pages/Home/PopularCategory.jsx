@@ -8,6 +8,9 @@ import { RiBarChartFill } from "react-icons/ri";
 import { PiFirstAidKitFill } from "react-icons/pi";
 import { useQuery } from "@tanstack/react-query";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
+import { useSelector, useDispatch } from "react-redux";
+
+
 
 const PopularCategory = ({ categoryCounts }) => {
   const iconMapping = {
@@ -20,13 +23,14 @@ const PopularCategory = ({ categoryCounts }) => {
     FaHeartbeat: <PiFirstAidKitFill />,
     FaDatabase: <FaDatabase />,
   };
+  const theme = useSelector((state) => state.theme.theme);
 
   return (
     // hare you assign bg color😍😍😍 for your kind information
     <div>
       <div className="container mx-auto py-24">
         {/* header */}
-        <h1 className="text-3xl font-semibold mb-2 tracking-wider text-black text-center ">
+        <h1 className={ theme === "dark" ? "text-3xl font-semibold mb-2 tracking-wider text-white text-center " : "text-3xl font-semibold mb-2 tracking-wider text-black text-center "}>
           Popular Categories
         </h1>
 

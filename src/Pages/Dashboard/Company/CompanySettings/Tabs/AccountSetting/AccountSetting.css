@@ -1,15 +1,13 @@
-/* Custom dropdown styling */
 .custom-phone-dropdown .iti__country-list {
-    max-height: 300px;
-    overflow-y: auto;
-  }
-  
-  .custom-phone-dropdown .iti__country {
-    display: flex;
-    align-items: center;
-  }
-  
-  .custom-phone-dropdown .iti__dial-code {
-    margin-left: auto;
-  }
-  
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.custom-phone-dropdown .iti__country {
+  display: flex;
+  align-items: center;
+}
+
+.custom-phone-dropdown .iti__dial-code {
+  margin-left: auto;
+}

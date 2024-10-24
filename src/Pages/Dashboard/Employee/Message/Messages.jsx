@@ -58,7 +58,7 @@ const Messages = () => {
 
         setConversations(Object.values(groupedMessages));
       } catch (error) {
-        console.error("Error fetching messages:", error); // Log the error for debugging
+        // console.error("Error fetching messages:", error);
       }
     };
 
@@ -89,8 +89,9 @@ const Messages = () => {
                 />
                 <div className="flex-1">
                   <h2
-                    className={`text-lg font-semibold truncate ${theme === "dark" ? "text-slate-700" : ""
-                      }`}
+                    className={`text-lg font-semibold truncate ${
+                      theme === "dark" ? "text-slate-700" : ""
+                    }`}
                   >
                     {conversation.otherPartyName || t("unknown")}
                   </h2>
