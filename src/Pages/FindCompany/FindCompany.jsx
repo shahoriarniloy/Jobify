@@ -12,6 +12,7 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const FindCompany = () => {
   const { t } = useTranslation(); // Destructure useTranslation
@@ -95,6 +96,9 @@ const FindCompany = () => {
   };
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
+      <Helmet>
+        <title>Jobify - Find Company</title>
+      </Helmet>
       <div className="container mx-auto">
         <div className="flex justify-between items-center pt-12">
           <div className="flex items-center lg:gap-4 md:gap-4 gap-2 mt-4 w-1/3">
