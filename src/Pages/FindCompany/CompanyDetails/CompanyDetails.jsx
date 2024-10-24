@@ -150,11 +150,11 @@ const CompanyDetails = () => {
           <div className="flex space-x-4">
             <button
               className={`flex items-center justify-center 
-                ${isFavorite ? "bg-red-500" : "bg-green-500"} 
-                text-white hover:bg-blue-400 
-                rounded-lg p-2 mt-8 
-                transition duration-300 ease-in-out 
-                shadow-md hover:shadow-lg`}
+    ${isFavorite ? "bg-red-500" : "bg-green-500"} 
+    text-white hover:bg-blue-400 
+    rounded-lg p-2 mt-8 
+    transition duration-300 ease-in-out 
+    shadow-md hover:shadow-lg`}
               type="button"
               onClick={toggleFavorite}
             >
@@ -164,9 +164,12 @@ const CompanyDetails = () => {
                 <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
               )}
               <span className="ml-2">
-                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                {isFavorite
+                  ? t("remove_from_favorites")
+                  : t("add_to_favorites")}
               </span>
             </button>
+
             <Link to={`/messages/${company.email}`}>
               <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-8">
                 {t("message")}
@@ -215,7 +218,9 @@ const CompanyDetails = () => {
                     <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
                   )}
                   <span className="ml-2">
-                    {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                    {isFavorite
+                      ? t("remove_from_favorites")
+                      : t("add_to_favorites")}
                   </span>
                 </button>
                 <Link to={`/messages/${company.email}`}>

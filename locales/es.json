@@ -710,5 +710,12 @@
   "notifications_count": "notificaciones",
   "mark_all_as_read": "Marcar todo como leído",
   "no_notifications_available": "No hay notificaciones disponibles",
-  "position": "posición"
+  "position": "posición",
+
+  "category": "Categoría",
+
+  "company_vision": "Visión de la Empresa",
+
+  "remove_from_favorites": "Eliminar de Favoritos",
+  "add_to_favorites": "Agregar a Favoritos"
 }
