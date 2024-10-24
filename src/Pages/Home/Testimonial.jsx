@@ -64,7 +64,7 @@ const Testimonial = ({ reviews }) => {
                     {
                         reviews.map(review =>
                             <SwiperSlide key={review._id}>
-                                <div className= {theme === "dark" ? "bg-slate-700 w-full p-8 rounded-md shadow-sm" : "bg-white w-full p-8 rounded-md shadow-sm" }>
+                                <div className= {theme === "dark" ? "bg-slate-700 bg-opacity-50 w-full p-8 rounded-md shadow-sm" : "bg-white w-full p-8 rounded-md shadow-sm" }>
                                     <Rating
                                         emptySymbol=<IoIosStarOutline className='text-3xl' />
                                         fullSymbol=<IoIosStar className='text-3xl text-[#FFAA00]' />
