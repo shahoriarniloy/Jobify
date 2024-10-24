@@ -15,6 +15,9 @@ import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import { useQuery } from '@tanstack/react-query';
+import { useSelector, useDispatch } from "react-redux";
+
+
 
 const SingleJob = () => {
   const { currentUser } = useCurrentUser();
@@ -25,6 +28,7 @@ const SingleJob = () => {
   const [hasApplied, setHasApplied] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [companyLogos, setCompanyLogos] = useState({});
+  const theme = useSelector((state) => state.theme.theme);
   const { id } = useParams();
 
   // useEffect(() => {
@@ -151,7 +155,7 @@ const SingleJob = () => {
 
         <div className="flex flex-col">
           <div className="flex items-center gap-3 mb-3">
-            <div className="px-2 py-1 bg-blue-100 rounded-md cursor-pointer">
+            <div className={ theme === "dark" ? "px-2 py-1 bg-slate-700  bg opacity-50 rounded-md cursor-pointer" : "px-2 py-1 bg-blue-100 rounded-md cursor-pointer"}>
               <Bookmark jobId={job._id} />
             </div>
 
@@ -188,8 +192,8 @@ const SingleJob = () => {
         <section className="md:w-1/2 mb-5 md:mb-0">
           <h1 className="text-3xl italic font-semibold tracking-wide flex gap-2">{job?.jobInfo?.title}</h1>
           <div className="my-4">
-            <h3 className="font-bold text-gray-900 mb-4">{t("job_description")}</h3>
-            <p className="text-gray-700 text-justify">{job?.jobInfo?.jobDescription}</p>
+            <h3 className={ theme === "dark" ? "font-bold text-white mb-4" : "font-bold text-gray-900 mb-4"}>{t("job_description")}</h3>
+            <p className={ theme === "dark" ? "text-white text-justify" : "text-gray-700 text-justify" }>{job?.jobInfo?.jobDescription}</p>
           </div>
 
           <div className="my-4">
@@ -205,40 +209,40 @@ const SingleJob = () => {
         </section>
 
         <section className="md:ml-10 md:w-1/2">
-          <div className="md:p-8 border-2 rounded-lg">
+          <div className={ theme === "dark" ? "md:p-8 border-2 border-slate-700  rounded-lg" : "md:p-8 border-2  rounded-lg"}>
             <h2 className="mb-6 font-bold text-xl md:text-2xl">
               {t("job_overview")}
             </h2>
             <div className="grid grid-cols-3 md:grid-cols-2 grid-col-1 gap-5 md:gap-10">
               <div>
                 <FiCalendar className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("job_posted")}:</p>
-                <p className="font-bold text-sm">{job.posted}</p>
+                <p className={ theme === "dark" ? "text-white mt-2" : "text-gray-500 mt-2"}>{t("job_posted")}:</p>
+                <p className={ theme === "dark" ? "font-bold text-gray-300 text-sm" : "font-bold text-sm" }>{job.posted}</p>
               </div>
               <div>
                 <BiStopwatch className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("job_expires_in")}:</p>
-                <p className="font-bold text-sm">{job.deadline}</p>
+                <p className={ theme === "dark" ? "text-white mt-2" : "text-gray-500 mt-2"}>{t("job_expires_in")}:</p>
+                <p className={ theme === "dark" ? "font-bold text-gray-300 text-sm" : "font-bold text-sm" }>{job.deadline}</p>
               </div>
               <div>
                 <PiBriefcase className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("education")}:</p>
-                <p className="font-bold text-sm">{job.education}</p>
+                <p className={ theme === "dark" ? "text-white mt-2" : "text-gray-500 mt-2"}>{t("education")}:</p>
+                <p className={ theme === "dark" ? "font-bold text-gray-300 text-sm" : "font-bold text-sm" }>{job.education}</p>
               </div>
               <div>
                 <PiWallet className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("salary")}:</p>
-                <p className="font-bold text-sm">{job.salaryRange}</p>
+                <p className={ theme === "dark" ? "text-white mt-2" : "text-gray-500 mt-2"}>{t("salary")}:</p>
+                <p className={ theme === "dark" ? "font-bold text-gray-300 text-sm" : "font-bold text-sm" }>{job.salaryRange}</p>
               </div>
               <div>
                 <IoLocationOutline className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("location_Alphabet")}:</p>
-                <p className="font-bold text-sm">{job.location}</p>
+                <p className={ theme === "dark" ? "text-white mt-2" : "text-gray-500 mt-2"}>{t("location_Alphabet")}:</p>
+                <p className={ theme === "dark" ? "font-bold text-gray-300 text-sm" : "font-bold text-sm" }>{job.location}</p>
               </div>
               <div>
                 <PiBriefcase className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("job_type")}:</p>
-                <p className="font-bold text-sm">{job.jobType}</p>
+                <p className={ theme === "dark" ? "text-white mt-2" : "text-gray-500 mt-2"}>{t("job_type")}:</p>
+                <p className={ theme === "dark" ? "font-bold text-gray-300 text-sm" : "font-bold text-sm" }>{job.jobType}</p>
               </div>
             </div>
           </div>
