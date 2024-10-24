@@ -18,6 +18,7 @@ import { useReactToPrint } from "react-to-print";
 import { PiBag } from "react-icons/pi";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const CandidateResume = () => {
   const { t } = useTranslation(); // Destructuring useTranslation
@@ -63,6 +64,9 @@ const CandidateResume = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>Jobify - Candidate Resume</title>
+      </Helmet>
       {resumeData && (
         <div className="flex justify-end">
           <button
