@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import ButtonLoader from "../../Shared/ButtonLoader";
 import Bookmark from "../Find Job/Bookmark";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import DashboardLoader from "../../Shared/DashboardLoader";
 
 const FavoriteCompany = () => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const FavoriteCompany = () => {
     fetchJobs();
   }, [userEmail]);
 
-  if (loading) return <p>{t("loading")}</p>;
+  if (loading) return <DashboardLoader />;
   if (error) return <p>{t("error_dynamic", { error })}</p>;
 
   return (
