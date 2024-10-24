@@ -495,6 +495,7 @@ const ResumeForm = () => {
     linkedin: "",
     github: "",
     objective: "",
+    title: "", // Add title here
     skills: [],
     experiences: [
       {
@@ -522,10 +523,11 @@ const ResumeForm = () => {
       try {
         const response = await axiosSecure.get(`/users/${currentUser?.email}`);
 
-        const { name, phone, email, education, userInfo } = response.data;
+        const { name, phone, email, education, userInfo, displayName } =
+          response.data;
         setFormData((prev) => ({
           ...prev,
-          name,
+          name: name || displayName,
           phone,
           email,
           education,
@@ -550,7 +552,7 @@ const ResumeForm = () => {
         setFormData({
           ...formData,
           ...resumeData,
-          languages: resumeData.languages || "",
+          languages: resumeData?.languages || "",
         });
       } else {
         const userResponse = await axiosSecure.get(`/users/${email}`);
@@ -568,7 +570,7 @@ const ResumeForm = () => {
           });
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -643,6 +645,7 @@ const ResumeForm = () => {
           startDate: "",
           endDate: "",
           description: "",
+          title: "",
         },
       ],
     });
@@ -673,16 +676,16 @@ const ResumeForm = () => {
         ...formData,
         languages: selectedLanguages,
         name: currentUser.displayName,
+        title: formData.title,
       };
 
       const response = await axiosSecure.post(
         "/createOrUpdateResume",
         updatedFormData
       );
-
-      toast.success(t("resume_information_updated")); // Wrapped for translation
+      toast.success(t("resume_information_updated"));
     } catch (error) {
-      toast.error(t("failed_saving_resume_information")); // Wrapped for translation
+      toast.error(t("failed_saving_resume_information"));
     }
   };
 
@@ -721,7 +724,7 @@ const ResumeForm = () => {
                 id="name"
                 type="text"
                 name="name"
-                value={currentUser?.displayName || currentUser.name}
+                value={formData?.displayName || formData.name}
                 onChange={handleChange}
                 disabled
                 className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
@@ -790,6 +793,18 @@ const ResumeForm = () => {
         <div className="border p-6 rounded-md shadow-md mb-4">
           <h3 className="font-bold text-xl">{t("summary_skills_title")}</h3>
           <div className="flex lg:flex-row flex-col justify-between w-full gap-4">
+            <div className="w-full">
+              <label htmlFor="objective" className="block mt-2">
+                {t("title")}
+              </label>
+              <textarea
+                id="title"
+                name="title"
+                value={formData?.title}
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+              ></textarea>
+            </div>
             <div className="w-full">
               <label htmlFor="objective" className="block mt-2">
                 {t("objective_label")}

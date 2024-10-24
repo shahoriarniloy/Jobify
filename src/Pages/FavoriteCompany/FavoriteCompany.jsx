@@ -6,116 +6,87 @@ import { useTranslation } from "react-i18next";
 import ButtonLoader from "../../Shared/ButtonLoader";
 import Bookmark from "../Find Job/Bookmark";
 import { Helmet } from "react-helmet";
+import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../Shared/DashboardLoader";
 
 const FavoriteCompany = () => {
   const { t } = useTranslation();
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const userEmail = currentUser?.email;
+  const { currentUser } = useCurrentUser();
 
-  const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [companyLogos, setCompanyLogos] = useState({});
+  const { data: jobs, isLoading } = useQuery({
+    queryKey: ["lod favorite job"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/users/${currentUser?.email}/latest-jobs`
+      );
+      return data.jobs;
+    },
+  });
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      if (!userEmail) {
-        setLoading(false);
-        return;
-      }
-
-      console.log(t("fetching_jobs_for_user_email"), userEmail);
-
-      try {
-        const response = await axiosSecure.get(`/users/${userEmail}/latest-jobs`);
-        setJobs(response.data.jobs);
-      } catch (error) {
-        console.error(t("error_fetching_jobs"), error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchJobs();
-  }, [userEmail]);
-
-  const fetchCompanyInfo = async (email) => {
-    try {
-      const response = await axiosSecure.get(`/companies/${email}`);
-      return response.data.company_logo;
-    } catch (error) {
-      console.error(t("error_fetching_company_info"), error);
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    const fetchLogos = async () => {
-      const logos = {};
-      for (const job of jobs) {
-        const logo = await fetchCompanyInfo(job?.hrEmail);
-        logos[job._id] = logo;
-      }
-      setCompanyLogos(logos);
-    };
-    fetchLogos();
-  }, [jobs]);
-
-  if (loading) return <p>{t("loading")}</p>;
-  if (error) return <p>{t("error_dynamic", { error })}</p>;
+  if (isLoading) return <DashboardLoader />;
 
   return (
     <div className="container mx-auto">
        <Helmet>
         <title>Jobify - Favorite Company</title>
       </Helmet>
-      <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-8 mt-4">
-        {jobs.map((job) => (
+     
+      <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-3 gap-8 mt-4">
+        {jobs?.map(({ _id, jobInfo, companyInfo }) => (
           <div
-            key={job._id}
-            className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10"
+            key={_id}
+            className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"
           >
-            <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-gradient-to-r from-blue-300 to-blue-500 transition-all duration-300 group-hover:scale-[10]"></span>
+            <span className="absolute top-10 z-0 h-20 w-20 rounded-full  duration-300 "></span>
             <div className="relative z-10 mx-auto max-w-md">
-              <span>
-                <span className="grid h-20 w-20 place-items-center rounded-full bg-gradient-to-r from-blue-300 to-blue-700 transition-all duration-300 group-hover:bg-sky-400">
-                  {companyLogos[job._id] ? (
-                    <img
-                      src={companyLogos[job._id]}
-                      alt={`${job.title} ${t("logo")}`}
-                      className="h-full w-full rounded-full transition-all"
-                    />
-                  ) : (
-                    <ButtonLoader />
-                  )}
-                </span>
+              <span className="grid size-[60px] place-items-center rounded-full ">
+                <img
+                  src={companyInfo?.company_logo}
+                  className="h-full w-full rounded-full transition-all"
+                />
               </span>
-
-              <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                <h2 className="text-2xl font-semibold tracking-wide">
-                  {job.title}
+              <div className="pt-5 text-base  text-gray-600 transition-all duration-300 ">
+                <h2 className="text-2xl font-semibold tracking-wide flex gap-2">
+                  {jobInfo?.title}
+                  <div className="p-2 rounded-full text-xs bg-[#1d4fd83a] size-[28px] flex justify-center items-center">
+                    {jobInfo?.vacancy}
+                  </div>
                 </h2>
-                <div className="absolute -top-12 -right-6">
-                  <Bookmark jobId={job._id} />
-                </div>
+                <p className="font-semibold">{companyInfo?.company_name}</p>
+                <p className="text-sm tracking-wide mt-3">
+                  <span className="font-semibold">Category: </span>
+                  {jobInfo?.jobCategory}
+                </p>
+                <p className="text-sm tracking-wide mt-1">
+                  <span className="font-semibold">Job Type: </span>
+                  {jobInfo?.jobType}
+                </p>
+                <p className="text-sm mt-1">
+                  <span className="font-semibold">Salary Range : </span>
+                  {jobInfo?.salaryRange}
+                </p>
+                <p className="text-sm mt-1">
+                  <span className="font-semibold">Job Level : </span>
+                  {jobInfo?.jobLevel}
+                </p>
+                <p className="text-sm mt-1">
+                  <span className="font-semibold">Deadline : </span>
+                  {jobInfo?.deadline}
+                </p>
+                <p className="text-sm mt-1">
+                  <span className="font-semibold">Location : </span>
+                  {jobInfo?.location}
+                </p>
 
-                <p className="font-semibold">
-                  {t("company_advanced_search", { company: job.company })}
-                </p>
-                <p className="text-sm tracking-wide">
-                  {t("job_type_advanced_search", { jobType: job.jobType })}
-                </p>
-                <p className="text-sm">
-                  {t("salary_advanced_search", {
-                    salaryRange: job.salaryRange,
-                  })}
-                </p>
+                <div className="absolute -top-4 -right-6">
+                  <Bookmark jobId={_id} />
+                </div>
               </div>
               <div className="pt-5 text-base font-semibold leading-7">
                 <Link
-                  to={`/job/${job._id}`}
-                  className="text-slate-500 transition-all duration-300 group-hover:text-white flex items-center"
+                  to={`/job/${_id}`}
+                  className="text-slate-500 transition-all duration-300  flex items-center"
                 >
                   {t("view_details")}
                 </Link>

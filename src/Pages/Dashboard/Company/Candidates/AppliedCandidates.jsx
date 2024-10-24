@@ -13,15 +13,13 @@ import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
+import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { useQuery } from "@tanstack/react-query";
 
 const AppliedCandidates = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const { jobId } = location.state;
-  const [candidates, setCandidates] = useState([]);
-  const [company, setCompany] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { jobId, jobTitle } = location.state;
   const [selectedStatus, setSelectedStatus] = useState({});
   const [filterStatus, setFilterStatus] = useState("All");
   const { currentUser } = useCurrentUser();
@@ -33,15 +31,6 @@ const AppliedCandidates = () => {
   const [schedulingCandidate, setSchedulingCandidate] = useState(null);
 
   const statusOptions = [
-    //     { value: "All", label: t("all_statuses") },
-    //     { value: "Pending", label: t("pending") },
-    //     { value: "Under Review", label: t("under_review") },
-    //     { value: "Shortlisted", label: t("shortlisted") },
-    //     { value: "Interview Scheduled", label: t("interview_scheduled") },
-    //     { value: "Assessment Task", label: t("assessment_task") },
-    //     { value: "Rejected", label: t("rejected") },
-    //     { value: "Hired", label: t("hired") },
-    // =======
     { value: "Pending", label: "Pending" },
     { value: "Under Review", label: "Under Review" },
     { value: "Shortlisted", label: "Shortlisted" },
@@ -51,48 +40,29 @@ const AppliedCandidates = () => {
     { value: "Hired", label: "Hired" },
   ];
 
-  useEffect(() => {
-    const fetchCandidates = async () => {
-      setLoading(true);
-      try {
-        const response = await axiosSecure.get(
-          `/appliedCandidates?job_id=${jobId}`
-        );
-        setCandidates(response.data);
-      } catch (err) {
-        setError(err.response ? err.response.data.message : err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // fetch all applied candidates
+  const {
+    data: candidates = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["load all candidates"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/appliedCandidates?job_id=${jobId}`
+      );
+      return data;
+    },
+  });
 
-    fetchCandidates();
-  }, [jobId]);
-
-  useEffect(() => {
-    const fetchCompanyData = async () => {
-      try {
-        if (!currentUser?.email) {
-          throw new Error("User not found");
-        }
-        setLoading(true);
-
-        const companyResponse = await axiosSecure.get(
-          `/companies/${currentUser.email}`
-        );
-        setCompany(companyResponse.data);
-      } catch (error) {
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (currentUser?.email) {
-      fetchCompanyData();
-    } else {
-      setLoading(false);
-    }
-  }, [currentUser]);
+  // fetch company data;
+  const { data: company = [] } = useQuery({
+    queryKey: ["load company data"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/companies/${currentUser.email}`);
+      return data;
+    },
+  });
 
   const handleStatusChange = (email, newStatus, applicationId, name) => {
     setSelectedStatus((prevStatus) => ({
@@ -114,19 +84,18 @@ const AppliedCandidates = () => {
       statusUpdate.interviewTime = interviewDetails.time;
       statusUpdate.roomId = interviewDetails.roomId;
 
-      console.log("Status Update Payload:", statusUpdate);
+      // console.log("Status Update Payload:", statusUpdate);
     }
 
     axiosSecure
 
       .patch(`/updateCandidateStatus`, statusUpdate)
       .then((response) => {
-        console.log("Candidate status updated successfully:", response.data);
+        refetch();
         toast.success(`Status Updated to ${statusUpdate.status}`);
       })
       .catch((error) => {
-        console.error("Error updating candidate status:", error);
-        console.error("Response data:", error.response.data);
+        // console.error("Response data:", error.response.data);
       });
   };
 
@@ -153,24 +122,12 @@ const AppliedCandidates = () => {
       schedulingCandidate?.user?.name
     );
 
-    console.log(
-      `Scheduled interview for ${schedulingCandidate.user.name} on ${interviewDetails.date} at ${interviewDetails.time} in room ${interviewDetails.roomId}`
-    );
-
     setSchedulingCandidate(null);
     setInterviewDetails({ date: "", time: "", roomId: "" });
   };
 
-  if (loading) {
+  if (isLoading) {
     return <DashboardLoader />;
-  }
-
-  if (error) {
-    return (
-      <div>
-        {t("error")}: {error}
-      </div>
-    );
   }
 
   return (
@@ -228,10 +185,11 @@ const AppliedCandidates = () => {
                 {statusOptions.map((status) => (
                   <button
                     key={status.value}
-                    className={`btn ${candidate.application.status === status.value
+                    className={`btn ${
+                      candidate.application.status === status.value
                         ? "bg-gradient-to-r from-blue-400 to-blue-500 text-white"
                         : "bg-white text-black"
-                      }`}
+                    }`}
                     onClick={() =>
                       handleStatusChange(
                         candidate?.user?.email,
@@ -256,6 +214,7 @@ const AppliedCandidates = () => {
                 </button>
 
                 <Link
+                  state={{ jobTitle }}
                   to={`/dashboard/candidate-resume/${candidate?.user?.email}`}
                 >
                   <button className="btn bg-gradient-to-r from-blue-500 to-blue-700 flex items-center text-white">

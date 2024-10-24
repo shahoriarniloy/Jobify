@@ -6,6 +6,11 @@ import PopularCategory from "./PopularCategory";
 import TopCompanies from "./TopCompanies";
 import { Helmet } from "react-helmet";
 // import TopCompanies from "./TopCompanies"
+import { useQuery } from "@tanstack/react-query";
+import axiosSecure from "../../Hooks/UseAxiosSecure";
+import Testimonial from './Testimonial';
+
+ 
 const Home = () => {
   return (
     <div>

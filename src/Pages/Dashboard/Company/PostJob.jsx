@@ -108,8 +108,7 @@ const PostJob = () => {
       });
     }
   };
-  console.log(data);
-  if (loadingCom) return <DashboardLoader />;
+  if (loadingCom) return <DashboardLoader />
 
   return (
     <div className="container pb-6 mx-auto  w-full">

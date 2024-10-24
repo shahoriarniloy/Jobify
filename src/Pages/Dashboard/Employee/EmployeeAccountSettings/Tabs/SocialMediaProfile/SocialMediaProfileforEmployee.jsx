@@ -71,14 +71,16 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
   return (
     <div className="p-4 md:p-8">
       <form>
-        <h3 className="text-lg font-medium mb-2">{t("your_social_media_profile")}</h3>
+        <h3 className="text-lg font-medium mb-2">
+          {t("your_social_media_profile")}
+        </h3>
         {fields.map((field, index) => (
-          <div key={index} className="flex items-center mb-3">
+          <div key={index} className="flex  items-center mb-3">
             <Listbox
               value={field.socialMedia}
               onChange={(value) => handleSelectChange(index, value)}
             >
-              <div className="relative w-1/3">
+              <div className="relative w-1/2">
                 <ListboxButton className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
                   <span className="block text-sm truncate">
                     {field.socialMedia
@@ -150,7 +152,7 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
           </div>
         ))}
 
-        <div className="flex items-center gap-5 mt-7">
+        <div className="flex lg:flex-row flex-col items-center gap-5 mt-7">
           <button
             type="button"
             className={`flex items-center text-sm justify-center gap-2 font-semibold px-2 py-4 rounded w-full ${
@@ -177,7 +179,9 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
 
       {/* Display all submitted links */}
       <div className="mt-6">
-        <h3 className="text-sm font-semibold">{t("submitted_social_links")}:</h3>
+        <h3 className="text-sm font-semibold">
+          {t("submitted_social_links")}:
+        </h3>
         <ul>
           {socialLinks.map((field, index) => (
             <li key={index} className="flex items-center">
