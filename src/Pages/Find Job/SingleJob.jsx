@@ -11,7 +11,10 @@ import Bookmark from "./Bookmark";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
+import { useSelector, useDispatch } from "react-redux";
+
+
 import { FaUserGraduate } from "react-icons/fa";
 
 const SingleJob = () => {
@@ -20,6 +23,10 @@ const SingleJob = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasApplied, setHasApplied] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const [companyLogos, setCompanyLogos] = useState({});
+  const theme = useSelector((state) => state.theme.theme);
+
   const { id } = useParams();
 
   const { data: job, isLoading } = useQuery({
@@ -126,11 +133,12 @@ const SingleJob = () => {
             </div>
           </div>
 
-          <div className="flex flex-col">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="px-2 py-1 bg-blue-100 rounded-md cursor-pointer">
-                <Bookmark jobId={job._id} />
-              </div>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-3 mb-3">
+            <div className={ theme === "dark" ? "px-2 py-1 bg-slate-700  bg opacity-50 rounded-md cursor-pointer" : "px-2 py-1 bg-blue-100 rounded-md cursor-pointer"}>
+              <Bookmark jobId={job._id} />
+            </div>
+
 
               <div className="items-center">
                 <button
@@ -162,6 +170,7 @@ const SingleJob = () => {
           </div>
         </div>
 
+
         <section className="flex flex-col lg:flex-row mt-5 gap-4">
           <section className="lg:w-1/2 mb-5 lg:mb-0">
             <div>
@@ -191,6 +200,7 @@ const SingleJob = () => {
               </ul>
             </div>
           </section>
+
 
           <section className="md:ml-10 lg:w-1/2">
             <div className="p-2 md:p-8 border-2 rounded-lg">

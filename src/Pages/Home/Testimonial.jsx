@@ -10,6 +10,9 @@ import { FaQuoteLeft } from "react-icons/fa";
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
+import { useSelector, useDispatch } from "react-redux";
+
+
 
 
 // import required modules
@@ -18,6 +21,7 @@ import { FreeMode, Pagination } from 'swiper/modules';
 const Testimonial = ({ reviews }) => {
     const [screenWidth, setScreenWidth] = useState();
     const [slidePerPage, setSlidePerPage] = useState(null);
+    const theme = useSelector((state) => state.theme.theme);
 
     // Getting current width for responsive offer cards
     const getBrowserWidth = () => {
@@ -44,7 +48,7 @@ const Testimonial = ({ reviews }) => {
 
 
     return (
-        <div className='bg-secondary'>
+        <div className= { theme === "dark" ?"bg-gradient-to-r from-gray-800 to-slate-900" : "bg-secondary"}>
             <div className='container mx-auto py-24'>
                 <h1
                     className="text-3xl font-semibold mb-16 tracking-wider text-black text-center"
@@ -66,7 +70,7 @@ const Testimonial = ({ reviews }) => {
                     {
                         reviews.map(review =>
                             <SwiperSlide key={review._id}>
-                                <div className='bg-white w-full p-8 rounded-md shadow-sm'>
+                                <div className= {theme === "dark" ? "bg-slate-700 bg-opacity-50 w-full p-8 rounded-md shadow-sm" : "bg-white w-full p-8 rounded-md shadow-sm" }>
                                     <Rating
                                         emptySymbol=<IoIosStarOutline className='text-3xl' />
                                         fullSymbol=<IoIosStar className='text-3xl text-[#FFAA00]' />
@@ -75,7 +79,7 @@ const Testimonial = ({ reviews }) => {
                                         placeholderRating={review?.rating}
                                     />
 
-                                    <p className='text-[#464D61] mt-4 h-[90px] overflow-y-auto'>“{review?.feedback}”</p>
+                                    <p className={theme === "dark" ? "text-white mt-4 h-[90px] overflow-y-auto" : "text-[#464D61] mt-4 h-[90px] overflow-y-auto"}>“{review?.feedback}”</p>
 
                                     <div className='flex justify-between items-center mt-[40px]'>
                                         <div className='flex items-center gap-3'>
