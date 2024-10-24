@@ -43,7 +43,7 @@ const Room = () => {
   return (
     <div className="h-screen zego-room-background">
        <Helmet>
-        <title>Jobify - Room</title>
+        <title>Jobify - Rooms</title>
       </Helmet>
       <div className="h-full" ref={startCall}></div>
     </div>

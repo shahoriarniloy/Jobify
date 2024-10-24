@@ -11,6 +11,7 @@ import useCurrentUser from "../../../Hooks/useCurrentUser";
 import ButtonLoader from "../../../Shared/ButtonLoader";
 import { updateProfile } from "firebase/auth";
 import auth from "../Firebase/firebase.config";
+import { Helmet } from "react-helmet";
 
 
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
@@ -89,6 +90,9 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
   return (
     <div className="bg-white flex justify-center w-[400px] max-w-2xl">
+       <Helmet>
+        <title>Jobify - Register</title>
+      </Helmet>
       <div className="w-full p-7">
         <h2 className="text-4xl font-semibold text-center">
           {t("create_account")}
