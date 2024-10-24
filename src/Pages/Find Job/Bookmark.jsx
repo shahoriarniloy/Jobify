@@ -4,15 +4,21 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next"; // Import useTranslation
+
+import useCurrentUser from "../../Hooks/useCurrentUser";
+
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+
 
 const Bookmark = ({ jobId }) => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { t } = useTranslation(); // Destructure t from useTranslation
+  const { currentUser } = useCurrentUser();
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
     const checkIfBookmarked = async () => {
       if (currentUser?.email) {
-        // console.log(currentUser);
         try {
           const response = await axiosSecure.get(
             `/bookmarks?email=${currentUser?.email}`
@@ -22,7 +28,7 @@ const Bookmark = ({ jobId }) => {
           );
           setIsBookmarked(bookmarkedJobs.includes(jobId));
         } catch (error) {
-          // console.error('Error fetching bookmarks:', error);
+          // Handle error (if needed)
         }
       }
     };
@@ -31,7 +37,7 @@ const Bookmark = ({ jobId }) => {
 
   const handleBookmark = async () => {
     if (!currentUser) {
-      toast.info("Please log in to bookmark jobs.");
+      toast.info(t("please_log_in_to_bookmark_jobs")); // Wrapped in t()
       return;
     }
 
@@ -40,15 +46,13 @@ const Bookmark = ({ jobId }) => {
         userEmail: currentUser.email,
         jobId,
       });
-      // console.log('Bookmark added:', response.data);
-      toast.success("Job bookmarked successfully!");
+      toast.success(t("job_bookmarked_successfully")); // Wrapped in t()
       setIsBookmarked(true);
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        toast.info("Job already bookmarked.");
+        toast.info(t("job_already_bookmarked")); // Wrapped in t()
       } else {
-        // console.error('Error adding bookmark:', error);
-        toast.error("Failed to bookmark job.");
+        toast.error(t("failed_to_bookmark_job")); // Wrapped in t()
       }
     }
   };
@@ -58,20 +62,11 @@ const Bookmark = ({ jobId }) => {
       onClick={handleBookmark}
       style={{ color: isBookmarked ? "blue" : "currentColor" }}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        className="w-5 h-5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M5 3h14a2 2 0 012 2v16l-9-4-9 4V5a2 2 0 012-2z"
-        />
-      </svg>
+      {isBookmarked ? (
+        <BsBookmarkFill className="w-5 h-5" />
+      ) : (
+        <BsBookmark className="w-5 h-5" />
+      )}
     </button>
   );
 };

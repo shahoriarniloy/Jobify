@@ -3,12 +3,14 @@ import { useParams } from "react-router-dom";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { useSelector, useDispatch } from "react-redux";
 import { HiHeart } from "react-icons/hi";
+import { useTranslation } from "react-i18next";
 
 const CommentsModal = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [newComment, setNewComment] = useState("");
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [hasLiked, setHasLiked] = useState(false);
   const [commentLoading, setCommentLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,13 +22,13 @@ const CommentsModal = ({ isOpen, onClose }) => {
       try {
         const postResponse = await axiosSecure.get(`/post/${postId}`);
         if (!postResponse.data) {
-          throw new Error("Failed to fetch data");
+          throw new Error(t("failed_to_fetch_data"));
         }
         setPost(postResponse.data);
         setHasLiked(postResponse.data.likes.includes(currentUser.email));
       } catch (error) {
         // console.error("Error fetching post and comments:", error);
-        setError("Failed to load post.");
+        setError(t("failed_to_load_post"));
       }
     };
 
@@ -55,11 +57,11 @@ const CommentsModal = ({ isOpen, onClose }) => {
         }));
         setNewComment("");
       } else {
-        throw new Error("Failed to post comment");
+        throw new Error(t("failed_to_post_comment"));
       }
     } catch (error) {
       // console.error("Error posting comment:", error);
-      setError("Failed to post comment.");
+      setError(t("failed_to_post_comment"));
     } finally {
       setCommentLoading(false);
     }
@@ -88,7 +90,7 @@ const CommentsModal = ({ isOpen, onClose }) => {
       }));
     } catch (error) {
       // console.error("Error liking/unliking post:", error);
-      setError("Failed to update like status.");
+      setError(t("failed_to_update_like_status"));
     }
   };
 
@@ -103,7 +105,7 @@ const CommentsModal = ({ isOpen, onClose }) => {
       <div className="relative z-50 bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl h-auto max-h-[90vh] overflow-y-auto">
         {error && <p className="text-red-500 mb-4">{error}</p>}
         {loading ? (
-          <p>Loading post...</p>
+          <p>{t("loading_post")}</p>
         ) : (
           post && (
             <div className="flex flex-col gap-6">
@@ -154,18 +156,17 @@ const CommentsModal = ({ isOpen, onClose }) => {
                     onClick={handleLike}
                   >
                     <HiHeart
-                      className={`w-5 h-5 ${
-                        hasLiked ? "text-blue-500" : "text-gray-500"
-                      }`}
+                      className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
+                        }`}
                     />
                     <span className="ml-1">{post.likes?.length || 0}</span>
                   </button>
                 </div>
 
-                <h2 className="font-semibold mb-2">Comments</h2>
+                <h2 className="font-semibold mb-2">{t("comments")}</h2>
                 <div className="border p-4 max-h-60 overflow-auto rounded-lg">
                   {post.comments.length === 0 ? (
-                    <p className="text-gray-500">No comments yet.</p>
+                    <p className="text-gray-500">{t("no_comments_yet")}</p>
                   ) : (
                     post.comments.map((comment, index) => (
                       <div key={index} className="p-2 border-b">
@@ -194,17 +195,16 @@ const CommentsModal = ({ isOpen, onClose }) => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     className="border p-2 w-full rounded-lg"
-                    placeholder="Add a comment"
+                    placeholder={t("add_a_comment")}
                     disabled={commentLoading}
                   />
                   <button
                     type="submit"
-                    className={`mt-2 bg-blue-500 text-white p-2 rounded-lg ${
-                      commentLoading ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`mt-2 bg-blue-500 text-white p-2 rounded-lg ${commentLoading ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     disabled={commentLoading}
                   >
-                    {commentLoading ? "Submitting..." : "Submit"}
+                    {commentLoading ? t("submitting") : t("submit")}
                   </button>
                 </form>
               </div>

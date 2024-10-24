@@ -9,6 +9,10 @@ import { toast } from "react-toastify";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import "react-quill/dist/quill.snow.css";
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../../../../../Shared/DashboardLoader";
+import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
 const UserInfo = () => {
   const { t } = useTranslation();
@@ -19,37 +23,16 @@ const UserInfo = () => {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [socialLinks, setSocialLinks] = useState([]);
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const response = await axiosSecure.get(`/users/${currentUser?.email}`);
-        const userData = response.data;
-
-        if (userData && userData.userInfo && userData.userInfo.length > 0) {
-          setAbout(userData?.userInfo[0]?.about || "");
-          setPhone(userData?.userInfo[0]?.phone || "");
-          setSocialLinks(userData?.userInfo[0]?.socialLinks || "");
-        }
-      } catch (error) {
-        // console.error("Error fetching user info:", error);
-      }
-    };
-
-    fetchUserInfo();
-  }, [currentUser?.email]);
-
-  useEffect(() => {
-    if (currentUser) {
-      setName(currentUser?.displayName || "");
-      setEmail(currentUser?.email || "");
-    }
-  }, [currentUser]);
-
-  const handleChangeName = (e) => {
-    setName(e.target.value);
-  };
+  const { data, isLoading } = useQuery({
+    queryKey: ["load initial data for user"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/users/${currentUser?.email}`);
+      setSocialLinks(data?.userInfo[0]?.socialLinks || "");
+      return data.userInfo[0];
+    },
+  });
 
   const handleAboutChange = (value) => {
     setAbout(value);
@@ -82,11 +65,9 @@ const UserInfo = () => {
       }
 
       const postData = {
-        name,
         about,
         phone,
         photoUrl,
-        email: currentUser.email,
         socialLinks,
       };
 
@@ -98,7 +79,7 @@ const UserInfo = () => {
       setLoading(false);
     }
   };
-
+  if (isLoading) return <DashboardLoader />;
   return (
     <div className="p-4 md:p-8">
       <form onSubmit={handleSubmit}>
@@ -119,7 +100,7 @@ const UserInfo = () => {
               </label>
               <PhoneInput
                 country={"bd"}
-                value={phone}
+                value={data?.phone}
                 required
                 onChange={(phone) => setPhone(phone)}
                 inputClass="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border rounded-md h-10 pl-12 my-2 w-full"
@@ -137,7 +118,7 @@ const UserInfo = () => {
                   name="email"
                   id="email"
                   required
-                  value={email}
+                  value={currentUser.email}
                   readOnly
                   className="border border-gray-300 p-2 pl-10 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-2"
                   placeholder={t("email_placeholder")}
@@ -155,9 +136,8 @@ const UserInfo = () => {
               <input
                 id="textInput"
                 type="text"
-                value={name}
-                onChange={handleChangeName}
-                placeholder={t("type_here")}
+                value={currentUser.displayName}
+                readOnly
                 className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 disabled
               />
@@ -180,7 +160,14 @@ const UserInfo = () => {
                     ["link"],
                   ],
                 }}
-                formats={["bold", "italic", "underline", "list", "bullet", "link"]}
+                formats={[
+                  "bold",
+                  "italic",
+                  "underline",
+                  "list",
+                  "bullet",
+                  "link",
+                ]}
                 className="custom-quill-editor h-[600px]"
               />
             </div>

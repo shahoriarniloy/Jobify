@@ -8,14 +8,13 @@ import homeBg from "../../assets/homebg.png";
 import { IoPeopleSharp } from "react-icons/io5";
 import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const SearchBar = () => {
+  const { t } = useTranslation();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
-  const [jobs, setJobs] = useState([]);
-  const [error, setError] = useState("");
-  const [totalJobs, setTotalJobs] = useState(0);
-  const [totalCompanies, setTotalCompanies] = useState(0);
   const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
@@ -37,7 +36,7 @@ const SearchBar = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!searchTerm && !location) {
-      setError("Please enter something first");
+      setError(t("please_enter_something_first"));
       return;
     }
     setError("");
@@ -48,8 +47,14 @@ const SearchBar = () => {
       setJobs(response.data);
     } catch (error) {
       // console.error('Error fetching jobs:', error);
+
     }
-  };
+  })
+  const handelSearch =(e)=>{
+    e.preventDefault();
+    refetch()
+  }
+  
   return (
     <div
       className={
@@ -62,7 +67,7 @@ const SearchBar = () => {
         <div className="flex flex-col lg:flex-row justify-center items-center">
           <div className="flex lg:flex-row flex-col justify-center items-center md:gap-[50px] lg:gap-[100px]">
             <div>
-              <div className="lg:text-left md:text-left text-center ">
+              <div className="lg:text-left md:text-left text-center">
                 <h1
                   className={
                     theme === "dark"
@@ -70,7 +75,8 @@ const SearchBar = () => {
                       : "text-[#18191c] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2"
                   }
                 >
-                  Find a job that suits your interest & skills.
+                  {t("find_job_suits_interest_skills")}{" "}
+                  {/* Wrapped with {t("")} */}
                 </h1>
                 <p
                   className={
@@ -79,11 +85,11 @@ const SearchBar = () => {
                       : "text-[#18191c] text-lg font-normal mb-4"
                   }
                 >
-                  Quickly find job opportunities that match your skills and
-                  interests by searching for specific job titles, keywords, or
-                  locations.
+                  {t("quickly_find_job_opportunities")}{" "}
+                  {/* Wrapped with {t("")} */}
                 </p>
               </div>
+
               <div
                 className={
                   theme === "dark"
@@ -92,14 +98,14 @@ const SearchBar = () => {
                 }
               >
                 <form
+                onSubmit={handelSearch}
                   className="flex flex-col sm:flex-row gap-4 sm:gap-2  rounded-lg"
-                  onSubmit={handleSearch}
                 >
                   <div className="relative flex-1 ">
                     <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2  text-[#0a65cc] w-5 h-5" />
                     <input
                       type="text"
-                      placeholder="Job title, Company Name..."
+                      placeholder={t("job_title_company_name_placeholder")}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className={
@@ -116,7 +122,7 @@ const SearchBar = () => {
                     <HiOutlineLocationMarker className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
                     <input
                       type="text"
-                      placeholder="Location"
+                      placeholder={t("location_placeholder")}
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                       className={
@@ -132,7 +138,7 @@ const SearchBar = () => {
                       type="submit"
                       className="w-full sm:w-auto px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white font-semibold text-base transition duration-300 ease-in-out hover:from-blue-700 hover:to-blue-900"
                     >
-                      Find Job
+                      {t("find_job")}
                     </button>
                   </div>
                 </form>
@@ -151,8 +157,9 @@ const SearchBar = () => {
                       : "text-[#9199A3] text-lg font-normal mt-2"
                   }
                 >
-                  Suggestion:{" "}
+                  {t("suggestion_label")}{" "}
                 </span>
+
                 <span
                   className={
                     theme === "dark"
@@ -160,20 +167,22 @@ const SearchBar = () => {
                       : "text-[#474C54] text-lg font-normal mt-2"
                   }
                 >
-                  Designer, Programing, Digital Marketing, Video, Animation.
+                  {t("designer_label")}, {t("programming_label")},{" "}
+                  {t("digital_marketing_label")}, {t("video_label")},{" "}
+                  {t("animation_label")}.
                 </span>
               </p>
               <div
-                className={`mt-3 ${
-                  jobs.length > 0 ? "opacity-100" : "opacity-0"
-                } transition-opacity duration-300`}
+                className={`mt-3 ${jobs?.length > 0 ? "opacity-100" : "opacity-0"
+                  } transition-opacity duration-300`}
+
               >
-                {jobs.length > 0 ? (
+                {jobs?.length > 0 ? (
                   <div className="flex items-center gap-2">
-                    <h2 className="text-[#9199A3]">Job Results:</h2>
+                    <h2 className="text-[#9199A3]">{t("job_results_label")}</h2>
                     <div className="max-h-60 overflow-y-auto flex flex-wrap items-center gap-4">
-                      {jobs.map((job) => (
-                        <Link key={job._id} to={`/job/${job._id}`}>
+                      {jobs?.map((job) => (
+                        <Link key={job?._id} to={`/job/${job?._id}`}>
                           <h3 className="font-semibold link-color">
                             {job?.title}
                           </h3>
@@ -184,7 +193,7 @@ const SearchBar = () => {
                 ) : (
                   <div className="mt-6 text-gray-500">
                     <h2 className="text-lg font-medium">
-                      No matching jobs found.
+                      {t("no_matching_jobs_label")}
                     </h2>
                   </div>
                 )}
@@ -212,7 +221,9 @@ const SearchBar = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{totalJobs}</h2>
-              <p className="text-[#767F8C]">Live Jobs</p>
+              <p className="text-[#767F8C]">{t("live_jobs_label")}</p>
+
+
             </div>
           </div>
 
@@ -228,7 +239,9 @@ const SearchBar = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
-              <p className="text-[#767F8C]">Companies</p>
+              <p className="text-[#767F8C]">{t("companies_label")}</p>
+
+
             </div>
           </div>
 
@@ -244,7 +257,9 @@ const SearchBar = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
-              <p className="text-[#767F8C]">Candidates</p>
+              <p className="text-[#767F8C]">{t("candidates_label")}</p>
+
+
             </div>
           </div>
 
@@ -260,7 +275,9 @@ const SearchBar = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{totalCompanies}</h2>
-              <p className="text-[#767F8C]">Successful</p>
+              <p className="text-[#767F8C]">{t("successful_label")}</p>
+
+
             </div>
           </div>
         </div>

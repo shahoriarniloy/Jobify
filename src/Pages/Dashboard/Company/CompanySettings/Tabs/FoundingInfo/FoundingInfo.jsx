@@ -5,9 +5,10 @@ import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
 const FoundingInfo = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const { t } = useTranslation(); // Destructure t from useTranslation
 
   // State variables

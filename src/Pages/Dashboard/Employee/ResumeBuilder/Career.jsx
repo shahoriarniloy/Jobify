@@ -97,6 +97,7 @@ const Career = () => {
         Career Roadmap for {user.name}
       </h1>
       <div className="text-center mb-6">
+
         <p className="text-xl text-blue-500 mb-2">{user.name},</p>
         <p className="text-lg text-gray-700 mb-4">
           Based on your skills, here are the most suitable career fields for you.

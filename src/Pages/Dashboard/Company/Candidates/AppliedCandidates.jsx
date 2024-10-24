@@ -11,6 +11,7 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const AppliedCandidates = () => {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ const AppliedCandidates = () => {
   const [error, setError] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({});
   const [filterStatus, setFilterStatus] = useState("All");
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [interviewDetails, setInterviewDetails] = useState({
     date: "",
     time: "",
@@ -31,15 +32,15 @@ const AppliedCandidates = () => {
   const [schedulingCandidate, setSchedulingCandidate] = useState(null);
 
   const statusOptions = [
-//     { value: "All", label: t("all_statuses") },
-//     { value: "Pending", label: t("pending") },
-//     { value: "Under Review", label: t("under_review") },
-//     { value: "Shortlisted", label: t("shortlisted") },
-//     { value: "Interview Scheduled", label: t("interview_scheduled") },
-//     { value: "Assessment Task", label: t("assessment_task") },
-//     { value: "Rejected", label: t("rejected") },
-//     { value: "Hired", label: t("hired") },
-// =======
+    //     { value: "All", label: t("all_statuses") },
+    //     { value: "Pending", label: t("pending") },
+    //     { value: "Under Review", label: t("under_review") },
+    //     { value: "Shortlisted", label: t("shortlisted") },
+    //     { value: "Interview Scheduled", label: t("interview_scheduled") },
+    //     { value: "Assessment Task", label: t("assessment_task") },
+    //     { value: "Rejected", label: t("rejected") },
+    //     { value: "Hired", label: t("hired") },
+    // =======
     { value: "Pending", label: "Pending" },
     { value: "Under Review", label: "Under Review" },
     { value: "Shortlisted", label: "Shortlisted" },
@@ -47,7 +48,6 @@ const AppliedCandidates = () => {
     { value: "Assessment Task", label: "Assessment Task" },
     { value: "Rejected", label: "Rejected" },
     { value: "Hired", label: "Hired" },
-
   ];
 
   useEffect(() => {
@@ -81,7 +81,6 @@ const AppliedCandidates = () => {
         );
         setCompany(companyResponse.data);
       } catch (error) {
-        // Handle error
       } finally {
         setLoading(false);
       }
@@ -100,7 +99,7 @@ const AppliedCandidates = () => {
       [email]: newStatus,
     }));
 
-    const statusUpdatePayload = {
+    const statusUpdate = {
       email,
       status: newStatus,
       applicationId,
@@ -110,18 +109,19 @@ const AppliedCandidates = () => {
     };
 
     if (newStatus === "Interview Scheduled") {
-      statusUpdatePayload.interviewDate = interviewDetails.date;
-      statusUpdatePayload.interviewTime = interviewDetails.time;
-      statusUpdatePayload.roomId = interviewDetails.roomId;
+      statusUpdate.interviewDate = interviewDetails.date;
+      statusUpdate.interviewTime = interviewDetails.time;
+      statusUpdate.roomId = interviewDetails.roomId;
 
-      console.log("Status Update Payload:", statusUpdatePayload);
+      console.log("Status Update Payload:", statusUpdate);
     }
 
     axiosSecure
 
-      .patch(`/updateCandidateStatus`, statusUpdatePayload)
+      .patch(`/updateCandidateStatus`, statusUpdate)
       .then((response) => {
         console.log("Candidate status updated successfully:", response.data);
+        toast.success(`Status Updated to ${statusUpdate.status}`);
       })
       .catch((error) => {
         console.error("Error updating candidate status:", error);
@@ -165,7 +165,11 @@ const AppliedCandidates = () => {
   }
 
   if (error) {
-    return <div>{t("error")}: {error}</div>;
+    return (
+      <div>
+        {t("error")}: {error}
+      </div>
+    );
   }
 
   return (
@@ -220,11 +224,10 @@ const AppliedCandidates = () => {
                 {statusOptions.map((status) => (
                   <button
                     key={status.value}
-                    className={`btn ${
-                      candidate.application.status === status.value
-                        ? "bg-gradient-to-r from-orange-400 to-orange-500 text-white"
+                    className={`btn ${candidate.application.status === status.value
+                        ? "bg-gradient-to-r from-blue-400 to-blue-500 text-white"
                         : "bg-white text-black"
-                    }`}
+                      }`}
                     onClick={() =>
                       handleStatusChange(
                         candidate?.user?.email,
@@ -252,7 +255,8 @@ const AppliedCandidates = () => {
                   to={`/dashboard/candidate-resume/${candidate?.user?.email}`}
                 >
                   <button className="btn bg-gradient-to-r from-blue-500 to-blue-700 flex items-center text-white">
-                    <DocumentTextIcon className="h-5 w-5 mr-2" /> {t("view_resume")}
+                    <DocumentTextIcon className="h-5 w-5 mr-2" />{" "}
+                    {t("view_resume")}
                   </button>
                 </Link>
               </div>
@@ -264,7 +268,10 @@ const AppliedCandidates = () => {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow-lg p-4 w-full max-w-md">
               <h2 className="text-lg font-bold mb-4">
-                Schedule Interview with {schedulingCandidate.user.name}
+                Schedule Interview with{" "}
+                <span className="text-blue-500">
+                  {schedulingCandidate.user.name}
+                </span>
               </h2>
               <form onSubmit={scheduleInterview}>
                 <div className="mb-4">
