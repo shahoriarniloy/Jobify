@@ -173,14 +173,14 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-1 z-[1] shadow bg-base-100 rounded-box w-52"
+              className={ theme === "dark" ? "menu menu-sm dropdown-content mt-1 z-[1] shadow bg-slate-700 text-gray-300 rounded-box w-52" : "menu menu-sm dropdown-content mt-1 z-[1] shadow bg-base-100 rounded-box w-52"}
             >
               {navItem}
             </ul>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="text-[#5E6670] gap-7 menu-horizontal px-1">
+          <ul className={ theme === "dark" ? "text-gray-300 gap-7 menu-horizontal px-1" : "text-[#5E6670] gap-7 menu-horizontal px-1"}>
             {navItem}
           </ul>
         </div>

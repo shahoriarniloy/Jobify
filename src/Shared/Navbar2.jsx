@@ -247,9 +247,9 @@ const Navbar2 = () => {
                     {isMenuOpen && (
                       <div
                         ref={menuRef}
-                        className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"
+                        className={ theme === "dark" ? "absolute right-0 top-12 mt-2 w-48 bg-slate-700  rounded-md shadow-lg z-50" : "absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"}
                       >
-                        <ul className="py-1 text-gray-700">
+                        <ul className={ theme === "dark" ? "py-1 text-white" : "py-1 text-gray-700"}>
                           {role === "Job Seeker" && (
                             <li>
                               <Link
