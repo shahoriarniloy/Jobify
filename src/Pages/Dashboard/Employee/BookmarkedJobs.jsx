@@ -15,6 +15,7 @@ import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 
 const BookmarkedJobs = () => {
   const { t } = useTranslation();
@@ -92,6 +93,9 @@ const BookmarkedJobs = () => {
 
   return (
     <div className="">
+       <Helmet>
+        <title>Jobify - Favorite Jobs</title>
+      </Helmet>
       <div className="flex flex-col gap-2 pt-2">
         {bookmarkedJobs.map((job) => {
           const { _id, jobInfo, companyInfo, hasApplied } = job;
