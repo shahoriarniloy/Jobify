@@ -5,11 +5,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+
+import useCurrentUser from "../../Hooks/useCurrentUser";
+
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+
 
 const Bookmark = ({ jobId }) => {
   const { t } = useTranslation(); // Destructure t from useTranslation
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {

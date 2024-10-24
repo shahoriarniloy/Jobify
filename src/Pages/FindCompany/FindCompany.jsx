@@ -219,9 +219,9 @@ const FindCompany = () => {
               (company) => (
                 <div
                   key={company.email}
-                  className="relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out "
+                  className="relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "
                 >
-                  <div className="flex flex-col justify-between p-6 space-y-8">
+                  <div className="flex flex-col justify-between p-6 space-y-8 ">
                     <div className="flex items-center gap-3">
                       <img
                         src={company.company_logo}

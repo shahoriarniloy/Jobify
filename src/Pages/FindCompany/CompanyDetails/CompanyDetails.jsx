@@ -26,14 +26,14 @@ import OpenPosition from "../../../components/OpenPositions/OpenPositions";
 import { useTranslation } from "react-i18next";
 import axiosSecure from "../../../Hooks/UseAxiosSecure.jsx";
 import ButtonLoader from "../../../Shared/ButtonLoader.jsx";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import useCurrentUser from "../../../Hooks/useCurrentUser.jsx";
 
 const CompanyDetails = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [company, setCompany] = useState([]);
   const { companyId } = useParams();
-  const { t } = useTranslation(); // Initialize the translation function
+  const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(false);
 
   const companyEmail = company?.email;
@@ -63,22 +63,23 @@ const CompanyDetails = () => {
     fetchCompanyData();
   }, [companyId, userEmail, companyEmail]);
 
-  // Function to fetch favorite status when the component mounts
-  // useEffect(() => {
-  //   if (userEmail && companyEmail) {
-  //     const checkFavoriteStatus = async () => {
-  //       try {
-  //         const response = await axiosSecure.get(
-  //           `/users/${userEmail}/favorite-company`
-  //         );
-  //         const data = response.data;
+  console.log(company);
 
-  //         // Check if the company is in the user's favorites
-  //         setIsFavorite(data.favoriteCompany.includes(companyEmail));
-  //       } catch (error) {
-  //         console.error("Error fetching favorite status:", error);
-  //       }
-  //     };
+  useEffect(() => {
+    if (userEmail && companyEmail) {
+      const checkFavoriteStatus = async () => {
+        try {
+          const response = await axiosSecure.get(
+            `/users/${userEmail}/favorite-company`
+          );
+          const data = response.data;
+
+          setIsFavorite(data.favoriteCompany.includes(companyEmail));
+        } catch (error) {
+          console.error("Error fetching favorite status:", error);
+        }
+      };
+
 
   //     checkFavoriteStatus();
   //   }
@@ -86,31 +87,27 @@ const CompanyDetails = () => {
 
   const toggleFavorite = async () => {
     try {
-      // Determine the HTTP method and URL based on the current favorite status
       const method = isFavorite ? "DELETE" : "POST";
       const url = isFavorite
         ? `/users/${userEmail}/favorite-company/${company.email}`
         : `/users/${userEmail}/favorite-company`;
 
-      // Make the API call
       await axiosSecure({
         method,
         url,
-        data: isFavorite ? null : { companyEmail: company.email }, // Only send data when adding
+        data: isFavorite ? null : { companyEmail: company.email },
       });
-      // Toggle the state after the API call succeeds
       setIsFavorite(!isFavorite);
 
-      // Show Toast for success
       toast.success(
         isFavorite
           ? t("company_removed_from_favorites")
           : t("company_added_to_favorites")
       );
     } catch (error) {
-      console.error(t("error_toggling_favorite_with_colon"), error);
-      // Show Toast for error
-      toast.error(t("something_went_wrong_while_updating_favorites"));
+      console.error("Error toggling favorite:", error);
+      toast.error("Something went wrong while updating favorites.");
+
     }
   };
 
@@ -118,17 +115,26 @@ const CompanyDetails = () => {
     <div className="bg-secondary">
       <div className="relative container mx-auto">
         <div className="relative">
-          {/* Banner */}
           <div>
             <img
               className="w-full h-56 object-cover md:h-72 lg:h-96"
-              src={company?.company_logo}
+              src={company?.company_banner}
               alt={t("company_banner_alt")}
             />
+
+            <div className="absolute top-4 right-4">
+              <button type="button" onClick={toggleFavorite}>
+                {isFavorite ? (
+                  <MdFavorite className="text-red-500 md:text-6xl text-4xl" />
+                ) : (
+                  <MdFavoriteBorder className="md:text-6xl text-4xl text-red-500" />
+                )}
+              </button>
+            </div>
+
           </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
-              {/* Logo */}
               {company?.company_logo ? (
                 <img
                   src={company?.company_logo}
@@ -190,7 +196,7 @@ const CompanyDetails = () => {
         </div>
 
         <div className="flex flex-col md:flex-row md:mb-48 gap-6 justify-between">
-          <div className="md:w-1/2 mt-12">
+          <div className="md:w-1/2 mt-28">
             <h2 className="font-bold lg:mt-2 text-xl md:text-2xl lg:text-3xl">
               {t("description")}
             </h2>
@@ -209,7 +215,7 @@ const CompanyDetails = () => {
               <li>{t("benefit_6")}</li>
             </ul>
 
-            <div className="flex flex-wrap items-center gap-5 my-5">
+            {/* <div className="flex flex-wrap items-center gap-5 my-5">
               <p>{t("share_profile")}</p>
 
               {company?.social_media_links?.facebook && (
@@ -307,7 +313,7 @@ const CompanyDetails = () => {
                   <p>{t("tiktok")}</p>
                 </a>
               )}
-            </div>
+            </div> */}
           </div>
 
           <div className="md:ml-10 md:w-1/2">
@@ -342,31 +348,36 @@ const CompanyDetails = () => {
                 </Link>
               </div>
             </div>
+            <div className="p-4 md:p-8 border-2 rounded-lg grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 md:gap-10 mt-8">
+              <div className="flex items-center gap-2">
 
-            <div className="p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
-              <div>
                 <FiCalendar className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("founded_in")}</p>
-                <p className="font-bold text-sm">{company?.founded_date}</p>
+                <div>
+                  <p className="text-gray-500 ">
+                    {t("founded_in")} {company?.founded_date}
+                  </p>
+                </div>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <BiStopwatch className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("organization_type")}</p>
-                <p className="font-bold text-sm">
+
+                <p className="font-bold text-sm text-gray-500">
                   {company?.company_type} {t("company")}
                 </p>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <PiWallet className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("team_size")}</p>
-                <p className="font-bold text-sm">
+                <p className="text-gray-500 ">{t("team_size")}:</p>
+                <p className="font-bold text-sm text-gray-500">
                   {company?.company_size} {t("candidates")}
                 </p>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <PiBriefcase className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("industry_types")}</p>
-                <p className="font-bold text-sm">{company?.industry}</p>
+                <p className="text-gray-500 ">{t("industry_types")}</p>
+                <p className="font-bold text-sm text-gray-500">
+                  {company?.industry}
+                </p>
               </div>
             </div>
             <div className="p-4 md:p-8 border-2 rounded-lg md:my-6">
@@ -374,17 +385,16 @@ const CompanyDetails = () => {
                 {t("contact_information")}
               </h2>
               <div className="flex items-center my-5">
-                <FiGlobe className="text-3xl text-blue-500" />
+                <FiGlobe className="text-2xl text-blue-500" />
                 <div className="ml-4">
-                  <p className="text-gray-500">{t("website")}</p>
-                  <p className="text-black font-bold">
-                    {company?.company_website}
+                  <p className="text-gray-500">
+                    {t("website")}:{company?.company_website}
                   </p>
                 </div>
               </div>
               <hr />
               <div className="flex items-center my-5">
-                <LuPhoneCall className="text-3xl text-blue-500" />
+                <LuPhoneCall className="text-2xl text-blue-500" />
                 <div className="ml-4">
                   <p className="text-gray-500">{t("phone")}</p>
                   <p className="text-black font-bold">
@@ -394,10 +404,11 @@ const CompanyDetails = () => {
               </div>
               <hr />
               <div className="flex items-center mt-5">
-                <TfiEmail className="text-3xl text-blue-500" />
+                <TfiEmail className="text-2xl text-blue-500" />
                 <div className="ml-4">
-                  <p className="text-gray-500">{t("email")}</p>
-                  <p className="text-black font-bold">{company?.email}</p>
+                  <p className="text-gray-500">
+                    {t("email")}: {company?.email}
+                  </p>
                 </div>
               </div>
             </div>

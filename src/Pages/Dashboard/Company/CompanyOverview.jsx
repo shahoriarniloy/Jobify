@@ -11,10 +11,11 @@ import { BiTask } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const CompanyOverview = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
 
   const [company, setCompany] = useState({});
   const [jobStats, setJobStats] = useState({

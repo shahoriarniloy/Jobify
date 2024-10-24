@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import "react-quill/dist/quill.snow.css";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../../../../../Shared/DashboardLoader";
-
+import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
 const UserInfo = () => {
   const { t } = useTranslation();
@@ -23,16 +23,16 @@ const UserInfo = () => {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [socialLinks, setSocialLinks] = useState([]);
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
 
   const { data, isLoading } = useQuery({
     queryKey: ["load initial data for user"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/users/${currentUser?.email}`)
+      const { data } = await axiosSecure.get(`/users/${currentUser?.email}`);
       setSocialLinks(data?.userInfo[0]?.socialLinks || "");
       return data.userInfo[0];
-    }
-  })
+    },
+  });
 
   const handleAboutChange = (value) => {
     setAbout(value);
@@ -46,7 +46,8 @@ const UserInfo = () => {
     const formData = new FormData();
     formData.append("image", image);
     const response = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY
+      `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_IMGBB_API_KEY
       }`,
       formData
     );
@@ -78,7 +79,7 @@ const UserInfo = () => {
       setLoading(false);
     }
   };
-  if (isLoading) return <DashboardLoader />
+  if (isLoading) return <DashboardLoader />;
   return (
     <div className="p-4 md:p-8">
       <form onSubmit={handleSubmit}>
@@ -159,7 +160,14 @@ const UserInfo = () => {
                     ["link"],
                   ],
                 }}
-                formats={["bold", "italic", "underline", "list", "bullet", "link"]}
+                formats={[
+                  "bold",
+                  "italic",
+                  "underline",
+                  "list",
+                  "bullet",
+                  "link",
+                ]}
                 className="custom-quill-editor h-[600px]"
               />
             </div>

@@ -11,84 +11,62 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentUser, logOut } from "../../../Redux/userSlice";
 import auth from "../Firebase/firebase.config";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 
-
-
 export const AuthContext = createContext(null);
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const googleProvider = new GoogleAuthProvider();
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.currentUser);
 
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const updateUserProfile = (name, image) => {
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: image,
-    });
-  };
-
   const signInUser = (email, password) => {
-
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const signInWithGoogle = () => {
     return signInWithPopup(auth, googleProvider);
-    
-    
   };
 
   const logOutUser = () => {
     setLoading(true);
-    signOut(auth)
-      .then(() => {
-        toast.success("You have successfully logged out.");
-        dispatch(logOut());
-        localStorage.removeItem("currentUser");
-      })
-      .finally(() => setLoading(false));
+    return signOut(auth);
   };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth,async (user) => {
-      setLoading(true);
-      if (user) {
-        console.log(user)
-        const {data} = await axiosSecure.get(`/users/${user.email}`);
-        const serializableUser = {
-          data
-        };
-        dispatch(setCurrentUser(serializableUser));
-        localStorage.setItem("currentUser", JSON.stringify(serializableUser));
+    onAuthStateChanged(auth, async (user) => {
+      if (user?.email) {
+        const { data } = await axiosSecure.get(`/users/${user.email}`);
+        // const serializableUser = {
+        //   data
+        // };
+        // dispatch(setCurrentUser(serializableUser));
+        setCurrentUser(user);
+        setLoading(false);
       } else {
-        dispatch(logOut());
-        localStorage.removeItem("currentUser");
+        setCurrentUser(null);
+        setLoading(false);
       }
-      setLoading(false);
     });
-
-    return () => unSubscribe();
-  }, [dispatch]);
+  }, [loading, logOutUser]);
 
   const authInfo = {
     currentUser,
     createUser,
     signInUser,
     signInWithGoogle,
-    logOut: logOutUser,
-    updateUserProfile,
+    logOutUser,
     loading,
-    setLoading
+    setLoading,
+    setCurrentUser,
   };
 
   return (

@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { Link } from "react-router-dom";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 
 const JobSeekerCard = ({ jobSeeker }) => {
-  const { t } = useTranslation();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
+
   const [isFollowing, setIsFollowing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -80,11 +80,10 @@ const JobSeekerCard = ({ jobSeeker }) => {
         <div className="flex mt-4 md:mt-6">
           <button
             onClick={handleFollowToggle}
-            className={`inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none ${
-              isFollowing
+            className={`inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none ${isFollowing
                 ? "bg-red-500 hover:bg-red-600"
                 : "bg-blue-700 hover:bg-blue-800"
-            }`}
+              }`}
           >
             {isFollowing ? t("unfollow") : t("follow")}
           </button>

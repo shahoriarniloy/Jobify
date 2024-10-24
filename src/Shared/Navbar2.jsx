@@ -7,21 +7,21 @@ import { io } from "socket.io-client";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
 import useUserRole from "../Hooks/useUserRole";
-import { FaRegHeart, FaBriefcase, FaBell, FaEdit } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineVideoCall } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
-import { logOut as logOutAction } from "../Redux/userSlice";
 import { toggleTheme } from "../Redux/themeSlice";
 import { useTranslation } from "react-i18next";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { switchLanguage } from "../Redux/languageSlice";
 import Swal from "sweetalert2";
+import useCurrentUser from "../Hooks/useCurrentUser";
+import { toast } from "react-toastify";
 
 const Navbar2 = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser, logOutUser } = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -62,8 +62,10 @@ const Navbar2 = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(logOutAction());
-    navigate("/");
+    logOutUser().then(() => {
+      toast.success("You have successfully logged out.");
+      navigate("/");
+    });
   };
 
   const handleJoinRoom = useCallback(() => {
@@ -141,10 +143,11 @@ const Navbar2 = () => {
               <select
                 onChange={handleLanguageChange}
                 value={currentLanguage}
-                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${theme === "dark"
+                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
+                  theme === "dark"
                     ? "bg-transparent text-white"
                     : "bg-transparent text-black"
-                  }`}
+                }`}
               >
                 <option value="en">{t("english")}</option>
                 <option value="bn">{t("bangla")}</option>
@@ -235,7 +238,7 @@ const Navbar2 = () => {
                     <img
                       src={
                         currentUser?.photoURL ||
-                        "https://i.ibb.co.com/sVhMSY5/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
+                        "https://i.ibb.co.com/P6RfpHT/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
                       }
                       alt={t("user_profile")}
                       className="w-10 h-10 rounded-full cursor-pointer"
@@ -248,7 +251,6 @@ const Navbar2 = () => {
                       >
                         <ul className="py-1 text-gray-700">
                           {role === "Job Seeker" && (
-
                             <li>
                               <Link
                                 to="jobSeeker/overview"
@@ -259,8 +261,6 @@ const Navbar2 = () => {
                                 {t("dashboard")}
                               </Link>
                             </li>
-
-
                           )}
                           {role === "Employer" && (
                             <li>
@@ -285,7 +285,6 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
-
                             </li>
                           )}
                           <li>
@@ -300,7 +299,6 @@ const Navbar2 = () => {
                               {t("join_call")}
                             </button>
                           </li>
-
                           <li>
                             <button
                               onClick={handleLogOut}
