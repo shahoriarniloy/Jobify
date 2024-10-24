@@ -4,25 +4,40 @@ import HowItWorks from "./HowItWorks";
 import OurTeam from "../About/OurTeam/OurTeam";
 import PopularCategory from "./PopularCategory";
 import TopCompanies from "./TopCompanies";
-import { Helmet } from "react-helmet";
-// import TopCompanies from "./TopCompanies"
 import { useQuery } from "@tanstack/react-query";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import Testimonial from './Testimonial';
+import Testimonial from "./Testimonial";
+import { Helmet } from "react-helmet";
 
- 
 const Home = () => {
+  // load all necessary data for home page
+  const { data, isLoading } = useQuery({
+    queryKey: ["all-info"],
+    queryFn: async () => {
+      const result = await axiosSecure.get("/homepage-info");
+      return result.data;
+    },
+  });
+  if (isLoading) return;
   return (
     <div>
-        <Helmet>
+      <Helmet>
         <title>Jobify - Home</title>
-        <meta name="description" content="Explore jobs, top companies, popular categories, and how Jobify works." />
+        <meta
+          name="description"
+          content="Explore jobs, top companies, popular categories, and how Jobify works."
+        />
       </Helmet>
-      <SearchBar></SearchBar>
-      <PopularCategory/>
+      <SearchBar
+        jobCount={data.jobCount}
+        companyCount={data.companyCount}
+        candidates={data.candidates}
+        successPeoples={data.successPeoples}
+      ></SearchBar>
+      <PopularCategory categoryCounts={data.categoryCounts} />
       <HowItWorks></HowItWorks>
-      <TopCompanies/>
-
+      <TopCompanies />
+      <Testimonial reviews={data?.reviews} />
 
       {/* <OurTeam></OurTeam> */}
       {/* <Feedback></Feedback> */}
