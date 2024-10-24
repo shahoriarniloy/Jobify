@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const Messages = () => {
   const { t } = useTranslation(); // Destructure useTranslation
@@ -67,6 +68,9 @@ const Messages = () => {
 
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
+       <Helmet>
+        <title>Jobify - Messages</title>
+      </Helmet>
       <div className="container mx-auto pt-8 min-h-screen">
         {conversations.length === 0 ? (
           <div className="text-gray-500">{t("no_conversations_found")}</div>
