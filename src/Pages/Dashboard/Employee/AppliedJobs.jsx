@@ -60,7 +60,9 @@ const AppliedJobs = () => {
             >
               <div className="flex lg:flex-row md:flex-row flex-col justify-between items-center">
                 <div className="flex flex-col">
-                  <h2 className="card-title text-2xl mb-2">{job.title}</h2>
+                  <h2 className="card-title text-2xl mb-2">
+                    {job.jobInfo.title}
+                  </h2>
                   <h3 className="text-lg text-gray-500 mb-4">
                     {job.companyInfo?.company_name}
                   </h3>
@@ -69,13 +71,13 @@ const AppliedJobs = () => {
                     <div className="flex items-center">
                       <FaDollarSign className="mr-1" />
                       <p className="text-base-400">
-                        {t("salary")}: {job.salaryRange}
+                        {t("salary")}: {job.jobInfo.salaryRange}
                       </p>
                     </div>
                     <div className="flex items-center">
                       <FaMapMarkerAlt className="mr-1" />
                       <p className="text-base-400">
-                        {t("location")}: {job.location}
+                        {t("location")}: {job.jobInfo.location}
                       </p>
                     </div>
                   </div>

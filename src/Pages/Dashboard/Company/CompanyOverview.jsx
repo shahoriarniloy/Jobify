@@ -147,8 +147,7 @@ const CompanyOverview = () => {
               {company?.company_name || t("incomplete_profile")}
             </h2>
             <p>
-              {company?.company_description ||
-                t("complete_profile_message")}
+              Your Profile is not completed. Please update your information for find best job for you.
             </p>
           </div>
         </div>

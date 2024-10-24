@@ -17,7 +17,6 @@ const Navbar = () => {
   const [socket, setSocket] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
   const navItem = (
     <>
       <li>
@@ -61,16 +60,7 @@ const Navbar = () => {
           {t("my_network")}
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/favorite-company"
-          className={({ isActive }) =>
-            isActive ? "active-nav nav-link" : "nav-link"
-          }
-        >
-          {t("favorite_company")}
-        </NavLink>
-      </li>
+
       <li>
         <NavLink
           to="/about"
@@ -149,9 +139,11 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className={`navbar shadow-sm ${isSticky ? "sticky top-0 z-50" : ""
-          } roboto-regular ${theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"
-          }`}
+        className={`navbar shadow-sm ${
+          isSticky ? "sticky top-0 z-50" : ""
+        } roboto-regular ${
+          theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"
+        }`}
       >
         <div className="navbar-start">
           <div className="dropdown">

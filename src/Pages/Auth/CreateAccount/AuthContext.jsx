@@ -4,7 +4,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
@@ -44,7 +43,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user?.email) {
-        const { data } = await axiosSecure.get(`/users/${user.email}`);
+        // const { data } = await axiosSecure.get(`/users/${user.email}`);
         // const serializableUser = {
         //   data
         // };
