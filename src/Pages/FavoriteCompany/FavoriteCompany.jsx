@@ -31,7 +31,7 @@ const FavoriteCompany = () => {
         );
         setJobs(response.data.jobs);
       } catch (error) {
-        console.error(t("error_fetching_jobs"), error);
+        // console.error(t("error_fetching_jobs"), error);
         setError(error.message);
       } finally {
         setLoading(false);

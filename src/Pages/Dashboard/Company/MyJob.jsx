@@ -28,7 +28,7 @@ const JobTable = () => {
       return response.data;
     },
   });
-  console.log(jobs);
+  // console.log(jobs);
 
   if (isLoading) {
     return <DashboardLoader />;

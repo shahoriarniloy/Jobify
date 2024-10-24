@@ -21,7 +21,7 @@ const Career = () => {
           );
           setUser(response.data);
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          // console.error("Error fetching user data:", error);
         } finally {
           setLoading(false);
         }
@@ -49,7 +49,7 @@ const Career = () => {
         );
         setRoadmap(careerRoadmap);
       } catch (error) {
-        console.error("Error fetching job categories:", error);
+        // console.error("Error fetching job categories:", error);
       } finally {
         setLoadingJobCategories(false); // Ensure loading ends
       }
