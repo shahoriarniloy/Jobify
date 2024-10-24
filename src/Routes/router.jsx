@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "company-details/:companyId",
+        path: "company-details/:companyEmail",
         element: <CompanyDetails />,
       },
       {

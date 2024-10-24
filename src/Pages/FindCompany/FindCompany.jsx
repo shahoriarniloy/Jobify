@@ -236,12 +236,11 @@ const FindCompany = () => {
                       </div>
                     </div>
                     <div className="mt-14 space-y-2 text-justify">
-                      <p className=" text-sm">{company.company_description}</p>
+                      <p className=" text-sm">{company.company_description.slice(0,250)} ...</p>
                     </div>
                     <Link to={`/company-details/${company.email}`}>
                       <button className=" text-blue-500 px-3 py-2 rounded w-full underline">
-                      {t("details")}
-                        {/* <EyeIcon className="h-5 w-5 inline-block mr-1" /> */}
+                        Details
                       </button>
                     </Link>
                   </div>
