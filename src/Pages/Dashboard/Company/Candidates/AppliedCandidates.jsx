@@ -13,15 +13,12 @@ import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { useQuery } from "@tanstack/react-query";
 
 const AppliedCandidates = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const { jobId,jobTitle } = location.state;
-  const [candidates, setCandidates] = useState([]);
-  const [company, setCompany] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({});
   const [filterStatus, setFilterStatus] = useState("All");
   const { currentUser } = useCurrentUser();
@@ -43,48 +40,30 @@ const AppliedCandidates = () => {
     { value: "Hired", label: "Hired" },
   ];
 
-  useEffect(() => {
-    const fetchCandidates = async () => {
-      setLoading(true);
-      try {
-        const response = await axiosSecure.get(
-          `/appliedCandidates?job_id=${jobId}`
-        );
-        setCandidates(response.data);
-      } catch (err) {
-        setError(err.response ? err.response.data.message : err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+ 
 
-    fetchCandidates();
-  }, [jobId]);
+// fetch all applied candidates
+const {data:candidates=[], isLoading, refetch} = useQuery({
+  queryKey:["load all candidates"],
+  queryFn: async ()=>{
+    const {data} = await  axiosSecure.get(
+      `/appliedCandidates?job_id=${jobId}`
+    );
+    return data
+  }
+})
 
-  useEffect(() => {
-    const fetchCompanyData = async () => {
-      try {
-        if (!currentUser?.email) {
-          throw new Error("User not found");
-        }
-        setLoading(true);
+ 
+// fetch company data;
+const {data:company=[]} = useQuery({
+  queryKey:["load company data"],
+  queryFn:async()=>{
+    const {data} = await axiosSecure.get(
+          `/companies/${currentUser.email}`);
+    return data;
+  }
+})
 
-        const companyResponse = await axiosSecure.get(
-          `/companies/${currentUser.email}`
-        );
-        setCompany(companyResponse.data);
-      } catch (error) {
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (currentUser?.email) {
-      fetchCompanyData();
-    } else {
-      setLoading(false);
-    }
-  }, [currentUser]);
 
   const handleStatusChange = (email, newStatus, applicationId, name) => {
     setSelectedStatus((prevStatus) => ({
@@ -113,11 +92,11 @@ const AppliedCandidates = () => {
 
       .patch(`/updateCandidateStatus`, statusUpdate)
       .then((response) => {
-        console.log("Candidate status updated successfully:", response.data);
+        refetch();
         toast.success(`Status Updated to ${statusUpdate.status}`);
+
       })
       .catch((error) => {
-        console.error("Error updating candidate status:", error);
         console.error("Response data:", error.response.data);
       });
   };
@@ -145,25 +124,15 @@ const AppliedCandidates = () => {
       schedulingCandidate?.user?.name
     );
 
-    console.log(
-      `Scheduled interview for ${schedulingCandidate.user.name} on ${interviewDetails.date} at ${interviewDetails.time} in room ${interviewDetails.roomId}`
-    );
-
     setSchedulingCandidate(null);
     setInterviewDetails({ date: "", time: "", roomId: "" });
   };
 
-  if (loading) {
+  if (isLoading) {
     return <DashboardLoader />;
   }
 
-  if (error) {
-    return (
-      <div>
-        {t("error")}: {error}
-      </div>
-    );
-  }
+ 
 
   return (
     <div>

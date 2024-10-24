@@ -51,7 +51,7 @@ const CompanyDetails = () => {
   };
   if (isLoading) return <DashboardLoader />
   return (
-    <div className="bg-secondary">
+    <div className="bg-secondary pb-20">
       <div className="relative container mx-auto">
         <div className="relative">
           <div>
@@ -229,7 +229,7 @@ const CompanyDetails = () => {
           </div>
         </div>
       </div>
-      <OpenPosition />
+      <OpenPosition companyEmail={companyEmail}/>
     </div>
   );
 };
