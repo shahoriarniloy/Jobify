@@ -4,6 +4,7 @@ import { FaDollarSign, FaCheckCircle, FaMapMarkerAlt } from "react-icons/fa";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 
 const statusSteps = [
   { value: "Pending", label: "Pending" },
@@ -51,6 +52,9 @@ const AppliedJobs = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>Jobify - Applied Jobs</title>
+      </Helmet>
       <div className="flex flex-col gap-2 pt-2">
         {appliedJobs.length > 0 ? (
           appliedJobs.map((job) => (
