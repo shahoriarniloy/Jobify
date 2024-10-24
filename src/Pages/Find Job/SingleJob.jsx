@@ -11,9 +11,8 @@ import Bookmark from "./Bookmark";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
-import { useQuery } from '@tanstack/react-query';
-import { Helmet } from "react-helmet";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
 
 import { FaUserGraduate } from "react-icons/fa";
@@ -108,10 +107,9 @@ const SingleJob = () => {
     return <DashboardLoader />;
   }
   return (
-
     <div className={theme === "dark" ? "text-white" : "bg-secondary"}>
-     <Helmet>
-        <title>Jobify - Single Job</title>
+      <Helmet>
+        <title>Jobify - Job Details</title>
       </Helmet>
       <div className="container mx-auto px-4 sm:px-8 md:px-16 py-8">
         <div className="flex flex-col md:flex-row justify-between gap-4">
@@ -190,8 +188,8 @@ const SingleJob = () => {
                 <h3
                   className={
                     theme === "dark "
-                      ? "font-bold text-gray-900  mb-4"
-                      : "font-bold text-gray-200 mb-4"
+                      ? "font-bold text-gray-100  mb-4"
+                      : "font-bold text-gray-600 mb-4"
                   }
                 >
                   {t("job_description")}
@@ -199,8 +197,8 @@ const SingleJob = () => {
                 <p
                   className={
                     theme === "dark "
-                      ? " text-gray-900 mb-4 text-justify"
-                      : " text-gray-200 mb-4 text-justify"
+                      ? " text-gray-100 mb-4 text-justify"
+                      : " text-gray-600 mb-4 text-justify"
                   }
                 >
                   {job?.jobInfo?.jobDescription}
@@ -212,8 +210,8 @@ const SingleJob = () => {
               <h3
                 className={
                   theme === "dark "
-                    ? "font-bold text-gray-900 mb-4"
-                    : "font-bold text-gray-100 mb-4"
+                    ? "font-bold text-gray-100 mb-4"
+                    : "font-bold text-gray-600 mb-4"
                 }
               >
                 Responsibilities
@@ -226,8 +224,8 @@ const SingleJob = () => {
                       key={index}
                       className={
                         theme === "dark "
-                          ? " text-gray-900 mb-4 text-justify"
-                          : " text-gray-100 mb-4 text-justify"
+                          ? " text-gray-100 mb-4 text-justify"
+                          : " text-gray-600 mb-4 text-justify"
                       }
                     >
                       {t(item)}
