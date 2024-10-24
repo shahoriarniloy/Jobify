@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next"; // Import useTranslation
 import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 
 const JobTable = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
@@ -35,6 +36,9 @@ const JobTable = () => {
 
   return (
     <div className="overflow-x-auto">
+       <Helmet>
+        <title>Jobify - My Jobs</title>
+      </Helmet>
       <table className="table-auto w-full text-left border-collapse">
         <thead>
           <tr>
