@@ -6,44 +6,24 @@ import { useTranslation } from "react-i18next";
 import ButtonLoader from "../../Shared/ButtonLoader";
 import Bookmark from "../Find Job/Bookmark";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
 
 const FavoriteCompany = () => {
   const { t } = useTranslation();
   const { currentUser } = useCurrentUser();
-  const userEmail = currentUser?.email;
 
-  const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: jobs, isLoading } = useQuery({
+    queryKey: ["lod favorite job"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/users/${currentUser?.email}/latest-jobs`
+      );
+      return data.jobs;
+    },
+  });
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      if (!userEmail) {
-        setLoading(false);
-        return;
-      }
-
-      console.log(t("fetching_jobs_for_user_email"), userEmail);
-
-      try {
-        const response = await axiosSecure.get(
-          `/users/${userEmail}/latest-jobs`
-        );
-        setJobs(response.data.jobs);
-      } catch (error) {
-        // console.error(t("error_fetching_jobs"), error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchJobs();
-  }, [userEmail]);
-
-  if (loading) return <DashboardLoader />;
-  if (error) return <p>{t("error_dynamic", { error })}</p>;
+  if (isLoading) return <DashboardLoader />;
 
   return (
     <div className="container mx-auto">
