@@ -2,7 +2,10 @@ import { PiBag } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaGithub } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+
 const Footer = () => {
+  const { t } = useTranslation();
   const theme = useSelector((state) => state.theme.theme);
 
   return (
@@ -15,16 +18,16 @@ const Footer = () => {
     >
       <nav className="grid grid-flow-col gap-4">
         <Link to="/about">
-          <a className="link link-hover">About us</a>
+          <a className="link link-hover">{t("about_us")}</a>
         </Link>
         <Link to="/about">
-          <a className="link link-hover">Contact</a>
+          <a className="link link-hover">{t("contact")}</a>
         </Link>
         <Link to="/advanced-search">
-          <a className="link link-hover">Jobs</a>
+          <a className="link link-hover">{t("jobs")}</a>
         </Link>
         <Link to="/companies">
-          <a className="link link-hover">Companies</a>
+          <a className="link link-hover">{t("companies")}</a>
         </Link>
       </nav>
       <nav>
@@ -40,8 +43,7 @@ const Footer = () => {
       </nav>
       <aside>
         <p>
-          Copyright © {new Date().getFullYear()} - All right reserved by
-          CodeBusters
+          {t("copyright")} © {new Date().getFullYear()} - {t("all_rights_reserved")}
         </p>
       </aside>
     </footer>

@@ -63,6 +63,16 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
+          to="/favorite-company"
+          className={({ isActive }) =>
+            isActive ? "active-nav nav-link" : "nav-link"
+          }
+        >
+          {t("favorite_company")}
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
           to="/about"
           className={({ isActive }) =>
             isActive ? "active-nav nav-link" : "nav-link"

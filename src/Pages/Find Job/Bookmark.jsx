@@ -5,7 +5,11 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+
 import useCurrentUser from "../../Hooks/useCurrentUser";
+
+import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+
 
 const Bookmark = ({ jobId }) => {
   const { t } = useTranslation(); // Destructure t from useTranslation
@@ -58,20 +62,11 @@ const Bookmark = ({ jobId }) => {
       onClick={handleBookmark}
       style={{ color: isBookmarked ? "blue" : "currentColor" }}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        className="w-5 h-5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M5 3h14a2 2 0 012 2v16l-9-4-9 4V5a2 2 0 012-2z"
-        />
-      </svg>
+      {isBookmarked ? (
+        <BsBookmarkFill className="w-5 h-5" />
+      ) : (
+        <BsBookmark className="w-5 h-5" />
+      )}
     </button>
   );
 };

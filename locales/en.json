@@ -1,7 +1,16 @@
 {
-  "Jobify": "Jobify",
   "english": "English",
   "bangla": "বাংলা",
+  "arabic": "العربية",
+  "urdu": " اُردُو",
+  "spanish": "Español",
+  "french": "Français",
+  "China": "中国",
+  "german": "Deutsch",
+  "Portuguese": "Português",
+  "hindi": "हिन्दी",
+
+  "Jobify": "Jobify",
   "user_profile": "User Profile",
   "applied_jobs": "Applied Jobs",
   "favorite_jobs": "Favorite Jobs",
@@ -579,5 +588,126 @@
 
   "failed_to_load_data": "Failed to load company or job data. Please try again later.",
   "company_type": "Company Type",
-  "open_positions": "Open Positions"
+  "open_positions": "Open Positions",
+
+  "favorite_company": "Favorite Company",
+
+  "error_dynamic": "Error: {{error}}",
+  "fetching_jobs_for_user_email": "Fetching jobs for userEmail:",
+  "error_fetching_jobs": "Error fetching jobs",
+  "logo": "logo",
+
+  "company_removed_from_favorites": "Company removed from favorites",
+  "company_added_to_favorites": "Company added to favorites",
+
+  "error_toggling_favorite_with_colon": "Error toggling favorite:",
+  "something_went_wrong_while_updating_favorites": "Something went wrong while updating favorites.",
+
+  "number_of_companies_per_page": "Number of companies per page",
+  "size": "Size",
+  "no_matching_data_found": "No matching data found.",
+  "failed_to_fetch_companies": "Failed to fetch companies.",
+
+  "option_5": "5",
+  "option_10": "10",
+  "option_15": "15",
+
+  "top_companies": "Top Companies",
+  "view_company_details": "View Company Details",
+  "no_companies_found": "No companies found.",
+
+  "valid_search_term": "Please enter a valid search term.",
+  "find_people_to_follow": "Find People to Follow",
+  "find": "Find",
+
+  "open_dropdown": "Open dropdown",
+  "unfollow": "Unfollow",
+  "follow": "Follow",
+
+  "how_jobify_work": "How Jobify work",
+  "create_account_description": "Creating an account allows you to unlock personalized features, manage your job applications, and stay updated on opportunities tailored just for you.",
+  "build_resume": "Build Resume",
+  "build_resume_description": "Utilize our resume builder to easily craft a professional and eye-catching resume that highlights your skills and experiences, making you stand out to potential employers.",
+  "find_suitable_job": "Find suitable job",
+  "find_suitable_job_description": "Explore our platform to find suitable job opportunities tailored to your skills and aspirations, connecting you with employers looking for talent like yours.",
+  "apply_job_description": "Apply to jobs effortlessly with our streamlined application process, making it easy for you to showcase your skills and land your dream position.",
+
+  "popular_categories": "Popular Categories",
+  "graphics_design": "Graphics & Design",
+  "code_programming": "Code & Programming",
+  "digital_marketing": "Digital Marketing",
+  "video_animation": "Video & Animation",
+  "music_audio": "Music & Audio",
+  "account_finance": "Account & Finance",
+  "health_care": "Health & Care",
+  "data_science": "Data & Science",
+
+  "please_enter_something_first": "Please enter something first",
+  "find_job_suits_interest_skills": "Find a job that suits your interest & skills.",
+  "quickly_find_job_opportunities": "Quickly find job opportunities that match your skills and interests by searching for specific job titles, keywords, or locations.",
+  "suggestion_label": "Suggestion: ",
+  "designer_label": "Designer",
+  "programming_label": "Programming",
+  "digital_marketing_label": "Digital Marketing",
+  "video_label": "Video",
+  "animation_label": "Animation",
+  "job_results_label": "Job Results:",
+  "no_matching_jobs_label": "No matching jobs found.",
+  "live_jobs_label": "Live Jobs",
+  "companies_label": "Companies",
+  "candidates_label": "Candidates",
+  "successful_label": "Successful",
+
+  "failed_to_fetch_data": "Failed to fetch data",
+  "failed_to_load_post": "Failed to load post.",
+  "failed_to_post_comment": "Failed to post comment.",
+  "failed_to_update_like_status": "Failed to update like status.",
+  "loading_post": "Loading post...",
+  "comments": "Comments",
+  "no_comments_yet": "No comments yet.",
+  "add_a_comment": "Add a comment",
+  "submitting": "Submitting...",
+  "submit": "Submit",
+
+  "post_image_alt": "Post Image",
+  "unknown_date": "Unknown",
+  "like_post_title": "Like post",
+  "comments_title": "Comments",
+  "add_comment_placeholder": "Add a comment",
+  "emoji_picker_label": "Emoji Picker",
+  "comment_button": "Comment",
+
+  "no_posts_available": "No posts available",
+
+  "posts_from_people_you_follow": "Posts from people you follow",
+  "unlike_post": "Unlike post",
+  "like_post": "Like post",
+  "view_comments": "View Comments",
+
+  "whats_on_your_mind": "What's on your mind",
+
+  "create_a_post": "Create a Post",
+  "emoji_picker": "Emoji Picker",
+  "selected_image": "Selected Image",
+  "posting": "Posting...",
+  "post": "Post",
+  "please_add_content_or_image": "Please add some content or an image to post",
+
+  "page_not_found": "Page Not Found",
+
+  "contact": "Contact",
+  "companies": "Companies",
+  "copyright": "Copyright",
+  "all_rights_reserved": "All rights reserved by CodeBusters",
+
+  "new_job_posted_title": "New Job Posted!",
+  "new_job_posted_text": "A new job",
+  "by": "posted by",
+  "view_job": "View Job",
+  "notifications": "Notifications",
+  "you_have": "You have",
+  "notifications_count": "notifications",
+  "mark_all_as_read": "Mark all as read",
+  "no_notifications_available": "No notifications available",
+  "position": "position"
 }

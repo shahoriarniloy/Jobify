@@ -4,20 +4,35 @@ import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "./../../Shared/DashboardLoader";
 import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const TopCompanies = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
+  const theme = useSelector((state) => state.theme.theme);
+
+
   const { data, isLoading } = useQuery({
     queryKey: ["top-companies"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/companies")
       return data?.Companies;
-    }
-  })
-  if (isLoading) return <DashboardLoader />
+    },
+  });
+  if (isLoading) return <DashboardLoader />;
+  
   return (
     <div>
-      <div className='container mx-auto py-24'>
-        <h1 className='text-3xl font-semibold mb-2 tracking-wider text-black text-center '>Top Companies</h1>
+      <div className="container mx-auto py-24">
+        <h1
+          className={
+            theme === "dark"
+              ? "text-3xl font-semibold mb-2 tracking-wider text-slate-200 text-center"
+              : "text-3xl font-semibold mb-2 tracking-wider text-black text-center"
+          }
+        >
+          {t("top_companies")} {/* Use translation key */}
+        </h1>
 
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
@@ -37,13 +52,14 @@ const TopCompanies = () => {
                     <h2>{company_name}</h2>
                     <p className="flex items-center gap-1 text-[#939AAD]">
                       <CiLocationOn className="text-xl" />
-                      <span className="text-sm">{location}</span>
+                      <span className="text-sm">{t("location")}: {location}</span> {/* Use translation key */}
                     </p>
                   </div>
                 </div>
                 <Link to={`/company-details/${email}`}>
                   <button className="btn bg-[#E7F0FA] rounded-sm link-color hover:bg-[#0a65cc] hover:text-white w-full">
-                    Open Position
+                    {t("open_positions")} {/* Use translation key */}
+
                   </button>
                 </Link>
               </div>
