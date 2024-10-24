@@ -4,7 +4,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
@@ -13,7 +12,6 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import auth from "../Firebase/firebase.config";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
-
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -28,7 +26,6 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-
   const signInUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
@@ -36,8 +33,6 @@ const AuthProvider = ({ children }) => {
 
   const signInWithGoogle = () => {
     return signInWithPopup(auth, googleProvider);
-
-
   };
 
   const logOutUser = () => {
@@ -46,7 +41,6 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-
     onAuthStateChanged(auth, async (user) => {
       if (user?.email) {
         // const { data } = await axiosSecure.get(`/users/${user.email}`);
@@ -54,15 +48,13 @@ const AuthProvider = ({ children }) => {
         //   data
         // };
         // dispatch(setCurrentUser(serializableUser));
-        setCurrentUser(user)
+        setCurrentUser(user);
         setLoading(false);
-      }
-      else {
-        setCurrentUser(null)
+      } else {
+        setCurrentUser(null);
         setLoading(false);
       }
     });
-
   }, [loading, logOutUser]);
 
   const authInfo = {
@@ -73,7 +65,7 @@ const AuthProvider = ({ children }) => {
     logOutUser,
     loading,
     setLoading,
-    setCurrentUser
+    setCurrentUser,
   };
 
   return (

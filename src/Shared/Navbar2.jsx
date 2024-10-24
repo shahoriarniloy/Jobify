@@ -21,7 +21,7 @@ import useCurrentUser from "../Hooks/useCurrentUser";
 import { toast } from "react-toastify";
 
 const Navbar2 = () => {
-  const { currentUser, logOutUser} = useCurrentUser();
+  const { currentUser, logOutUser } = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -62,11 +62,10 @@ const Navbar2 = () => {
   };
 
   const handleLogOut = () => {
-    logOutUser()
-      .then(() => {
-        toast.success("You have successfully logged out.");
-        navigate("/")
-      })
+    logOutUser().then(() => {
+      toast.success("You have successfully logged out.");
+      navigate("/");
+    });
   };
 
   const handleJoinRoom = useCallback(() => {
@@ -144,10 +143,11 @@ const Navbar2 = () => {
               <select
                 onChange={handleLanguageChange}
                 value={currentLanguage}
-                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${theme === "dark"
-                  ? "bg-transparent text-white"
-                  : "bg-transparent text-black"
-                  }`}
+                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
+                  theme === "dark"
+                    ? "bg-transparent text-white"
+                    : "bg-transparent text-black"
+                }`}
               >
                 <option value="en">{t("english")}</option>
                 <option value="bn">{t("bangla")}</option>
@@ -238,7 +238,7 @@ const Navbar2 = () => {
                     <img
                       src={
                         currentUser?.photoURL ||
-                        "https://via.placeholder.com/150"
+                        "https://i.ibb.co.com/P6RfpHT/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
                       }
                       alt={t("user_profile")}
                       className="w-10 h-10 rounded-full cursor-pointer"
@@ -251,7 +251,6 @@ const Navbar2 = () => {
                       >
                         <ul className="py-1 text-gray-700">
                           {role === "Job Seeker" && (
-
                             <li>
                               <Link
                                 to="jobSeeker/overview"
@@ -262,8 +261,6 @@ const Navbar2 = () => {
                                 {t("dashboard")}
                               </Link>
                             </li>
-
-
                           )}
                           {role === "Employer" && (
                             <li>
@@ -288,7 +285,6 @@ const Navbar2 = () => {
                                 <MdOutlineDashboardCustomize />
                                 {t("dashboard")}
                               </Link>
-
                             </li>
                           )}
                           <li>

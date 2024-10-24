@@ -5,7 +5,7 @@ import useCurrentUser from "./useCurrentUser";
 
 const useUserRole = () => {
   // const currentUser = useSelector((state) => state?.user?.currentUser);
-  const {currentUser} = useCurrentUser();
+  const { currentUser } = useCurrentUser();
   const { data: role, isLoading } = useQuery({
     queryKey: ["loadedRole", currentUser?.email],
     queryFn: async () => {
@@ -24,5 +24,3 @@ const useUserRole = () => {
 };
 
 export default useUserRole;
-
-

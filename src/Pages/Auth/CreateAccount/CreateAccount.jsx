@@ -12,6 +12,7 @@ import ButtonLoader from "../../../Shared/ButtonLoader";
 import { updateProfile } from "firebase/auth";
 import auth from "../Firebase/firebase.config";
 
+
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const { t } = useTranslation();
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -19,9 +20,11 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const accountType = selectedIndex === 0 ? t("job_seeker") : t("employer");
   const { createUser, loading, setLoading } = useCurrentUser();
 
+
   const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
+
     // for employee
     if (accountType == "Job Seeker") {
       const name = form.name.value;
@@ -32,6 +35,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
           updateProfile(auth.currentUser, {
             displayName: name,
           })
+
           toast.success("Account creation successful");
           setSignUpModalOpen(false);
           axiosSecure.post("/users", {
@@ -77,6 +81,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
         })
     }
+
     setLoading(false);
 
 
@@ -102,6 +107,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                     ? "border-b-4"
                     : "text-gray-700"
                     }`}
+
                 >
                   {t("employee")}
                 </Tab>
@@ -110,6 +116,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                     ? "border-b-4"
                     : "text-gray-700"
                     }`}
+
                 >
                   {t("hr_manager")}
                 </Tab>

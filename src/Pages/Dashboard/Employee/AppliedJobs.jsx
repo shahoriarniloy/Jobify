@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { FaDollarSign, FaCheckCircle, FaMapMarkerAlt } from "react-icons/fa";
 import DashboardLoader from "../../../Shared/DashboardLoader";
@@ -29,7 +28,13 @@ const AppliedJobs = () => {
           const response = await axiosSecure.get(
             `/check-applied-jobs?email=${currentUser.email}`
           );
-          setAppliedJobs(response.data);
+          const jobDetailsPromises = response.data.map(async (job) => {
+            const jobDetails = await axiosSecure.get(`/jobs/${job.job_id}`);
+            return { ...jobDetails.data, status: job.status };
+          });
+
+          const jobDetails = await Promise.all(jobDetailsPromises);
+          setAppliedJobs(jobDetails);
         } catch (error) {
           setError(t("error_fetching_applied_jobs"));
         } finally {
@@ -55,20 +60,24 @@ const AppliedJobs = () => {
             >
               <div className="flex lg:flex-row md:flex-row flex-col justify-between items-center">
                 <div className="flex flex-col">
-                  <h2 className="card-title text-2xl mb-2">{job.title}</h2>
-                  <h3 className="text-lg text-gray-500 mb-4">{job.company}</h3>
+                  <h2 className="card-title text-2xl mb-2">
+                    {job.jobInfo.title}
+                  </h2>
+                  <h3 className="text-lg text-gray-500 mb-4">
+                    {job.companyInfo?.company_name}
+                  </h3>
 
                   <div className="flex lg:flex-row flex-col gap-4 text-xs">
                     <div className="flex items-center">
                       <FaDollarSign className="mr-1" />
                       <p className="text-base-400">
-                        {t("salary")}: {job.salaryRange}
+                        {t("salary")}: {job.jobInfo.salaryRange}
                       </p>
                     </div>
                     <div className="flex items-center">
                       <FaMapMarkerAlt className="mr-1" />
                       <p className="text-base-400">
-                        {t("location")}: {job.location}
+                        {t("location")}: {job.jobInfo.location}
                       </p>
                     </div>
                   </div>
@@ -80,10 +89,11 @@ const AppliedJobs = () => {
                 >
                   <div className="flex items-center">
                     <FaCheckCircle
-                      className={`mr-2 ${job.status === "Pending"
+                      className={`mr-2 ${
+                        job.status === "Pending"
                           ? "text-yellow-500"
                           : "text-green-500"
-                        }`}
+                      }`}
                     />
                     <p
                       className={

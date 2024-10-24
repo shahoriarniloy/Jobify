@@ -12,6 +12,7 @@ import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import useCurrentUser from "../../../../Hooks/useCurrentUser";
 
 const AppliedCandidates = () => {
   const { t } = useTranslation();
@@ -32,15 +33,7 @@ const AppliedCandidates = () => {
   const [schedulingCandidate, setSchedulingCandidate] = useState(null);
 
   const statusOptions = [
-    //     { value: "All", label: t("all_statuses") },
-    //     { value: "Pending", label: t("pending") },
-    //     { value: "Under Review", label: t("under_review") },
-    //     { value: "Shortlisted", label: t("shortlisted") },
-    //     { value: "Interview Scheduled", label: t("interview_scheduled") },
-    //     { value: "Assessment Task", label: t("assessment_task") },
-    //     { value: "Rejected", label: t("rejected") },
-    //     { value: "Hired", label: t("hired") },
-    // =======
+   
     { value: "Pending", label: "Pending" },
     { value: "Under Review", label: "Under Review" },
     { value: "Shortlisted", label: "Shortlisted" },

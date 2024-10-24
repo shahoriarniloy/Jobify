@@ -7,8 +7,10 @@ import { useSelector } from "react-redux";
 import { HiHeart, HiOutlineEmojiHappy } from "react-icons/hi";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
+import { useTranslation } from "react-i18next"; // Importing useTranslation
 
 const CommentsPage = () => {
+  const { t } = useTranslation(); // Destructuring t from useTranslation
   const { postId } = useParams();
   const [newComment, setNewComment] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
@@ -85,7 +87,7 @@ const CommentsPage = () => {
   }
 
   return (
-    <div className="grid lg:grid-cols-2  gap-6 lg:mx-24 mt-24">
+    <div className="grid lg:grid-cols-2 gap-6 lg:mx-24 mt-24">
       {post && (
         <>
           <div className="relative rounded-lg border h-auto shadow-md">
@@ -93,8 +95,8 @@ const CommentsPage = () => {
               src={
                 post.imageUrl || "https://source.unsplash.com/301x301/?random"
               }
-              alt="Post Image"
-              className="object-cover w-full  h-auto"
+              alt={t("post_image_alt")}
+              className="object-cover w-full h-auto"
             />
           </div>
 
@@ -120,7 +122,7 @@ const CommentsPage = () => {
                         hour: "numeric",
                         minute: "numeric",
                         hour12: true,
-                      }) || "Unknown"}
+                      }) || t("unknown_date")}
                     </span>
                   </div>
                 </div>
@@ -131,7 +133,7 @@ const CommentsPage = () => {
               <div className="flex items-center space-x-3 mb-6">
                 <button
                   type="button"
-                  title="Like post"
+                  title={t("like_post_title")}
                   className="flex items-center justify-center"
                   onClick={handleLike}
                 >
@@ -143,7 +145,7 @@ const CommentsPage = () => {
                 </button>
               </div>
 
-              <h2 className="font-semibold mb-2">Comments</h2>
+              <h2 className="font-semibold mb-2">{t("comments_title")}</h2>
               <div className="border p-4 max-h-60 overflow-auto rounded-md shadow-md">
                 {post?.comments.map((comment, index) => (
                   <div key={index} className="p-2 border-b">
@@ -172,14 +174,14 @@ const CommentsPage = () => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     className="border p-2 w-full rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                    placeholder="Add a comment"
+                    placeholder={t("add_comment_placeholder")}
                   />
 
                   <button
                     type="button"
                     onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                     className="absolute right-2 top-2 text-gray-500 hover:text-blue-500"
-                    aria-label="Emoji Picker"
+                    aria-label={t("emoji_picker_label")}
                   >
                     <HiOutlineEmojiHappy size={24} />
                   </button>
@@ -187,7 +189,7 @@ const CommentsPage = () => {
                   {showEmojiPicker && (
                     <div
                       ref={emojiPickerRef}
-                      className="absolute bottom-12 right-0 z-10 h-full  mx-w-screen"
+                      className="absolute bottom-12 right-0 z-10 h-full mx-w-screen"
                     >
                       <Picker
                         data={data}
@@ -204,7 +206,7 @@ const CommentsPage = () => {
                   type="submit"
                   className="mt-2 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors"
                 >
-                  Comment
+                  {t("comment_button")}
                 </button>
               </form>
             </div>

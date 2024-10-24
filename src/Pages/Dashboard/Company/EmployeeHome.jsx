@@ -26,7 +26,7 @@ const EmployeeHome = () => {
       }
     };
 
-    if (currentUser.email) {
+    if (currentUser?.email) {
       fetchJobCounts();
     }
   }, [currentUser?.email]);
@@ -35,17 +35,23 @@ const EmployeeHome = () => {
     <>
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">
-          {t("hello_user", { name: currentUser.displayName })}
+          {t("hello_user", {
+            name: currentUser?.displayName || currentUser?.name,
+          })}
         </h2>
         <p className="text-sm">{t("daily_activities_alerts")}</p>
         <div className="flex justify-between gap-8">
           <div className="bg-blue-100 shadow-md rounded-lg p-4 mt-4 w-full">
             <h3 className="text-lg font-semibold">{t("applied_jobs")}</h3>
-            <p className="text-sm">{t("count")}: {appliedJobsCount}</p>
+            <p className="text-sm">
+              {t("count")}: {appliedJobsCount}
+            </p>
           </div>
           <div className="bg-green-100 shadow-md rounded-lg p-4 mt-4 w-full ">
             <h3 className="text-lg font-semibold">{t("favorite_jobs")}</h3>
-            <p className="text-sm">{t("count")}: {favoriteJobsCount}</p>
+            <p className="text-sm">
+              {t("count")}: {favoriteJobsCount}
+            </p>
           </div>
         </div>
       </div>
@@ -54,7 +60,7 @@ const EmployeeHome = () => {
         <div className="flex items-center gap-6">
           <img
             className="size-[64px] rounded-full"
-            src={currentUser.photoURL}
+            src={currentUser?.photoURL}
             alt=""
           />
           <div className="text-white">

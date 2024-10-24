@@ -12,6 +12,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const { t } = useTranslation(); // Initialize translation
 
 
+
   const [showPassword, setShowPassword] = useState(false);
   // my test
   const handleLogin = async (e) => {
@@ -26,6 +27,7 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
           setLoginModalOpen(false)
         }
       })
+
 
 
   };

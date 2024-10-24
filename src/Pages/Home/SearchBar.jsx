@@ -10,23 +10,25 @@ import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 
-const SearchBar = ({jobCount, companyCount,candidates,successPeoples}) => {
+const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
   const theme = useSelector((state) => state.theme.theme);
 
-  const {data:jobs,refetch} = useQuery({
-    queryKey:["search-data"],
-    queryFn: async ()=>{
-      const {data} = await axiosSecure.get("/jobs/search", {params: { searchTerm, location }});
+  const { data: jobs, refetch } = useQuery({
+    queryKey: ["search-data"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/jobs/search", {
+        params: { searchTerm, location },
+      });
       return data;
-    }
-  })
-  const handelSearch =(e)=>{
+    },
+  });
+  const handelSearch = (e) => {
     e.preventDefault();
-    refetch()
-  }
-  
+    refetch();
+  };
+
   return (
     <div
       className={
@@ -69,7 +71,7 @@ const SearchBar = ({jobCount, companyCount,candidates,successPeoples}) => {
                 }
               >
                 <form
-                onSubmit={handelSearch}
+                  onSubmit={handelSearch}
                   className="flex flex-col sm:flex-row gap-4 sm:gap-2  rounded-lg"
                 >
                   <div className="relative flex-1 ">
@@ -141,8 +143,9 @@ const SearchBar = ({jobCount, companyCount,candidates,successPeoples}) => {
                 </span>
               </p>
               <div
-                className={`mt-3 ${jobs?.length > 0 ? "opacity-100" : "opacity-0"
-                  } transition-opacity duration-300`}
+                className={`mt-3 ${
+                  jobs?.length > 0 ? "opacity-100" : "opacity-0"
+                } transition-opacity duration-300`}
               >
                 {jobs?.length > 0 ? (
                   <div className="flex items-center gap-2">

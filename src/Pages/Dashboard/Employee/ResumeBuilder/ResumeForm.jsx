@@ -521,10 +521,11 @@ const ResumeForm = () => {
       try {
         const response = await axiosSecure.get(`/users/${currentUser?.email}`);
 
-        const { name, phone, email, education, userInfo } = response.data;
+        const { name, phone, email, education, userInfo, displayName } =
+          response.data;
         setFormData((prev) => ({
           ...prev,
-          name,
+          name: name || displayName,
           phone,
           email,
           education,
@@ -549,7 +550,7 @@ const ResumeForm = () => {
         setFormData({
           ...formData,
           ...resumeData,
-          languages: resumeData.languages || "",
+          languages: resumeData?.languages || "",
         });
       } else {
         const userResponse = await axiosSecure.get(`/users/${email}`);
@@ -559,7 +560,7 @@ const ResumeForm = () => {
 
           setFormData({
             ...formData,
-            name: currentUser.displayName,
+            name: currentUser.displayName || currentUser.name,
             phone: userData?.userInfo[0]?.phone,
             email: currentUser.email,
             linkedin: userData.linkedin,
@@ -567,7 +568,7 @@ const ResumeForm = () => {
           });
         }
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -717,7 +718,7 @@ const ResumeForm = () => {
                 id="name"
                 type="text"
                 name="name"
-                value={currentUser?.displayName}
+                value={formData?.displayName || formData.name}
                 onChange={handleChange}
                 disabled
                 className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"

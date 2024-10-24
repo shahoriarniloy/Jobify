@@ -54,7 +54,6 @@ const CompanyDetails = () => {
     <div className="bg-secondary">
       <div className="relative container mx-auto">
         <div className="relative">
-          {/* Banner */}
           <div>
             <img
               className="w-full h-56 object-cover md:h-72 lg:h-96"
@@ -125,106 +124,6 @@ const CompanyDetails = () => {
               Company Vision
             </h2>
             <div dangerouslySetInnerHTML={{ __html: company?.company_vision }} />
-
-            {/* <div className="flex flex-wrap items-center gap-5 my-5">
-              <p>{t("share_profile")}</p>
-
-              {company?.social_media_links?.facebook && (
-                <a
-                  href={company?.social_media_links?.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center border-2 rounded p-3"
-                >
-                  <FaFacebookF className="text-blue-600 mr-3" />
-                  <p>{t("facebook")}</p>
-                </a>
-              )}
-
-              {company?.social_media_links?.twitter && (
-                <a
-                  href={company?.social_media_links?.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center border-2 rounded p-3"
-                >
-                  <FaTwitter className="text-sky-500 mr-3" />
-                  <p>{t("twitter")}</p>
-                </a>
-              )}
-
-              {company?.social_media_links?.linkedin && (
-                <a
-                  href={company?.social_media_links?.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center border-2 rounded p-3"
-                >
-                  <FaLinkedin className="text-blue-700 mr-3" />
-                  <p>{t("linkedin")}</p>
-                </a>
-              )}
-
-              {company?.social_media_links?.pinterest && (
-                <a
-                  href={company?.social_media_links?.pinterest}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center border-2 rounded p-3"
-                >
-                  <FaPinterest className="text-red-600 mr-3" />
-                  <p>{t("pinterest")}</p>
-                </a>
-              )}
-
-              {company?.social_media_links?.instagram && (
-                <a
-                  href={company?.social_media_links?.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center border-2 rounded p-3"
-                >
-                  <FaInstagram className="text-pink-500 mr-3" />
-                  <p>{t("instagram")}</p>
-                </a>
-              )}
-
-              {company?.social_media_links?.youtube && (
-                <a
-                  href={company?.social_media_links?.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center border-2 rounded p-3"
-                >
-                  <FaYoutube className="text-red-600 mr-3" />
-                  <p>{t("youtube")}</p>
-                </a>
-              )}
-
-              {company?.social_media_links?.snapchat && (
-                <a
-                  href={company?.social_media_links?.snapchat}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center border-2 rounded p-3"
-                >
-                  <FaSnapchatGhost className="text-yellow-500 mr-3" />
-                  <p>{t("snapchat")}</p>
-                </a>
-              )}
-
-              {company?.social_media_links?.tiktok && (
-                <a
-                  href={company?.social_media_links?.tiktok}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center border-2 rounded p-3"
-                >
-                  <FaTiktok className="text-black mr-3" />
-                  <p>{t("tiktok")}</p>
-                </a>
-              )}
-            </div> */}
           </div>
 
           <div className="md:ml-10 md:w-1/2">
@@ -261,42 +160,54 @@ const CompanyDetails = () => {
                 <p className="text-gray-500 mt-2">{t("founded_in")}</p>
                 <p className="font-bold text-sm">{company?.founded_date}</p>
               </div>
-              <div>
+            </div>
+            <div className="p-4 md:p-8 border-2 rounded-lg grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 md:gap-10 mt-8">
+              <div className="flex items-center gap-2">
+                <FiCalendar className="text-2xl text-blue-500" />
+                <div>
+                  <p className="text-gray-500 ">
+                    {t("founded_in")} {company?.founded_date}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
                 <BiStopwatch className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("organization_type")}</p>
-                <p className="font-bold text-sm">
+
+                <p className="font-bold text-sm text-gray-500">
                   {company?.company_type} {t("company")}
                 </p>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <PiWallet className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("team_size")}</p>
-                <p className="font-bold text-sm">
+                <p className="text-gray-500 ">{t("team_size")}:</p>
+                <p className="font-bold text-sm text-gray-500">
                   {company?.company_size} {t("candidates")}
                 </p>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <PiBriefcase className="text-2xl text-blue-500" />
-                <p className="text-gray-500 mt-2">{t("industry_types")}</p>
-                <p className="font-bold text-sm">{company?.industry}</p>
+                <p className="text-gray-500 ">{t("industry_types")}</p>
+                <p className="font-bold text-sm text-gray-500">
+                  {company?.industry}
+                </p>
               </div>
             </div>
+
             <div className="p-4 md:p-8 border-2 rounded-lg md:my-6">
               <h2 className="font-bold text-xl md:text-2xl">
                 {t("contact_information")}
               </h2>
               <div className="flex items-center my-5">
-                <FiGlobe className="text-3xl text-blue-500" />
+                <FiGlobe className="text-2xl text-blue-500" />
                 <div className="ml-4">
-                  <p className="text-gray-500">{t("website")}</p>
-                  <p className="text-black font-bold">
-                    {company?.company_website}
+                  <p className="text-gray-500">
+                    {t("website")}:{company?.company_website}
                   </p>
                 </div>
               </div>
               <hr />
               <div className="flex items-center my-5">
-                <LuPhoneCall className="text-3xl text-blue-500" />
+                <LuPhoneCall className="text-2xl text-blue-500" />
                 <div className="ml-4">
                   <p className="text-gray-500">{t("phone")}</p>
                   <p className="text-black font-bold">
@@ -306,18 +217,19 @@ const CompanyDetails = () => {
               </div>
               <hr />
               <div className="flex items-center mt-5">
-                <TfiEmail className="text-3xl text-blue-500" />
+                <TfiEmail className="text-2xl text-blue-500" />
                 <div className="ml-4">
-                  <p className="text-gray-500">{t("email")}</p>
-                  <p className="text-black font-bold">{company?.email}</p>
+                  <p className="text-gray-500">
+                    {t("email")}: {company?.email}
+                  </p>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
-
-        <OpenPosition title={t("open_position")} email={company?.email} />
       </div>
+      <OpenPosition />
     </div>
   );
 };

@@ -31,24 +31,22 @@ const PostJob = () => {
     posted: new Date().toISOString().split("T")[0],
   });
 
-
   // Load all categories
   const { data: categories, isLoading } = useQuery({
     queryKey: ["load category"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/jobCategories`);
       return data;
-    }
-  })
+    },
+  });
   // Load company info
   const { data, isLoading: loadingCom } = useQuery({
     queryKey: ["load company info"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/companies/${currentUser.email}`);
       return data;
-    }
-  })
-
+    },
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,11 +57,9 @@ const PostJob = () => {
   };
 
   useEffect(() => {
-    const sub = categories?.find(cate => cate.name == jobData.jobCategory);
+    const sub = categories?.find((cate) => cate.name == jobData.jobCategory);
     setSubCategories(sub?.subcategories);
-  }, [handleChange])
-
-
+  }, [handleChange]);
 
   // post job
   const handleSubmit = async (e) => {
@@ -92,6 +88,8 @@ const PostJob = () => {
           jobLevel: "",
           jobDescription: "",
           responsibilities: "",
+          jobCategory: "",
+          jobSubCategory: "",
         });
       } else {
         Swal.fire({

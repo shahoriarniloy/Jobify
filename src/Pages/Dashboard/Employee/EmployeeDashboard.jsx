@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { FaBriefcase, FaRegHeart, FaEdit } from "react-icons/fa";
+import {
+  FaBriefcase,
+  FaRegHeart,
+  FaEdit,
+  FaBuilding,
+  FaFileAlt,
+} from "react-icons/fa";
 import { MdHome, MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import useUserRole from "../../../Hooks/useUserRole";
@@ -19,8 +25,6 @@ const EmployeeDashboard = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-
-
   return (
     <div className="relative">
       <div className="lg:hidden p-4 fixed top-0 left-0 z-50">
@@ -33,8 +37,9 @@ const EmployeeDashboard = () => {
         <div className="container mx-auto flex flex-col lg:flex-row">
           {/* Sidebar */}
           <div
-            className={`${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-              } lg:translate-x-0 lg:block 
+            className={`${
+              isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+            } lg:translate-x-0 lg:block 
         fixed top-0 left-0 w-[75%] max-w-[290px] bg-white z-40 min-h-screen p-6 lg:min-h-[60vh] transition-transform
         duration-300 ease-in-out lg:relative`}
           >
@@ -71,6 +76,17 @@ const EmployeeDashboard = () => {
                   <FaRegHeart /> {t("favorite_jobs")}
                 </NavLink>
                 <NavLink
+                  to="/jobSeeker/favorite-company"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <FaBuilding /> {t("favorite_company")} {/* Updated icon */}
+                </NavLink>
+
+                <NavLink
                   to="/jobSeeker/resume-builder"
                   className={({ isActive }) =>
                     isActive
@@ -78,7 +94,17 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaEdit /> {t("edit_resume")}
+                  <FaFileAlt /> {t("edit_resume")} {/* Updated icon */}
+                </NavLink>
+                <NavLink
+                  to="/jobSeeker/career"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <FaEdit /> {t("career_roadmap")}
                 </NavLink>
                 <NavLink
                   to="/jobSeeker/employee-settings"
@@ -88,7 +114,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <IoSettingsOutline /> {t("profile_setting")}
+                  <IoSettingsOutline /> {t("profile_settings")}
                 </NavLink>
               </div>
             </div>
@@ -106,9 +132,11 @@ const EmployeeDashboard = () => {
                 <MdHome className="text-xl" /> {t("home")}
               </NavLink>
               <button
-                onClick={() => { logOutUser(); navigate("/") }}
+                onClick={() => {
+                  logOutUser();
+                  navigate("/");
+                }}
                 className="flex items-center pl-5 py-2 text-[#767F8C] gap-2"
-
               >
                 <MdOutlineLogout className="text-xl" /> {t("log_out")}
               </button>

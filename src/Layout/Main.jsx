@@ -41,12 +41,24 @@ const Main = () => {
 
       <button
         onClick={() => setIsOpenMessage(!isOpenMessage)}
+
         className="fixed bottom-8 right-8 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition"
       >
         <FaEnvelope size={24} />
       </button>
 
       <Footer />
+
+
+      {/* <Modal
+      classNames="absolute bottom-0"
+      open={isOpenMessage}
+      onClose={()=>setIsOpenMessage(false)}
+      center
+      >
+        <h1>akane massage asbe</h1>
+      </Modal> */}
+
 
     </div>
   );

@@ -5,6 +5,7 @@ import ButtonWithIcon from "../../../Shared/ButtonWithIcon";
 import RecentAppliedJobTable from "./Components/RecentAppliedJobTable";
 import { useSelector } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const EmployeeHome = () => {
   const { currentUser } = useCurrentUser();

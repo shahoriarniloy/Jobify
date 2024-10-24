@@ -10,8 +10,12 @@ import { FaUserPlus } from "react-icons/fa";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 
+import { useTranslation } from "react-i18next"; // Import useTranslation
+
 const PostCard = () => {
+  const { t } = useTranslation(); // Destructure t from useTranslation
   const { currentUser } = useCurrentUser();
+
   const theme = useSelector((state) => state.theme.theme);
 
   const {
@@ -52,10 +56,10 @@ const PostCard = () => {
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto py-8">
-        <PostStatus></PostStatus>
+        <PostStatus />
         <div className="flex justify-between mt-16 px-4">
           <h1 className="text-lg text-gray-700">
-            Posts from people you follow
+            {t("posts_from_people_you_follow")}
           </h1>
           <Link to="/find-job-seekers">
             <button>
@@ -96,7 +100,7 @@ const PostCard = () => {
                             hour: "numeric",
                             minute: "numeric",
                             hour12: true,
-                          }) || "Unknown"}
+                          }) || t("unknown")}
                         </span>
                       </div>
                     </div>
@@ -114,20 +118,21 @@ const PostCard = () => {
                       <div className="flex items-center space-x-3">
                         <button
                           type="button"
-                          title={hasLiked ? "Unlike post" : "Like post"}
+                          title={hasLiked ? t("unlike_post") : t("like_post")}
                           className="flex items-center justify-center"
                           onClick={() => handleLike(post._id, hasLiked)}
                         >
                           <HiHeart
-                            className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
-                              }`}
+                            className={`w-5 h-5 ${
+                              hasLiked ? "text-blue-500" : "text-gray-500"
+                            }`}
                           />
                           <span className="ml-1">{post.likes.length || 0}</span>
                         </button>
 
                         <Link
                           to={`/comments/${post._id}`}
-                          title="View Comments"
+                          title={t("view_comments")}
                           className="flex items-center justify-center"
                         >
                           <FaComment className="w-5 h-5 text-gray-500" />
