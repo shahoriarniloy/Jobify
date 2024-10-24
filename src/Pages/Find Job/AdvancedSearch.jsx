@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useQuery } from '@tanstack/react-query';
 import DashboardLoader from "../../Shared/DashboardLoader";
+import { Helmet } from "react-helmet";
 
 const AdvancedSearch = () => {
   const theme = useSelector((state) => state.theme.theme);
@@ -126,6 +127,9 @@ const AdvancedSearch = () => {
 
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
+      <Helmet>
+        <title>Jobify - Advanced Serch</title>
+      </Helmet>
       <div className="container mx-auto">
         <div className="w-full  rounded-lg  p-6 flex-1">
           <form
