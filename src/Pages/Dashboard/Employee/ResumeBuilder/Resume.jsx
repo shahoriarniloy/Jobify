@@ -19,6 +19,7 @@ import { PiBag } from "react-icons/pi";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 
 const Resume = () => {
   const { t } = useTranslation();
@@ -52,6 +53,9 @@ const Resume = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>Jobify - Resume</title>
+      </Helmet>
       {resumeData && (
         <div className="flex justify-end">
           <button
