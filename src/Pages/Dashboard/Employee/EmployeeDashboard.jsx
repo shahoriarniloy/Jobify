@@ -114,7 +114,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <IoSettingsOutline /> {t("profile_setting")}
+                  <IoSettingsOutline /> {t("profile_settings")}
                 </NavLink>
               </div>
             </div>
