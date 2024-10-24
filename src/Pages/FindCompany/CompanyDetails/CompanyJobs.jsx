@@ -10,12 +10,13 @@ import { FaArrowRight } from "react-icons/fa";
 
 import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 import UseCheckJobAlreadyApply from "../../../Hooks/UseCheckJobAlreadyApply";
+import { useTranslation } from "react-i18next";
 
 const CompanyJobs = () => {
+  const { t } = useTranslation();
   const [jobs, setJobs] = useState([]);
   const [company, setCompany] = useState(null);
   const { email } = useParams();
-  // console.log(email);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { verification } = UseCheckJobAlreadyApply(5);
   const [loading, setLoading] = useState(true);
@@ -32,15 +33,14 @@ const CompanyJobs = () => {
         const companyResponse = await axiosSecure.get(`/companies/${email}`);
         setCompany(companyResponse.data);
       } catch (error) {
-        // console.error("Error fetching data:", error);
-        setError("Failed to load company or job data. Please try again later.");
+        setError(t("failed_to_load_data"));
       } finally {
         setLoading(false);
       }
     };
 
     fetchJobsAndCompany();
-  }, [email]);
+  }, [email, t]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -50,7 +50,7 @@ const CompanyJobs = () => {
     setIsModalOpen(false);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>{t("loading")}</div>;
   if (error) return <div>{error}</div>;
 
   return (
@@ -63,12 +63,12 @@ const CompanyJobs = () => {
           <div className="border-2 rounded-lg p-6 flex gap-5 justify-center text-center animate-fadeIn">
             <div className="flex justify-center items-center">
               <BiStopwatch className="text-2xl text-blue-500" />
-              <p className="text-gray-500">Company Type:</p>
+              <p className="text-gray-500">{t("company_type")}:</p>
               <p className="font-bold">{company.company_type}</p>
             </div>
             <div className="flex justify-center items-center">
               <PiBriefcase className="text-2xl text-blue-500" />
-              <p className="text-gray-500">Industry:</p>
+              <p className="text-gray-500">{t("industry")}:</p>
               <p className="font-bold">{company.industry}</p>
             </div>
           </div>
@@ -78,7 +78,7 @@ const CompanyJobs = () => {
       <div className="flex justify-center lg:flex-row flex-col mt-6">
         <div className="container mx-auto">
           <h2 className="font-bold text-2xl mb-6 animate-fadeIn">
-            Open Positions
+            {t("open_positions")}
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-12">
             {jobs.map((job, index) => (
@@ -89,25 +89,25 @@ const CompanyJobs = () => {
               >
                 <h3 className="font-bold text-xl mb-4">{job.title}</h3>
                 <p className="text-gray-500">
-                  <strong>Location:</strong> {job.location}
+                  <strong>{t("location")}:</strong> {job.location}
                 </p>
                 <p className="text-gray-500">
-                  <strong>Education:</strong> {job.education}
+                  <strong>{t("education")}:</strong> {job.education}
                 </p>
                 <p className="text-gray-500">
-                  <strong>Experience:</strong> {job.experience}
+                  <strong>{t("experience")}:</strong> {job.experience}
                 </p>
                 <p className="text-gray-500">
-                  <strong>Job Level:</strong> {job.jobLevel}
+                  <strong>{t("job_level")}:</strong> {job.jobLevel}
                 </p>
                 <p className="text-gray-500">
-                  <strong>Job Type:</strong> {job.jobType}
+                  <strong>{t("job_type")}:</strong> {job.jobType}
                 </p>
                 <p className="text-gray-500">
-                  <strong>Salary Range:</strong> {job.salaryRange}
+                  <strong>{t("salary_range")}:</strong> {job.salaryRange}
                 </p>
                 <p className="text-gray-500 mb-4">
-                  <strong>Vacancy:</strong> {job.vacancy}
+                  <strong>{t("vacancy")}:</strong> {job.vacancy}
                 </p>
                 <ApplyJobModal
                   isOpen={isModalOpen}
@@ -125,7 +125,7 @@ const CompanyJobs = () => {
               }`}
                     disabled={new Date() > new Date(job.deadline)}
                   >
-                    Apply now
+                    {t("apply_now")}
                     <FaArrowRight />
                   </button>
 
@@ -133,7 +133,7 @@ const CompanyJobs = () => {
                     to={`/job/${job._id}`}
                     className="flex items-center justify-center gap-3 w-36 px-4 py-2 rounded-md font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800"
                   >
-                    Details
+                    {t("details")}
                   </Link>
                 </div>
               </div>
@@ -141,36 +141,37 @@ const CompanyJobs = () => {
           </div>
         </div>
 
+        {/* Uncomment if you want to show the contact information */}
         {/* {company && (
-    <div className="">
-      <div className="border-2 rounded-lg p-4 mr-4 animate-fadeIn">
-        <h2 className="font-bold text-xl">Contact Information</h2>
-        <div className="flex items-center my-5">
-          <FiGlobe className="text-3xl text-blue-500" />
-          <div className="ml-4">
-            <p className="text-gray-500">Website</p>
-            <p className="font-bold">{company.company_website}</p>
+          <div className="">
+            <div className="border-2 rounded-lg p-4 mr-4 animate-fadeIn">
+              <h2 className="font-bold text-xl">{t("contact_information")}</h2>
+              <div className="flex items-center my-5">
+                <FiGlobe className="text-3xl text-blue-500" />
+                <div className="ml-4">
+                  <p className="text-gray-500">{t("website")}</p>
+                  <p className="font-bold">{company.company_website}</p>
+                </div>
+              </div>
+              <hr />
+              <div className="flex items-center my-5">
+                <LuPhoneCall className="text-3xl text-blue-500" />
+                <div className="ml-4">
+                  <p className="text-gray-500">{t("phone")}</p>
+                  <p className="font-bold">{company.phone_number}</p>
+                </div>
+              </div>
+              <hr />
+              <div className="flex items-center mt-5">
+                <TfiEmail className="text-3xl text-blue-500" />
+                <div className="ml-4">
+                  <p className="text-gray-500">{t("email")}</p>
+                  <p className="font-bold">{company.email}</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <hr />
-        <div className="flex items-center my-5">
-          <LuPhoneCall className="text-3xl text-blue-500" />
-          <div className="ml-4">
-            <p className="text-gray-500">Phone</p>
-            <p className="font-bold">{company.phone_number}</p>
-          </div>
-        </div>
-        <hr />
-        <div className="flex items-center mt-5">
-          <TfiEmail className="text-3xl text-blue-500" />
-          <div className="ml-4">
-            <p className="text-gray-500">Email</p>
-            <p className="font-bold">{company.email}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    )} */}
+        )} */}
       </div>
     </div>
   );

@@ -1,7 +1,16 @@
 {
-  "Jobify": "জবিফাই",
   "english": "English",
   "bangla": "বাংলা",
+  "arabic": "العربية",
+  "urdu": " اُردُو",
+  "spanish": "Español",
+  "french": "Français",
+  "China": "中国",
+  "german": "Deutsch",
+  "Portuguese": "Português",
+  "hindi": "हिन्दी",
+
+  "Jobify": "জবিফাই",
   "user_profile": "ব্যবহারকারী প্রোফাইল",
   "applied_jobs": "আবেদন করা চাকরি",
   "favorite_jobs": "পছন্দের চাকরি",
@@ -204,7 +213,7 @@
 
   "candidate_name": "{{name}}",
   "designation": "{{designation}}",
-  "location": "{{location}}",
+  "location_candidate_card": "{{location}}",
   "experience_duration": "মেয়াদ:",
   "duration_not_available": "মেয়াদ উপলব্ধ নয়",
   "experience": "অভিজ্ঞতা",
@@ -486,7 +495,7 @@
   "description_label": "বিবরণ:",
   "add_experience_button": "অভিজ্ঞতা যোগ করুন",
   "projects_title": "প্রকল্পসমূহ",
-  "project_label": "প্রকল্প {index}",
+  "project_label": "প্রকল্প {{index}}",
   "project_title_label": "প্রকল্পের শিরোনাম:",
   "project_link_label": "প্রকল্পের লিংক:",
   "technologies_label": "ব্যবহৃত প্রযুক্তি:",
@@ -517,5 +526,182 @@
   "loading_role": "ভূমিকা লোড হচ্ছে...",
   "error_fetching_role": "ভূমিকা পুনরুদ্ধারে ত্রুটি",
   "edit_resume": "রিজুমে সম্পাদনা করুন",
-  "profile_setting": "প্রোফাইল সেটিং"
+  "profile_setting": "প্রোফাইল সেটিং",
+
+  "error_fetching_company_info": "কোম্পানির তথ্য আনতে সমস্যা হয়েছে",
+
+  "job_title_company_name_placeholder": "চাকরির শিরোনাম, কোম্পানির নাম...",
+
+  "location_placeholder": "অবস্থান",
+
+  "hide_advanced_filters": "এডভান্সড ফিল্টার লুকান",
+  "show_advanced_filters": "এডভান্সড ফিল্টার দেখান",
+
+  "find_job_button": "চাকরি খুঁজুন",
+
+  "experience_heading": "অভিজ্ঞতা",
+
+  "job_type_heading": "চাকরির প্রকার",
+
+  "salary_heading": "বেতন",
+  "salary_500_1000": "$500-$1000",
+  "salary_1000_2000": "$1000-$2000",
+  "salary_3000_4000": "$3000-$4000",
+  "salary_4000_6000": "$4000-$6000",
+  "salary_6000_8000": "$6000-$8000",
+  "salary_8000_10000": "$8000-$10000",
+  "salary_10000_15000": "$10000-$15000",
+  "salary_15000_plus": "$15000+",
+
+  "view_list": "তালিকা ভিউ",
+  "view_grid": "গ্রিড ভিউ",
+
+  "bookmark": "বুকমার্ক",
+
+  "job_title_advanced_search": "{{title}}",
+  "job_company_advanced_search": "{{name}}",
+  "salary_range_advanced_search": "{{range}}",
+
+  "company_advanced_search": "কোম্পানি: {{company}}",
+  "job_type_advanced_search": "কাজের প্রকার: {{jobType}}",
+  "salary_advanced_search": "বেতন: {{salaryRange}}",
+  "view_details": "বিস্তারিত দেখুন →",
+
+  "please_log_in_to_bookmark_jobs": "দয়া করে কাজগুলিতে বুকমার্ক করতে লগইন করুন।",
+  "job_bookmarked_successfully": "কাজ সফলভাবে বুকমার্ক করা হয়েছে!",
+  "job_already_bookmarked": "কাজ ইতিমধ্যেই বুকমার্ক করা হয়েছে।",
+  "failed_to_bookmark_job": "কাজ বুকমার্ক করতে ব্যর্থ হয়েছে।",
+
+  "already_applied": "আবেদন করা হয়েছে",
+  "job_expires_in": "কাজের মেয়াদ শেষ হচ্ছে",
+  "job_overview": "কর্মের সারাংশ",
+  "job_posted": "কর্ম পোস্ট করা হয়েছে",
+  "related_jobs": "সংশ্লিষ্ট কর্ম",
+  "location_Alphabet": "অবস্থান",
+  "location": "অবস্থান",
+
+  "failed_to_load_data": "কোম্পানি বা চাকরির তথ্য লোড করতে ব্যর্থ হয়েছে। পরে আবার চেষ্টা করুন।",
+  "company_type": "কোম্পানির ধরন",
+  "open_positions": "মুক্ত পদ",
+
+  "favorite_company": "প্রিয় কোম্পানি",
+
+  "error_dynamic": "ত্রুটি: {{error}}",
+  "fetching_jobs_for_user_email": "ইমেইল এর জন্য চাকরি খোঁজা হচ্ছে:",
+  "error_fetching_jobs": "চাকরি আনতে ত্রুটি",
+  "logo": "লোগো",
+
+  "company_removed_from_favorites": "প্রিয় তালিকা থেকে কোম্পানি সরানো হয়েছে",
+  "company_added_to_favorites": "প্রিয় তালিকায় কোম্পানি যুক্ত হয়েছে",
+
+  "error_toggling_favorite_with_colon": "পছন্দ পরিবর্তনে ত্রুটি:",
+  "something_went_wrong_while_updating_favorites": "পছন্দ আপডেট করার সময় কিছু ভুল হয়েছে।",
+
+  "number_of_companies_per_page": "প্রতি পৃষ্ঠায় কোম্পানির সংখ্যা",
+  "size": "আকার",
+  "no_matching_data_found": "মেলানো কোনো তথ্য পাওয়া যায়নি।",
+  "failed_to_fetch_companies": "কোম্পানিগুলি আনতে ব্যর্থ।",
+
+  "option_5": "৫",
+  "option_10": "১০",
+  "option_15": "১৫",
+
+  "top_companies": "শীর্ষ কোম্পানি",
+  "view_company_details": "কোম্পানি বিস্তারিত দেখুন",
+  "no_companies_found": "কোনো কোম্পানি পাওয়া যায়নি।",
+
+  "valid_search_term": "একটি বৈধ অনুসন্ধান শব্দ প্রবেশ করুন।",
+  "find_people_to_follow": "অনুসরণ করার জন্য লোক খুঁজুন",
+  "find": "অনুসন্ধান",
+
+  "open_dropdown": "ড্রপডাউন খুলুন",
+  "unfollow": "আনফলো",
+  "follow": "ফলো",
+
+  "how_jobify_work": "কিভাবে জবিফাই কাজ করে",
+  "create_account_description": "একটি অ্যাকাউন্ট তৈরি করে ব্যক্তিগতকৃত বৈশিষ্ট্যগুলি আনলক করুন, আপনার চাকরির আবেদন পরিচালনা করুন এবং আপনার জন্য উপযুক্ত সুযোগগুলির সাথে আপডেট থাকুন।",
+  "build_resume": "রেজুমে তৈরি করুন",
+  "build_resume_description": "আমাদের রেজুমে বিল্ডার ব্যবহার করে সহজেই একটি পেশাদার এবং আকর্ষণীয় রেজুমে তৈরি করুন যা আপনার দক্ষতা এবং অভিজ্ঞতাগুলিকে হাইলাইট করে, সম্ভাব্য নিয়োগকারীদের নজরে আসে।",
+  "find_suitable_job": "উপযুক্ত চাকরি খুঁজুন",
+  "find_suitable_job_description": "আমাদের প্ল্যাটফর্মে আপনার দক্ষতা এবং আকাঙ্ক্ষার সাথে উপযুক্ত চাকরির সুযোগগুলি খুঁজুন এবং আপনার মতো প্রতিভা খুঁজছেন এমন নিয়োগকারীদের সাথে সংযোগ করুন।",
+  "apply_job_description": "আমাদের সিম্পল অ্যাপ্লিকেশন প্রক্রিয়ার মাধ্যমে সহজেই চাকরির জন্য আবেদন করুন, যাতে আপনি আপনার দক্ষতা প্রদর্শন করতে পারেন এবং আপনার স্বপ্নের পদটি পেতে পারেন।",
+
+  "popular_categories": "জনপ্রিয় বিভাগসমূহ",
+  "graphics_design": "গ্রাফিক্স ও ডিজাইন",
+  "code_programming": "কোড ও প্রোগ্রামিং",
+  "digital_marketing": "ডিজিটাল মার্কেটিং",
+  "video_animation": "ভিডিও ও এনিমেশন",
+  "music_audio": "সংগীত ও অডিও",
+  "account_finance": "অ্যাকাউন্ট ও ফাইন্যান্স",
+  "health_care": "স্বাস্থ্য ও যত্ন",
+  "data_science": "ডেটা ও বিজ্ঞান",
+
+  "please_enter_something_first": "দয়া করে আগে কিছু লিখুন",
+  "find_job_suits_interest_skills": "আপনার আগ্রহ এবং দক্ষতার সাথে মেলে এমন একটি চাকরি খুঁজুন।",
+  "quickly_find_job_opportunities": "নির্দিষ্ট চাকরির শিরোনাম, কীওয়ার্ড বা অবস্থানের জন্য অনুসন্ধান করে আপনার দক্ষতা এবং আগ্রহের সাথে মেলে এমন চাকরির সুযোগগুলি দ্রুত খুঁজুন।",
+  "suggestion_label": "প্রস্তাবনা: ",
+  "designer_label": "ডিজাইনার",
+  "programming_label": "প্রোগ্রামিং",
+  "digital_marketing_label": "ডিজিটাল মার্কেটিং",
+  "video_label": "ভিডিও",
+  "animation_label": "অ্যানিমেশন",
+  "job_results_label": "কর্মসংস্থান ফলাফল:",
+  "no_matching_jobs_label": "মিলছে না এমন কোনো চাকরি পাওয়া যায়নি।",
+  "live_jobs_label": "লাইভ চাকরিসমূহ",
+  "companies_label": "কোম্পনিসমূহ",
+  "candidates_label": "প্রার্থীরা",
+  "successful_label": "সফল",
+
+  "failed_to_fetch_data": "ডেটা আনতে ব্যর্থ",
+  "failed_to_load_post": "পোস্ট লোড করতে ব্যর্থ।",
+  "failed_to_post_comment": "মন্তব্য পোস্ট করতে ব্যর্থ।",
+  "failed_to_update_like_status": "পছন্দের স্থিতি আপডেট করতে ব্যর্থ।",
+  "loading_post": "পোস্ট লোড হচ্ছে...",
+  "comments": "মন্তব্য",
+  "no_comments_yet": "এখনো কোনো মন্তব্য নেই।",
+  "add_a_comment": "একটি মন্তব্য যোগ করুন",
+  "submitting": "জমা দেওয়া হচ্ছে...",
+  "submit": "জমা দিন",
+
+  "post_image_alt": "পোস্টের ছবি",
+  "unknown_date": "অজানা",
+  "like_post_title": "পোস্টটি পছন্দ করুন",
+  "comments_title": "মন্তব্য",
+  "add_comment_placeholder": "একটি মন্তব্য যুক্ত করুন",
+  "emoji_picker_label": "ইমোজি পিকার",
+  "comment_button": "মন্তব্য করুন",
+
+  "no_posts_available": "কোন পোস্ট নেই",
+
+  "posts_from_people_you_follow": "আপনার অনুসরণ করা লোকদের পোস্ট",
+  "unlike_post": "পোস্টটি পছন্দ করা বন্ধ করুন",
+  "like_post": "পোস্টটি পছন্দ করুন",
+  "view_comments": "মন্তব্যগুলি দেখুন",
+
+  "whats_on_your_mind": "আপনার মনে কী আছে",
+
+  "create_a_post": "একটি পোস্ট তৈরি করুন",
+  "emoji_picker": "ইমোজি পিকার",
+  "selected_image": "নির্বাচিত ছবি",
+  "posting": "পোস্ট করা হচ্ছে...",
+  "post": "পোস্ট করুন",
+  "please_add_content_or_image": "দয়া করে কিছু কন্টেন্ট বা একটি ছবি যুক্ত করুন",
+
+  "page_not_found": "পৃষ্ঠাটি পাওয়া যায়নি",
+
+  "contact": "যোগাযোগ",
+  "companies": "কোম্পানিসমূহ",
+  "copyright": "কপিরাইট",
+  "all_rights_reserved": "সমস্ত অধিকার সংরক্ষিত কোডবাস্টার্স",
+
+  "new_job_posted_title": "নতুন চাকরি পোস্ট করা হয়েছে!",
+  "new_job_posted_text": "একটি নতুন চাকরি",
+  "by": "দ্বারা",
+  "view_job": "চাকরি দেখুন",
+  "notifications": "বিজ্ঞপ্তি",
+  "you_have": "আপনার আছে",
+  "notifications_count": "বিজ্ঞপ্তি",
+  "mark_all_as_read": "সবগুলো পড়া হিসাবে চিহ্নিত করুন",
+  "no_notifications_available": "কোন বিজ্ঞপ্তি নেই",
+  "position": "পদ"
 }

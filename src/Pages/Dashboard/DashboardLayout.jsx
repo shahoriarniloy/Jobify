@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FiLayers } from "react-icons/fi";
-import { FaBriefcase, FaEdit, FaUsers } from "react-icons/fa";
+import { FaBriefcase, FaEdit, } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { logOut as logOutAction } from "../../Redux/userSlice";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const{logOutUser} = useCurrentUser();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const toggleSidebar = () => {
@@ -20,7 +19,7 @@ const DashboardLayout = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(logOutAction());
+
     navigate("/");
   };
 
@@ -96,12 +95,12 @@ const DashboardLayout = () => {
               >
                 <MdHome className="text-xl" /> {t("home")}
               </NavLink>
-              <NavLink
+              <button
                 onClick={handleLogOut}
                 className="flex items-center pl-5 py-2 text-[#767F8C] gap-2"
               >
                 <MdOutlineLogout className="text-xl" /> {t("log_out")}
-              </NavLink>
+              </button>
             </div>
           </div>
 

@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const CompanyDashboard = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [company, setCompany] = useState({});
   const [jobStats, setJobStats] = useState({
     totalApplicants: 0,

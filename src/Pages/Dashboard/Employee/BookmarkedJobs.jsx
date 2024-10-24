@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import {
@@ -15,13 +14,15 @@ import "react-toastify/dist/ReactToastify.css";
 import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../../Hooks/useCurrentUser";
 
 const BookmarkedJobs = () => {
   const { t } = useTranslation();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const [bookmarkedJobs, setBookmarkedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
 
   useEffect(() => {
     const fetchBookmarkedJobs = async () => {
@@ -47,7 +48,7 @@ const BookmarkedJobs = () => {
           const jobResponses = await Promise.all(jobPromises);
           setBookmarkedJobs(jobResponses);
         } catch (error) {
-          // console.error("Error fetching bookmarked jobs:", error);
+          toast.error(t("error_fetching_jobs"));
         } finally {
           setLoading(false);
         }
@@ -65,25 +66,26 @@ const BookmarkedJobs = () => {
       );
       toast.success(t("bookmark_deleted"));
     } catch (error) {
-      // console.error("Error deleting bookmark:", error);
+      toast.error(t("error_deleting_bookmark"));
     }
   };
 
-  const handleApplicationSuccess = () => {
+  const handleApplicationSuccess = (jobId) => {
     setBookmarkedJobs((prevJobs) =>
-      prevJobs.map((job) => ({
-        ...job,
-        hasApplied: true,
-      }))
+      prevJobs.map((job) =>
+        job._id === jobId ? { ...job, hasApplied: true } : job
+      )
     );
   };
 
-  const openModal = () => {
+  const openModal = (job) => {
+    setSelectedJob(job);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setSelectedJob(null);
   };
 
   if (loading) return <DashboardLoader />;
@@ -92,40 +94,44 @@ const BookmarkedJobs = () => {
     <div className="">
       <div className="flex flex-col gap-2 pt-2">
         {bookmarkedJobs.map((job) => {
-          const isDeadlineExpired = new Date(job.deadline) < new Date();
+          const { _id, jobInfo, companyInfo, hasApplied } = job;
+          const isDeadlineExpired = new Date(jobInfo?.deadline) < new Date();
           return (
             <div
-              key={job._id}
+              key={_id}
               className="h-fit p-6 bg-base-100 shadow-xl rounded-xl "
             >
               <div className="flex lg:flex-row md:flex-row flex-col justify-between items-center">
                 <div className="flex flex-col">
-                  <h2 className="card-title text-2xl mb-6">{job.title}</h2>
+                  <h2 className="card-title text-2xl mb-6">{jobInfo?.title}</h2>
                   <div className="flex lg:flex-row flex-col gap-4 text-xs">
                     <div className="flex items-center">
                       <FaBriefcase className="mr-1" />
                       <p className="text-base-400">
-                        {t("experience")}: {job.experience}
+                        {t("experience")}: {jobInfo?.experience}
                       </p>
                     </div>
                     <div className="flex items-center">
                       <FaDollarSign className="mr-1" />
-                      <p className="text-base-400">{t("salary")}: {job.salaryRange}</p>
+                      <p className="text-base-400">
+                        {t("salary")}: {jobInfo?.salaryRange}
+                      </p>
                     </div>
                     <div className="flex items-center">
                       <FaClock className="mr-1" />
                       <p className="text-base-400">
-                        {t("deadline")}: {new Date(job.deadline).toLocaleDateString()}
+                        {t("deadline")}:{" "}
+                        {new Date(jobInfo?.deadline).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
                 </div>
 
                 <div className="card-actions justify-end mt-6 flex items-center">
-                  {!job.hasApplied ? (
+                  {!hasApplied ? (
                     <button
                       title={t("tap_to_apply")}
-                      onClick={openModal}
+                      onClick={() => openModal(job)} // Pass job to modal
                       className={`btn ${
                         isDeadlineExpired ? "btn-disabled" : "btn-primary"
                       }`}
@@ -135,13 +141,6 @@ const BookmarkedJobs = () => {
                         t("deadline_expired")
                       ) : (
                         <>
-                          <ApplyJobModal
-                            isOpen={isModalOpen}
-                            onClose={closeModal}
-                            job={job}
-                            user={currentUser}
-                            onApplicationSuccess={handleApplicationSuccess}
-                          />
                           <span className="ml-2">{t("apply_now")} →</span>
                         </>
                       )}
@@ -155,7 +154,7 @@ const BookmarkedJobs = () => {
 
                   <FaTrash
                     className="ml-4 text-red-500 cursor-pointer hover:text-red-700"
-                    onClick={() => handleDeleteBookmark(job._id)}
+                    onClick={() => handleDeleteBookmark(_id)}
                     title={t("remove_bookmark")}
                   />
                 </div>
@@ -165,6 +164,16 @@ const BookmarkedJobs = () => {
         })}
         {bookmarkedJobs.length === 0 && <p>{t("no_bookmarked_jobs")}</p>}
       </div>
+
+      {selectedJob && (
+        <ApplyJobModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          job={selectedJob}
+          user={currentUser}
+          onApplicationSuccess={() => handleApplicationSuccess(selectedJob._id)}
+        />
+      )}
     </div>
   );
 };

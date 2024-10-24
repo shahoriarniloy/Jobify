@@ -18,14 +18,14 @@ import { useReactToPrint } from "react-to-print";
 import { PiBag } from "react-icons/pi";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../../../Hooks/useCurrentUser";
 
 const Resume = () => {
   const { t } = useTranslation();
   const { email } = useParams();
   const [resumeData, setResumeData] = useState(null);
-  const loading = useSelector((state) => state.user.loading);
   const [error, setError] = useState("");
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const contentRef = useRef();
 
   const reactToPrintFn = useReactToPrint({ contentRef });
@@ -45,17 +45,6 @@ const Resume = () => {
     }
   }, [currentUser, t]);
 
-  if (loading) {
-    return (
-      <div>
-        <DashboardLoader />
-      </div>
-    );
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   if (!resumeData) {
     return <div>{t("no_resume_data_found")}</div>;

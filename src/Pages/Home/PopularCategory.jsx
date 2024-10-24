@@ -1,4 +1,3 @@
-import React from "react";
 import { ImPen } from "react-icons/im";
 import { FaCode, FaDatabase } from "react-icons/fa6";
 import { FcAdvertising } from "react-icons/fc";
@@ -6,56 +5,58 @@ import { MdVideoSettings } from "react-icons/md";
 import { IoMusicalNotesSharp } from "react-icons/io5";
 import { RiBarChartFill } from "react-icons/ri";
 import { PiFirstAidKitFill } from "react-icons/pi";
+
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const PopularCategory = () => {
+  const { t } = useTranslation();
   const theme = useSelector((state) => state.theme.theme);
 
   const allCategories = [
     {
       icon: <ImPen />,
-      name: "Graphics & Design",
+      name: t("graphics_design"),
       totalJobs: 5,
     },
     {
       icon: <FaCode />,
-      name: "Code & Programming",
+      name: t("code_programming"),
       totalJobs: 3,
     },
     {
       icon: <FcAdvertising />,
-      name: "Digital Marketing",
+      name: t("digital_marketing"),
       totalJobs: 5,
     },
     {
       icon: <MdVideoSettings />,
-      name: "Video & Animation",
+      name: t("video_animation"),
       totalJobs: 6,
     },
     {
       icon: <IoMusicalNotesSharp />,
-      name: "Music & Audio",
+      name: t("music_audio"),
       totalJobs: 4,
     },
     {
       icon: <RiBarChartFill />,
-      name: "Account & Finance",
+      name: t("account_finance"),
       totalJobs: 3,
     },
     {
       icon: <PiFirstAidKitFill />,
-      name: "Health & Care",
+      name: t("health_care"),
       totalJobs: 5,
     },
     {
       icon: <FaDatabase />,
-      name: "Data & Science",
+      name: t("data_science"),
       totalJobs: 4,
     },
   ];
 
   return (
-    // hare you assign bg color😍😍😍 for your kind information
     <div>
       <div className="container mx-auto py-24">
         {/* header */}
@@ -66,13 +67,13 @@ const PopularCategory = () => {
               : "text-3xl font-semibold mb-2 tracking-wider text-black text-center"
           }
         >
-          Popular Categories
+          {t("popular_categories")}
         </h1>
 
         {/* carts */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-10 md:mt-16">
           {allCategories.map((category) => (
-            <div className="flex items-center gap-4">
+            <div key={category.name} className="flex items-center gap-4">
               <div className="p-2 md:p-4 text-sm md:text-xl bg-[#e7f0fa] rounded-xl flex items-center justify-center w-fit link-color">
                 {category.icon}
               </div>
@@ -81,14 +82,13 @@ const PopularCategory = () => {
                   {category.name}
                 </h1>
                 <p className="text-[#5E6670] text-xs md:text-sm">
-                  {category.totalJobs} Open Position
+                  {category.totalJobs} {t("open_position")}
                 </p>
               </div>
+
             </div>
-          ))}
+
         </div>
-      </div>
-    </div>
   );
 };
 

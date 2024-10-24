@@ -8,8 +8,10 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
+  const { t } = useTranslation();
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -58,7 +60,7 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!content.trim() && !image) {
-      alert("Please add some content or an image to post");
+      alert(t("please_add_content_or_image")); // Updated alert message
       return;
     }
 
@@ -93,13 +95,13 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
   return (
     <Modal open={open} onClose={onClose} center>
       <div className="p-4">
-        <h2 className="text-lg font-semibold mb-4">Create a Post</h2>
+        <h2 className="text-lg font-semibold mb-4">{t("create_a_post")}</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder="What's on your mind?"
+              placeholder={t("whats_on_your_mind")}
               className="w-full p-3 border rounded-md resize-none"
               rows="4"
             ></textarea>
@@ -108,7 +110,7 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
               type="button"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
               className="absolute right-2 top-2 text-gray-500 hover:text-blue-500"
-              aria-label="Emoji Picker"
+              aria-label={t("emoji_picker")}
             >
               <HiOutlineEmojiHappy size={24} />
             </button>
@@ -143,7 +145,7 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
             <div className="relative mt-2 w-40 h-40">
               <img
                 src={URL.createObjectURL(image)}
-                alt="Selected"
+                alt={t("selected_image")}
                 className="w-full h-full object-cover rounded-md"
               />
               <div className="absolute top-1 right-1 flex space-x-2">
@@ -177,7 +179,7 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
             className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full"
             disabled={loading}
           >
-            {loading ? "Posting..." : "Post"}
+            {loading ? t("posting") : t("post")}
           </button>
         </form>
       </div>
