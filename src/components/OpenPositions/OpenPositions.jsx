@@ -28,7 +28,7 @@ const OpenPosition = ({ companyEmail }) => {
       <h1
         className="text-3xl font-semibold mb-2 tracking-wider text-black text-center" >Available Jobs</h1>
 
-      <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-8 mt-16">
+      <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
         {jobs?.map(({ _id, jobInfo, companyInfo }) => (
           <div
             key={_id}

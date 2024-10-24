@@ -12,6 +12,8 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../Shared/DashboardLoader";
 
 const FindCompany = () => {
   const { t } = useTranslation(); // Destructure useTranslation
@@ -19,7 +21,6 @@ const FindCompany = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
-  const [companies, setCompanies] = useState([]);
   const [filteredCompanies, setFilteredCompanies] = useState([]);
   const theme = useSelector((state) => state.theme.theme);
 
@@ -33,47 +34,22 @@ const FindCompany = () => {
   const [viewMode, setViewMode] = useState("grid");
 
   useEffect(() => {
-    const fetchCompanies = async () => {
-      try {
-        const response = await axiosSecure.get(
-          `/companies?page=${currentPage}&size=${itemsPerPage}`
-        );
-        setCompanies(response.data.Companies);
-        setTotalCompanies(response.data.totalCompanies);
-      } catch (err) {
-        // console.error("Error fetching Companies:", err);
-      }
-    };
-
-    fetchCompanies();
+    refetch()
   }, [currentPage, itemsPerPage, totalCompanies]);
+
+  // load all company
+  const { data: companies = [], isLoading, refetch } = useQuery({
+    queryKey: ["load all company"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/companies?page=${currentPage}&size=${itemsPerPage}`, { params: { searchTerm } });
+      setTotalCompanies(data?.totalCompanies);
+      return data?.Companies;
+    }
+  })
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    setError("");
-    setCompanies([]);
-
-    setShowAdvancedFilters(false);
-
-    try {
-      const response = await axiosSecure.get(
-        `/Companies?page=${currentPage}&size=${itemsPerPage}`,
-        {
-          params: {
-            searchTerm,
-          },
-        }
-      );
-      setFilteredCompanies(response.data.Companies);
-
-      setTotalCompanies(response.data.totalCompanies);
-      if (!response.data.totalCompanies) {
-        toast.info(t("no_matching_data_found"));
-      }
-    } catch (err) {
-      // console.error("Error fetching Companies:", err);
-      setError(t("failed_to_fetch_companies"));
-    }
+    refetch()
   };
 
   const handleItemsPerPage = (e) => {
@@ -93,32 +69,17 @@ const FindCompany = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  if (isLoading) return <DashboardLoader />
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
       <div className="container mx-auto">
-        <div className="flex justify-between items-center pt-12">
-          <div className="flex items-center lg:gap-4 md:gap-4 gap-2 mt-4 w-1/3">
-            <label
-              htmlFor="itemsPerPage"
-              className="text-sm font-medium text-blue-900 "
-            >
-              {t("number_of_companies_per_page")}
-            </label>
-            <select
-              id="itemsPerPage"
-              value={itemsPerPage}
-              onChange={handleItemsPerPage}
-              className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
-            >
-              <option value="5">{t("option_5")}</option>
-              <option value="10">{t("option_10")}</option>
-              <option value="15">{t("option_15")}</option>
-            </select>
-          </div>
+        <div className="flex flex-col md:flex-row justify-between items-center pt-12">
 
-          <div className="w-1/3">
+
+          <div className=" md:w-1/2">
             <form
-              className="flex flex-col sm:flex-row gap-4 sm:gap-2"
+              className="flex items-center gap-4"
               onSubmit={handleSearch}
             >
               <div className="relative flex-1">
@@ -135,30 +96,49 @@ const FindCompany = () => {
 
               <div className="hidden sm:block w-px h-full bg-gray-300"></div>
 
-              <div className="flex justify-center mt-4 sm:mt-0 sm:ml-2">
-                <button
-                  type="submit"
-                  className="btn bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white  hover:from-blue-700 hover:to-blue-900"
-                >
-                  {t("find_company")}
-                </button>
-              </div>
+
+              <button
+                type="submit"
+                className="btn bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white  hover:from-blue-700 hover:to-blue-900"
+              >
+                {t("find_company")}
+              </button>
+
             </form>
           </div>
-
-          <div className="view-toggle flex justify-end mt-2 gap-4 w-1/3">
-            <button
-              onClick={() => setViewMode("list")}
-              className="flex items-center"
-            >
-              <FaList className="mr-2" />
-            </button>
-            <button
-              onClick={() => setViewMode("grid")}
-              className="flex items-center"
-            >
-              <FaTh className="mr-2" />
-            </button>
+          <div className="flex items-center gap-4">
+            <div className="flex  items-center lg:gap-4 md:gap-4 gap-2 mt-4">
+              <label
+                htmlFor="itemsPerPage"
+                className="text-sm font-medium text-blue-900 "
+              >
+                Per Page
+              </label>
+              <select
+                id="itemsPerPage"
+                value={itemsPerPage}
+                onChange={handleItemsPerPage}
+                className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+              >
+                <option value="5">{t("option_5")}</option>
+                <option value="10">{t("option_10")}</option>
+                <option value="15">{t("option_15")}</option>
+              </select>
+            </div>
+            <div className="view-toggle flex justify-end mt-2 gap-4 ">
+              <button
+                onClick={() => setViewMode("list")}
+                className="flex items-center"
+              >
+                <FaList className="mr-2" />
+              </button>
+              <button
+                onClick={() => setViewMode("grid")}
+                className="flex items-center"
+              >
+                <FaTh className="mr-2" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -214,12 +194,12 @@ const FindCompany = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4  gap-8 mt-16 ">
+          <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4  gap-8 mt-16 place-items-center md:place-items-stretch">
             {(filteredCompanies.length > 0 ? filteredCompanies : companies).map(
               (company) => (
                 <div
                   key={company.email}
-                  className="relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "
+                  className="relative w-full max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "
                 >
                   <div className="flex flex-col justify-between p-6 space-y-8 ">
                     <div className="flex items-center gap-3">
@@ -236,7 +216,7 @@ const FindCompany = () => {
                       </div>
                     </div>
                     <div className="mt-14 space-y-2 text-justify">
-                      <p className=" text-sm">{company.company_description.slice(0,250)} ...</p>
+                      <p className=" text-sm">{company.company_description.slice(0, 250)} ...</p>
                     </div>
                     <Link to={`/company-details/${company.email}`}>
                       <button className=" text-blue-500 px-3 py-2 rounded w-full underline">
@@ -262,9 +242,8 @@ const FindCompany = () => {
             {pages.map((page) => (
               <button
                 key={page}
-                className={`px-4 py-2 rounded-lg ${
-                  page === currentPage ? "bg-blue-200" : "bg-white"
-                } border border-blue-300`}
+                className={`px-4 py-2 rounded-lg ${page === currentPage ? "bg-blue-200" : "bg-white"
+                  } border border-blue-300`}
                 onClick={() => setCurrentPage(page)}
               >
                 {page + 1}

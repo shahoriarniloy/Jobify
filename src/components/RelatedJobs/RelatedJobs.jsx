@@ -23,8 +23,8 @@ const RelatedJobs = ({ jobTitle }) => {
   if (isLoading) return <DashboardLoader />
 
   return (
-    <div>
-      <section className="flex flex-col-reverse lg:flex-col container mx-auto mt-5 md:mt-20">
+ 
+      <section className="container mx-auto mt-5 md:mt-20">
         <h1
           className="text-3xl font-semibold mb-2 tracking-wider text-black text-center"
 
@@ -32,7 +32,7 @@ const RelatedJobs = ({ jobTitle }) => {
           Related Job
         </h1>
 
-        <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
+        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
           {jobs?.map(({ _id, jobInfo, companyInfo }) => (
             <div
               key={_id}
@@ -90,7 +90,7 @@ const RelatedJobs = ({ jobTitle }) => {
         </div>
 
       </section>
-    </div>
+    
   );
 };
 

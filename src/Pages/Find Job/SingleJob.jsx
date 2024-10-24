@@ -163,12 +163,14 @@ const SingleJob = () => {
           </div>
         </div>
 
-        <section className="flex flex-col md:flex-row mt-5 gap-4">
-          <section className="md:w-1/2 mb-5 md:mb-0">
-            <h1 className="text-3xl italic font-semibold tracking-wide flex gap-2">{job?.jobInfo?.title}</h1>
-            <div className="my-4">
-              <h3 className="font-bold text-gray-900 mb-4">{t("job_description")}</h3>
-              <p className="text-gray-700 text-justify">{job?.jobInfo?.jobDescription}</p>
+        <section className="flex flex-col lg:flex-row mt-5 gap-4">
+          <section className="lg:w-1/2 mb-5 lg:mb-0">
+            <div>
+              <h1 className="text-3xl italic font-semibold tracking-wide flex gap-2">{job?.jobInfo?.title}</h1>
+              <div className="my-4">
+                <h3 className="font-bold text-gray-900 mb-4">{t("job_description")}</h3>
+                <p className="text-gray-700 text-justify">{job?.jobInfo?.jobDescription}</p>
+              </div>
             </div>
 
             <div className="my-4">
@@ -183,7 +185,7 @@ const SingleJob = () => {
             </div>
           </section>
 
-          <section className="md:ml-10 md:w-1/2">
+          <section className="md:ml-10 lg:w-1/2">
             <div className="p-2 md:p-8 border-2 rounded-lg">
               <h2 className="mb-6 font-bold text-xl text-center md:text-2xl">
                 {t("job_overview")}
