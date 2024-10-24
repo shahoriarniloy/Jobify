@@ -105,44 +105,48 @@ const AccountSetting = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row lg:gap-24 gap-6">
       <section className="md:w-1/2">
-        <h2 className="font-bold mb-4 text-xl">{t("map_location")}</h2>
+        <h2 className="font-bold mb-4 text-xl mt-4">{t("map_location")}</h2>
         <div id="map" style={{ height: "400px", width: "100%" }}></div>
       </section>
 
       <section className="md:w-1/2">
-        <h2 className="font-bold mb-4 text-xl">{t("account_settings")}</h2>
+        <h2 className="font-bold mb-4 text-xl mt-4">{t("account_settings")}</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-4">
+          <div className="mb-4 flex items-center ">
             <label htmlFor="email" className="block mb-2">
               {t("email")}
             </label>
-            <input
-              type="email"
-              id="email"
-              {...register("email", { required: true })}
-              className="input"
-              readOnly
-            />
-            {errors.email && (
-              <span className="text-red-500">{t("field_required")}</span>
-            )}
+            <div className="mb-4 flex items-center border-2 rounded-md ml-4">
+              <input
+                type="email"
+                id="email"
+                {...register("email", { required: true })}
+                className="input"
+                readOnly
+              />
+              {errors.email && (
+                <span className="text-red-500">{t("field_required")}</span>
+              )}
+            </div>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 flex items-center">
             <label htmlFor="phone" className="block mb-2">
               {t("phone")}
             </label>
-            <input
-              type="tel"
-              id="phone"
-              {...register("phone", { required: true })}
-              className="input"
-            />
-            {errors.phone && (
-              <span className="text-red-500">{t("field_required")}</span>
-            )}
+            <div className="border-2 rounded-md ml-2">
+              <input
+                type="tel"
+                id="phone"
+                {...register("phone", { required: true })}
+                className="input  "
+              />
+              {errors.phone && (
+                <span className="text-red-500">{t("field_required")}</span>
+              )}
+            </div>
           </div>
 
           <button

@@ -5,36 +5,30 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import Bookmark from "../../Find Job/Bookmark";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../../Shared/DashboardLoader";
+import { MdDeleteForever } from "react-icons/md";
 
 const AllJobs = () => {
   const { t } = useTranslation();
-  
-  const [jobs, setJobs] = useState([]);
-  const [filteredJobs, setFilteredJobs] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [totalJobs, setTotalJobs] = useState(0);
   const [pages, setPages] = useState([]);
 
-  const fetchJobs = async () => {
-    try {
-      const response = await axiosSecure.get("/jobs", {
-        params: {
-          page: currentPage,
-          size: itemsPerPage,
-        },
-      });
-      setJobs(response.data.jobs);
-      setTotalJobs(response.data.totalJobs);
-      const totalPages = Math.ceil(response.data.totalJobs / itemsPerPage);
-      setPages([...Array(totalPages).keys()]);
-    } catch (error) {
-      // console.error("Failed to fetch jobs", error);
+
+
+  const { data: jobs, isLoading, refetch } = useQuery({
+    queryKey: ["load-all-jobs"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/jobs", { params: { page: currentPage, size: itemsPerPage, }, });
+      return data;
     }
-  };
+
+  })
+
 
   useEffect(() => {
-    fetchJobs();
+    refetch();
   }, [currentPage, itemsPerPage]);
 
   const handleItemsPerPage = (e) => {
@@ -54,7 +48,7 @@ const AllJobs = () => {
       setCurrentPage(currentPage + 1);
     }
   };
-
+  if (isLoading) return <DashboardLoader />
   return (
     <div className="jobs-container">
       <div className="flex items-center justify-center lg:gap-4 md:gap-4 gap-2 mt-4">
@@ -80,40 +74,72 @@ const AllJobs = () => {
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs sm:text-sm">
             <thead className="dark:bg-gray-300">
+
               <tr className="text-left">
                 <th className="p-3">{t("job_title")}</th>
-                <th className="p-3 hidden md:table-cell">{t("company")}</th>
-                <th className="p-3 hidden md:table-cell">{t("salary")}</th>
+                <th className="p-3">Vacancy</th>
+                <th className="p-3 hidden md:table-cell">
+                  Job Type
+                </th>
+                <th className="p-3 hidden md:table-cell">
+                  {t("salary")}
+                </th>
                 <th className="p-3">{t("details")}</th>
+                <th className="p-3 lg:table-cell">{t("bookmark")}</th>
+
               </tr>
             </thead>
             <tbody>
-              {(filteredJobs.length > 0 ? filteredJobs : jobs).map((job) => (
-                <tr
-                  key={job._id}
-                  className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
-                >
-                  <td className="p-3">
-                    <span className="block text-sm font-semibold">
-                      {job.title}
-                    </span>
-                    <span className="block text-xs text-gray-500 md:hidden">
-                      {job.company}
-                    </span>
-                  </td>
-                  <td className="p-3 hidden md:table-cell">{job.company}</td>
-                  <td className="p-3 hidden md:table-cell">
-                    {job.salaryRange}
-                  </td>
-                  <td className="p-3">
-                    <Link to={`/job/${job._id}`}>
-                      <button className="hover:underline">
-                        <FaArrowRight className="h-5 w-5 inline-block mr-1" />
+              {jobs?.allJobs?.map(
+                ({ _id, jobInfo, companyInfo }) => (
+                  <tr
+                    key={_id}
+                    className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+                  >
+                    <td className="p-3">
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle h-12 w-12">
+                            <img
+                              src={companyInfo?.company_logo}
+                              alt="Avatar Tailwind CSS Component" />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-bold">{jobInfo?.title}</div>
+                          <div className="text-sm opacity-50">{companyInfo?.company_name}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="p-3">
+                      <span className="block text-sm font-semibold ">
+                        {jobInfo?.vacancy}
+                      </span>
+                      <span className="block text-xs text-gray-500 md:hidden">
+
+                      </span>
+                    </td>
+                    <td className="p-3 hidden md:table-cell">
+                      {jobInfo?.jobType}
+                    </td>
+                    <td className="p-3 hidden md:table-cell">
+                      {jobInfo?.salaryRange}
+                    </td>
+                    <td className="p-3">
+                      <Link to={`/job/${_id}`}>
+                        <button className="btn btn-outline btn-info btn-sm">
+                          View Details
+                        </button>
+                      </Link>
+                    </td>
+                    <td className="p-3  lg:table-cell">
+                      <button className="btn btn-outline btn-error hover:text-white btn-sm">
+                        <MdDeleteForever className="text-xl " />
                       </button>
-                    </Link>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </div>
@@ -132,9 +158,8 @@ const AllJobs = () => {
           {pages.map((page) => (
             <button
               key={page}
-              className={`px-4 py-2 rounded-lg ${
-                page === currentPage ? "bg-blue-200" : "bg-white"
-              } border border-blue-300`}
+              className={`px-4 py-2 rounded-lg ${page === currentPage ? "bg-blue-200" : "bg-white"
+                } border border-blue-300`}
               onClick={() => setCurrentPage(page)}
               aria-label={`${t("page")} ${page + 1}`}
             >

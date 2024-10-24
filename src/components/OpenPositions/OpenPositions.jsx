@@ -3,102 +3,91 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import JobCardGrid from "../JobCardGrid/JobCardGrid";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next"; // Import the useTranslation hook
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../Shared/DashboardLoader";
+import { Link } from "react-router-dom";
 
-const OpenPosition = ({ email, title }) => {
+const OpenPosition = ({ companyEmail }) => {
   const { t } = useTranslation(); // Initialize the translation function
-  const [jobs, setJobs] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState(6);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state
 
-  useEffect(() => {
-    const fetchJobDataPagination = async () => {
-      if (!email) return; // Return early if no email
-
-      setLoading(true); // Set loading state before fetching
-      setError(null); // Reset error state
-
-      try {
-        const response = await axiosSecure.get(
-          `/OpenPosition?page=${page}&limit=${limit}&email=${email}`
-        );
-        setJobs(response.data.jobs);
-        setTotalPages(response.data.totalPages);
-      } catch (error) {
-        setError(t("error_fetching_job_data_please_try_again")); // Use translation for error message
-      } finally {
-        setLoading(false); // Set loading state to false after fetching
-      }
-    };
-
-    fetchJobDataPagination();
-  }, [email, page, limit, t]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setLimit(window.innerWidth < 640 ? 3 : 6);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const handleNext = () => {
-    if (page < totalPages) {
-      setPage(page + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  };
+  const { data: jobs = [], isLoading } = useQuery({
+    queryKey: ["fetch open position"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/OpenPosition?email=${companyEmail}`
+      );
+      return data;
+    },
+  });
+  // console.log(jobs)
+  if (isLoading) return <DashboardLoader />;
 
   return (
-    <div>
-      <section className="flex flex-col-reverse lg:flex-col container mx-auto md:mt-20">
-        <div className="flex justify-between mt-5 mb-5 md:mb-12">
-          <h3 className="font-bold text-xl">{title}</h3>
-          <div>
-            <button
-              onClick={handlePrev}
-              disabled={page === 1}
-              className="btn bg-blue-100 h-12 w-12"
-            >
-              <FaArrowLeft className="text-blue-400" />
-            </button>
-            <button
-              onClick={handleNext}
-              disabled={page === totalPages}
-              className="btn bg-blue-100 ml-4 h-12 w-12"
-            >
-              <FaArrowRight className="text-blue-400" />
-            </button>
-          </div>
-        </div>
+    <section className="container mx-auto">
+      <h1 className="text-3xl font-semibold mb-2 tracking-wider text-black text-center">
+        Available Jobs
+      </h1>
 
-        {loading ? ( // Show loading message or spinner
-          <p>{t("loading_jobs")}</p> // Use translation for loading message
-        ) : error ? ( // Show error message if there is an error
-          <p className="text-red-500">{error}</p>
-        ) : (
-          <div className="grid md:grid-cols-3 gap-6">
-            {jobs.length > 0 ? (
-              jobs.map((job) => <JobCardGrid key={job._id} job={job} />)
-            ) : (
-              <p>{t("no_jobs_available")}</p> // Use translation for no jobs message
-            )}
+      <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+        {jobs?.map(({ _id, jobInfo, companyInfo }) => (
+          <div
+            key={_id}
+            className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"
+          >
+            <span className="absolute top-10 z-0 h-20 w-20 rounded-full  duration-300 "></span>
+            <div className="relative z-10 mx-auto max-w-md">
+              <span className="grid size-[60px] place-items-center rounded-full ">
+                <img
+                  src={companyInfo?.company_logo}
+                  className="h-full w-full rounded-full transition-all"
+                />
+              </span>
+              <div className="pt-5 text-base  text-gray-600 transition-all duration-300 ">
+                <h2 className="text-2xl font-semibold tracking-wide flex gap-2">
+                  {jobInfo?.title}
+                  <div className="p-2 rounded-full text-xs bg-[#1d4fd83a] size-[28px] flex justify-center items-center">
+                    {jobInfo?.vacancy}
+                  </div>
+                </h2>
+                <p className="font-semibold">{companyInfo?.company_name}</p>
+                <p className="text-sm tracking-wide mt-3">
+                  <span className="font-semibold">Category: </span>
+                  {jobInfo?.jobCategory}
+                </p>
+                <p className="text-sm tracking-wide mt-1">
+                  <span className="font-semibold">Job Type: </span>
+                  {jobInfo?.jobType}
+                </p>
+                <p className="text-sm mt-1">
+                  <span className="font-semibold">Salary Range : </span>
+                  {jobInfo?.salaryRange}
+                </p>
+                <p className="text-sm mt-1">
+                  <span className="font-semibold">Job Level : </span>
+                  {jobInfo?.jobLevel}
+                </p>
+                <p className="text-sm mt-1">
+                  <span className="font-semibold">Deadline : </span>
+                  {jobInfo?.deadline}
+                </p>
+                <p className="text-sm mt-1">
+                  <span className="font-semibold">Location : </span>
+                  {jobInfo?.location}
+                </p>
+              </div>
+              <div className="pt-5 text-base font-semibold leading-7">
+                <Link
+                  to={`/job/${_id}`}
+                  className="text-slate-500 transition-all duration-300  flex items-center"
+                >
+                  {t("view_details")}
+                </Link>
+              </div>
+            </div>
           </div>
-        )}
-      </section>
-    </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

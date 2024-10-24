@@ -103,7 +103,10 @@ const BookmarkedJobs = () => {
             >
               <div className="flex lg:flex-row md:flex-row flex-col justify-between items-center">
                 <div className="flex flex-col">
-                  <h2 className="card-title text-2xl mb-6">{jobInfo?.title}</h2>
+                  <h2 className="card-title text-2xl mb-2">{jobInfo?.title}</h2>
+                  <h2 className="text-lg mb-6 text-gray-500">
+                    {companyInfo?.company_name}
+                  </h2>
                   <div className="flex lg:flex-row flex-col gap-4 text-xs">
                     <div className="flex items-center">
                       <FaBriefcase className="mr-1" />
