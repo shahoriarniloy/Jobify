@@ -6,7 +6,7 @@ import PopularCategory from "./PopularCategory";
 import TopCompanies from "./TopCompanies";
 import { useQuery } from "@tanstack/react-query";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import Testimonial from "./Testimonial";
+import Testimonial from './Testimonial';
 
  
 const Home = () => {

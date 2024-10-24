@@ -57,7 +57,7 @@ const JobTable = () => {
               <td className="px-4 py-2">
                 <Link
                   to={`/dashboard/job-candidates`}
-                  state={{_id }}
+                  state={{jobId:_id,jobTitle: jobInfo.title}}
                   className="btn bg-blue-100 px-3 py-1 text-blue-700 rounded flex items-center"
                 >
                   <ClipboardDocumentListIcon className="h-5 w-5 mr-2" />

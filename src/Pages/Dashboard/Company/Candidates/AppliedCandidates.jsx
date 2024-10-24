@@ -17,7 +17,7 @@ import useCurrentUser from "../../../../Hooks/useCurrentUser";
 const AppliedCandidates = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const { jobId } = location.state;
+  const { jobId,jobTitle } = location.state;
   const [candidates, setCandidates] = useState([]);
   const [company, setCompany] = useState({});
   const [loading, setLoading] = useState(true);
@@ -245,6 +245,7 @@ const AppliedCandidates = () => {
                 </button>
 
                 <Link
+                state={{jobTitle}}
                   to={`/dashboard/candidate-resume/${candidate?.user?.email}`}
                 >
                   <button className="btn bg-gradient-to-r from-blue-500 to-blue-700 flex items-center text-white">
