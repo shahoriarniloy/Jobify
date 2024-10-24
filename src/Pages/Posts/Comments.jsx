@@ -8,6 +8,7 @@ import { HiHeart, HiOutlineEmojiHappy } from "react-icons/hi";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next"; // Importing useTranslation
+import { Helmet } from "react-helmet";
 
 const CommentsPage = () => {
   const { t } = useTranslation(); // Destructuring t from useTranslation
@@ -88,6 +89,9 @@ const CommentsPage = () => {
 
   return (
     <div className="grid lg:grid-cols-2 gap-6 lg:mx-24 mt-24">
+       <Helmet>
+        <title>Jobify - Comments</title>
+      </Helmet>
       {post && (
         <>
           <div className="relative rounded-lg border h-auto shadow-md">
