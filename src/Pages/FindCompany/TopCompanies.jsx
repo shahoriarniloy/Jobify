@@ -1,10 +1,11 @@
 import React from "react";
-
 import { useEffect, useState } from "react";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const TopCompanies = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const [companies, setCompanies] = useState([]);
   const [error, setError] = useState(null);
 
@@ -23,9 +24,9 @@ const TopCompanies = () => {
 
   return (
     <div className="mt-6">
-      <h1 className="text-3xl text-center mb-12">Top Companies</h1>
+      <h1 className="text-3xl text-center mb-12">{t("top_companies")}</h1>
       {error ? (
-        <p className="text-redCastomize">Error: {error}</p>
+        <p className="text-redCastomize">{t("error")}: {error}</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-4">
           {companies.length > 0 ? (
@@ -37,7 +38,7 @@ const TopCompanies = () => {
                 <div className="w-full h-48 overflow-hidden rounded-t-lg">
                   <img
                     src={company.company_logo}
-                    alt={`${company.company_name} Logo`}
+                    alt={`${company.company_name} ${t("logo")}`}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -52,13 +53,13 @@ const TopCompanies = () => {
                     to={`/company-details/${company.email}`}
                     className="text-blueCastomize hover:underline"
                   >
-                    View Company Details
+                    {t("view_company_details")}
                   </Link>
                 </div>
               </div>
             ))
           ) : (
-            <p>No companies found.</p>
+            <p>{t("no_companies_found")}</p>
           )}
         </div>
       )}

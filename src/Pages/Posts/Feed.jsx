@@ -3,8 +3,10 @@ import axios from "axios";
 import Post from "./Post";
 import PostStatus from "./PostStatus";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
+import { useTranslation } from "react-i18next";
 
 const Feed = ({ currentUser }) => {
+  const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
@@ -25,14 +27,18 @@ const Feed = ({ currentUser }) => {
       <PostStatus currentUser={currentUser} fetchPosts={fetchPosts} />
 
       <div className="posts-list">
-        {posts.map((post) => (
-          <Post
-            key={post._id}
-            post={post}
-            currentUser={currentUser}
-            fetchPosts={fetchPosts}
-          />
-        ))}
+        {posts.length === 0 ? (
+          <p>{t("no_posts_available")}</p> // Example placeholder for no posts
+        ) : (
+          posts.map((post) => (
+            <Post
+              key={post._id}
+              post={post}
+              currentUser={currentUser}
+              fetchPosts={fetchPosts}
+            />
+          ))
+        )}
       </div>
     </div>
   );

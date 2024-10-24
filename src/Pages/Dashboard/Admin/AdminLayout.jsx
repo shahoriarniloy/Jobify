@@ -5,7 +5,6 @@ import { FaBriefcase, FaEdit } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
 import { MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { logOut as logOutAction } from "../../../Redux/userSlice";
 import { useTranslation } from "react-i18next";
 
 const AdminLayout = () => {

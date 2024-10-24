@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const Messages = () => {
   const { t } = useTranslation(); // Destructure useTranslation
   const [conversations, setConversations] = useState([]);
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
@@ -89,9 +89,8 @@ const Messages = () => {
                 />
                 <div className="flex-1">
                   <h2
-                    className={`text-lg font-semibold truncate ${
-                      theme === "dark" ? "text-slate-700" : ""
-                    }`}
+                    className={`text-lg font-semibold truncate ${theme === "dark" ? "text-slate-700" : ""
+                      }`}
                   >
                     {conversation.otherPartyName || t("unknown")}
                   </h2>

@@ -22,9 +22,10 @@ import { MdAddCircleOutline, MdOutlineCancel } from "react-icons/md";
 import { useSelector } from "react-redux";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import { toast } from "react-toastify";
+import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
 const SocialMediaProfile = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const { t } = useTranslation(); // Destructuring t function for translation
 
   const socialOptions = [
@@ -142,8 +143,8 @@ const SocialMediaProfile = () => {
                       <span className="block truncate">
                         {field.socialMedia
                           ? socialOptions.find(
-                              (option) => option.value === field.socialMedia
-                            )?.name
+                            (option) => option.value === field.socialMedia
+                          )?.name
                           : t("select_social_media")}
                       </span>
 
@@ -174,10 +175,9 @@ const SocialMediaProfile = () => {
                             <ListboxOption
                               key={option.value}
                               className={({ active }) =>
-                                `cursor-default select-none relative py-2 pl-10 pr-4 ${
-                                  active
-                                    ? "text-blue-900 bg-blue-100"
-                                    : "text-gray-900"
+                                `cursor-default select-none relative py-2 pl-10 pr-4 ${active
+                                  ? "text-blue-900 bg-blue-100"
+                                  : "text-gray-900"
                                 }`
                               }
                               value={option.value}
@@ -186,9 +186,8 @@ const SocialMediaProfile = () => {
                                 <div className="flex items-center">
                                   <span className="mr-2">{option.icon}</span>
                                   <span
-                                    className={`block truncate ${
-                                      selected ? "font-medium" : "font-normal"
-                                    }`}
+                                    className={`block truncate ${selected ? "font-medium" : "font-normal"
+                                      }`}
                                   >
                                     {option.name}
                                   </span>
@@ -227,11 +226,10 @@ const SocialMediaProfile = () => {
 
         <button
           type="button"
-          className={`flex items-center justify-center gap-2 mt-4 font-semibold p-2 rounded w-full ${
-            fields.length === socialOptions.length
+          className={`flex items-center justify-center gap-2 mt-4 font-semibold p-2 rounded w-full ${fields.length === socialOptions.length
               ? "bg-gray-300 text-gray-500 cursor-not-allowed"
               : "bg-gray-100 hover:bg-blue-500 hover:text-white"
-          }`}
+            }`}
           onClick={addField}
           disabled={fields.length === socialOptions.length}
         >

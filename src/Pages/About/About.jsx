@@ -1,5 +1,4 @@
 import Intro from "./Intro";
-import TeamMembers from "./TeamMembers";
 import Feedback from "./Feedback";
 import WhyChooseUs from "./WhyChooseUs";
 import OurTeam from "./OurTeam/OurTeam";

@@ -9,15 +9,16 @@ import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
 import ButtonLoader from "../../../Shared/ButtonLoader";
+import { updateProfile } from "firebase/auth";
+import auth from "../Firebase/firebase.config";
+
 
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const { t } = useTranslation();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
-
   const accountType = selectedIndex === 0 ? t("job_seeker") : t("employer");
   const { createUser, loading, setLoading } = useCurrentUser();
-
 
 
   const handleRegister = async (e) => {
@@ -27,10 +28,14 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
     // for employee
     if (accountType == "Job Seeker") {
       const name = form.name.value;
-      const email = form.email.value;
+      const email = form.email.value.toLocaleLowerCase();
       const password = form.password.value;
       createUser(email, password)
         .then(res => {
+          updateProfile(auth.currentUser, {
+            displayName: name,
+          })
+
           toast.success("Account creation successful");
           setSignUpModalOpen(false);
           axiosSecure.post("/users", {
@@ -52,12 +57,15 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
     // for company
     else if (accountType == "Employer") {
-      const companyEmail = form.companyEmail.value;
+      const companyEmail = form.companyEmail.value.toLocaleLowerCase();
       const companyName = form.companyName.value;
 
       createUser(companyEmail, companyName)
         .then(res => {
-          axiosSecure.options("/users", {
+          updateProfile(auth.currentUser, {
+            displayName: companyName,
+          })
+          axiosSecure.post("/users", {
             email: companyEmail, name: companyName, role: accountType
           })
             .then(res => {
@@ -72,8 +80,8 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
 
 
         })
-
     }
+
     setLoading(false);
 
 

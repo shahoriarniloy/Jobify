@@ -4,8 +4,10 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FaUserPlus } from "react-icons/fa";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import axiosSecure from "../../Hooks/useAxiosSecure";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const FindJobSeeker = () => {
+  const { t } = useTranslation(); // Destructure t for translations
   const [searchTerm, setSearchTerm] = useState("");
   const [jobSeekers, setJobSeekers] = useState([]);
   const [error, setError] = useState(null);
@@ -13,7 +15,7 @@ const FindJobSeeker = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (!searchTerm) {
-      setError("Please enter a valid search term.");
+      setError(t("valid_search_term")); // Use translation key for error message
       return;
     }
     setError(null);
@@ -39,7 +41,7 @@ const FindJobSeeker = () => {
       <div className="container mx-auto py-8">
         <div className="flex items-center mb-4">
           <h1 className="text-lg text-blue-500 font-semibold flex items-center">
-            Find People to Follow
+            {t("find_people_to_follow")} {/* Translate "Find People to Follow" */}
             <span className="ml-2">
               <HiOutlineUserGroup className="text-blue-500 text-2xl" />
             </span>
@@ -54,7 +56,7 @@ const FindJobSeeker = () => {
               <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
               <input
                 type="text"
-                placeholder="Name"
+                placeholder={t("name")} // Translate "Name" placeholder
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none focus:ring-2
@@ -69,7 +71,7 @@ const FindJobSeeker = () => {
                 type="submit"
                 className="w-full sm:w-auto px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white font-semibold text-base transition duration-300 ease-in-out hover:from-blue-700 hover:to-blue-900"
               >
-                Find
+                {t("find")} {/* Translate "Find" button text */}
               </button>
             </div>
           </form>

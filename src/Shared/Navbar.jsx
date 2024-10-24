@@ -6,8 +6,10 @@ import { io } from "socket.io-client";
 import { FaBell } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { PiBag } from "react-icons/pi";
+import useCurrentUser from "../Hooks/useCurrentUser";
 
 const Navbar = () => {
+  const { currentUser } = useCurrentUser();
   const { t } = useTranslation();
   const [isSticky, setIsSticky] = useState(false);
   const [jobNotifications, setJobNotifications] = useState([]);
@@ -15,7 +17,6 @@ const Navbar = () => {
   const [socket, setSocket] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const currentUser = useSelector((state) => state.user.currentUser);
   const navItem = (
     <>
       <li>
@@ -36,7 +37,7 @@ const Navbar = () => {
             isActive ? "active-nav nav-link" : "nav-link"
           }
         >
-          {t("apply_job")}
+          {t("find_job")}
         </NavLink>
       </li>
       <li>
@@ -51,16 +52,6 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/messages"
-          className={({ isActive }) =>
-            isActive ? "active-nav nav-link" : "nav-link"
-          }
-        >
-          {t("messaging")}
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
           to="/posts"
           className={({ isActive }) =>
             isActive ? "active-nav nav-link" : "nav-link"
@@ -69,6 +60,7 @@ const Navbar = () => {
           {t("my_network")}
         </NavLink>
       </li>
+
       <li>
         <NavLink
           to="/about"
