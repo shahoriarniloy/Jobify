@@ -117,16 +117,6 @@ const CompanyDetails = () => {
               src={company?.company_banner}
               alt={t("company_banner_alt")}
             />
-
-            <div className="absolute top-4 right-4">
-              <button type="button" onClick={toggleFavorite}>
-                {isFavorite ? (
-                  <MdFavorite className="text-red-500 md:text-6xl text-4xl" />
-                ) : (
-                  <MdFavoriteBorder className="md:text-6xl text-4xl text-red-500" />
-                )}
-              </button>
-            </div>
           </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
@@ -193,7 +183,7 @@ const CompanyDetails = () => {
             <p className="text-gray-500 mb-4">{company?.company_description}</p>
 
             <h2 className="font-bold my-5 text-xl md:text-2xl lg:text-3xl">
-              {t("company_benefits")}
+              {t("company_vision")}
             </h2>
             <p className="text-gray-500 mb-4">{t("benefits_intro")}</p>
             <ul className="list-disc text-gray-500 ml-5">
@@ -235,50 +225,72 @@ const CompanyDetails = () => {
                 </Link>
               </div>
             </div>
-            <div className="p-4 md:p-8 border-2 rounded-lg grid lg:grid-cols-2 grid-cols-1">
-              <div>
-                <h2 className="text-xl font-bold">{t("company_details")}</h2>
-                <div className="flex items-center mt-4">
-                  <LuPhoneCall className="text-xl text-gray-500" />
-                  <p className="text-gray-500 ml-2">{company?.phone_number}</p>
-                </div>
-                <div className="flex items-center mt-4">
-                  <TfiEmail className="text-xl text-gray-500" />
-                  <p className="text-gray-500 ml-2">{company?.email}</p>
-                </div>
-                <div className="flex items-center mt-4">
-                  <FiGlobe className="text-xl text-gray-500" />
-                  <p className="text-gray-500 ml-2">
-                    {company?.company_website}
+            <div className="p-4 md:p-8 border-2 rounded-lg grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-6 md:gap-10 mt-8">
+              <div className="flex items-center gap-2">
+                <FiCalendar className="text-2xl text-blue-500" />
+                <div>
+                  <p className="text-gray-500 ">
+                    {t("founded_in")} {company?.founded_date}
                   </p>
                 </div>
               </div>
-              <div>
-                <h2 className="text-xl font-bold">{t("more_information")}</h2>
-                <div className="flex items-center mt-4">
-                  <PiWallet className="text-xl text-gray-500" />
-                  <p className="text-gray-500 ml-2">
-                    {company?.annual_revenue} {t("annual_revenue")}
+              <div className="flex items-center gap-2">
+                <BiStopwatch className="text-2xl text-blue-500" />
+
+                <p className="font-bold text-sm text-gray-500">
+                  {company?.company_type} {t("company")}
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <PiWallet className="text-2xl text-blue-500" />
+                <p className="text-gray-500 ">{t("team_size")}:</p>
+                <p className="font-bold text-sm text-gray-500">
+                  {company?.company_size} {t("candidates")}
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <PiBriefcase className="text-2xl text-blue-500" />
+                <p className="text-gray-500 ">{t("industry_types")}</p>
+                <p className="font-bold text-sm text-gray-500">
+                  {company?.industry}
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 md:p-8 border-2 rounded-lg md:my-6">
+              <h2 className="font-bold text-xl md:text-2xl">
+                {t("contact_information")}
+              </h2>
+              <div className="flex items-center my-5">
+                <FiGlobe className="text-2xl text-blue-500" />
+                <div className="ml-4">
+                  <p className="text-gray-500">
+                    {t("website")}:{company?.company_website}
                   </p>
                 </div>
-                <div className="flex items-center mt-4">
-                  <PiBriefcase className="text-xl text-gray-500" />
-                  <p className="text-gray-500 ml-2">
-                    {company?.company_size} {t("employees")}
+              </div>
+              <hr />
+              <div className="flex items-center my-5">
+                <LuPhoneCall className="text-2xl text-blue-500" />
+                <div className="ml-4">
+                  <p className="text-gray-500">{t("phone")}</p>
+                  <p className="text-black font-bold">
+                    {company?.phone_number}
                   </p>
                 </div>
-                <div className="flex items-center mt-4">
-                  <FiCalendar className="text-xl text-gray-500" />
-                  <p className="text-gray-500 ml-2">{company?.founded_year}</p>
-                </div>
-                <div className="flex items-center mt-4">
-                  <BiStopwatch className="text-xl text-gray-500" />
-                  <p className="text-gray-500 ml-2">{t("full_time")}</p>
+              </div>
+              <hr />
+              <div className="flex items-center mt-5">
+                <TfiEmail className="text-2xl text-blue-500" />
+                <div className="ml-4">
+                  <p className="text-gray-500">
+                    {t("email")}: {company?.email}
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 p-4 md:p-8 border-2 mt-5 rounded-lg">
+            {/* <div className="grid grid-cols-1 p-4 md:p-8 border-2 mt-5 rounded-lg">
               <h2 className="text-xl font-bold">{t("company_social_links")}</h2>
               <div className="flex space-x-6">
                 <a href={company?.facebook} target="_blank" rel="noreferrer">
@@ -306,7 +318,7 @@ const CompanyDetails = () => {
                   <FaPinterest className="text-gray-500 hover:text-primary mt-4 text-xl" />
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

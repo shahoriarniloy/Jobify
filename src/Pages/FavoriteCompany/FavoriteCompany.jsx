@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ButtonLoader from "../../Shared/ButtonLoader";
 import Bookmark from "../Find Job/Bookmark";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 
 const FavoriteCompany = () => {
   const { t } = useTranslation();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const { currentUser } = useCurrentUser();
   const userEmail = currentUser?.email;
 
   const [jobs, setJobs] = useState([]);
@@ -26,7 +27,9 @@ const FavoriteCompany = () => {
       console.log(t("fetching_jobs_for_user_email"), userEmail);
 
       try {
-        const response = await axiosSecure.get(`/users/${userEmail}/latest-jobs`);
+        const response = await axiosSecure.get(
+          `/users/${userEmail}/latest-jobs`
+        );
         setJobs(response.data.jobs);
       } catch (error) {
         console.error(t("error_fetching_jobs"), error);
