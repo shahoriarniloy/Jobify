@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import {
   FaFacebookF,
   FaInstagram,
@@ -28,21 +29,23 @@ import axiosSecure from "../../../Hooks/UseAxiosSecure.jsx";
 import ButtonLoader from "../../../Shared/ButtonLoader.jsx";
 import { toast } from "react-toastify";
 import useCurrentUser from "../../../Hooks/useCurrentUser.jsx";
+import useUserRole from "../../../Hooks/useUserRole.jsx";
 
 const CompanyDetails = () => {
+  const { companyEmail } = useParams();
+  console.log(companyEmail);
+  const { role } = useUserRole();
   const { currentUser } = useCurrentUser();
   const [company, setCompany] = useState({});
-  const { companyId } = useParams();
   const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const companyEmail = company?.email;
   const userEmail = currentUser?.email;
 
   useEffect(() => {
     const fetchCompanyData = async () => {
       try {
-        const response = await axiosSecure.get(`/companies/${companyId}`);
+        const response = await axiosSecure.get(`/companies/${companyEmail}`);
         setCompany(response.data);
 
         // After fetching company data, check if it is a favorite
@@ -61,7 +64,7 @@ const CompanyDetails = () => {
     };
 
     fetchCompanyData();
-  }, [companyId, userEmail, companyEmail]);
+  }, [userEmail, companyEmail]);
 
   useEffect(() => {
     if (userEmail && companyEmail) {
@@ -70,9 +73,9 @@ const CompanyDetails = () => {
           const response = await axiosSecure.get(
             `/users/${userEmail}/favorite-company`
           );
-          const data = response.data;
+          const data = response?.data;
 
-          setIsFavorite(data.favoriteCompany.includes(companyEmail));
+          setIsFavorite(data?.favoriteCompany?.includes(companyEmail));
         } catch (error) {
           console.error("Error fetching favorite status:", error);
         }
@@ -86,13 +89,13 @@ const CompanyDetails = () => {
     try {
       const method = isFavorite ? "DELETE" : "POST";
       const url = isFavorite
-        ? `/users/${userEmail}/favorite-company/${company.email}`
+        ? `/users/${userEmail}/favorite-company/${company?.email}`
         : `/users/${userEmail}/favorite-company`;
 
       await axiosSecure({
         method,
         url,
-        data: isFavorite ? null : { companyEmail: company.email },
+        data: isFavorite ? null : { companyEmail: company?.email },
       });
       setIsFavorite(!isFavorite);
 
@@ -118,6 +121,7 @@ const CompanyDetails = () => {
               alt={t("company_banner_alt")}
             />
           </div>
+
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
               {company?.company_logo ? (
@@ -148,26 +152,29 @@ const CompanyDetails = () => {
 
         <div className="lg:hidden flex justify-end mt-48 md:mb-2 mb-2">
           <div className="flex space-x-4">
-            <button
-              className={`flex items-center justify-center 
+            {role === "Admin" && (
+              <button
+                className={`flex items-center justify-center 
                 ${isFavorite ? "bg-red-500" : "bg-green-500"} 
                 text-white hover:bg-blue-400 
                 rounded-lg p-2 mt-8 
                 transition duration-300 ease-in-out 
                 shadow-md hover:shadow-lg`}
-              type="button"
-              onClick={toggleFavorite}
-            >
-              {isFavorite ? (
-                <MdBookmark className="text-white md:text-2xl text-xl" />
-              ) : (
-                <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
-              )}
-              <span className="ml-2">
-                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-              </span>
-            </button>
-            <Link to={`/messages/${company.email}`}>
+                type="button"
+                onClick={toggleFavorite}
+              >
+                {isFavorite ? (
+                  <MdBookmark className="text-white md:text-2xl text-xl" />
+                ) : (
+                  <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
+                )}
+                <span className="ml-2">
+                  {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                </span>
+              </button>
+            )}
+
+            <Link to={`/messages/${company?.email}`}>
               <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-8">
                 {t("message")}
               </button>
@@ -199,26 +206,31 @@ const CompanyDetails = () => {
           <div className="md:ml-10 md:w-1/2">
             <div className="lg:flex lg:justify-end hidden">
               <div className="flex space-x-4 mt-20 mb-5">
-                <button
-                  className={`flex items-center justify-center 
+                {role === "Admin" && (
+                  <button
+                    className={`flex items-center justify-center 
                 ${isFavorite ? "bg-red-500" : "bg-green-500"} 
                 text-white hover:bg-blue-400 
                 rounded-lg p-2 mt-3 
                 transition duration-300 ease-in-out 
                 shadow-md hover:shadow-lg`}
-                  type="button"
-                  onClick={toggleFavorite}
-                >
-                  {isFavorite ? (
-                    <MdBookmark className="text-white md:text-2xl text-xl" />
-                  ) : (
-                    <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
-                  )}
-                  <span className="ml-2">
-                    {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-                  </span>
-                </button>
-                <Link to={`/messages/${company.email}`}>
+                    type="button"
+                    onClick={toggleFavorite}
+                  >
+                    {isFavorite ? (
+                      <MdBookmark className="text-white md:text-2xl text-xl" />
+                    ) : (
+                      <MdBookmarkBorder className="text-white md:text-2xl text-xl" />
+                    )}
+                    <span className="ml-2">
+                      {isFavorite
+                        ? "Remove from Favorites"
+                        : "Add to Favorites"}
+                    </span>
+                  </button>
+                )}
+
+                <Link to={`/messages/${company?.email}`}>
                   <button className="bg-green-500 text-white hover:bg-blue-600 rounded-lg px-12 py-2 mt-3">
                     {t("message")}
                   </button>
