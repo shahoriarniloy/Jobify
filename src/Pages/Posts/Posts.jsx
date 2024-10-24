@@ -11,6 +11,7 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import { Helmet } from "react-helmet";
 
 const PostCard = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
@@ -55,6 +56,9 @@ const PostCard = () => {
 
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
+       <Helmet>
+        <title>Jobify - Posts</title>
+      </Helmet>
       <div className="container mx-auto py-8">
         <PostStatus />
         <div className="flex justify-between mt-16 px-4">
