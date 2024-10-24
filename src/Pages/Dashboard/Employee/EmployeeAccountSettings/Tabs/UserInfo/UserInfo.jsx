@@ -25,10 +25,10 @@ const UserInfo = () => {
   const [socialLinks, setSocialLinks] = useState([]);
   const { currentUser } = useCurrentUser();
 
-  const { data, isLoading } = useQuery({
+  const { data ,isLoading} = useQuery({
     queryKey: ["load initial data for user"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/users/${currentUser?.email}`);
+      const { data={} } = await axiosSecure.get(`/users/${currentUser?.email}`);
       setSocialLinks(data?.userInfo[0]?.socialLinks || "");
       return data.userInfo[0];
     },
@@ -79,7 +79,7 @@ const UserInfo = () => {
       setLoading(false);
     }
   };
-  if (isLoading) return <DashboardLoader />;
+  // if (isLoading) return <DashboardLoader />;
   return (
     <div className="p-4 md:p-8">
       <form onSubmit={handleSubmit}>
@@ -136,7 +136,7 @@ const UserInfo = () => {
               <input
                 id="textInput"
                 type="text"
-                value={currentUser.displayName}
+                value={currentUser?.displayName}
                 readOnly
                 className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 disabled
