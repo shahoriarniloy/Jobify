@@ -24,17 +24,22 @@ const CompanyDetails = () => {
   const { t } = useTranslation(); // Initialize the translation function
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const { data: company, isLoading,refetch } = useQuery({
+  const { data: company, isLoading, refetch } = useQuery({
     queryKey: ["load company details"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/companies/${companyEmail}`);
-      const { data: response } = await axiosSecure.get(
-        `/users/${currentUser.email}/favorite-company`
-      );
-      setIsFavorite(response?.favoriteCompanies?.includes(companyEmail));
       return data;
     }
 
+  })
+  // load favorite 
+  const { data } = useQuery({
+    queryKey: ["load favorite"],
+    queryFn: async () => {
+      const { data: response } = await axiosSecure.get(`/users/${currentUser.email}/favorite-company`);
+      setIsFavorite(response?.favoriteCompanies?.includes(companyEmail))
+
+    }
   })
 
   const addToFavorite = async () => {
@@ -43,11 +48,11 @@ const CompanyDetails = () => {
       refetch();
       toast.success("Company added to favorites");
     }
-    else{
+    else {
 
-        toast.error("Something went wrong while updating favorites.");
+      toast.error("Something went wrong while updating favorites.");
     }
-    
+
   };
   if (isLoading) return <DashboardLoader />
   return (
@@ -113,8 +118,8 @@ const CompanyDetails = () => {
           </button>}
         </div>
 
-        <div className="flex flex-col md:flex-row  md:mb-48 gap-6 justify-between md:mt-20">
-          <div className="md:w-1/2 mt-12">
+        <div className="flex flex-col lg:flex-row  md:mb-16 gap-12 justify-between md:mt-20">
+          <div className="lg:w-1/2 mt-12">
             <h2 className="font-bold lg:mt-2 text-xl md:text-2xl lg:text-3xl">
               {t("description")}
             </h2>
@@ -126,7 +131,7 @@ const CompanyDetails = () => {
             <div dangerouslySetInnerHTML={{ __html: company?.company_vision }} />
           </div>
 
-          <div className="md:ml-10 md:w-1/2">
+          <div className="lg:w-1/2">
 
             <div className="lg:flex lg:justify-end items-center hidden gap-4 mb-4">
               <Link to={`/messages/${company?.email}`}>
@@ -136,7 +141,7 @@ const CompanyDetails = () => {
                 </button>
               </Link>
 
-              {role?.role == "Job Seeker"&&<button
+              {role?.role == "Job Seeker" && <button
                 disabled={isFavorite}
                 className={`btn 
                 ${isFavorite ? "bg-red-500" : "bg-blue-500"} 
@@ -229,7 +234,7 @@ const CompanyDetails = () => {
           </div>
         </div>
       </div>
-      <OpenPosition companyEmail={companyEmail}/>
+      <OpenPosition companyEmail={companyEmail} />
     </div>
   );
 };

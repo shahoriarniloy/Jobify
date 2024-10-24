@@ -480,7 +480,7 @@ const AdvancedSearch = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-8 mt-4">
+          <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-8 mt-4">
             {jobs?.map(({ _id, jobInfo, companyInfo }) => (
               <div
                 key={_id}
