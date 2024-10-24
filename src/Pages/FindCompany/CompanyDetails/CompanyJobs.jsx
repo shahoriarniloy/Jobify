@@ -11,6 +11,7 @@ import { FaArrowRight } from "react-icons/fa";
 import ApplyJobModal from "../../../components/Modal/ApplyJobModal";
 import UseCheckJobAlreadyApply from "../../../Hooks/UseCheckJobAlreadyApply";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const CompanyJobs = () => {
   const { t } = useTranslation();
@@ -55,6 +56,9 @@ const CompanyJobs = () => {
 
   return (
     <div className="container mx-auto ">
+       <Helmet>
+        <title>Jobify - Company Jobs</title>
+      </Helmet>
       {company && (
         <>
           <h1 className="font-bold text-3xl mb-2 pt-8 text-center animate-fadeIn">
