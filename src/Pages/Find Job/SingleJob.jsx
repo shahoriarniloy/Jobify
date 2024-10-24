@@ -11,6 +11,8 @@ import Bookmark from "./Bookmark";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useQuery } from '@tanstack/react-query';
+import { Helmet } from "react-helmet";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -106,7 +108,11 @@ const SingleJob = () => {
     return <DashboardLoader />;
   }
   return (
+
     <div className={theme === "dark" ? "text-white" : "bg-secondary"}>
+     <Helmet>
+        <title>Jobify - Single Job</title>
+      </Helmet>
       <div className="container mx-auto px-4 sm:px-8 md:px-16 py-8">
         <div className="flex flex-col md:flex-row justify-between gap-4">
           <div className="flex gap-4">

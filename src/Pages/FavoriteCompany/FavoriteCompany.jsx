@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ButtonLoader from "../../Shared/ButtonLoader";
 import Bookmark from "../Find Job/Bookmark";
+import { Helmet } from "react-helmet";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
@@ -27,6 +28,10 @@ const FavoriteCompany = () => {
 
   return (
     <div className="container mx-auto">
+       <Helmet>
+        <title>Jobify - Favorite Company</title>
+      </Helmet>
+     
       <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-3 gap-8 mt-4">
         {jobs?.map(({ _id, jobInfo, companyInfo }) => (
           <div

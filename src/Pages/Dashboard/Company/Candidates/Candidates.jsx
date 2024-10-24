@@ -3,6 +3,7 @@ import CandidateCard from "./CandidateCard";
 import CandidatesFilter from "./CandidatesFilter";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const Candidates = () => {
   const { t } = useTranslation();
@@ -24,6 +25,9 @@ const Candidates = () => {
 
   return (
     <div className="flex lg:flex-row flex-col gap-2 w-full justify-between">
+      <Helmet>
+        <title>Jobify - Candidates</title>
+      </Helmet>
       <h1>{t("title_candidates")}</h1>
       <div>
         {candidates.length === 0 ? (

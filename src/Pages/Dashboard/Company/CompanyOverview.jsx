@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next"; // Import useTranslation
 import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 
 const CompanyOverview = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
@@ -87,6 +88,10 @@ const CompanyOverview = () => {
 
   return (
     <>
+     <Helmet>
+        <title>Jobify - Company Overview</title>
+      </Helmet>
+    
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">
           {t("hello")} {company?.company_name || t("company")}

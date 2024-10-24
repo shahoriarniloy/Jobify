@@ -4,6 +4,7 @@ import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { Link, useParams } from "react-router-dom";
 import { ZegoSuperBoardManager } from "zego-superboard-web";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 
 const Room = () => {
   const {currentUser} = useCurrentUser();
@@ -41,6 +42,9 @@ const Room = () => {
 
   return (
     <div className="h-screen zego-room-background">
+       <Helmet>
+        <title>Jobify - Rooms</title>
+      </Helmet>
       <div className="h-full" ref={startCall}></div>
     </div>
   );

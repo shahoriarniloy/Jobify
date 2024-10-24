@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 
 const predefinedSkills = [
   // Frontend Development
@@ -690,6 +691,9 @@ const ResumeForm = () => {
 
   return (
     <div className="resume-form mb-8 text-sm ">
+       <Helmet>
+        <title>Jobify - Resume Form</title>
+      </Helmet>
       <div className="flex flex-row justify-between">
         <div className="">
           <h2 className="text-lg mb-8 text-center font-bold">
