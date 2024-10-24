@@ -14,6 +14,7 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import OpenPosition from "../../components/OpenPosition/OpenPosition";
+import { Helmet } from "react-helmet";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
@@ -40,8 +41,13 @@ const CompanyDetails = () => {
   }, [companyId]);
 
   return (
+    
     <div className="relative ">
       {/* Company Banner and Info */}
+      <Helmet>
+        <title>Jobify - Company Details</title>
+        <meta name="description" content="Explore jobs, top companies, popular categories, and how Jobify works." />
+      </Helmet>
       <div className="relative">
         <div>
           <img

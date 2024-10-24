@@ -17,6 +17,8 @@ import { useReactToPrint } from "react-to-print";
 import { PiBag } from "react-icons/pi";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
+import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 import { useQuery } from "@tanstack/react-query";
 
 const CandidateResume = () => {
@@ -37,6 +39,20 @@ const CandidateResume = () => {
   if (isLoading) return <DashboardLoader />;
   return (
     <div>
+       <Helmet>
+        <title>Jobify - Resume</title>
+      </Helmet>
+      {resumeData && (
+        <div className="flex justify-end">
+          <button
+            onClick={reactToPrintFn}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+          >
+            <FaDownload className="inline mr-2" />
+            {t("download_resume")}
+          </button>
+        </div>
+      )}
       <div
         className="relative resume-container  p-16 shadow-lg bg-white rounded-lg   w-full mx-auto border-2"
         ref={contentRef}

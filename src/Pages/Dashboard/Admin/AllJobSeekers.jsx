@@ -9,9 +9,11 @@ import {
 } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import { Helmet } from "react-helmet";
 import Swal from 'sweetalert2'
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../../Shared/DashboardLoader";
+
 
 const AllJobSeekers = () => {
   const { t } = useTranslation(); // Destructure useTranslation
@@ -94,6 +96,9 @@ const AllJobSeekers = () => {
   if (isLoading) return <DashboardLoader />
   return (
     <div className="job-seekers-container">
+       <Helmet>
+        <title>Jobify - All Job Seekers</title>
+      </Helmet>
       <div className="flex items-center justify-center gap-4 mt-4">
         <input
           type="text"

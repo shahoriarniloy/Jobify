@@ -12,6 +12,7 @@ import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
 import { useQuery } from "@tanstack/react-query";
 
@@ -131,6 +132,9 @@ const AppliedCandidates = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>Jobify - Job Candidates</title>
+      </Helmet>
       <div className="mb-4 flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">{t("applied_candidates")}</h1>

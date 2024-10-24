@@ -5,6 +5,7 @@ import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next"; // Importing useTranslation
 import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 
 const EmployeeHome = () => {
   const { t } = useTranslation(); // Destructuring t from useTranslation
@@ -33,6 +34,9 @@ const EmployeeHome = () => {
 
   return (
     <>
+     <Helmet>
+        <title>Jobify - Employee-home</title>
+      </Helmet>
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">
           {t("hello_user", {

@@ -7,6 +7,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -25,6 +26,9 @@ const DashboardLayout = () => {
 
   return (
     <div className="relative">
+       <Helmet>
+        <title>Jobify - Dashboard</title>
+      </Helmet>
       <div className="lg:hidden p-4 fixed top-0 left-0 z-50">
         <button onClick={toggleSidebar} className="text-2xl">
           {isSidebarOpen ? <MdClose /> : <MdMenu />}

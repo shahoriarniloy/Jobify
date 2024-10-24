@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaEdit, FaTrashAlt } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const AllCompanies = () => {
   const { t } = useTranslation();
@@ -78,6 +79,9 @@ const AllCompanies = () => {
 
   return (
     <div className="companies-container">
+       <Helmet>
+        <title>Jobify - All Companies</title>
+      </Helmet>
       {error && <div className="error-message">{error}</div>}
       <div className="flex items-center justify-center gap-4 mt-4">
         <input

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"; // Import useTranslation
 import useCurrentUser from "../../../Hooks/useCurrentUser";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../../Shared/DashboardLoader";
+import { Helmet } from "react-helmet";
 
 const PostJob = () => {
   const { t } = useTranslation(); // Initialize useTranslation
@@ -111,6 +112,9 @@ const PostJob = () => {
 
   return (
     <div className="container pb-6 mx-auto  w-full">
+       <Helmet>
+        <title>Jobify - Post Job</title>
+      </Helmet>
       <div>
         <h2 className="font-semibold text-3xl text-black mb-4">
           {t("post_job")}

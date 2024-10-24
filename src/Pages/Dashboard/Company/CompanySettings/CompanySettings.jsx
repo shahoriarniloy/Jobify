@@ -9,6 +9,7 @@ import FoundingInfo from "./Tabs/FoundingInfo/FoundingInfo";
 import SocialMediaProfile from "./Tabs/SocialMediaProfile/SocialMediaProfile";
 import AccountSetting from "./Tabs/AccountSetting/AccountSetting";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import { Helmet } from "react-helmet";
 
 const CompanySettings = () => {
   const { t } = useTranslation(); // Destructure useTranslation
@@ -16,6 +17,9 @@ const CompanySettings = () => {
   
   return (
     <div>
+       <Helmet>
+        <title>Jobify - Company Settings</title>
+      </Helmet>
       <h2 className="font-bold">{t("settings")}</h2> {/* Wrapped string */}
       <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
         <TabList>
