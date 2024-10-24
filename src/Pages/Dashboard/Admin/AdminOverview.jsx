@@ -8,6 +8,7 @@ import {
   FaUserPlus,
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const AdminOverview = () => {
   const { t } = useTranslation();
@@ -59,6 +60,9 @@ const AdminOverview = () => {
 
   return (
     <div className="admin-overview-container">
+       <Helmet>
+        <title>Jobify - Admin Overview</title>
+      </Helmet>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="stat-card p-4 bg-blue-100 text-blue-900 rounded-lg shadow">
           <div className="flex items-center justify-between">
