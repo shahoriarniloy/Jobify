@@ -6,15 +6,15 @@ const Career = () => {
   const [user, setUser] = useState(null);
   const [roadmap, setRoadmap] = useState([]);
   const [jobCategories, setJobCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
   const currentUser = useSelector((state) => state?.user?.currentUser);
 
   useEffect(() => {
     if (currentUser?.email) {
       const fetchUserData = async () => {
         try {
-          const response = await axiosSecure.get(
-            `/resume/${currentUser.email}`
-          );
+          setLoading(true); // Set loading before API call
+          const response = await axiosSecure.get(`/resume/${currentUser.email}`);
           setUser(response.data);
 
           const careerRoadmap = generateCareerRoadmap(
@@ -22,8 +22,10 @@ const Career = () => {
             jobCategories
           );
           setRoadmap(careerRoadmap);
+          setLoading(false); // End loading after data is fetched
         } catch (error) {
           console.error("Error fetching user data:", error);
+          setLoading(false); // Ensure loading ends even on error
         }
       };
 
@@ -77,46 +79,72 @@ const Career = () => {
     return suitableJobCategories;
   };
 
-  if (!user) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-xl font-semibold text-gray-600">Loading...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="">
+    <div className="p-6">
+      <h1 className="text-3xl text-center font-bold mb-6">
+        Career Roadmap for {user.name}
+      </h1>
+      <div className="text-center mb-6">
 
-      <h1 className="text-3xl text-center">Career Roadmap for {user.name}</h1>
-
-      <div>
         <p className="text-xl text-blue-500 mb-2">{user.name},</p>
-        <p className="text-lg text-gray-800 mb-2">
-          Based on your skills, we have determined the most suitable career
-          fields for you.
+        <p className="text-lg text-gray-700 mb-4">
+          Based on your skills, here are the most suitable career fields for you.
         </p>
       </div>
 
       {roadmap.length === 0 ? (
-        <p>No suitable job categories found.</p>
+        <div className="text-center text-lg text-gray-700">
+          <p>No suitable job categories found.</p>
+        </div>
       ) : (
-        roadmap.map((category) => (
-          <div
-            className="bg-white shadow-md w-1/2 mb-8"
-            key={category.jobTitle}
-          >
-            <h2>Job Title: {category.jobTitle}</h2>
-            <p>Required Skills: {category.requiredSkills.join(", ")}</p>
-            <p>
-              Additional Skills to Learn: {category.additionalSkills.join(", ")}
-            </p>
-            <p>Time to Learn: {category.timeToLearn} months</p>
-          </div>
-        ))
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {roadmap.map((category) => (
+            <div
+              className="bg-white shadow-lg rounded-lg p-6"
+              key={category.jobTitle}
+            >
+              <h2 className="text-xl font-semibold mb-2">
+                Job Title: {category.jobTitle}
+              </h2>
+              <p className="mb-2">
+                <span className="font-semibold">Required Skills:</span>{" "}
+                {category.requiredSkills.join(", ")}
+              </p>
+              <p className="mb-2">
+                <span className="font-semibold">Additional Skills to Learn:</span>{" "}
+                {category.additionalSkills.length > 0
+                  ? category.additionalSkills.join(", ")
+                  : "None"}
+              </p>
+              <p className="mb-2">
+                <span className="font-semibold">Time to Learn:</span>{" "}
+                {category.timeToLearn} months
+              </p>
+            </div>
+          ))}
+        </div>
       )}
-      <p className="text-lg text-gray-800 mb-2">
-        You can explore these fields and prepare yourself for the best possible
-        outcome.
-      </p>
-      <p className="text-lg text-gray-800">
-        We have also provided additional skills that will help you reach your
-        goal.
-      </p>
+
+      <div className="text-center mt-6">
+        <p className="text-lg text-gray-700 mb-2">
+          Explore these fields and prepare for the best possible career outcome.
+        </p>
+        <p className="text-lg text-gray-700">
+          We've also provided additional skills to help you reach your goals.
+        </p>
+      </div>
     </div>
   );
 };
