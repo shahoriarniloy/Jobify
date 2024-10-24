@@ -15,9 +15,11 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
+import useUserRole from "../../Hooks/useUserRole";
 
 const AdvancedSearch = () => {
   const theme = useSelector((state) => state.theme.theme);
+  const { role } = useUserRole();
 
   const { t } = useTranslation();
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -523,9 +525,11 @@ const AdvancedSearch = () => {
                       {jobInfo?.location}
                     </p>
 
-                    <div className="absolute -top-4 -right-6">
-                      <Bookmark jobId={_id} />
-                    </div>
+                    {role === "Job Seeker" && (
+                      <div className="absolute -top-4 -right-6">
+                        <Bookmark jobId={_id} />
+                      </div>
+                    )}
                   </div>
                   <div className="pt-5 text-base font-semibold leading-7">
                     <Link

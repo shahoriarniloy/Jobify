@@ -16,7 +16,6 @@ import { toggleTheme } from "../Redux/themeSlice";
 import { useTranslation } from "react-i18next";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { switchLanguage } from "../Redux/languageSlice";
-import Swal from "sweetalert2";
 import useCurrentUser from "../Hooks/useCurrentUser";
 import { toast } from "react-toastify";
 
@@ -44,18 +43,14 @@ const Navbar2 = () => {
 
     socket.on("jobPosted", (notification) => {
       setJobNotifications((prev) => [...prev, notification]);
-      Swal.fire({
-        title: "New Job Posted!",
-        text: `New job '${notification.jobTitle}' at ${notification.company}`,
-        icon: "info",
-        confirmButtonText: "Ok",
-      });
     });
 
     return () => {
       socket.disconnect();
     };
   }, []);
+
+  console.log(jobNotifications);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
