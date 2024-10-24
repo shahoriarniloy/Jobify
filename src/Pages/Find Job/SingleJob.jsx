@@ -15,6 +15,7 @@ import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from "react-helmet";
 
 const SingleJob = () => {
   const { currentUser } = useCurrentUser();
@@ -126,6 +127,9 @@ const SingleJob = () => {
 
   return (
     <div className="container mx-auto mt-0 md:mt-16 mb-9 px-4 sm:px-8 md:px-16 ">
+      <Helmet>
+        <title>Jobify - Single Job</title>
+      </Helmet>
       <div className="flex flex-col md:flex-row justify-between gap-4">
         <div className="flex gap-4">
           <div>

@@ -97,7 +97,7 @@ const FindCompany = () => {
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
       <Helmet>
-        <title>Jobify - Find Company</title>
+        <title>Jobify - Companies</title>
       </Helmet>
       <div className="container mx-auto">
         <div className="flex justify-between items-center pt-12">
