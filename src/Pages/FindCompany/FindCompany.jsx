@@ -16,6 +16,9 @@ import { Helmet } from "react-helmet";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
 
+
+
+
 const FindCompany = () => {
   const { t } = useTranslation(); // Destructure useTranslation
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -78,7 +81,25 @@ const FindCompany = () => {
         <title>Jobify - Companies</title>
       </Helmet>
       <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center pt-12">
+        <div className="flex justify-between items-center pt-12">
+          <div className="flex items-center lg:gap-4 md:gap-4 gap-2 mt-4 w-1/3">
+            <label
+              htmlFor="itemsPerPage"
+              className={ theme === "dark" ? "text-sm font-medium text-gray-300 " : "text-sm font-medium text-blue-900 "}
+            >
+              {t("number_of_companies_per_page")}
+            </label>
+            <select
+              id="itemsPerPage"
+              value={itemsPerPage}
+              onChange={handleItemsPerPage}
+              className={ theme === "dark" ? "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-slate-900 text-white border border-slate-500 focus:border-blue-500 focus:ring focus:ring-blue-200" : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"}
+            >
+              <option value="5">{t("option_5")}</option>
+              <option value="10">{t("option_10")}</option>
+              <option value="15">{t("option_15")}</option>
+            </select>
+          </div>
 
 
           <div className=" md:w-1/2">
@@ -93,8 +114,10 @@ const FindCompany = () => {
                   placeholder="Company Name"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none focus:ring-2
-        focus:ring-blue-500 transition duration-300 ease-in-out"
+                  className={theme === "dark"
+                    ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-slate-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                    : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"}
+                  
                 />
               </div>
 
@@ -203,7 +226,8 @@ const FindCompany = () => {
               (company) => (
                 <div
                   key={company.email}
-                  className="relative w-full max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "
+                  className={ theme === "dark" ? "relative max-w-sm rounded-md    shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-slate-700 bg-opacity-50 " : "relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "}
+
                 >
                   <div className="flex flex-col justify-between p-6 space-y-8 ">
                     <div className="flex items-center gap-3">
