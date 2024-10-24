@@ -651,6 +651,7 @@
   "companies_label": "কোম্পনিসমূহ",
   "candidates_label": "প্রার্থীরা",
   "successful_label": "সফল",
+  "job_search_placeholder": "চাকরির শিরোনাম, কোম্পানির নাম...",
 
   "failed_to_fetch_data": "ডেটা আনতে ব্যর্থ",
   "failed_to_load_post": "পোস্ট লোড করতে ব্যর্থ।",

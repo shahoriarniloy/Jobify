@@ -657,6 +657,7 @@
   "companies_label": "Empresas",
   "candidates_label": "Candidatos",
   "successful_label": "Exitoso",
+  "job_search_placeholder": "Título del trabajo, nombre de la empresa...",
 
   "failed_to_fetch_data": "Error al obtener datos",
   "failed_to_load_post": "Error al cargar la publicación.",

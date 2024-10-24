@@ -657,6 +657,7 @@
   "companies_label": "Companies",
   "candidates_label": "Candidates",
   "successful_label": "Successful",
+  "job_search_placeholder": "Job title, Company Name...",
 
   "failed_to_fetch_data": "Failed to fetch data",
   "failed_to_load_post": "Failed to load post.",
