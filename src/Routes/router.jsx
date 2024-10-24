@@ -59,7 +59,6 @@ import FavoriteCompany from "../Pages/FavoriteCompany/FavoriteCompany";
 
 import Career from "../Pages/Dashboard/Employee/ResumeBuilder/Career";
 
-
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -78,11 +77,6 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
-      },
-
-      {
-        path: "/favorite-company",
-        element: <FavoriteCompany />,
       },
 
       {
@@ -244,6 +238,10 @@ export const router = createBrowserRouter([
             element: <BookmarkedJobs />,
           },
           {
+            path: "favorite-company",
+            element: <FavoriteCompany />,
+          },
+          {
             path: "resume-builder",
             element: <ResumeForm></ResumeForm>,
           },
@@ -259,8 +257,6 @@ export const router = createBrowserRouter([
             path: "career",
             element: <Career></Career>,
           },
-
-
         ],
       },
     ],

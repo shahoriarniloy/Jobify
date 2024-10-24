@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { FaBriefcase, FaRegHeart, FaEdit } from "react-icons/fa";
+import {
+  FaBriefcase,
+  FaRegHeart,
+  FaEdit,
+  FaBuilding,
+  FaFileAlt,
+} from "react-icons/fa";
 import { MdHome, MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import useUserRole from "../../../Hooks/useUserRole";
@@ -70,6 +76,17 @@ const EmployeeDashboard = () => {
                   <FaRegHeart /> {t("favorite_jobs")}
                 </NavLink>
                 <NavLink
+                  to="/jobSeeker/favorite-company"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <FaBuilding /> {t("favorite_company")} {/* Updated icon */}
+                </NavLink>
+
+                <NavLink
                   to="/jobSeeker/resume-builder"
                   className={({ isActive }) =>
                     isActive
@@ -77,7 +94,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaEdit /> {t("edit_resume")}
+                  <FaFileAlt /> {t("edit_resume")} {/* Updated icon */}
                 </NavLink>
                 <NavLink
                   to="/jobSeeker/career"
