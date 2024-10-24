@@ -13,16 +13,17 @@ const FavoriteCompany = () => {
   const { t } = useTranslation();
   const { currentUser } = useCurrentUser();
 
-  const {data:jobs,isLoading} = useQuery({
-    queryKey:["lod favorite job"],
-    queryFn:async()=>{
-      const {data} = await axiosSecure.get(`/users/${currentUser?.email}/latest-jobs`);
+  const { data: jobs, isLoading } = useQuery({
+    queryKey: ["lod favorite job"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/users/${currentUser?.email}/latest-jobs`
+      );
       return data.jobs;
-    }
-  })
+    },
+  });
 
-  if (isLoading) return <DashboardLoader/>;
-  
+  if (isLoading) return <DashboardLoader />;
 
   return (
     <div className="container mx-auto">

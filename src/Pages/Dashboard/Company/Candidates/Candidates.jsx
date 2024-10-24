@@ -13,9 +13,9 @@ const Candidates = () => {
       try {
         const response = await axiosSecure.get(`/job-seekers`);
         setCandidates(response.data);
-        console.log(response);
+        // console.log(response);
       } catch (err) {
-        console.error("Error fetching candidates:", err);
+        // console.error("Error fetching candidates:", err);
       }
     };
 

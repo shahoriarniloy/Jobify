@@ -11,7 +11,7 @@ import Bookmark from "./Bookmark";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 import { FaUserGraduate } from "react-icons/fa";
 
 const SingleJob = () => {
@@ -22,8 +22,6 @@ const SingleJob = () => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { id } = useParams();
 
-
-
   const { data: job, isLoading } = useQuery({
     queryKey: ["fetch company"],
     queryFn: async () => {
@@ -31,8 +29,8 @@ const SingleJob = () => {
       checkIfApplied(data?._id, currentUser?.email);
       checkIfBookmarked(data?._id, currentUser?.email);
       return data;
-    }
-  })
+    },
+  });
 
   const checkIfApplied = async (jobId, userEmail) => {
     try {
@@ -62,8 +60,7 @@ const SingleJob = () => {
     });
 
     setIsBookmarked(response.data.bookmarked);
-  }
-
+  };
 
   const toggleBookmark = async () => {
     try {
@@ -83,7 +80,7 @@ const SingleJob = () => {
         setIsBookmarked(true);
       }
     } catch (error) {
-      console.error("Error toggling bookmark:", error);
+      // console.error("Error toggling bookmark:", error);
     }
   };
 
@@ -116,7 +113,9 @@ const SingleJob = () => {
             </div>
             <div className="flex flex-col my-auto">
               <div className="flex items-center">
-                <h2 className="font-bold text-lg md:text-xl">{job?.companyInfo?.company_name}</h2>
+                <h2 className="font-bold text-lg md:text-xl">
+                  {job?.companyInfo?.company_name}
+                </h2>
                 {/* <p className="text-xs text-red-400 bg-red-100 font-semibold my-auto py-1 px-3 rounded-full ml-2">
                 {job?.jobInfo?.vacancy}
               </p> */}
@@ -124,7 +123,6 @@ const SingleJob = () => {
                   {job?.jobInfo?.jobCategory}
                 </p>
               </div>
-
             </div>
           </div>
 
@@ -137,10 +135,11 @@ const SingleJob = () => {
               <div className="items-center">
                 <button
                   onClick={openModal}
-                  className={`flex items-center gap-3 px-4 py-2 rounded-md ${hasApplied || new Date() > new Date(job?.jobInfo?.deadline)
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-700"
-                    } text-white`}
+                  className={`flex items-center gap-3 px-4 py-2 rounded-md ${
+                    hasApplied || new Date() > new Date(job?.jobInfo?.deadline)
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-700"
+                  } text-white`}
                   disabled={hasApplied || new Date() > new Date(job.deadline)}
                 >
                   {hasApplied ? t("already_applied") : t("apply_now")}{" "}
@@ -166,21 +165,29 @@ const SingleJob = () => {
         <section className="flex flex-col lg:flex-row mt-5 gap-4">
           <section className="lg:w-1/2 mb-5 lg:mb-0">
             <div>
-              <h1 className="text-3xl italic font-semibold tracking-wide flex gap-2">{job?.jobInfo?.title}</h1>
+              <h1 className="text-3xl italic font-semibold tracking-wide flex gap-2">
+                {job?.jobInfo?.title}
+              </h1>
               <div className="my-4">
-                <h3 className="font-bold text-gray-900 mb-4">{t("job_description")}</h3>
-                <p className="text-gray-700 text-justify">{job?.jobInfo?.jobDescription}</p>
+                <h3 className="font-bold text-gray-900 mb-4">
+                  {t("job_description")}
+                </h3>
+                <p className="text-gray-700 text-justify">
+                  {job?.jobInfo?.jobDescription}
+                </p>
               </div>
             </div>
 
             <div className="my-4">
               <h3 className="font-bold mb-4">Responsibilities</h3>
               <ul className="list-disc list-inside pl-5 space-y-2">
-                {job?.jobInfo?.responsibilities?.split("\n").map((item, index) => (
-                  <li key={index} className="text-gray-700 text-justify">
-                    {t(item)}
-                  </li>
-                ))}
+                {job?.jobInfo?.responsibilities
+                  ?.split("\n")
+                  .map((item, index) => (
+                    <li key={index} className="text-gray-700 text-justify">
+                      {t(item)}
+                    </li>
+                  ))}
               </ul>
             </div>
           </section>
@@ -196,7 +203,9 @@ const SingleJob = () => {
                     <FiCalendar className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Posted Date</p>
-                      <p className="text-sm text-gray-700">{job?.jobInfo?.posted}</p>
+                      <p className="text-sm text-gray-700">
+                        {job?.jobInfo?.posted}
+                      </p>
                     </div>
                   </div>
 
@@ -204,15 +213,21 @@ const SingleJob = () => {
                     <FiCalendar className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Expire On</p>
-                      <p className="text-sm text-gray-700">{job?.jobInfo?.deadline}</p>
+                      <p className="text-sm text-gray-700">
+                        {job?.jobInfo?.deadline}
+                      </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <FaUserGraduate className="text-2xl text-blue-500" />
                     <div>
-                      <p className="font-semibold mt-2">Educational Qualification</p>
-                      <p className="text-sm text-gray-700">{job?.jobInfo?.education}</p>
+                      <p className="font-semibold mt-2">
+                        Educational Qualification
+                      </p>
+                      <p className="text-sm text-gray-700">
+                        {job?.jobInfo?.education}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -222,7 +237,9 @@ const SingleJob = () => {
                     <PiWallet className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Starting Salary</p>
-                      <p className="text-sm text-gray-700">{job?.jobInfo?.salaryRange}</p>
+                      <p className="text-sm text-gray-700">
+                        {job?.jobInfo?.salaryRange}
+                      </p>
                     </div>
                   </div>
 
@@ -230,19 +247,21 @@ const SingleJob = () => {
                     <IoLocationOutline className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Job Location</p>
-                      <p className="text-sm text-gray-700">{job?.jobInfo?.location}</p>
+                      <p className="text-sm text-gray-700">
+                        {job?.jobInfo?.location}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <PiBriefcase className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Job Type</p>
-                      <p className="text-sm text-gray-700">{job?.jobInfo?.jobType}</p>
+                      <p className="text-sm text-gray-700">
+                        {job?.jobInfo?.jobType}
+                      </p>
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </section>
@@ -251,7 +270,7 @@ const SingleJob = () => {
         <RelatedJobs jobTitle={job?.jobInfo?.title} />
       </div>
     </div>
-  )
+  );
 };
 
 export default SingleJob;

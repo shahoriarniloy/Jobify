@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 
-import { MdBookmark, MdBookmarkBorder, MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import {
+  MdBookmark,
+  MdBookmarkBorder,
+  MdFavorite,
+  MdFavoriteBorder,
+} from "react-icons/md";
 import { FiCalendar, FiGlobe } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
 import { PiBriefcase, PiWallet } from "react-icons/pi";
@@ -24,37 +29,41 @@ const CompanyDetails = () => {
   const { t } = useTranslation(); // Initialize the translation function
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const { data: company, isLoading, refetch } = useQuery({
+  const {
+    data: company,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["load company details"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/companies/${companyEmail}`);
       return data;
-    }
-
-  })
-  // load favorite 
+    },
+  });
+  // load favorite
   const { data } = useQuery({
     queryKey: ["load favorite"],
     queryFn: async () => {
-      const { data: response } = await axiosSecure.get(`/users/${currentUser.email}/favorite-company`);
-      setIsFavorite(response?.favoriteCompanies?.includes(companyEmail))
-
-    }
-  })
+      const { data: response } = await axiosSecure.get(
+        `/users/${currentUser.email}/favorite-company`
+      );
+      setIsFavorite(response?.favoriteCompanies?.includes(companyEmail));
+    },
+  });
 
   const addToFavorite = async () => {
-    const res = await axiosSecure.post(`/users/${currentUser?.email}/favorite-company`, { companyEmail: company?.email })
+    const res = await axiosSecure.post(
+      `/users/${currentUser?.email}/favorite-company`,
+      { companyEmail: company?.email }
+    );
     if (res.status == 200) {
       refetch();
       toast.success("Company added to favorites");
-    }
-    else {
-
+    } else {
       toast.error("Something went wrong while updating favorites.");
     }
-
   };
-  if (isLoading) return <DashboardLoader />
+  if (isLoading) return <DashboardLoader />;
   return (
     <div className="bg-secondary pb-20">
       <div className="relative container mx-auto">
@@ -64,7 +73,8 @@ const CompanyDetails = () => {
               className="w-full h-56 object-cover md:h-72 lg:h-96"
               src={company?.company_banner}
               alt={t("company_banner_alt")}
-            />         </div>
+            />{" "}
+          </div>
           <div className="container absolute left-1/2 transform -translate-x-1/2 md:-bottom-16 bg-white rounded-lg shadow-lg p-4 md:p-6 lg:p-8 w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex flex-col md:flex-row items-center">
               {/* Logo */}
@@ -79,19 +89,18 @@ const CompanyDetails = () => {
                 </h3>
                 <p className="text-gray-500">{company?.industry}</p>
               </div>
-              <div className="mt-4 md:mt-0 md:ml-auto">
+              {/* <div className="mt-4 md:mt-0 md:ml-auto">
                 <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                   <Link to={`/company/${company?.email}/jobs`}>
                     {t("view_open_position")}
                   </Link>
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
 
         <div className="lg:hidden flex justify-center mt-56 md:mt-28  mb-2">
-
           <Link to={`/messages/${company?.email}`}>
             <button className="bg-blue-500 text-white hover:bg-blue-400 btn">
               <LuMessageCircle />
@@ -99,23 +108,25 @@ const CompanyDetails = () => {
             </button>
           </Link>
 
-          {role?.role == "Job Seeker" && <button
-            disabled={isFavorite}
-            className={`btn 
+          {role?.role == "Job Seeker" && (
+            <button
+              disabled={isFavorite}
+              className={`btn 
                 ${isFavorite ? "bg-red-500" : "bg-blue-500"} 
                 text-white hover:bg-blue-400 `}
-            type="button"
-            onClick={addToFavorite}
-          >
-            {isFavorite ? (
-              <MdBookmark className="text-xl" />
-            ) : (
-              <MdBookmarkBorder className="text-xl" />
-            )}
-            <span className="">
-              {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-            </span>
-          </button>}
+              type="button"
+              onClick={addToFavorite}
+            >
+              {isFavorite ? (
+                <MdBookmark className="text-xl" />
+              ) : (
+                <MdBookmarkBorder className="text-xl" />
+              )}
+              <span className="">
+                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+              </span>
+            </button>
+          )}
         </div>
 
         <div className="flex flex-col lg:flex-row  md:mb-16 gap-12 justify-between md:mt-20">
@@ -123,16 +134,19 @@ const CompanyDetails = () => {
             <h2 className="font-bold lg:mt-2 text-xl md:text-2xl lg:text-3xl">
               {t("description")}
             </h2>
-            <p className="text-gray-500 my-4 text-justify">{company?.company_description}</p>
+            <p className="text-gray-500 my-4 text-justify">
+              {company?.company_description}
+            </p>
 
             <h2 className="font-bold my-5 text-xl md:text-2xl lg:text-3xl">
               Company Vision
             </h2>
-            <div dangerouslySetInnerHTML={{ __html: company?.company_vision }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: company?.company_vision }}
+            />
           </div>
 
           <div className="lg:w-1/2">
-
             <div className="lg:flex lg:justify-end items-center hidden gap-4 mb-4">
               <Link to={`/messages/${company?.email}`}>
                 <button className="bg-blue-500 text-white hover:bg-blue-400 btn">
@@ -141,23 +155,25 @@ const CompanyDetails = () => {
                 </button>
               </Link>
 
-              {role?.role == "Job Seeker" && <button
-                disabled={isFavorite}
-                className={`btn 
+              {role?.role == "Job Seeker" && (
+                <button
+                  disabled={isFavorite}
+                  className={`btn 
                 ${isFavorite ? "bg-red-500" : "bg-blue-500"} 
                 text-white hover:bg-blue-400 `}
-                type="button"
-                onClick={addToFavorite}
-              >
-                {isFavorite ? (
-                  <MdBookmark className="text-xl" />
-                ) : (
-                  <MdBookmarkBorder className="text-xl" />
-                )}
-                <span className="">
-                  {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-                </span>
-              </button>}
+                  type="button"
+                  onClick={addToFavorite}
+                >
+                  {isFavorite ? (
+                    <MdBookmark className="text-xl" />
+                  ) : (
+                    <MdBookmarkBorder className="text-xl" />
+                  )}
+                  <span className="">
+                    {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                  </span>
+                </button>
+              )}
             </div>
             <div className="p-4 md:p-8 border-2 rounded-lg grid grid-cols-2 gap-5 md:gap-10">
               <div>
@@ -230,7 +246,6 @@ const CompanyDetails = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

@@ -28,7 +28,7 @@ const JobTable = () => {
       return response.data;
     },
   });
-  console.log(jobs)
+  // console.log(jobs);
 
   if (isLoading) {
     return <DashboardLoader />;
@@ -46,7 +46,7 @@ const JobTable = () => {
           </tr>
         </thead>
         <tbody>
-          {jobs?.map(({_id,jobInfo,companyInfo,applicationsCount}) => (
+          {jobs?.map(({ _id, jobInfo, companyInfo, applicationsCount }) => (
             <tr key={_id} className="border-b">
               <td className="px-4 py-2">{jobInfo.title}</td>
               <td className="px-4 py-2 text-green-500">
@@ -57,7 +57,7 @@ const JobTable = () => {
               <td className="px-4 py-2">
                 <Link
                   to={`/dashboard/job-candidates`}
-                  state={{jobId:_id,jobTitle: jobInfo.title}}
+                  state={{ jobId: _id, jobTitle: jobInfo.title }}
                   className="btn bg-blue-100 px-3 py-1 text-blue-700 rounded flex items-center"
                 >
                   <ClipboardDocumentListIcon className="h-5 w-5 mr-2" />

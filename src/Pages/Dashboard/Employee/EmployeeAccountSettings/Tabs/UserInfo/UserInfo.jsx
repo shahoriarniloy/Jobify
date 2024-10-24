@@ -25,10 +25,12 @@ const UserInfo = () => {
   const [socialLinks, setSocialLinks] = useState([]);
   const { currentUser } = useCurrentUser();
 
-  const { data ,isLoading} = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["load initial data for user"],
     queryFn: async () => {
-      const { data={} } = await axiosSecure.get(`/users/${currentUser?.email}`);
+      const { data = {} } = await axiosSecure.get(
+        `/users/${currentUser?.email}`
+      );
       setSocialLinks(data?.userInfo[0]?.socialLinks || "");
       return data.userInfo[0];
     },
@@ -83,31 +85,64 @@ const UserInfo = () => {
   return (
     <div className="p-4 md:p-8">
       <form onSubmit={handleSubmit}>
-        <section className="flex flex-col lg:flex-row lg:gap-8 gap-6 w-full items-start justify-between">
-          <div className="w-full lg:flex-1">
-            <DragAndDropInput
-              type="logo"
-              label={t("upload_your_profile_photo")}
-              file={logoFile}
-              onFileUpload={handleLogoUpload}
-            />
-          </div>
-
-          <div className="w-full lg:flex-1">
-            <div className="flex flex-col md:my-4 w-full">
-              <label htmlFor="Phone" className="text-lg font-medium mb-2">
-                {t("phone")}
-              </label>
-              <PhoneInput
-                country={"bd"}
-                value={data?.phone}
-                required
-                onChange={(phone) => setPhone(phone)}
-                inputClass="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border rounded-md h-10 pl-12 my-2 w-full"
+        <div className=" flex  lg:flex-row flex-col justify-around">
+          <section className="flex flex-col justify-start gap-4 ">
+            <div className="w-full lg:flex-1">
+              <div className="flex flex-col">
+                <label htmlFor="textInput" className="text-lg font-medium mb-2">
+                  {t("your_name")}
+                </label>
+                <input
+                  id="textInput"
+                  type="text"
+                  value={data?.displayName || data?.name}
+                  readOnly
+                  className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="w-full lg:flex-1">
+              <DragAndDropInput
+                type="logo"
+                label={t("upload_your_profile_photo")}
+                file={logoFile}
+                onFileUpload={handleLogoUpload}
               />
             </div>
 
-            <div className="flex flex-col md:my-4">
+            <section className="mt-4 w-full ">
+              <h3 className="text-lg font-medium mb-2">
+                {t("about_yourself")}
+              </h3>
+              <div className="quill-wrapper relative border rounded-lg bg-white">
+                <ReactQuill
+                  value={about}
+                  onChange={handleAboutChange}
+                  placeholder={t("write_down_your_biography")}
+                  modules={{
+                    toolbar: [
+                      ["bold", "italic", "underline"],
+                      [{ list: "ordered" }, { list: "bullet" }],
+                      ["link"],
+                    ],
+                  }}
+                  formats={[
+                    "bold",
+                    "italic",
+                    "underline",
+                    "list",
+                    "bullet",
+                    "link",
+                  ]}
+                  className="custom-quill-editor h-[600px]"
+                />
+              </div>
+            </section>
+          </section>
+
+          <div>
+            <div className="flex flex-col ">
               <label htmlFor="Email" className="text-lg font-medium">
                 {t("email")}
               </label>
@@ -118,7 +153,7 @@ const UserInfo = () => {
                   name="email"
                   id="email"
                   required
-                  value={currentUser.email}
+                  value={currentUser?.email}
                   readOnly
                   className="border border-gray-300 p-2 pl-10 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-2"
                   placeholder={t("email_placeholder")}
@@ -126,58 +161,29 @@ const UserInfo = () => {
                 />
               </div>
             </div>
-          </div>
-
-          <div className="w-full lg:flex-1">
-            <div className="flex flex-col">
-              <label htmlFor="textInput" className="text-lg font-medium mb-2">
-                {t("your_name")}
-              </label>
-              <input
-                id="textInput"
-                type="text"
-                value={currentUser?.displayName}
-                readOnly
-                className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                disabled
-              />
+            <div className="w-full lg:flex-1">
+              <div className="flex flex-col md:my-4 w-full">
+                <label htmlFor="Phone" className="text-lg font-medium mb-2">
+                  {t("phone")}
+                </label>
+                <PhoneInput
+                  country={"bd"}
+                  value={data?.phone}
+                  required
+                  onChange={(phone) => setPhone(phone)}
+                  inputClass="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border rounded-md h-10 pl-12 my-2 w-full"
+                />
+              </div>
             </div>
-          </div>
-        </section>
 
-        <div className="flex flex-col lg:flex-row gap-6">
-          <section className="mt-4 w-full lg:w-1/2">
-            <h3 className="text-lg font-medium mb-2">{t("about_yourself")}</h3>
-            <div className="quill-wrapper relative border rounded-lg bg-white">
-              <ReactQuill
-                value={about}
-                onChange={handleAboutChange}
-                placeholder={t("write_down_your_biography")}
-                modules={{
-                  toolbar: [
-                    ["bold", "italic", "underline"],
-                    [{ list: "ordered" }, { list: "bullet" }],
-                    ["link"],
-                  ],
-                }}
-                formats={[
-                  "bold",
-                  "italic",
-                  "underline",
-                  "list",
-                  "bullet",
-                  "link",
-                ]}
-                className="custom-quill-editor h-[600px]"
-              />
+            <div className="flex flex-col lg:flex-row gap-6">
+              <div className="w-full">
+                <SocialMediaProfileForEmployee
+                  socialLinks={socialLinks}
+                  setSocialLinks={setSocialLinks}
+                />
+              </div>
             </div>
-          </section>
-
-          <div className="w-full lg:w-1/2">
-            <SocialMediaProfileForEmployee
-              socialLinks={socialLinks}
-              setSocialLinks={setSocialLinks}
-            />
           </div>
         </div>
 
