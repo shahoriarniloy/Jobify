@@ -21,7 +21,7 @@ const AdminLayout = () => {
     dispatch(logOutAction());
     navigate("/");
   };
-
+  
   return (
     <div className="relative">
        <Helmet>
