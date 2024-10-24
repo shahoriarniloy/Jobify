@@ -10,10 +10,7 @@ import { FaUserPlus } from "react-icons/fa";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 
-
-import axiosSecure from "../../Hooks/useAxiosSecure";
 import { useTranslation } from "react-i18next"; // Import useTranslation
-
 
 const PostCard = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation

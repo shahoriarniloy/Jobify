@@ -1,55 +1,61 @@
 import React, { useEffect, useState } from "react";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import { useSelector } from "react-redux";
+import useCurrentUser from "../../../../Hooks/useCurrentUser";
 
 const Career = () => {
   const [user, setUser] = useState(null);
   const [roadmap, setRoadmap] = useState([]);
   const [jobCategories, setJobCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const currentUser = useSelector((state) => state?.user?.currentUser);
+  const [loadingJobCategories, setLoadingJobCategories] = useState(false); // New state for job categories loading
+  const { currentUser } = useCurrentUser();
 
   useEffect(() => {
     if (currentUser?.email) {
       const fetchUserData = async () => {
         try {
-          setLoading(true); // Set loading before API call
-          const response = await axiosSecure.get(`/resume/${currentUser.email}`);
-          setUser(response.data);
-
-          const careerRoadmap = generateCareerRoadmap(
-            response.data.skills,
-            jobCategories
+          setLoading(true);
+          const response = await axiosSecure.get(
+            `/resume/${currentUser.email}`
           );
-          setRoadmap(careerRoadmap);
-          setLoading(false); // End loading after data is fetched
+          setUser(response.data);
         } catch (error) {
           console.error("Error fetching user data:", error);
-          setLoading(false); // Ensure loading ends even on error
+        } finally {
+          setLoading(false);
         }
       };
 
       fetchUserData();
     }
-  }, [currentUser, jobCategories]);
+  }, [currentUser]);
 
   useEffect(() => {
     const fetchJobCategories = async () => {
       try {
         if (!user || !user.skills) return;
 
-        const skillsArray = user.skills;
+        setLoadingJobCategories(true); // Set loading for job categories
         const response = await axiosSecure.post(`/getCareerSuggestions`, {
-          skills: skillsArray,
+          skills: user.skills,
         });
 
         setJobCategories(response.data);
+
+        const careerRoadmap = generateCareerRoadmap(
+          user.skills,
+          response.data // Use updated job categories here
+        );
+        setRoadmap(careerRoadmap);
       } catch (error) {
         console.error("Error fetching job categories:", error);
+      } finally {
+        setLoadingJobCategories(false); // Ensure loading ends
       }
     };
 
-    fetchJobCategories();
+    if (user?.skills) fetchJobCategories();
   }, [user]);
 
   const generateCareerRoadmap = (userSkills, jobCategories) => {
@@ -79,7 +85,7 @@ const Career = () => {
     return suitableJobCategories;
   };
 
-  if (loading) {
+  if (loading || loadingJobCategories) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-xl font-semibold text-gray-600">Loading...</p>
@@ -97,10 +103,10 @@ const Career = () => {
         Career Roadmap for {user.name}
       </h1>
       <div className="text-center mb-6">
-
         <p className="text-xl text-blue-500 mb-2">{user.name},</p>
         <p className="text-lg text-gray-700 mb-4">
-          Based on your skills, here are the most suitable career fields for you.
+          Based on your skills, here are the most suitable career fields for
+          you.
         </p>
       </div>
 
@@ -123,7 +129,9 @@ const Career = () => {
                 {category.requiredSkills.join(", ")}
               </p>
               <p className="mb-2">
-                <span className="font-semibold">Additional Skills to Learn:</span>{" "}
+                <span className="font-semibold">
+                  Additional Skills to Learn:
+                </span>{" "}
                 {category.additionalSkills.length > 0
                   ? category.additionalSkills.join(", ")
                   : "None"}

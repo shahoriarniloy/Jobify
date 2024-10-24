@@ -80,6 +80,16 @@ const EmployeeDashboard = () => {
                   <FaEdit /> {t("edit_resume")}
                 </NavLink>
                 <NavLink
+                  to="/jobSeeker/career"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <FaEdit /> {t("career_roadmap")}
+                </NavLink>
+                <NavLink
                   to="/jobSeeker/employee-settings"
                   className={({ isActive }) =>
                     isActive
