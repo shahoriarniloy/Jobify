@@ -714,5 +714,11 @@
   "no_categories_found": "No se encontraron categorías",
   "find_job_interest_skills": "Encuentra un trabajo que se adapte a tus intereses y habilidades.",
   "job_opportunity_description": "Encuentra rápidamente oportunidades de trabajo que coincidan con tus habilidades e intereses buscando títulos de trabajo específicos, palabras clave o ubicaciones.",
-   "job_search_placeholder": "Título del trabajo, Nombre de la empresa..."
+  "job_search_placeholder": "Título del trabajo, Nombre de la empresa...",
+  "category_label": "Categoría:",
+  "job_type_label": "Tipo de trabajo:",
+  "salary_range_label": "Rango salarial:",
+  "job_level_label": "Nivel del trabajo:",
+  "deadline_label": "Fecha límite:",
+  "location_label": "Ubicación:"
 }

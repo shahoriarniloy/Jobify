@@ -708,5 +708,11 @@
   "no_categories_found": "কোনো বিভাগ পাওয়া যায়নি",
   "find_job_interest_skills": "আপনার আগ্রহ ও দক্ষতার সাথে মিল রেখে একটি চাকরি খুঁজুন।",
   "job_opportunity_description": "আপনার দক্ষতা এবং আগ্রহের সাথে মিলিত চাকরির সুযোগ দ্রুত খুঁজে পান নির্দিষ্ট চাকরির শিরোনাম, কীওয়ার্ড, বা অবস্থানের জন্য অনুসন্ধান করে।",
-   "job_search_placeholder": "চাকরির শিরোনাম, কোম্পানির নাম..."
+   "job_search_placeholder": "চাকরির শিরোনাম, কোম্পানির নাম...",
+    "category_label": "শ্রেণী:",
+    "job_type_label": "কর্মের ধরন:",
+  "salary_range_label": "বেতন সীমা:",
+  "job_level_label": "কর্মের স্তর:",
+  "deadline_label": "সময়ের শেষ:",
+  "location_label": "অবস্থান:"
 }
