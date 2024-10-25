@@ -32,6 +32,7 @@ const UserInfo = () => {
         `/users/${currentUser?.email}`
       );
       setSocialLinks(data?.userInfo[0]?.socialLinks || "");
+      setName(data?.name || "");
       return data.userInfo[0];
     },
   });
@@ -96,7 +97,13 @@ const UserInfo = () => {
                 <input
                   id="textInput"
                   type="text"
-                  value={data?.displayName || data?.name}
+                  value={
+                    data?.displayName ||
+                    data?.name ||
+                    currentUser?.displayName ||
+                    currentUser?.name ||
+                    name
+                  }
                   readOnly
                   className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   disabled
