@@ -709,5 +709,10 @@
   "notifications_count": "notificaciones",
   "mark_all_as_read": "Marcar todo como leído",
   "no_notifications_available": "No hay notificaciones disponibles",
-  "position": "posición"
+  "position": "posición",
+
+  "no_categories_found": "No se encontraron categorías",
+  "find_job_interest_skills": "Encuentra un trabajo que se adapte a tus intereses y habilidades.",
+  "job_opportunity_description": "Encuentra rápidamente oportunidades de trabajo que coincidan con tus habilidades e intereses buscando títulos de trabajo específicos, palabras clave o ubicaciones.",
+   "job_search_placeholder": "Título del trabajo, Nombre de la empresa..."
 }

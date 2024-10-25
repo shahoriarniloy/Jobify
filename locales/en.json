@@ -709,5 +709,12 @@
   "notifications_count": "notifications",
   "mark_all_as_read": "Mark all as read",
   "no_notifications_available": "No notifications available",
-  "position": "position"
+  "position": "position",
+
+  "no_categories_found": "No categories found",
+
+  "find_job_interest_skills": "Find a job that suits your interest & skills.",
+
+  "job_opportunity_description": "Quickly find job opportunities that match your skills and interests by searching for specific job titles, keywords, or locations.",
+   "job_search_placeholder": "Job title, Company Name..."
 }
