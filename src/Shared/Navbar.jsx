@@ -294,7 +294,7 @@ const Navbar = () => {
           ) : (
             <button
               onClick={() => setLoginModalOpen(true)}
-              className="bg-white rounded-lg text-blue-500 border border-blue-400 px-6"
+              className="bg-white rounded-lg text-blue-500 border border-blue-400 px-6 relative flex lg:hidden md:hidden items-center  gap-4 "
             >
               {t("join_us")}
             </button>
