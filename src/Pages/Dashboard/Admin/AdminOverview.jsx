@@ -60,7 +60,7 @@ const AdminOverview = () => {
 
   return (
     <div className="admin-overview-container">
-       <Helmet>
+      <Helmet>
         <title>Jobify - Admin Overview</title>
       </Helmet>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -143,8 +143,10 @@ const AdminOverview = () => {
                 key={job._id}
                 className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
               >
-                <td className="p-3">{job.title}</td>
-                <td className="p-3 hidden md:table-cell">{job.company}</td>
+                <td className="p-3">{job.jobInfo.title}</td>
+                <td className="p-3 hidden md:table-cell">
+                  {job.companyInfo.company_name}
+                </td>
               </tr>
             ))}
           </tbody>
