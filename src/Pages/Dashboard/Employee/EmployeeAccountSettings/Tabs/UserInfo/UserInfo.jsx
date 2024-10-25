@@ -71,6 +71,7 @@ const UserInfo = () => {
         phone,
         photoUrl,
         socialLinks,
+        email: currentUser?.email,
       };
 
       await axiosSecure.post("/userInfo-updating", postData);
