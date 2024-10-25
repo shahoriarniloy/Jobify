@@ -16,9 +16,6 @@ import { Helmet } from "react-helmet";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
 
-
-
-
 const FindCompany = () => {
   const { t } = useTranslation(); // Destructure useTranslation
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -38,22 +35,29 @@ const FindCompany = () => {
   const [viewMode, setViewMode] = useState("grid");
 
   useEffect(() => {
-    refetch()
+    refetch();
   }, [currentPage, itemsPerPage, totalCompanies]);
 
   // load all company
-  const { data: companies = [], isLoading, refetch } = useQuery({
+  const {
+    data: companies = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["load all company"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/companies?page=${currentPage}&size=${itemsPerPage}`, { params: { searchTerm } });
+      const { data } = await axiosSecure.get(
+        `/companies?page=${currentPage}&size=${itemsPerPage}`,
+        { params: { searchTerm } }
+      );
       setTotalCompanies(data?.totalCompanies);
       return data?.Companies;
-    }
-  })
+    },
+  });
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    refetch()
+    refetch();
   };
 
   const handleItemsPerPage = (e) => {
@@ -74,7 +78,7 @@ const FindCompany = () => {
     }
   };
 
-  if (isLoading) return <DashboardLoader />
+  if (isLoading) return <DashboardLoader />;
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
       <Helmet>
@@ -82,10 +86,14 @@ const FindCompany = () => {
       </Helmet>
       <div className="container mx-auto">
         <div className="flex justify-between items-center pt-12">
-          <div className="flex items-center lg:gap-4 md:gap-4 gap-2 mt-4 w-1/3">
+          {/* <div className="flex items-center lg:gap-4 md:gap-4 gap-2 mt-4 w-1/3">
             <label
               htmlFor="itemsPerPage"
-              className={ theme === "dark" ? "text-sm font-medium text-gray-300 " : "text-sm font-medium text-blue-900 "}
+              className={
+                theme === "dark"
+                  ? "text-sm font-medium text-gray-300 "
+                  : "text-sm font-medium text-blue-900 "
+              }
             >
               {t("number_of_companies_per_page")}
             </label>
@@ -93,20 +101,20 @@ const FindCompany = () => {
               id="itemsPerPage"
               value={itemsPerPage}
               onChange={handleItemsPerPage}
-              className={ theme === "dark" ? "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-slate-900 text-white border border-slate-500 focus:border-blue-500 focus:ring focus:ring-blue-200" : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"}
+              className={
+                theme === "dark"
+                  ? "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-slate-900 text-white border border-slate-500 focus:border-blue-500 focus:ring focus:ring-blue-200"
+                  : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+              }
             >
               <option value="5">{t("option_5")}</option>
               <option value="10">{t("option_10")}</option>
               <option value="15">{t("option_15")}</option>
             </select>
-          </div>
-
+          </div> */}
 
           <div className=" md:w-1/2">
-            <form
-              className="flex items-center gap-4"
-              onSubmit={handleSearch}
-            >
+            <form className="flex items-center gap-4" onSubmit={handleSearch}>
               <div className="relative flex-1">
                 <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
                 <input
@@ -114,15 +122,15 @@ const FindCompany = () => {
                   placeholder="Company Name"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className={theme === "dark"
-                    ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-slate-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
-                    : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"}
-                  
+                  className={
+                    theme === "dark"
+                      ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-slate-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                      : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                  }
                 />
               </div>
 
               <div className="hidden sm:block w-px h-full bg-gray-300"></div>
-
 
               <button
                 type="submit"
@@ -130,7 +138,6 @@ const FindCompany = () => {
               >
                 {t("find_company")}
               </button>
-
             </form>
           </div>
           <div className="flex items-center gap-4">
@@ -226,8 +233,11 @@ const FindCompany = () => {
               (company) => (
                 <div
                   key={company.email}
-                  className={ theme === "dark" ? "relative max-w-sm rounded-md    shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-slate-700 bg-opacity-50 " : "relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "}
-
+                  className={
+                    theme === "dark"
+                      ? "relative max-w-sm rounded-md    shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-slate-700 bg-opacity-50 "
+                      : "relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "
+                  }
                 >
                   <div className="flex flex-col justify-between p-6 space-y-8 ">
                     <div className="flex items-center gap-3">
@@ -244,7 +254,9 @@ const FindCompany = () => {
                       </div>
                     </div>
                     <div className="mt-14 space-y-2 text-justify">
-                      <p className=" text-sm">{company.company_description.slice(0, 250)} ...</p>
+                      <p className=" text-sm">
+                        {company.company_description.slice(0, 250)} ...
+                      </p>
                     </div>
                     <Link to={`/company-details/${company.email}`}>
                       <button className=" text-blue-500 px-3 py-2 rounded w-full underline">
@@ -270,8 +282,9 @@ const FindCompany = () => {
             {pages.map((page) => (
               <button
                 key={page}
-                className={`px-4 py-2 rounded-lg ${page === currentPage ? "bg-blue-200" : "bg-white"
-                  } border border-blue-300`}
+                className={`px-4 py-2 rounded-lg ${
+                  page === currentPage ? "bg-blue-200" : "bg-white"
+                } border border-blue-300`}
                 onClick={() => setCurrentPage(page)}
               >
                 {page + 1}
