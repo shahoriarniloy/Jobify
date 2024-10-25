@@ -720,5 +720,11 @@
   "salary_range_label": "Rango salarial:",
   "job_level_label": "Nivel del trabajo:",
   "deadline_label": "Fecha límite:",
-  "location_label": "Ubicación:"
+  "location_label": "Ubicación:",
+
+  "posted_date_label": "Fecha de publicación",
+  "expire_on_label": "Expira en",
+  "educational_qualification_label": "Calificación educativa",
+  "starting_salary_label": "Salario inicial",
+  "job_location_label": "Ubicación del trabajo"
 }

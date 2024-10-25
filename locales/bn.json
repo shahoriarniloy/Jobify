@@ -714,5 +714,11 @@
   "salary_range_label": "বেতন সীমা:",
   "job_level_label": "কর্মের স্তর:",
   "deadline_label": "সময়ের শেষ:",
-  "location_label": "অবস্থান:"
+  "location_label": "অবস্থান:",
+
+  "posted_date_label": "পোস্টের তারিখ",
+  "expire_on_label": "মেয়াদ শেষ হচ্ছে",
+  "educational_qualification_label": "শিক্ষাগত যোগ্যতা",
+  "starting_salary_label": "শুরুর বেতন",
+  "job_location_label": "কর্মস্থল"
 }
