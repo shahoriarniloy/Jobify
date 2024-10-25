@@ -6,7 +6,7 @@ import DashboardLoader from "../Shared/DashboardLoader";
 const JobseekerRoute = ({ children }) => {
   const { currentUser } = useCurrentUser();
   const { role, isLoading } = useUserRole();
-  console.log(role);
+  // console.log(role);
 
   if (!currentUser) {
     return <Navigate to="/login" replace />;
