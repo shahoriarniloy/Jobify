@@ -163,7 +163,7 @@ const PostCard = () => {
                             onClick={() => handleLike(post._id, hasLiked)}
                           >
                             <HiHeart
-                              className={`w-5 h-5 ${
+                              className={`w-6 h-6 ${
                                 hasLiked ? "text-blue-500" : "text-gray-500"
                               }`}
                             />
@@ -177,7 +177,7 @@ const PostCard = () => {
                             title={t("view_comments")}
                             className="flex items-center justify-center"
                           >
-                            <FaComment className="w-5 h-5 text-gray-500" />
+                            <FaComment className="w-6 h-6 text-gray-500" />
                             <span className="ml-1">
                               {post.comments?.length || 0}
                             </span>
