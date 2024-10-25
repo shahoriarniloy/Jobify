@@ -133,7 +133,7 @@ const Navbar2 = () => {
               </Link>
             </div>
           </div>
-          <div className="navbar-end gap-3">
+          <div className="navbar-end lg:gap-3 md:gap-3 gap-1">
             <div className="text-sm text-black">
               <select
                 onChange={handleLanguageChange}
@@ -149,7 +149,7 @@ const Navbar2 = () => {
               </select>
             </div>
 
-            <div className="flex gap-4 lg:gap-5 items-center">
+            <div className="flex gap-4 sm-gap-1 lg:gap-5 items-center">
               <button onClick={handleThemeToggle} className="p-2">
                 {theme === "light" ? (
                   <FaMoon style={{ color: "#0a65cc" }} />
@@ -157,79 +157,84 @@ const Navbar2 = () => {
                   <FaSun style={{ color: "#0a65cc" }} />
                 )}
               </button>
+              {currentUser ? (
+                <div className="relative rounded-full p-2 hover:bg-[#e7f0fa]">
+                  <FaBell
+                    className="cursor-pointer text-[#0a65cc]"
+                    onClick={handleModalToggle}
+                  />
+                  {jobNotifications.length > 0 && (
+                    <span className="absolute top-0 left-2 bg-red-500 text-white rounded-full text-xs px-1">
+                      {jobNotifications.length}
+                    </span>
+                  )}
 
-              <div className="relative rounded-full p-2 hover:bg-[#e7f0fa]">
-                <FaBell
-                  className="cursor-pointer text-[#0a65cc]"
-                  onClick={handleModalToggle}
-                />
-                {jobNotifications.length > 0 && (
-                  <span className="absolute top-0 left-2 bg-red-500 text-white rounded-full text-xs px-1">
-                    {jobNotifications.length}
-                  </span>
-                )}
+                  {isModalOpen && (
+                    <div
+                      ref={modalRef}
+                      className={
+                        theme === "dark"
+                          ? "bg-gray-900 text-slate-400 absolute top-10 right-0  p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                          : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
+                      }
+                    >
+                      <h2 className="text-lg font-bold mb-4">Notifications</h2>
 
-                {isModalOpen && (
-                  <div
-                    ref={modalRef}
-                    className={
-                      theme === "dark"
-                        ? "bg-gray-900 text-slate-400 absolute top-10 right-0  p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
-                        : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
-                    }
-                  >
-                    <h2 className="text-lg font-bold mb-4">Notifications</h2>
+                      {jobNotifications.length > 0 && (
+                        <div className="flex justify-between items-center mb-4">
+                          <p className="text-sm">
+                            You have {jobNotifications.length} notifications
+                          </p>
+                          <button
+                            onClick={handleMarkAllAsRead}
+                            className="text-blue-600 text-sm hover:underline"
+                          >
+                            Mark all as read
+                          </button>
+                        </div>
+                      )}
 
-                    {jobNotifications.length > 0 && (
-                      <div className="flex justify-between items-center mb-4">
-                        <p className="text-sm">
-                          You have {jobNotifications.length} notifications
-                        </p>
+                      {jobNotifications.length > 0 ? (
+                        <ul className="text-sm">
+                          {jobNotifications.map((notification, index) => (
+                            <li
+                              key={index}
+                              className="py-2 text-gray-700 bg-[#f4f8fffa] rounded-md p-4 mb-2"
+                            >
+                              <Link
+                                to={`/job/${notification.jobId}`}
+                                className="hover:underline"
+                              >
+                                <strong>
+                                  {notification.jobTitle} position
+                                </strong>{" "}
+                                at <strong>{notification.company}</strong>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No notifications available</p>
+                      )}
+
+                      <div className="flex justify-end">
                         <button
-                          onClick={handleMarkAllAsRead}
-                          className="text-blue-600 text-sm hover:underline"
+                          className="btn bg-[#0a65cc] text-white mt-4"
+                          onClick={handleModalToggle}
                         >
-                          Mark all as read
+                          Close
                         </button>
                       </div>
-                    )}
-
-                    {jobNotifications.length > 0 ? (
-                      <ul className="text-sm">
-                        {jobNotifications.map((notification, index) => (
-                          <li
-                            key={index}
-                            className="py-2 text-gray-700 bg-[#f4f8fffa] rounded-md p-4 mb-2"
-                          >
-                            <Link
-                              to={`/job/${notification.jobId}`}
-                              className="hover:underline"
-                            >
-                              <strong>{notification.jobTitle} position</strong>{" "}
-                              at <strong>{notification.company}</strong>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p>No notifications available</p>
-                    )}
-
-                    <div className="flex justify-end">
-                      <button
-                        className="btn bg-[#0a65cc] text-white mt-4"
-                        onClick={handleModalToggle}
-                      >
-                        Close
-                      </button>
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
+              ) : (
+                ""
+              )}
 
               {currentUser ? (
                 <>
-                  <div className="relative flex items-center gap-4">
+                  <div className="relative lg:flex md:flex lg:items-center md:items-center gap-4 hidden">
                     <img
                       src={
                         currentUser?.photoURL ||
@@ -321,7 +326,7 @@ const Navbar2 = () => {
               ) : (
                 <button
                   onClick={() => setLoginModalOpen(true)}
-                  className="bg-white px-5 py-1 lg:px-7 lg:py-2 rounded-lg text-blue-500 border border-blue-400"
+                  className="bg-white  rounded-lg text-blue-500 border border-blue-400 px-6"
                 >
                   {t("join_us")}
                 </button>
