@@ -4,15 +4,14 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next"; // Import useTranslation
+import { useTranslation } from "react-i18next";
 
 import useCurrentUser from "../../Hooks/useCurrentUser";
 
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 
-
 const Bookmark = ({ jobId }) => {
-  const { t } = useTranslation(); // Destructure t from useTranslation
+  const { t } = useTranslation();
   const { currentUser } = useCurrentUser();
   const [isBookmarked, setIsBookmarked] = useState(false);
 
@@ -37,7 +36,7 @@ const Bookmark = ({ jobId }) => {
 
   const handleBookmark = async () => {
     if (!currentUser) {
-      toast.info(t("please_log_in_to_bookmark_jobs")); // Wrapped in t()
+      toast.info(t("please_log_in_to_bookmark_jobs"));
       return;
     }
 
@@ -46,13 +45,13 @@ const Bookmark = ({ jobId }) => {
         userEmail: currentUser.email,
         jobId,
       });
-      toast.success(t("job_bookmarked_successfully")); // Wrapped in t()
+      toast.success(t("job_bookmarked_successfully"));
       setIsBookmarked(true);
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        toast.info(t("job_already_bookmarked")); // Wrapped in t()
+        toast.info(t("job_already_bookmarked"));
       } else {
-        toast.error(t("failed_to_bookmark_job")); // Wrapped in t()
+        toast.error(t("failed_to_bookmark_job"));
       }
     }
   };
@@ -60,7 +59,7 @@ const Bookmark = ({ jobId }) => {
   return (
     <button
       onClick={handleBookmark}
-      style={{ color: isBookmarked ? "blue" : "currentColor" }}
+      style={{ color: isBookmarked ? "sky" : "currentColor" }}
     >
       {isBookmarked ? (
         <BsBookmarkFill className="w-5 h-5" />

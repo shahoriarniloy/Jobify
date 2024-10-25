@@ -1,21 +1,85 @@
-import { Link, NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-// import { io } from "socket.io-client";
-// import { FaBell } from "react-icons/fa";
-// import Swal from "sweetalert2";
-// import { PiBag } from "react-icons/pi";
 import useCurrentUser from "../Hooks/useCurrentUser";
+import {
+  MdLogout,
+  MdOutlineDashboardCustomize,
+  MdOutlineVideoCall,
+} from "react-icons/md";
+import { toast } from "react-toastify";
+import Modal from "react-responsive-modal";
+import Register from "../Pages/Auth/CreateAccount/CreateAccount";
+import { Login } from "@mui/icons-material";
+import useUserRole from "../Hooks/useUserRole";
 
 const Navbar = () => {
-  const { currentUser } = useCurrentUser();
   const { t } = useTranslation();
   const [isSticky, setIsSticky] = useState(false);
-  const [jobNotifications, setJobNotifications] = useState([]);
   const theme = useSelector((state) => state.theme.theme);
-  // const [socket, setSocket] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { currentUser, logOutUser } = useCurrentUser();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [signUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [roomModal, setRoomModal] = useState(false);
+  const [roomID, setRoomID] = useState("");
+  const { role } = useUserRole();
+  const menuRef = useRef(null);
+  const modalRef = useRef(null);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  const handleLogOut = () => {
+    logOutUser().then(() => {
+      toast.success("You have successfully logged out.");
+      navigate("/");
+    });
+  };
+
+  const handleJoinRoom = useCallback(() => {
+    setRoomModal(false);
+    navigate(`/rooms/${roomID}`);
+  }, [navigate, roomID]);
+
+  const handleModalToggle = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutsideModal = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        handleModalToggle();
+      }
+    };
+
+    if (isModalOpen) {
+      document.addEventListener("mousedown", handleClickOutsideModal);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideModal);
+    };
+  }, [isModalOpen]);
 
   const navItem = (
     <>
@@ -60,7 +124,6 @@ const Navbar = () => {
           {t("my_network")}
         </NavLink>
       </li>
-
       <li>
         <NavLink
           to="/about"
@@ -74,55 +137,6 @@ const Navbar = () => {
     </>
   );
 
-  // useEffect(() => {
-  //   const socketConnection = io("https://jobify-server-ujo0.onrender.com");
-  //   setSocket(socketConnection);
-
-  //   return () => {
-  //     socketConnection.disconnect();
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (socket) {
-  //     socket.emit("newUser", currentUser?.email);
-
-  //     socket.on("jobPosted", (data) => {
-  //       Swal.fire({
-  //         icon: "info",
-  //         title: "New Job Posted!",
-  //         text: `A new job "${data.jobTitle}" was posted by ${data.company}`,
-  //         background: "#f4f8ff",
-  //         color: "#333",
-  //         customClass: {
-  //           title: "swal-title",
-  //           content: "swal-content",
-  //           confirmButton: "swal-confirm",
-  //         },
-  //         confirmButtonText: "View Job",
-  //         confirmButtonColor: "#007bff",
-  //         showCancelButton: true,
-  //         cancelButtonText: "Close",
-  //         cancelButtonColor: "#dc3545",
-  //       }).then((result) => {
-  //         if (result.isConfirmed) {
-  //           window.location.href = `/job/${data.jobId}`;
-  //         }
-  //       });
-
-  //       setJobNotifications((prevNotifications) => [
-  //         ...prevNotifications,
-  //         { title: data.jobTitle, company: data.company, jobId: data.jobId },
-  //       ]);
-  //     });
-  //   }
-  // }, [socket, currentUser?.email]);
-
-  const toggleModal = () => {
-    // console.log("Bell icon clicked! Modal state:", isModalOpen);
-    setIsModalOpen((prevState) => !prevState);
-  };
-
   const handleScroll = () => {
     const scrollY = window.scrollY;
     setIsSticky(scrollY > 50);
@@ -130,7 +144,6 @@ const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -165,73 +178,162 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className={ theme === "dark" ? "menu menu-sm dropdown-content mt-1 z-[1] shadow bg-slate-700 text-gray-300 rounded-box w-52" : "menu menu-sm dropdown-content mt-1 z-[1] shadow bg-base-100 rounded-box w-52"}
+              className={
+                theme === "dark"
+                  ? "menu menu-sm dropdown-content mt-1 z-[1] shadow bg-slate-700 text-gray-300 rounded-box w-52"
+                  : "menu menu-sm dropdown-content mt-1 z-[1] shadow bg-base-100 rounded-box w-52"
+              }
             >
               {navItem}
             </ul>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className={ theme === "dark" ? "text-gray-300 gap-7 menu-horizontal px-1" : "text-[#5E6670] gap-7 menu-horizontal px-1"}>
+          <ul
+            className={
+              theme === "dark"
+                ? "text-gray-300 gap-7 menu-horizontal px-1"
+                : "text-[#5E6670] gap-7 menu-horizontal px-1"
+            }
+          >
             {navItem}
           </ul>
         </div>
 
         <div className="navbar-end relative">
-          {isModalOpen && (
-            <div
-              className="absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
-              style={{ marginRight: "20px" }}
-            >
-              <h2 className="text-lg font-bold mb-4">Notifications</h2>
-
-              {jobNotifications.length > 0 && (
-                <div className="flex justify-between items-center mb-4">
-                  <p className="text-sm">
-                    You have {jobNotifications.length} notifications
-                  </p>
-                  <button
-                    onClick={() => setJobNotifications([])}
-                    className="text-blue-600 text-sm hover:underline"
+          {currentUser ? (
+            <>
+              <div className="relative flex lg:hidden md:hidden items-center  gap-4  ">
+                <img
+                  src={
+                    currentUser?.photoURL ||
+                    "https://i.ibb.co.com/P6RfpHT/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
+                  }
+                  alt={t("user_profile")}
+                  className="w-10 h-10 rounded-full cursor-pointer"
+                  onClick={toggleMenu}
+                />
+                {isMenuOpen && (
+                  <div
+                    ref={menuRef}
+                    className={
+                      theme === "dark"
+                        ? "absolute right-0 top-12 mt-2 w-48 bg-slate-700 rounded-md shadow-lg z-50"
+                        : "absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-50"
+                    }
                   >
-                    Mark all as read
-                  </button>
-                </div>
-              )}
-
-              {jobNotifications.length > 0 ? (
-                <ul className="text-sm">
-                  {jobNotifications.map((notification, index) => (
-                    <li
-                      key={index}
-                      className="py-2 text-gray-700 bg-bottom bg-slate-300 rounded-md p-4 mb-2"
+                    <ul
+                      className={
+                        theme === "dark"
+                          ? "py-1 text-white"
+                          : "py-1 text-gray-700"
+                      }
                     >
-                      <Link
-                        to={`/job/${notification.jobId}`}
-                        className="hover:underline"
-                      >
-                        <strong>'{notification.title}' position</strong> at{" "}
-                        <strong>{notification.company}</strong>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No notifications available</p>
-              )}
-
-              <div className="flex justify-end">
-                <button
-                  className="btn btn-primary mt-4"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  Close
-                </button>
+                      {role === "Job Seeker" && (
+                        <li>
+                          <Link
+                            to="jobSeeker/overview"
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <MdOutlineDashboardCustomize />
+                            {t("dashboard")}
+                          </Link>
+                        </li>
+                      )}
+                      {role === "Employer" && (
+                        <li>
+                          <Link
+                            to="/dashboard/overview"
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <MdOutlineDashboardCustomize />
+                            {t("dashboard")}
+                          </Link>
+                        </li>
+                      )}
+                      {role === "Admin" && (
+                        <li>
+                          <Link
+                            to="/admin/overview"
+                            className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <MdOutlineDashboardCustomize />
+                            {t("dashboard")}
+                          </Link>
+                        </li>
+                      )}
+                      <li>
+                        <button
+                          className="px-4 py-2 w-full hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setRoomModal(true);
+                          }}
+                        >
+                          <MdOutlineVideoCall className="text-xl" />
+                          {t("join_call")}
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={handleLogOut}
+                          className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2 w-full"
+                        >
+                          <MdLogout />
+                          {t("logout")}
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
-            </div>
+            </>
+          ) : (
+            <button
+              onClick={() => setLoginModalOpen(true)}
+              className="bg-white rounded-lg text-blue-500 border border-blue-400 px-6 relative flex lg:hidden md:hidden items-center  gap-4 "
+            >
+              {t("join_us")}
+            </button>
           )}
         </div>
       </div>
+
+      {/* Login Modal */}
+      <Modal
+        open={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+        center
+      >
+        <Login />
+      </Modal>
+
+      {/* SignUp Modal */}
+      <Modal
+        open={signUpModalOpen}
+        onClose={() => setSignUpModalOpen(false)}
+        center
+      >
+        <Register />
+      </Modal>
+
+      {/* Room Modal */}
+      <Modal open={roomModal} onClose={() => setRoomModal(false)} center>
+        <h2 className="text-2xl">{t("join_room")}</h2>
+        <input
+          type="text"
+          className="input input-bordered w-full mt-4"
+          placeholder={t("room_id")}
+          value={roomID}
+          onChange={(e) => setRoomID(e.target.value)}
+        />
+        <button className="btn btn-primary mt-4" onClick={handleJoinRoom}>
+          {t("join_now")}
+        </button>
+      </Modal>
     </div>
   );
 };
