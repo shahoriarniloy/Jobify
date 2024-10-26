@@ -134,7 +134,7 @@ const AdvancedSearch = () => {
                 className={
                   theme === "dark"
                     ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-slate-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
-                    : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                    : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
                 }
               />
             </div>
@@ -400,15 +400,18 @@ const AdvancedSearch = () => {
         </div>
 
         {viewMode === "list" ? (
-          <div className=" p-2 sm:p-4 dark:text-gray-800 mt-4">
+          <div className="p-2 sm:p-4 dark:text-gray-800 mt-4">
             <div className="overflow-x-auto">
               <div className="overflow-x-auto">
                 <table className="min-w-full text-xs sm:text-sm">
                   <thead className="dark:bg-gray-300">
                     <tr className="text-left">
                       <th className="p-3">{t("job_title")}</th>
-                      <th className="p-3">Vacancy</th>
-                      <th className="p-3 hidden md:table-cell">Job Type</th>
+                      <th className="p-3">{t("vacancy")}</th>
+                      <th className="p-3 hidden md:table-cell">
+                        {t("job_type")}
+                      </th>
+
                       <th className="p-3 hidden md:table-cell">
                         {t("salary")}
                       </th>
@@ -455,7 +458,7 @@ const AdvancedSearch = () => {
                         <td className="p-3">
                           <Link to={`/job/${_id}`}>
                             <button className="btn btn-outline btn-info btn-sm">
-                              View Details
+                              {t("view_details")}
                             </button>
                           </Link>
                         </td>
@@ -482,7 +485,7 @@ const AdvancedSearch = () => {
                     : " w-full relative group cursor-pointer overflow-hidden bg-white px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"
                 }
               >
-                <span className="absolute top-10 z-0 h-20 w-20 rounded-full  duration-300 "></span>
+                <span className="absolute top-10 z-0 h-20 w-20 rounded-full duration-300"></span>
                 <div className="relative z-10 mx-auto max-w-md">
                   <span className="grid size-[60px] place-items-center rounded-full ">
                     <img
@@ -505,27 +508,40 @@ const AdvancedSearch = () => {
                     </h2>
                     <p className="font-semibold">{companyInfo?.company_name}</p>
                     <p className="text-sm tracking-wide mt-3">
-                      <span className="font-semibold">Category: </span>
+                      <span className="font-semibold">
+                        {t("category_label")}
+                      </span>
+
                       {jobInfo?.jobCategory}
                     </p>
                     <p className="text-sm tracking-wide mt-1">
-                      <span className="font-semibold">Job Type: </span>
+                      <span className="font-semibold">
+                        {t("job_type_label")}
+                      </span>
                       {jobInfo?.jobType}
                     </p>
                     <p className="text-sm mt-1">
-                      <span className="font-semibold">Salary Range : </span>
+                      <span className="font-semibold">
+                        {t("salary_range_label")}
+                      </span>
                       {jobInfo?.salaryRange}
                     </p>
                     <p className="text-sm mt-1">
-                      <span className="font-semibold">Job Level : </span>
+                      <span className="font-semibold">
+                        {t("job_level_label")}
+                      </span>
                       {jobInfo?.jobLevel}
                     </p>
                     <p className="text-sm mt-1">
-                      <span className="font-semibold">Deadline : </span>
+                      <span className="font-semibold">
+                        {t("deadline_label")}
+                      </span>
                       {jobInfo?.deadline}
                     </p>
                     <p className="text-sm mt-1">
-                      <span className="font-semibold">Location : </span>
+                      <span className="font-semibold">
+                        {t("location_label")}
+                      </span>
                       {jobInfo?.location}
                     </p>
 

@@ -46,7 +46,7 @@ const Main = () => {
         <Outlet />
 
         {/* Massage components */}
-        <div ref={messageRef} className={isOpenMessage ? "fixed bottom-24 z-50 right-9 w-full max-w-xl h-full max-h-[50vh] rounded-lg bg-white shadow-lg p-6" : "hidden"}>
+        <div ref={messageRef} className={isOpenMessage ? "fixed bottom-24 z-50 right-9 w-full max-w-xl h-full max-h-[510px] rounded-lg bg-white shadow-lg p-6" : "hidden"}>
           <Message />
         </div>
       </div>

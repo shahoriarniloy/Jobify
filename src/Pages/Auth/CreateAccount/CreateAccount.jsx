@@ -14,6 +14,7 @@ import auth from "../Firebase/firebase.config";
 import { Helmet } from "react-helmet";
 import { useSelector} from "react-redux";
   
+import { useQueryClient } from "@tanstack/react-query";
 
 
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
@@ -22,7 +23,9 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const accountType = selectedIndex === 0 ? t("job_seeker") : t("employer");
   const { createUser, loading, setLoading } = useCurrentUser();
+
   const theme = useSelector((state) => state.theme.theme);
+  const queryClient = useQueryClient();
 
 
   const handleRegister = async (e) => {
@@ -46,6 +49,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
             .then(res => {
               if (res?.data?.acknowledged) {
                 toast.success("Account creation successful");
+                queryClient.invalidateQueries(["loadedRole"])
               }
             })
           setSignUpModalOpen(false);
@@ -73,6 +77,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
             .then(res => {
               if (res?.data?.acknowledged) {
                 toast.success("Account creation successful");
+                queryClient.invalidateQueries(["loadedRole"])
               }
             })
           setSignUpModalOpen(false);

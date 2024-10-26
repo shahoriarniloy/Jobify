@@ -9,8 +9,10 @@ import { PiFirstAidKitFill } from "react-icons/pi";
 import { useSelector } from "react-redux";
 
 
+import { useTranslation } from "react-i18next";
 
 const PopularCategory = ({ categoryCounts }) => {
+  const { t } = useTranslation();
   const iconMapping = {
     FaPaintBrush: <ImPen />,
     FaCode: <FaCode />,
@@ -28,10 +30,10 @@ const PopularCategory = ({ categoryCounts }) => {
       <div className="container mx-auto py-24">
         {/* header */}
         <h1 className={ theme === "dark"? "text-3xl font-semibold mb-2 tracking-wider text-white text-center " : "text-3xl font-semibold mb-2 tracking-wider text-black text-center "}>
-          Popular Categories
+{t("popular_categories")
+        
         </h1>
 
-        {/* carts */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-10 md:mt-16">
           {categoryCounts?.length > 0 ? (
             categoryCounts.map((category) => (
@@ -44,13 +46,13 @@ const PopularCategory = ({ categoryCounts }) => {
                     {category.name}
                   </h1>
                   <p className="text-[#5E6670] text-xs md:text-sm">
-                    {category.count} Open Position
+                    {t("open_position", { count: category.count })}
                   </p>
                 </div>
               </div>
             ))
           ) : (
-            <p>No categories found</p>
+            <p>{t("no_categories_found")}</p>
           )}
         </div>
       </div>

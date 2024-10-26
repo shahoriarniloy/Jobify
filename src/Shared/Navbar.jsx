@@ -114,7 +114,7 @@ const Navbar = () => {
           {t("find_company")}
         </NavLink>
       </li>
-      {currentUser?.email &&<li>
+      {role == "Job Seeker" &&<li>
         <NavLink
           to="/posts"
           className={({ isActive }) =>
