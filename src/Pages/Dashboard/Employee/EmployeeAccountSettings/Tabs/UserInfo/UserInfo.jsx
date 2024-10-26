@@ -90,7 +90,7 @@ const UserInfo = () => {
   return (
     <div className="p-4 md:p-8">
       <form onSubmit={handleSubmit}>
-        <div className=" flex  lg:flex-row flex-col justify-around">
+        <div className=" flex  lg:flex-row flex-col justify-around gap-8">
           <section className="flex flex-col justify-start gap-4 ">
             <div className="w-full lg:flex-1">
               <div className="flex flex-col">
