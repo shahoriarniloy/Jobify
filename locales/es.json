@@ -727,11 +727,16 @@
   "educational_qualification_label": "Calificación educativa",
   "starting_salary_label": "Salario inicial",
   "job_location_label": "Ubicación del trabajo",
-   "category": "Categoría",
+  "category": "Categoría",
 
-   "testimonial_title": "Testimonio",
+  "testimonial_title": "Testimonio",
 
-   "per_page": "Por Página",
+  "per_page": "Por Página",
 
-   "available_jobs": "Trabajos Disponibles"
+  "available_jobs": "Trabajos Disponibles",
+
+  "job_sub_category_label": "Subcategoría de trabajo",
+  "select_subcategory": "Seleccionar subcategoría",
+  "job_category_label": "Categoría de trabajo",
+  "select_category": "Seleccionar categoría"
 }

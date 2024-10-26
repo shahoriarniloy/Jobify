@@ -732,5 +732,10 @@
   "preferred_updates": "পছন্দসই আপডেট",
   "career_roadmap": "ক্যারিয়ার রোডম্যাপ",
 
-  "available_jobs": "উপলব্ধ চাকরিসমূহ"
+  "available_jobs": "উপলব্ধ চাকরিসমূহ",
+
+   "job_sub_category_label": "কাজের সাব ক্যাটাগরি",
+  "select_subcategory": "সাবক্যাটাগরি নির্বাচন করুন",
+   "job_category_label": "কাজের ক্যাটাগরি",
+  "select_category": "ক্যাটাগরি নির্বাচন করুন"
 }

@@ -740,5 +740,10 @@
   "preferred_updates": "Preferred Updates",
   "career_roadmap": "Career Roadmap",
 
-  "available_jobs": "Available Jobs"
+  "available_jobs": "Available Jobs",
+
+  "job_sub_category_label": "Job Sub Category",
+  "select_subcategory": "Select Subcategory",
+  "job_category_label": "Job Category",
+  "select_category": "Select Category"
 }
