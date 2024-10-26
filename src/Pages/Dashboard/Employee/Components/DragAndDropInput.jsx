@@ -1,17 +1,19 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import { useSelector } from "react-redux";
 
 const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
   const { t } = useTranslation(); // Destructure useTranslation
   const [errorMessage, setErrorMessage] = useState("");
   const [preview, setPreview] = useState(null);
+  const theme = useSelector((state) => state.theme.theme);
+
   const fileInputRef = useRef(null);
 
   const logoSizeLimit = 3.5 * 1024 * 1024; // Limit for logo files (3.5 MB)
   const bannerSizeLimit = 4.3 * 1024 * 1024; // Limit for banner files (4.3 MB)
 
-  // Handle file drop
   const onDrop = useCallback(
     (acceptedFiles) => {
       if (!acceptedFiles || acceptedFiles.length === 0) {
@@ -73,8 +75,15 @@ const DragAndDropInput = ({ type, label, file, onFileUpload }) => {
       <label className="block mb-2 font-bold">{t(label)}</label>
       <div
         {...getRootProps()}
-        className={`p-6 rounded-md cursor-pointer transition ${isDragActive ? "bg-black border-blue-400" : "bg-gray-200"
-          }`}
+        className={`p-6 rounded-md cursor-pointer transition ${
+          isDragActive
+            ? theme === "dark"
+              ? "bg-gray-400 border-blue-400"
+              : "bg-gray-200 border-blue-400"
+            : theme === "dark"
+            ? "bg-slate-700 text-white"
+            : "bg-gray-200"
+        }`}
         style={{ minHeight: "150px" }}
         onClick={() => fileInputRef.current.click()}
       >

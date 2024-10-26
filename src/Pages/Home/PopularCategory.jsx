@@ -6,9 +6,8 @@ import { MdVideoSettings } from "react-icons/md";
 import { IoMusicalNotesSharp } from "react-icons/io5";
 import { RiBarChartFill } from "react-icons/ri";
 import { PiFirstAidKitFill } from "react-icons/pi";
+import { t } from "i18next";
 import { useSelector } from "react-redux";
-
-
 import { useTranslation } from "react-i18next";
 
 const PopularCategory = ({ categoryCounts }) => {
@@ -29,11 +28,17 @@ const PopularCategory = ({ categoryCounts }) => {
     <div>
       <div className="container mx-auto py-24">
         {/* header */}
-        <h1 className={ theme === "dark"? "text-3xl font-semibold mb-2 tracking-wider text-white text-center " : "text-3xl font-semibold mb-2 tracking-wider text-black text-center "}>
-{t("popular_categories")
-        
+        <h1
+          className={
+            theme === "dark"
+              ? "text-3xl font-semibold mb-2 tracking-wider text-white text-center "
+              : "text-3xl font-semibold mb-2 tracking-wider text-black text-center "
+          }
+        >
+          {t("popular_categories")}
         </h1>
 
+        {/* carts */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-10 md:mt-16">
           {categoryCounts?.length > 0 ? (
             categoryCounts.map((category) => (
@@ -46,13 +51,13 @@ const PopularCategory = ({ categoryCounts }) => {
                     {category.name}
                   </h1>
                   <p className="text-[#5E6670] text-xs md:text-sm">
-                    {t("open_position", { count: category.count })}
+                    {category.count} Open Position
                   </p>
                 </div>
               </div>
             ))
           ) : (
-            <p>{t("no_categories_found")}</p>
+            <p>No categories found</p>
           )}
         </div>
       </div>
