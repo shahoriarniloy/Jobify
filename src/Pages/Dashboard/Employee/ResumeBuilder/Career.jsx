@@ -10,6 +10,7 @@ const Career = () => {
   const [loading, setLoading] = useState(true);
   const [loadingJobCategories, setLoadingJobCategories] = useState(false); // New state for job categories loading
   const { currentUser } = useCurrentUser();
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     if (currentUser?.email) {
@@ -104,21 +105,21 @@ const Career = () => {
       </h1>
       <div className="text-center mb-6">
         <p className="text-xl text-blue-500 mb-2">{user.name},</p>
-        <p className="text-lg text-gray-700 mb-4">
+        <p className={theme === "dark"? "text-lg text-slate-300 mb-4" : "text-lg text-gray-700 mb-4" }>
           Based on your skills, here are the most suitable career fields for
           you.
         </p>
       </div>
 
       {roadmap.length === 0 ? (
-        <div className="text-center text-lg text-gray-700">
+        <div className={theme === "dark"? "text-center text-lg text-slate-300" : "text-center text-lg text-gray-700"}>
           <p>No suitable job categories found.</p>
         </div>
       ) : (
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {roadmap.map((category) => (
             <div
-              className="bg-white shadow-lg rounded-lg p-6"
+              className={ theme === "dark"? "bg-slate-700 bg-opacity-50 shadow-lg text-slate-300 rounded-lg p-6" : "bg-white shadow-lg rounded-lg p-6"}
               key={category.jobTitle}
             >
               <h2 className="text-xl font-semibold mb-2">
@@ -146,10 +147,10 @@ const Career = () => {
       )}
 
       <div className="text-center mt-6">
-        <p className="text-lg text-gray-700 mb-2">
+        <p className={ theme === "dark"? "text-lg text-slate-300 mb-2" : "text-lg text-gray-700 mb-2"}>
           Explore these fields and prepare for the best possible career outcome.
         </p>
-        <p className="text-lg text-gray-700">
+        <p className={ theme === "dark"? "text-lg text-slate-300 mb-2" : "text-lg text-gray-700 mb-2"}>
           We've also provided additional skills to help you reach your goals.
         </p>
       </div>
