@@ -8,6 +8,7 @@ import { MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import { Helmet } from "react-helmet";
+import { toast } from "react-toastify";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -20,8 +21,11 @@ const DashboardLayout = () => {
   };
 
   const handleLogOut = () => {
-
-    navigate("/");
+    logOutUser()
+    .then(res=>{
+      toast.success("Logout Successful")
+      navigate("/")
+    })
   };
 
   return (

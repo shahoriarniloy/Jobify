@@ -7,10 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Bookmark from "./Bookmark";
 import { Link } from "react-router-dom";
-import { EyeIcon } from "@heroicons/react/24/outline";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { FaBriefcase } from "react-icons/fa";
-import ButtonLoader from "../../Shared/ButtonLoader";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
@@ -26,23 +23,13 @@ const AdvancedSearch = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
-  const [error, setError] = useState("");
-
-  const [filteredJobs, setFilteredJobs] = useState([]);
-
   const [totalJobs, setTotalJobs] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  // console.log("Total jobs:", totalJobs);
-  // console.log("item per page:", itemsPerPage);
   const noOfPages = Math.ceil(totalJobs / itemsPerPage);
-  // console.log("no of page:", noOfPages);
   const pages = [...Array(noOfPages).keys()];
-  // console.log("Total Jobs:", totalJobs);
 
   const [viewMode, setViewMode] = useState("grid");
-
-  const [companyLogos, setCompanyLogos] = useState({});
 
   const [filters, setFilters] = useState({
     experience: [],
@@ -123,8 +110,8 @@ const AdvancedSearch = () => {
     }
   };
 
-  if (isLoading) return <DashboardLoader />;
-  // console.log(jobs[0])
+
+  if (isLoading) return <DashboardLoader />
 
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
@@ -216,7 +203,6 @@ const AdvancedSearch = () => {
               </button>
             </div>
           </form>
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         </div>
         {showAdvancedFilters && (
           <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-1 px-24 py-8 rounded-lg mt-4 bg-white shadow-xl">

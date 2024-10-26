@@ -114,7 +114,7 @@ const Navbar = () => {
           {t("find_company")}
         </NavLink>
       </li>
-      <li>
+      {currentUser?.email &&<li>
         <NavLink
           to="/posts"
           className={({ isActive }) =>
@@ -123,7 +123,7 @@ const Navbar = () => {
         >
           {t("my_network")}
         </NavLink>
-      </li>
+      </li>}
       <li>
         <NavLink
           to="/about"
