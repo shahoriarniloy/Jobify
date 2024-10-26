@@ -18,9 +18,13 @@ import {
   Transition,
 } from "@headlessui/react"; // Ensure you have these imports
 import { MdAddCircleOutline, MdOutlineCancel } from "react-icons/md";
+import { useSelector} from "react-redux";
+ 
+
 
 const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
   const { t } = useTranslation(); // Destructuring t from useTranslation
+  const theme = useSelector((state) => state.theme.theme);
 
   const socialOptions = [
     { name: t("facebook"), icon: <FaFacebook />, value: "facebook" },
@@ -81,7 +85,7 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
               onChange={(value) => handleSelectChange(index, value)}
             >
               <div className="relative w-1/2">
-                <ListboxButton className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
+                <ListboxButton className={theme === "dark"? "relative w-full h-10 pl-10 pr-10 text-left text-slate-300 border-gray-600 bg-slate-900  rounded-lg cursor-default focus:outline-none" : "relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none"}>
                   <span className="block text-sm truncate">
                     {field.socialMedia
                       ? socialOptions.find(
@@ -96,7 +100,7 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <ListboxOptions className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+                  <ListboxOptions className={theme === "dark" ? "absolute w-full py-1 mt-1 overflow-auto text-slate-300 border-gray-600 bg-slate-900 rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10" : "absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10"}>
                     {socialOptions
                       .filter(
                         (option) =>

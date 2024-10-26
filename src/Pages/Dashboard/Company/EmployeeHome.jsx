@@ -7,6 +7,9 @@ import { useTranslation } from "react-i18next"; // Importing useTranslation
 import useCurrentUser from "../../../Hooks/useCurrentUser";
 import { Helmet } from "react-helmet";
 
+
+
+
 const EmployeeHome = () => {
   const { t } = useTranslation(); // Destructuring t from useTranslation
   const { currentUser } = useCurrentUser();
@@ -14,6 +17,7 @@ const EmployeeHome = () => {
 
   const [appliedJobsCount, setAppliedJobsCount] = useState(0);
   const [favoriteJobsCount, setFavoriteJobsCount] = useState(0);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchJobCounts = async () => {
@@ -46,13 +50,13 @@ const EmployeeHome = () => {
         </h2>
         <p className="text-sm">{t("daily_activities_alerts")}</p>
         <div className="flex justify-between gap-8">
-          <div className="bg-blue-100 shadow-md rounded-lg p-4 mt-4 w-full">
+          <div className={ theme === "dark"? "bg-[#305859] shadow-md rounded-lg p-4 mt-4 w-full" : "bg-blue-100 shadow-md rounded-lg p-4 mt-4 w-full"}>
             <h3 className="text-lg font-semibold">{t("applied_jobs")}</h3>
             <p className="text-sm">
               {t("count")}: {appliedJobsCount}
             </p>
           </div>
-          <div className="bg-green-100 shadow-md rounded-lg p-4 mt-4 w-full ">
+          <div className={theme === "dark"? "bg-[#324c3d] shadow-md rounded-lg p-4 mt-4 w-full " : "bg-green-100 shadow-md rounded-lg p-4 mt-4 w-full "}>
             <h3 className="text-lg font-semibold">{t("favorite_jobs")}</h3>
             <p className="text-sm">
               {t("count")}: {favoriteJobsCount}
@@ -61,7 +65,7 @@ const EmployeeHome = () => {
         </div>
       </div>
 
-      <div className="flex justify-between items-center bg-[#5f8794] p-8 rounded-lg mt-6">
+      <div className={theme === "dark"? "flex justify-between items-center bg-[#4c7f90] p-8 rounded-lg mt-6" : "flex justify-between items-center bg-[#5f8794] p-8 rounded-lg mt-6"}>
         <div className="flex items-center gap-6">
           <img
             className="size-[64px] rounded-full"
