@@ -111,9 +111,7 @@ const Testimonial = ({ reviews }) => {
                     <div>
                       <h1 className="font-bold">{review?.username}</h1>
                       <p className="text-[#767E94]">
-                        {review?.accountType
-                          ? review?.accountType
-                          : "UI/UX Designer"}
+                        {review?.accountType ? review?.role : "UI/UX Designer"}
                       </p>
                     </div>
                   </div>
