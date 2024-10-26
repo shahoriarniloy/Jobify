@@ -17,7 +17,6 @@ import AppliedJobs from "../Pages/Dashboard/Employee/AppliedJobs";
 
 import AdvancedSearch from "../Pages/Find Job/AdvancedSearch";
 import AuthLayout from "../Layout/AuthLayout/AuthLayout";
-import Dashboard from "../Pages/Dashboard/Dashboard";
 import BookmarkedJobs from "../Pages/Dashboard/Employee/BookmarkedJobs";
 import SingleJob from "../Pages/Find Job/SingleJob";
 import FindCompany from "../Pages/FindCompany/FindCompany";
@@ -25,8 +24,6 @@ import FindCompany from "../Pages/FindCompany/FindCompany";
 import PostJob from "../Pages/Dashboard/Company/PostJob";
 import MyJob from "../Pages/Dashboard/Company/MyJob";
 import CompanyJobs from "../Pages/FindCompany/CompanyDetails/CompanyJobs";
-import Messages from "../Pages/Dashboard/Employee/Message/Messages";
-import MessageDetail from "../Pages/Dashboard/Employee/Message/MessageDetail";
 
 // import JobTable from "../Pages/Dashboard/Company/MyJob";
 
@@ -36,12 +33,9 @@ import JobTable from "../Pages/Dashboard/Company/MyJob";
 import CompanySettings from "../Pages/Dashboard/Company/CompanySettings/CompanySettings";
 import EmployeeSettings from "../Pages/Dashboard/Employee/EmployeeAccountSettings/EmployeeSettings";
 import AppliedCandidates from "../Pages/Dashboard/Company/Candidates/AppliedCandidates";
-import Overview from "../Pages/Dashboard/Company/Overview";
-import PostStatus from "../Pages/Posts/PostStatus";
 import Posts from "../Pages/Posts/Posts";
 import Comments from "../Pages/Posts/Comments";
 import FindJobSeeker from "../Pages/FindJobSeeker/FindJobSeeker";
-import Inbox from "../Pages/Dashboard/Employee/Message/Inbox";
 import CompanyOverview from "../Pages/Dashboard/Company/CompanyOverview";
 import AllJobs from "../Pages/Dashboard/Admin/AllJobs";
 import AllCompanies from "../Pages/Dashboard/Admin/AllCompanies";
@@ -51,7 +45,6 @@ import AdminLayout from "../Pages/Dashboard/Admin/AdminLayout";
 import Room from "../Pages/Room/Room";
 import ResumeForm from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeForm";
 import Resume from "../Pages/Dashboard/Employee/ResumeBuilder/Resume";
-import ResumeBuilder from "../Pages/Dashboard/Employee/ResumeBuilder/ResumeBuilder";
 import EmployeeDashboard from "../Pages/Dashboard/Employee/EmployeeDashboard";
 import CandidateResume from "../Pages/Dashboard/Company/Candidates/CandidateResume";
 
@@ -118,23 +111,7 @@ export const router = createBrowserRouter([
         path: "/find-job-seekers",
         element: <FindJobSeeker />,
       },
-      {
-        path: "/messages",
-        element: <Messages></Messages>,
-      },
-      {
-        path: "/inbox/:otherPartyEmail",
-        element: <Inbox></Inbox>,
-      },
-      {
-        path: "/messages/:otherPartyEmail",
-        element: <MessageDetail></MessageDetail>,
-      },
-
-      // {
-      //   path: "/resume-builder",
-      //   element: <ResumeBuilder></ResumeBuilder>,
-      // },
+      
     ],
   },
   {

@@ -17,12 +17,16 @@ import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../../Shared/DashboardLoader.jsx";
 import useUserRole from "../../../Hooks/useUserRole.jsx";
 import { LuMessageCircle } from "react-icons/lu";
+import Modal from "react-responsive-modal";
+import { BsFillSendFill } from "react-icons/bs";
 const CompanyDetails = () => {
   const role = useUserRole();
   const { currentUser } = useCurrentUser();
   const { companyEmail } = useParams();
   const { t } = useTranslation(); // Initialize the translation function
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isMassageModalOpen, setIsMassageModalOpen] = useState(false);
+  const [massage, setMassage] = useState("");
 
   const { data: company, isLoading, refetch } = useQuery({
     queryKey: ["load company details"],
@@ -54,6 +58,18 @@ const CompanyDetails = () => {
     }
 
   };
+  // send massage
+  const handelSendMassage = async () => {
+    const { data } = await axiosSecure.post(`/send-massage?senderId=${currentUser?.email}&receiverId=${company?.email}`, { massage });
+    if (data?.acknowledged) {
+      toast.success("Message send successfully");
+      setIsMassageModalOpen(false);
+    }
+
+  }
+
+
+
   if (isLoading) return <DashboardLoader />
   return (
     <div className="bg-secondary pb-20">
@@ -92,12 +108,14 @@ const CompanyDetails = () => {
 
         <div className="lg:hidden flex justify-center mt-56 md:mt-28  mb-2">
 
-          <Link to={`/messages/${company?.email}`}>
-            <button className="bg-blue-500 text-white hover:bg-blue-400 btn">
-              <LuMessageCircle />
-              {t("message")}
-            </button>
-          </Link>
+
+          <button
+            onClick={() => setIsMassageModalOpen(true)}
+            className="bg-blue-500 text-white hover:bg-blue-400 btn">
+            <LuMessageCircle />
+            {t("message")}
+          </button>
+
 
           {role?.role == "Job Seeker" && <button
             disabled={isFavorite}
@@ -134,12 +152,14 @@ const CompanyDetails = () => {
           <div className="lg:w-1/2">
 
             <div className="lg:flex lg:justify-end items-center hidden gap-4 mb-4">
-              <Link to={`/messages/${company?.email}`}>
-                <button className="bg-blue-500 text-white hover:bg-blue-400 btn">
-                  <LuMessageCircle />
-                  {t("message")}
-                </button>
-              </Link>
+
+              <button
+                onClick={() => setIsMassageModalOpen(true)}
+                className="bg-blue-500 text-white hover:bg-blue-400 btn">
+                <LuMessageCircle />
+                {t("message")}
+              </button>
+
 
               {role?.role == "Job Seeker" && <button
                 disabled={isFavorite}
@@ -235,6 +255,38 @@ const CompanyDetails = () => {
         </div>
       </div>
       <OpenPosition companyEmail={companyEmail} />
+
+
+      <Modal
+        open={isMassageModalOpen}
+        onClose={() => setIsMassageModalOpen(false)}
+        center
+      >
+        <div className="p-4">
+          <div className="flex items-center gap-4">
+            <div>
+              <img src={company?.company_logo} className="size-[46px]" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-semibold">{company?.company_name}</h1>
+              <p className="text-gray-800">{company?.industry}</p>
+            </div>
+          </div>
+          <div className='flex items-center gap-4 mt-8'>
+            <input
+              onChange={(e) => setMassage(e.target.value)}
+              type="text"
+              placeholder="Type your massage"
+              className="input input-bordered input-md w-full max-w-xs" />
+
+            <button
+              onClick={handelSendMassage}
+              className='btn bg-blue-700 text-white hover:bg-blue-600'>
+              send <BsFillSendFill />
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

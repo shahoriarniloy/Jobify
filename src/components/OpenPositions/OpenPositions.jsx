@@ -19,7 +19,6 @@ const OpenPosition = ({ companyEmail }) => {
     }
 
   })
-  console.log(jobs)
   if (isLoading) return <DashboardLoader />
 
   return (

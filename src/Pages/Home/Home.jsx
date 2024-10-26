@@ -7,6 +7,7 @@ import TopCompanies from "./TopCompanies";
 import { useQuery } from "@tanstack/react-query";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import Testimonial from './Testimonial';
+import DashboardLoader from "../../Shared/DashboardLoader";
 
  
 const Home = () => {
@@ -18,7 +19,7 @@ const Home = () => {
       return result.data;
     }
   })
-  if(isLoading) return;
+  if(isLoading) return <DashboardLoader/>;
   return (
     <div>
       <SearchBar 
