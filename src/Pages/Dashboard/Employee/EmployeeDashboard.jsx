@@ -29,7 +29,7 @@ const EmployeeDashboard = () => {
 
   return (
     <div className="relative">
-       <Helmet>
+      <Helmet>
         <title>Jobify - Dashboard</title>
       </Helmet>
       <div className="lg:hidden p-4 fixed top-0 left-0 z-50">
@@ -120,6 +120,16 @@ const EmployeeDashboard = () => {
                   }
                 >
                   <IoSettingsOutline /> {t("profile_settings")}
+                </NavLink>
+                <NavLink
+                  to="/jobSeeker/myNetwork"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <IoSettingsOutline /> My Network
                 </NavLink>
               </div>
             </div>

@@ -12,7 +12,7 @@ import LazyLoad from "react-lazyload";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 
-const MAX_POSTS = 100; // Set maximum number of posts to 100
+const MAX_POSTS = 100;
 
 const PostCard = () => {
   const { t } = useTranslation();
@@ -86,26 +86,28 @@ const PostCard = () => {
       <Helmet>
         <title>Jobify - Posts</title>
       </Helmet>
+
       <div className="container mx-auto py-8">
         <PostStatus />
-        <div className="flex justify-between mt-16 px-4">
+
+        <div className="flex justify-between mt-4 ">
           <h1 className="text-lg text-gray-700">
             {t("posts_from_people_you_follow")}
           </h1>
           <Link to="/find-job-seekers">
-            <button>
+            <button className="flex items-center gap-2">
               <FaUserPlus className="w-6 h-6 mr-1 text-blue-500" />
+              <span className=" text-gray-700">Follow People</span>
             </button>
           </Link>
         </div>
 
-        <div className="flex flex-col justify-center items-center px-4">
+        <div className="flex flex-col justify-between items-center ">
           <div className="post-list grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-8 w-full">
             {data.pages.map((page, pageIndex) =>
               page.map((post, index) => {
                 const hasLiked = post.likes.includes(currentUser?.email);
 
-                // Add a reference to the last post element on the last page
                 const isLastPost =
                   pageIndex === data.pages.length - 1 &&
                   index === page.length - 1;
