@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import L from "leaflet";
-import { useForm } from "react-hook-form";
-import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder";
-import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
+import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 
 const AccountSetting = () => {
   const { t } = useTranslation();
   const { currentUser } = useCurrentUser();
-
   const [location, setLocation] = useState([51.505, -0.09]);
+  const [formattedLocation, setFormattedLocation] = useState();
+  const [formattedAddress, setFormattedAddress] = useState("");
   const {
     register,
     handleSubmit,
@@ -25,19 +25,16 @@ const AccountSetting = () => {
 
   useEffect(() => {
     const fetchUserInfo = async () => {
-      try {
-        const response = await axiosSecure.get(
-          `/companies/${currentUser.email}`
-        );
-        const userData = response.data;
+      // Mock user data; replace with your API call
+      const userData = {
+        email: currentUser.email,
+        phone_number: "123-456-7890", // replace with actual phone number
+      };
 
-        reset({
-          email: userData?.email,
-          phone: userData?.phone_number,
-        });
-      } catch (error) {
-        // console.error("Error fetching user info:", error);
-      }
+      reset({
+        email: userData?.email,
+        phone: userData?.phone_number,
+      });
     };
 
     fetchUserInfo();
@@ -54,30 +51,33 @@ const AccountSetting = () => {
     mapRef.current = map;
 
     const geocoder = L.Control.geocoder()
-      .on("markgeocode", (e) => {
+      .on("markgeocode", async (e) => {
         const latLng = e.geocode.center;
-        if (mapRef.current) {
-          mapRef.current.setView(latLng, 13);
-          L.marker(latLng).addTo(map);
-          setLocation([latLng.lat, latLng.lng]);
-        }
+        mapRef.current.setView(latLng, 13);
+        L.marker(latLng).addTo(map);
+        setLocation([latLng.lat, latLng.lng]);
+
+        // Reverse geocoding
+        const address = await getAddressFromCoordinates(latLng.lat, latLng.lng);
+
+        console.log(address);
+        setFormattedAddress(address);
       })
       .addTo(map);
 
+    // Get user location
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const userLatLng = [
           position.coords.latitude,
           position.coords.longitude,
         ];
-        if (mapRef.current) {
-          mapRef.current.setView(userLatLng, 13);
-          L.marker(userLatLng).addTo(map);
-          setLocation(userLatLng);
-        }
+        map.setView(userLatLng, 13);
+        L.marker(userLatLng).addTo(map);
+        setLocation(userLatLng);
       },
       (error) => {
-        // console.error("Error getting location: ", error);
+        console.error("Error getting location: ", error);
       }
     );
 
@@ -89,18 +89,40 @@ const AccountSetting = () => {
     };
   }, []);
 
+  const getAddressFromCoordinates = async (lat, lon) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+      );
+      const data = await response.json();
+
+      setFormattedLocation({
+        city: data.address.city,
+        country: data.address.country,
+      });
+      console.log(data);
+      return data.display_name;
+      // Returns the formatted address
+    } catch (error) {
+      console.error("Error fetching location:", error);
+      return null;
+    }
+  };
+
+  console.log(formattedLocation);
+
   const onSubmit = async (data) => {
     const payload = {
       email: currentUser.email,
       phone: data.phone,
-      location: location,
+      formattedLocation,
     };
 
     try {
       const response = await axiosSecure.post("/companyAccountInfo", payload);
-      // console.log("Success:", response.data);
+      console.log("Success:", response.data);
     } catch (error) {
-      // console.error("Error:", error);
+      console.error("Error:", error);
     }
   };
 
@@ -109,12 +131,15 @@ const AccountSetting = () => {
       <section className="md:w-1/2">
         <h2 className="font-bold mb-4 text-xl mt-4">{t("map_location")}</h2>
         <div id="map" style={{ height: "400px", width: "100%" }}></div>
+        {formattedAddress && (
+          <p className="mt-2">Selected Location: {formattedAddress}</p>
+        )}
       </section>
 
       <section className="md:w-1/2">
         <h2 className="font-bold mb-4 text-xl mt-4">{t("account_settings")}</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-4 flex items-center ">
+          <div className="mb-4 flex items-center">
             <label htmlFor="email" className="block mb-2">
               {t("email")}
             </label>
@@ -141,7 +166,7 @@ const AccountSetting = () => {
                 type="tel"
                 id="phone"
                 {...register("phone", { required: true })}
-                className="input  "
+                className="input"
               />
               {errors.phone && (
                 <span className="text-red-500">{t("field_required")}</span>

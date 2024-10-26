@@ -11,9 +11,9 @@ import Bookmark from "./Bookmark";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
-
 
 import { FaUserGraduate } from "react-icons/fa";
 
@@ -107,7 +107,10 @@ const SingleJob = () => {
     return <DashboardLoader />;
   }
   return (
-    <div className="bg-secondary">
+    <div className={theme === "dark" ? "text-white" : "bg-secondary"}>
+      <Helmet>
+        <title>Jobify - Job Details</title>
+      </Helmet>
       <div className="container mx-auto px-4 sm:px-8 md:px-16 py-8">
         <div className="flex flex-col md:flex-row justify-between gap-4">
           <div className="flex gap-4">
@@ -133,12 +136,17 @@ const SingleJob = () => {
             </div>
           </div>
 
-        <div className="flex flex-col">
-          <div className="flex items-center gap-3 mb-3">
-            <div className={ theme === "dark" ? "px-2 py-1 bg-slate-700  bg opacity-50 rounded-md cursor-pointer" : "px-2 py-1 bg-blue-100 rounded-md cursor-pointer"}>
-              <Bookmark jobId={job._id} />
-            </div>
-
+          <div className="flex flex-col">
+            <div className="flex items-center gap-3 mb-3">
+              <div
+                className={
+                  theme === "dark"
+                    ? "px-2 py-1 bg-slate-700  bg opacity-50 rounded-md cursor-pointer"
+                    : "px-2 py-1 bg-blue-100 rounded-md cursor-pointer"
+                }
+              >
+                <Bookmark jobId={job._id} />
+              </div>
 
               <div className="items-center">
                 <button
@@ -170,7 +178,6 @@ const SingleJob = () => {
           </div>
         </div>
 
-
         <section className="flex flex-col lg:flex-row mt-5 gap-4">
           <section className="lg:w-1/2 mb-5 lg:mb-0">
             <div>
@@ -178,29 +185,55 @@ const SingleJob = () => {
                 {job?.jobInfo?.title}
               </h1>
               <div className="my-4">
-                <h3 className="font-bold text-gray-900 mb-4">
+                <h3
+                  className={
+                    theme === "dark "
+                      ? "font-bold text-gray-100  mb-4"
+                      : "font-bold text-gray-600 mb-4"
+                  }
+                >
                   {t("job_description")}
                 </h3>
-                <p className="text-gray-700 text-justify">
+                <p
+                  className={
+                    theme === "dark "
+                      ? " text-gray-100 mb-4 text-justify"
+                      : " text-gray-600 mb-4 text-justify"
+                  }
+                >
                   {job?.jobInfo?.jobDescription}
                 </p>
               </div>
             </div>
 
             <div className="my-4">
-              <h3 className="font-bold mb-4">Responsibilities</h3>
+              <h3
+                className={
+                  theme === "dark "
+                    ? "font-bold text-gray-100 mb-4"
+                    : "font-bold text-gray-600 mb-4"
+                }
+              >
+                Responsibilities
+              </h3>
               <ul className="list-disc list-inside pl-5 space-y-2">
                 {job?.jobInfo?.responsibilities
                   ?.split("\n")
                   .map((item, index) => (
-                    <li key={index} className="text-gray-700 text-justify">
+                    <li
+                      key={index}
+                      className={
+                        theme === "dark "
+                          ? " text-gray-100 mb-4 text-justify"
+                          : " text-gray-600 mb-4 text-justify"
+                      }
+                    >
                       {t(item)}
                     </li>
                   ))}
               </ul>
             </div>
           </section>
-
 
           <section className="md:ml-10 lg:w-1/2">
             <div className="p-2 md:p-8 border-2 rounded-lg">
@@ -213,7 +246,13 @@ const SingleJob = () => {
                     <FiCalendar className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Posted Date</p>
-                      <p className="text-sm text-gray-700">
+                      <p
+                        className={
+                          theme === "dark "
+                            ? " text-gray-900 mb-4 text-sm"
+                            : " text-gray-400 mb-4 text-sm"
+                        }
+                      >
                         {job?.jobInfo?.posted}
                       </p>
                     </div>
@@ -223,7 +262,13 @@ const SingleJob = () => {
                     <FiCalendar className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Expire On</p>
-                      <p className="text-sm text-gray-700">
+                      <p
+                        className={
+                          theme === "dark "
+                            ? " text-gray-900 mb-4 text-sm"
+                            : " text-gray-400 mb-4 text-sm"
+                        }
+                      >
                         {job?.jobInfo?.deadline}
                       </p>
                     </div>
@@ -235,7 +280,13 @@ const SingleJob = () => {
                       <p className="font-semibold mt-2">
                         Educational Qualification
                       </p>
-                      <p className="text-sm text-gray-700">
+                      <p
+                        className={
+                          theme === "dark "
+                            ? " text-gray-900 mb-4 text-sm"
+                            : " text-gray-400 mb-4 text-sm"
+                        }
+                      >
                         {job?.jobInfo?.education}
                       </p>
                     </div>
@@ -247,7 +298,13 @@ const SingleJob = () => {
                     <PiWallet className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Starting Salary</p>
-                      <p className="text-sm text-gray-700">
+                      <p
+                        className={
+                          theme === "dark "
+                            ? " text-gray-900 mb-4 text-sm"
+                            : " text-gray-400 mb-4 text-sm"
+                        }
+                      >
                         {job?.jobInfo?.salaryRange}
                       </p>
                     </div>
@@ -257,7 +314,13 @@ const SingleJob = () => {
                     <IoLocationOutline className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Job Location</p>
-                      <p className="text-sm text-gray-700">
+                      <p
+                        className={
+                          theme === "dark "
+                            ? " text-gray-900 mb-4 text-sm"
+                            : " text-gray-400 mb-4 text-sm"
+                        }
+                      >
                         {job?.jobInfo?.location}
                       </p>
                     </div>
@@ -266,7 +329,13 @@ const SingleJob = () => {
                     <PiBriefcase className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">Job Type</p>
-                      <p className="text-sm text-gray-700">
+                      <p
+                        className={
+                          theme === "dark "
+                            ? " text-gray-900 mb-4 text-sm"
+                            : " text-gray-400 mb-4 text-sm"
+                        }
+                      >
                         {job?.jobInfo?.jobType}
                       </p>
                     </div>

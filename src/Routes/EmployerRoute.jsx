@@ -1,25 +1,17 @@
 import { Navigate } from "react-router-dom";
 import useCurrentUser from "../Hooks/useCurrentUser";
 import useUserRole from "../Hooks/useUserRole";
-import DashboardLoader from "../Shared/DashboardLoader";
+import { toast } from "react-toastify";
 
 const EmployerRoute = ({ children }) => {
   const { currentUser } = useCurrentUser();
-  const { role, isLoading } = useUserRole();
+  const { role} = useUserRole();
 
-  if (!currentUser) {
+  if (!currentUser?.email || role !== "Employer") {
+    toast.warn("Please Login First !!!")
     return <Navigate to="/login" replace />;
   }
-
-  if (isLoading) {
-    return <DashboardLoader />;
-  }
-
-  if (role === "Employer") {
     return children;
-  } else {
-    return <Navigate to="/routenotfound" replace />;
-  }
 };
 
 export default EmployerRoute;

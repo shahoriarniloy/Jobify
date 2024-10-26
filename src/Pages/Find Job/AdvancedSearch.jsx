@@ -7,14 +7,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Bookmark from "./Bookmark";
 import { Link } from "react-router-dom";
-import { EyeIcon } from "@heroicons/react/24/outline";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { FaBriefcase } from "react-icons/fa";
-import ButtonLoader from "../../Shared/ButtonLoader";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
+import { Helmet } from "react-helmet";
 import useUserRole from "../../Hooks/useUserRole";
 
 const AdvancedSearch = () => {
@@ -25,23 +23,13 @@ const AdvancedSearch = () => {
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
-  const [error, setError] = useState("");
-
-  const [filteredJobs, setFilteredJobs] = useState([]);
-
   const [totalJobs, setTotalJobs] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  // console.log("Total jobs:", totalJobs);
-  // console.log("item per page:", itemsPerPage);
   const noOfPages = Math.ceil(totalJobs / itemsPerPage);
-  // console.log("no of page:", noOfPages);
   const pages = [...Array(noOfPages).keys()];
-  // console.log("Total Jobs:", totalJobs);
 
   const [viewMode, setViewMode] = useState("grid");
-
-  const [companyLogos, setCompanyLogos] = useState({});
 
   const [filters, setFilters] = useState({
     experience: [],
@@ -122,11 +110,14 @@ const AdvancedSearch = () => {
     }
   };
 
-  if (isLoading) return <DashboardLoader />;
-  // console.log(jobs[0])
+
+  if (isLoading) return <DashboardLoader />
 
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
+      <Helmet>
+        <title>Jobify - Advanced Serch</title>
+      </Helmet>
       <div className="container mx-auto">
         <div className="w-full  rounded-lg  p-6 flex-1">
           <form
@@ -145,7 +136,6 @@ const AdvancedSearch = () => {
                     ? "w-full pl-12 pr-3 py-3 sm:py-4 bg-slate-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
                     : "w-full pl-12 pr-3 py-3 sm:py-4 bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
                 }
-               
               />
             </div>
 
@@ -213,7 +203,6 @@ const AdvancedSearch = () => {
               </button>
             </div>
           </form>
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         </div>
         {showAdvancedFilters && (
           <div className="grid lg:grid-cols-5 md:grid-cols-5 grid-cols-1 px-24 py-8 rounded-lg mt-4 bg-white shadow-xl">
@@ -368,7 +357,11 @@ const AdvancedSearch = () => {
           <div className="flex items-center justify-center lg:gap-4 md:gap-4 gap-2 mt-4">
             <label
               htmlFor="itemsPerPage"
-              className={theme === "dark" ? "text-sm font-medium text-gray-300" : "text-sm font-medium text-blue-900"}
+              className={
+                theme === "dark"
+                  ? "text-sm font-medium text-gray-300"
+                  : "text-sm font-medium text-blue-900"
+              }
             >
               {t("number_of_jobs_per_page")}
             </label>
@@ -467,7 +460,7 @@ const AdvancedSearch = () => {
                           </Link>
                         </td>
                         <td className="p-3  lg:table-cell">
-                          <p className="btn btn-outline btn-accent btn-sm">
+                          <p className="btn btn-outline btn-info btn-sm">
                             <Bookmark jobId={_id} />
                           </p>
                         </td>
@@ -483,7 +476,11 @@ const AdvancedSearch = () => {
             {jobs?.map(({ _id, jobInfo, companyInfo }) => (
               <div
                 key={_id}
-                className={ theme === "dark" ? " w-full relative group cursor-pointer overflow-hidden bg-slate-700 bg-opacity-50 px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95" : " w-full relative group cursor-pointer overflow-hidden bg-white px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"}
+                className={
+                  theme === "dark"
+                    ? " w-full relative group cursor-pointer overflow-hidden bg-slate-700 bg-opacity-50 px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"
+                    : " w-full relative group cursor-pointer overflow-hidden bg-white px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"
+                }
               >
                 <span className="absolute top-10 z-0 h-20 w-20 rounded-full  duration-300 "></span>
                 <div className="relative z-10 mx-auto max-w-md">
@@ -493,7 +490,13 @@ const AdvancedSearch = () => {
                       className="h-full w-full rounded-full transition-all"
                     />
                   </span>
-                  <div className={ theme === "dark" ? "pt-5 text-base  text-gray-300 transition-all duration-300 " : "pt-5 text-base  text-gray-600 transition-all duration-300 "}>
+                  <div
+                    className={
+                      theme === "dark"
+                        ? "pt-5 text-base  text-gray-300 transition-all duration-300 "
+                        : "pt-5 text-base  text-gray-600 transition-all duration-300 "
+                    }
+                  >
                     <h2 className="text-2xl font-semibold tracking-wide flex gap-2">
                       {jobInfo?.title}
                       <div className="p-2 rounded-full text-xs bg-[#1d4fd83a] size-[28px] flex justify-center items-center">
@@ -535,7 +538,11 @@ const AdvancedSearch = () => {
                   <div className="pt-5 text-base font-semibold leading-7">
                     <Link
                       to={`/job/${_id}`}
-                      className= { theme === "dark" ? "text-gray-200 transition-all duration-300  flex items-center" :"text-slate-500 transition-all duration-300  flex items-center"}
+                      className={
+                        theme === "dark"
+                          ? "text-gray-200 transition-all duration-300  flex items-center"
+                          : "text-slate-500 transition-all duration-300  flex items-center"
+                      }
                     >
                       {t("view_details")}
                     </Link>

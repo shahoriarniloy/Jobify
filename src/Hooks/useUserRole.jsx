@@ -1,10 +1,8 @@
 import axiosSecure from "./UseAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
 import useCurrentUser from "./useCurrentUser";
 
 const useUserRole = () => {
-  // const currentUser = useSelector((state) => state?.user?.currentUser);
   const { currentUser } = useCurrentUser();
   const { data: role, isLoading } = useQuery({
     queryKey: ["loadedRole", currentUser?.email],
@@ -14,8 +12,9 @@ const useUserRole = () => {
           `/user-role?email=${currentUser.email}`
         );
         return response.data;
+      } else {
+        return null;
       }
-      return null;
     },
     enabled: !!currentUser?.email,
   });
