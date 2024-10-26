@@ -11,13 +11,13 @@ import { MdHome, MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import useUserRole from "../../../Hooks/useUserRole";
 import { FiLayers } from "react-icons/fi";
-import { useTranslation } from "react-i18next"; // Import useTranslation
+import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
 import { Helmet } from "react-helmet";
 import { FaBell } from "react-icons/fa6";
 
 const EmployeeDashboard = () => {
-  const { t } = useTranslation(); // Destructure t from useTranslation
+  const { t } = useTranslation();
   const { currentUser, logOutUser } = useCurrentUser();
   const navigate = useNavigate();
 
@@ -29,8 +29,8 @@ const EmployeeDashboard = () => {
 
   return (
     <div className="relative">
-       <Helmet>
-        <title>Jobify - Dashboard</title>
+      <Helmet>
+        <title>{t("dashboard_title")}</title>
       </Helmet>
       <div className="lg:hidden p-4 fixed top-0 left-0 z-50">
         <button onClick={toggleSidebar} className="text-2xl">
@@ -40,7 +40,6 @@ const EmployeeDashboard = () => {
 
       <div className="mb-3 border-y-2">
         <div className="container mx-auto flex flex-col lg:flex-row">
-          {/* Sidebar */}
           <div
             className={`${
               isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -78,7 +77,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaRegHeart /> Bookmarked Jobs
+                  <FaRegHeart /> {t("bookmarked_jobs")}
                 </NavLink>
                 <NavLink
                   to="/jobSeeker/favorite-company"
@@ -88,7 +87,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaBell /> Preferred Updates
+                  <FaBell /> {t("preferred_updates")}
                 </NavLink>
 
                 <NavLink
@@ -99,7 +98,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaFileAlt /> {t("edit_resume")} {/* Updated icon */}
+                  <FaFileAlt /> {t("edit_resume")}
                 </NavLink>
                 <NavLink
                   to="/jobSeeker/career"
@@ -109,7 +108,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaEdit /> Career Roadmap
+                  <FaEdit /> {t("career_roadmap")}
                 </NavLink>
                 <NavLink
                   to="/jobSeeker/employee-settings"
@@ -121,10 +120,19 @@ const EmployeeDashboard = () => {
                 >
                   <IoSettingsOutline /> {t("profile_settings")}
                 </NavLink>
+                <NavLink
+                  to="/jobSeeker/myNetwork"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <IoSettingsOutline /> My Network
+                </NavLink>
               </div>
             </div>
 
-            {/* General links */}
             <div className="mt-8">
               <NavLink
                 to="/"
@@ -148,7 +156,6 @@ const EmployeeDashboard = () => {
             </div>
           </div>
 
-          {/* Content area */}
           <div className="w-full py-14 lg:py-14 lg:px-4 border-l-0 lg:border-l-2">
             <Outlet />
           </div>

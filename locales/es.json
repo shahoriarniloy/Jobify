@@ -726,5 +726,23 @@
   "expire_on_label": "Expira en",
   "educational_qualification_label": "Calificación educativa",
   "starting_salary_label": "Salario inicial",
-  "job_location_label": "Ubicación del trabajo"
+  "job_location_label": "Ubicación del trabajo",
+  "category": "Categoría",
+
+  "testimonial_title": "Testimonio",
+
+  "per_page": "Por Página",
+
+  "available_jobs": "Trabajos Disponibles",
+
+  "job_sub_category_label": "Subcategoría de trabajo",
+  "select_subcategory": "Seleccionar subcategoría",
+  "job_category_label": "Categoría de trabajo",
+  "select_category": "Seleccionar categoría",
+  "you_have_notifications": "Tienes {{count}} notificaciones",
+  "job_title_notification": "{{title}}",
+
+  "enter_room_id": "Ingresa el ID de la sala",
+  "room_id_placeholder": "ID de la sala",
+  "join_room": "Unirse a la sala"
 }
