@@ -6,8 +6,10 @@ import axiosSecure from '../../Hooks/UseAxiosSecure';
 import useCurrentUser from '../../Hooks/useCurrentUser';
 import useUserRole from '../../Hooks/useUserRole';
 import { FaFacebookMessenger } from "react-icons/fa6";
+import io from "socket.io-client";
 
 const Message = () => {
+    const socket = io("http://localhost:5000"); 
     const { currentUser } = useCurrentUser();
     const [massages, setMassages] = useState();
     const [senderId, setSenderId] = useState();
@@ -32,6 +34,27 @@ const Message = () => {
         }
 
     }
+
+
+
+    useEffect(() => {
+        // Listen for incoming messages from the server
+        socket.on("receiveMessage", (newMessage) => {
+            console.log("server connected")
+            if (newMessage.senderId === senderId || newMessage.receiverId === senderId) {
+                setMassages((prevMessages) => [...prevMessages, newMessage]);
+            }
+        });
+
+        return () => {
+            socket.off("receiveMessage"); // Clean up listener on component unmount
+        };
+    }, [senderId]);
+
+
+
+
+
     useEffect(() => {
         const result = data?.find(msg => msg._id == ref);
         setMassages(result?.messages);
@@ -85,7 +108,7 @@ const Message = () => {
 
                                 {
                                     massages?.map(sms =>
-                                        <>
+                                        <div key={sms.timestamp}>
                                             {currentUser.email == sms.sender ?
                                                 <div className="chat chat-end">
                                                     <div className="chat-bubble"> {sms?.massage}</div>
@@ -98,7 +121,7 @@ const Message = () => {
                                                     </div>
                                                 </div>
                                             }
-                                        </>
+                                        </div>
 
                                     )
                                 }
@@ -125,9 +148,9 @@ const Message = () => {
                         </div>
 
                     </div>
-                    : 
+                    :
                     <div className='w-2/3 flex flex-col justify-center items-center gap-4 h-full'>
-                        <FaFacebookMessenger className='text-4xl text-blue-400'/>
+                        <FaFacebookMessenger className='text-4xl text-blue-400' />
                         <h2 className='text-blue-700 font-semibold'>Select a conversation</h2>
                     </div>
                 }
