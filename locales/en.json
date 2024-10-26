@@ -734,5 +734,11 @@
   "testimonial_title": "Testimonial",
 
   "per_page": "Per Page",
-  
+
+  "dashboard_title": "Jobify - Dashboard",
+  "bookmarked_jobs": "Bookmarked Jobs",
+  "preferred_updates": "Preferred Updates",
+  "career_roadmap": "Career Roadmap",
+
+  "available_jobs": "Available Jobs"
 }

@@ -725,5 +725,12 @@
 
   "testimonial_title": "প্রশংসাপত্র",
 
-  "per_page": "প্রতি পৃষ্ঠা"
+  "per_page": "প্রতি পৃষ্ঠা",
+
+  "dashboard_title": "জবিফাই - ড্যাশবোর্ড",
+  "bookmarked_jobs": "বুকমার্ককৃত চাকরি",
+  "preferred_updates": "পছন্দসই আপডেট",
+  "career_roadmap": "ক্যারিয়ার রোডম্যাপ",
+
+  "available_jobs": "উপলব্ধ চাকরিসমূহ"
 }
