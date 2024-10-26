@@ -12,6 +12,9 @@ import {
 import { BiTask } from "react-icons/bi";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import { useSelector, useDispatch } from "react-redux";
+ 
+
 
 const CompanyDashboard = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
@@ -24,6 +27,7 @@ const CompanyDashboard = () => {
     jobsFilled: 0,
   });
   const [loading, setLoading] = useState(true);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
