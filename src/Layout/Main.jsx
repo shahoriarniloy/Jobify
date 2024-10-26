@@ -6,25 +6,37 @@ import { FaEnvelope } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Loader from "../Shared/Loader";
 import "../../locales/i18";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useCurrentUser from "../Hooks/useCurrentUser";
+import Message from "../Pages/Message/Message";
 
 const Main = () => {
   const [isOpenMessage, setIsOpenMessage] = useState(false);
   const navigate = useNavigate();
   const theme = useSelector((state) => state.theme.theme);
-  const {loading} = useCurrentUser();
+  const { loading } = useCurrentUser();
+  const messageRef = useRef(null)
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (messageRef.current && !messageRef.current.contains(event.target)) {
+        setIsOpenMessage(false);
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   if (loading) return <Loader />;
 
   return (
     <div
-      className={`roboto-regular ${
-        theme === "dark"
+      className={`roboto-regular ${theme === "dark"
           ? "bg-gradient-to-r from-gray-800 to-slate-900 text-white"
           : "bg-white text-black"
-      }`}
+        }`}
     >
       <Navbar2 />
       <Navbar />
@@ -34,8 +46,8 @@ const Main = () => {
         <Outlet />
 
         {/* Massage components */}
-        <div className={isOpenMessage ? "fixed bottom-24 right-9 w-full max-w-xl h-full max-h-[50vh] rounded-lg bg-blue-400 shadow-lg" : "hidden"}>
-          
+        <div ref={messageRef} className={isOpenMessage ? "fixed bottom-24 z-50 right-9 w-full max-w-xl h-full max-h-[50vh] rounded-lg bg-white shadow-lg p-6" : "hidden"}>
+          <Message />
         </div>
       </div>
 

@@ -326,7 +326,9 @@ const Navbar2 = () => {
               ) : (
                 <button
                   onClick={() => setLoginModalOpen(true)}
-                  className="bg-white  rounded-lg text-blue-500 border border-blue-400 px-6 relative lg:flex md:flex lg:items-center md:items-center gap-4 hidden"
+                  className={`${
+                    theme == "dark" ? "bg-transparent" : "bg-white"
+                  }  rounded-lg text-blue-500 border border-blue-400 px-6 py-3 relative lg:flex md:flex lg:items-center md:items-center gap-4 hidden`}
                 >
                   {t("join_us")}
                 </button>
@@ -341,6 +343,19 @@ const Navbar2 = () => {
         open={loginModalOpen}
         onClose={() => setLoginModalOpen(false)}
         center
+        styles={{
+          modal: {
+            backgroundColor: theme === "dark" ? "#1A202C" : "white",
+            color: theme === "dark" ? "white" : "black",
+            borderRadius: "8px",
+          },
+        }}
+        classNames={{
+          closeButton:
+            theme === "dark"
+              ? "custom-close-icon-dark"
+              : "custom-close-icon-light",
+        }}
       >
         <Login
           setLoginModalOpen={setLoginModalOpen}
@@ -353,6 +368,19 @@ const Navbar2 = () => {
         open={signUpModalOpen}
         onClose={() => setSignUpModalOpen(false)}
         center
+        styles={{
+          modal: {
+            backgroundColor: theme === "dark" ? "#1A202C" : "white",
+            color: theme === "dark" ? "white" : "black",
+            borderRadius: "8px",
+          },
+        }}
+        classNames={{
+          closeButton:
+            theme === "dark"
+              ? "custom-close-icon-dark"
+              : "custom-close-icon-light",
+        }}
       >
         <Register
           setLoginModalOpen={setLoginModalOpen}
