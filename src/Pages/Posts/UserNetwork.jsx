@@ -83,8 +83,8 @@ const FollowPosts = () => {
   };
 
   return (
-    <div className="grid lg:grid-cols-4 grid-cols-1 gap-6 p-4 bg-secondary">
-      <div className="bg-white p-6 rounded-lg shadow-md w-full mx-auto h-fit">
+    <div className="grid lg:grid-cols-4 grid-cols-1 gap-6 p-4 ">
+      <div className="bg-white p-6 rounded-lg shadow-md w-full mx-auto h-fit border-2">
         <h3 className="text-lg font-semibold mb-2">Following</h3>
         <ul className="space-y-3">
           {following?.map((user) => (
@@ -123,7 +123,7 @@ const FollowPosts = () => {
         </ul>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md w-full mx-auto lg:col-span-2">
+      <div className="bg-white p-6 rounded-lg shadow-md w-full mx-auto lg:col-span-2 border-2">
         <h3 className="text-lg font-semibold mb-4">Your Posts</h3>
         <div className="grid  grid-cols-1 space-y-4 gap-4">
           {posts?.map((post) => (
@@ -169,7 +169,7 @@ const FollowPosts = () => {
         </div>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md w-full mx-auto h-fit">
+      <div className="bg-white p-6 rounded-lg shadow-md w-full mx-auto h-fit border-2">
         <h3 className="text-lg font-semibold mb-2">Followers</h3>
         <ul className="space-y-3">
           {followers?.map((user) => (

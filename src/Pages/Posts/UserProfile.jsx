@@ -86,7 +86,7 @@ const UserProfile = () => {
         {/* Posts Section */}
         <div className="p-4 sm:p-6 rounded-lg lg:w-2/3 mb-6 container mx-auto bg-white">
           <h3 className="text-lg font-semibold mb-4">Posts</h3>
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
             {posts?.map((post) => (
               <div key={post._id} className="p-4 rounded-lg shadow ">
                 <div className="flex items-center space-x-3 mb-2">
