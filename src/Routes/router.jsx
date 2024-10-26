@@ -54,6 +54,8 @@ import Career from "../Pages/Dashboard/Employee/ResumeBuilder/Career";
 import JobseekerRoute from "./JobseekerRoute";
 import AdminRoute from "./AdminRoute";
 import EmployerRoute from "./EmployerRoute";
+import UserNetwork from "../Pages/Posts/UserNetwork";
+import UserProfile from "../Pages/Posts/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -104,8 +106,11 @@ export const router = createBrowserRouter([
 
       {
         path: "/posts",
-        element:<JobseekerRoute><Posts /></JobseekerRoute>
-        
+        element: (
+          <JobseekerRoute>
+            <Posts />
+          </JobseekerRoute>
+        ),
       },
       {
         path: "/comments/:postId",
@@ -115,7 +120,14 @@ export const router = createBrowserRouter([
         path: "/find-job-seekers",
         element: <FindJobSeeker />,
       },
-      
+      // {
+      //   path: "/myNetwork",
+      //   element: <UserNetwork />,
+      // },
+      {
+        path: "/userProfile/:userEmail",
+        element: <UserProfile />,
+      },
     ],
   },
   {
@@ -249,6 +261,10 @@ export const router = createBrowserRouter([
           {
             path: "career",
             element: <Career></Career>,
+          },
+          {
+            path: "myNetwork",
+            element: <UserNetwork />,
           },
         ],
       },
