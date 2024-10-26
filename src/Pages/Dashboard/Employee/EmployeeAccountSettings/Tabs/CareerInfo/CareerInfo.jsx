@@ -224,7 +224,7 @@ const CareerInfo = () => {
                 ],
               }}
               formats={["bold", "italic", "underline", "list", "bullet", "link"]}
-              className="custom-quill-editor text-white"
+              className="custom-quill-editor"
               style={{ direction: "ltr" }}
             />
           </div>

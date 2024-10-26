@@ -12,6 +12,8 @@ import ButtonLoader from "../../../Shared/ButtonLoader";
 import { updateProfile } from "firebase/auth";
 import auth from "../Firebase/firebase.config";
 import { Helmet } from "react-helmet";
+import { useSelector} from "react-redux";
+  
 
 
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
@@ -20,6 +22,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const accountType = selectedIndex === 0 ? t("job_seeker") : t("employer");
   const { createUser, loading, setLoading } = useCurrentUser();
+  const theme = useSelector((state) => state.theme.theme);
 
 
   const handleRegister = async (e) => {
@@ -87,7 +90,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   };
 
   return (
-    <div className="bg-white flex justify-center w-[400px] max-w-2xl">
+    <div className={theme === "dark"? "bg-[#1A202C] flex justify-center w-[400px] max-w-2xl" : "bg-white flex justify-center w-[400px] max-w-2xl"}>
        <Helmet>
         <title>Jobify - Register</title>
       </Helmet>
@@ -114,7 +117,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                   {t("employee")}
                 </Tab>
                 <Tab
-                  className={`pb- cursor-pointer ${selectedIndex === 1
+                  className={`pb-2  cursor-pointer ${selectedIndex === 1
                     ? "border-b-4"
                     : "text-gray-700"
                     }`}
@@ -131,7 +134,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                   type="text"
                   name="name"
                   placeholder={t("full_name")}
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  className={ theme === "dark" ? "block w-full px-4 py-2 mt-2 text-white placeholder-gray-400 bg-[#2D3748] border border-gray-600  rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" : "block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"}
                   required
                 />
               </div>
@@ -140,7 +143,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                   type="email"
                   name="email"
                   placeholder={t("email_address")}
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  className={ theme === "dark" ? "block w-full px-4 py-2 mt-2 text-white placeholder-gray-400 bg-[#2D3748] border border-gray-600  rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" : "block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"}
                   required
                 />
                 <div className="relative">
@@ -148,7 +151,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder={t("password")}
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className={ theme === "dark" ? "block w-full px-4 py-2 mt-2 text-white placeholder-gray-400 bg-[#2D3748] border border-gray-600  rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" : "block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"}
                     required
                   />
                   <button
@@ -168,7 +171,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                   type="text"
                   name="companyName"
                   placeholder="Company Name"
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  className={ theme === "dark" ? "block w-full px-4 py-2 mt-2 text-white placeholder-gray-400 bg-[#2D3748] border border-gray-600  rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" : "block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"}
                   required
                 />
               </div>
@@ -177,7 +180,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                   type="email"
                   name="companyEmail"
                   placeholder="Company Email"
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  className={ theme === "dark" ? "block w-full px-4 py-2 mt-2 text-white placeholder-gray-400 bg-[#2D3748] border border-gray-600  rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" : "block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"}
                   required
                 />
                 <div className="relative">
@@ -185,7 +188,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder={t("password")}
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className={ theme === "dark" ? "block w-full px-4 py-2 mt-2 text-white placeholder-gray-400 bg-[#2D3748] border border-gray-600  rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" : "block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"}
                     required
                   />
                   <button
