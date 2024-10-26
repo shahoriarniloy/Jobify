@@ -223,7 +223,7 @@ const SingleJob = () => {
                     <li
                       key={index}
                       className={
-                        theme === "dark "
+                        theme === "dark"
                           ? " text-gray-100 mb-4 text-justify"
                           : " text-gray-600 mb-4 text-justify"
                       }
