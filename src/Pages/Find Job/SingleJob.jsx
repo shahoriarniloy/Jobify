@@ -187,8 +187,8 @@ const SingleJob = () => {
               <div className="my-4">
                 <h3
                   className={
-                    theme === "dark "
-                      ? "font-bold text-gray-100  mb-4"
+                    theme === "dark"
+                      ? "font-bold text-gray-300  mb-4"
                       : "font-bold text-gray-600 mb-4"
                   }
                 >
@@ -196,8 +196,8 @@ const SingleJob = () => {
                 </h3>
                 <p
                   className={
-                    theme === "dark "
-                      ? " text-gray-100 mb-4 text-justify"
+                    theme === "dark"
+                      ? " text-gray-300 mb-4 text-justify"
                       : " text-gray-600 mb-4 text-justify"
                   }
                 >
@@ -209,8 +209,8 @@ const SingleJob = () => {
             <div className="my-4">
               <h3
                 className={
-                  theme === "dark "
-                    ? "font-bold text-gray-100 mb-4"
+                  theme === "dark"
+                    ? "font-bold text-gray-300 mb-4"
                     : "font-bold text-gray-600 mb-4"
                 }
               >
