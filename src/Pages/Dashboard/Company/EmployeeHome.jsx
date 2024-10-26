@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet";
 const EmployeeHome = () => {
   const { t } = useTranslation(); // Destructuring t from useTranslation
   const { currentUser } = useCurrentUser();
+  console.log(currentUser);
 
   const [appliedJobsCount, setAppliedJobsCount] = useState(0);
   const [favoriteJobsCount, setFavoriteJobsCount] = useState(0);
@@ -34,7 +35,7 @@ const EmployeeHome = () => {
 
   return (
     <>
-     <Helmet>
+      <Helmet>
         <title>Jobify - Employee-home</title>
       </Helmet>
       <div className="space-y-2">

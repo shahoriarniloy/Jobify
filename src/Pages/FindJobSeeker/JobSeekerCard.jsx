@@ -89,12 +89,19 @@ const JobSeekerCard = ({ jobSeeker }) => {
           >
             {isFollowing ? t("unfollow") : t("follow")}
           </button>
-          <Link
+
+          <Link to={`/userProfile/${jobSeeker?.email}`}>
+            <button className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">
+              View Profile
+            </button>
+          </Link>
+
+          {/* <Link
             to={`/messages/${jobSeeker.email}`}
             className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700"
           >
             {t("message")}
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
