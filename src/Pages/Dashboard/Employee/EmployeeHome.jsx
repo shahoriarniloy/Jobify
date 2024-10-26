@@ -49,7 +49,7 @@ const EmployeeHome = () => {
         <div className="flex items-center gap-6">
           <img
             className="size-[64px] rounded-full"
-            src="https://th.bing.com/th/id/OIP.L9B1n8lj7aocldq2QeKEtgHaHa?rs=1&pid=ImgDetMain"
+            src={currentUser?.photoURL}
             alt=""
           />
           <div className="text-white">

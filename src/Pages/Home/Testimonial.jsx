@@ -111,7 +111,13 @@ const Testimonial = ({ reviews }) => {
                     <div>
                       <h1 className="font-bold">{review?.username}</h1>
                       <p className="text-[#767E94]">
-                        {review?.accountType ? review?.role : "UI/UX Designer"}
+                        {new Date(review?.createdAt).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </p>
                     </div>
                   </div>

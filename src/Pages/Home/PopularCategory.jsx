@@ -8,8 +8,10 @@ import { RiBarChartFill } from "react-icons/ri";
 import { PiFirstAidKitFill } from "react-icons/pi";
 import { t } from "i18next";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const PopularCategory = ({ categoryCounts }) => {
+  const { t } = useTranslation();
   const iconMapping = {
     FaPaintBrush: <ImPen />,
     FaCode: <FaCode />,

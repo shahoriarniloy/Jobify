@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FaHeart, FaRegHeart, FaComment } from "react-icons/fa";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
+import { useSelector } from "react-redux"; // Import useSelector
 
 const Post = ({ post }) => {
+  const isDarkTheme = useSelector((state) => state.theme.theme === "dark"); // Get dark theme state
   const [likes, setLikes] = useState(post.likes);
   const [isLiked, setIsLiked] = useState(likes.includes(post.userEmail));
   const [comments, setComments] = useState(post.comments);
@@ -43,7 +45,11 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+    <div
+      className={`p-4 rounded-lg shadow-md mb-4 ${
+        isDarkTheme ? "bg-gray-800 text-gray-200" : "bg-white text-gray-800"
+      }`}
+    >
       {/* User info */}
       <div className="flex items-center mb-3">
         <img
@@ -95,17 +101,31 @@ const Post = ({ post }) => {
         ))}
 
         {/* Add a new comment */}
-        <div className="flex items-center mt-3">
+        <div
+          className={`border rounded-lg p-2 w-full ${
+            isDarkTheme
+              ? "border-gray-600 bg-gray-900 text-gray-100"
+              : "border-gray-300 bg-white"
+          }`}
+        >
           <input
             type="text"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Add a comment..."
-            className="border border-gray-300 rounded-lg p-2 w-full"
+            className={`border rounded-lg p-2 w-full ${
+              isDarkTheme
+                ? "border-gray-600 bg-gray-900 "
+                : "border-gray-300 bg-gray-900"
+            }`}
           />
           <button
             onClick={handleAddComment}
-            className="ml-2 text-blue-500 font-semibold"
+            className={`ml-2 font-semibold ${
+              isDarkTheme
+                ? "bg-blue-500 text-white hover:bg-blue-600"
+                : "text-blue-500 hover:bg-blue-100"
+            } rounded-lg p-2 transition duration-200`}
           >
             Post
           </button>

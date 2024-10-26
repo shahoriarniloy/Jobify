@@ -20,8 +20,11 @@ import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
 import { Helmet } from "react-helmet";
 import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 const CandidateResume = () => {
+  const loggedUser = useSelector((state) => state.user.loggedUser);
+
   const { t } = useTranslation(); // Destructuring useTranslation
   const { email } = useParams();
   const contentRef = useRef();
@@ -46,7 +49,7 @@ const CandidateResume = () => {
         <div className="flex justify-end">
           <button
             onClick={reactToPrintFn}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 "
           >
             <FaDownload className="inline mr-2" />
             {t("download_resume")}
@@ -58,7 +61,7 @@ const CandidateResume = () => {
         ref={contentRef}
       >
         <h1 className="text-3xl font-semibold text-blue-700">
-          {resumeData?.name}
+          {resumeData?.name || loggedUser.name || loggedUser.displayName}
         </h1>
         <p className="text-xl text-gray-800 italic">{resumeData?.title}</p>
 
@@ -152,18 +155,6 @@ const CandidateResume = () => {
           </Link>
         </div>
       </div>
-
-      {resumeData && (
-        <div className="flex justify-center mt-6">
-          <button
-            onClick={reactToPrintFn}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
-          >
-            <FaDownload className="inline mr-2" />
-            {t("download_resume")} {/* Translated button text */}
-          </button>
-        </div>
-      )}
     </div>
   );
 };
