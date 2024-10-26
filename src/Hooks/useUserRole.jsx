@@ -12,12 +12,11 @@ const useUserRole = () => {
           `/user-role?email=${currentUser.email}`
         );
         return response.data;
+      } else {
+        return null;
       }
-      else{
-        return null
-      };
     },
-    // enabled: !!currentUser?.email,
+    enabled: !!currentUser?.email,
   });
 
   return { role, isLoading };
