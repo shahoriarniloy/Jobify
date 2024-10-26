@@ -12,6 +12,7 @@ import ButtonLoader from "../../../Shared/ButtonLoader";
 import { updateProfile } from "firebase/auth";
 import auth from "../Firebase/firebase.config";
 import { Helmet } from "react-helmet";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
@@ -20,6 +21,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const accountType = selectedIndex === 0 ? t("job_seeker") : t("employer");
   const { createUser, loading, setLoading } = useCurrentUser();
+  const queryClient = useQueryClient();
 
 
   const handleRegister = async (e) => {
@@ -43,6 +45,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
             .then(res => {
               if (res?.data?.acknowledged) {
                 toast.success("Account creation successful");
+                queryClient.invalidateQueries(["loadedRole"])
               }
             })
           setSignUpModalOpen(false);
@@ -70,6 +73,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
             .then(res => {
               if (res?.data?.acknowledged) {
                 toast.success("Account creation successful");
+                queryClient.invalidateQueries(["loadedRole"])
               }
             })
           setSignUpModalOpen(false);
