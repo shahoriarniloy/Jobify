@@ -745,5 +745,17 @@
   "job_sub_category_label": "Job Sub Category",
   "select_subcategory": "Select Subcategory",
   "job_category_label": "Job Category",
-  "select_category": "Select Category"
+  "select_category": "Select Category",
+
+  "you_have_notifications": "You have {{count}} notifications",
+
+  "job_title_notification": "{{title}}",
+
+  "enter_room_id": "Enter Room ID",
+  "room_id_placeholder": "Room ID",
+  "join_room": "Join Room"
+}
+  
+
+  
 }

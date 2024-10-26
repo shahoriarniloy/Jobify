@@ -737,5 +737,11 @@
    "job_sub_category_label": "কাজের সাব ক্যাটাগরি",
   "select_subcategory": "সাবক্যাটাগরি নির্বাচন করুন",
    "job_category_label": "কাজের ক্যাটাগরি",
-  "select_category": "ক্যাটাগরি নির্বাচন করুন"
+  "select_category": "ক্যাটাগরি নির্বাচন করুন",
+  "you_have_notifications": "আপনার {{count}} টি বিজ্ঞপ্তি আছে",
+  "job_title_notification": "{{title}}",
+
+  "enter_room_id": "রুম আইডি প্রবেশ করুন",
+  "room_id_placeholder": "রুম আইডি",
+  "join_room": "রুমে যোগ দিন"
 }
