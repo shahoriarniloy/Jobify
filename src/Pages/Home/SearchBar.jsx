@@ -9,8 +9,10 @@ import { IoPeopleSharp } from "react-icons/io5";
 import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
   const theme = useSelector((state) => state.theme.theme);
@@ -49,7 +51,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
                       : "text-[#18191c] lg:text-5xl md:text-6xl text-4xl font-bold leading-tight mb-2"
                   }
                 >
-                  Find a job that suits your interest & skills.
+                  {t("find_job_interest_skills")}
                 </h1>
                 <p
                   className={
@@ -58,9 +60,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
                       : "text-[#18191c] text-lg font-normal mb-4"
                   }
                 >
-                  Quickly find job opportunities that match your skills and
-                  interests by searching for specific job titles, keywords, or
-                  locations.
+                  {t("job_opportunity_description")}
                 </p>
               </div>
               <div
@@ -78,7 +78,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
                     <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2  text-[#0a65cc] w-5 h-5" />
                     <input
                       type="text"
-                      placeholder="Job title, Company Name..."
+                      placeholder={t("job_search_placeholder")}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className={
@@ -95,7 +95,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
                     <HiOutlineLocationMarker className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
                     <input
                       type="text"
-                      placeholder="Location"
+                      placeholder={t("location")}
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                       className={
@@ -111,7 +111,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
                       type="submit"
                       className="w-full sm:w-auto px-6 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white font-semibold text-base transition duration-300 ease-in-out hover:from-blue-700 hover:to-blue-900"
                     >
-                      Find Job
+                      {t("find_job")}
                     </button>
                   </div>
                 </form>
@@ -130,7 +130,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
                       : "text-[#9199A3] text-lg font-normal mt-2"
                   }
                 >
-                  Suggestion:{" "}
+                  {t("suggestion_label")}{" "}
                 </span>
                 <span
                   className={
@@ -139,7 +139,9 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
                       : "text-[#474C54] text-lg font-normal mt-2"
                   }
                 >
-                  Designer, Programing, Digital Marketing, Video, Animation.
+                  {t("designer_label")}, {t("programming_label")},{" "}
+                  {t("digital_marketing_label")}, {t("video_label")},{" "}
+                  {t("animation_label")}.
                 </span>
               </p>
               <div
@@ -149,7 +151,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
               >
                 {jobs?.length > 0 ? (
                   <div className="flex items-center gap-2">
-                    <h2 className="text-[#9199A3]">Job Results:</h2>
+                    <h2 className="text-[#9199A3]">{t("job_results_label")}</h2>
                     <div className="max-h-60 overflow-y-auto flex flex-wrap items-center gap-4">
                       {jobs?.map((job) => (
                         <Link key={job?._id} to={`/job/${job?._id}`}>
@@ -163,7 +165,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
                 ) : (
                   <div className="mt-6 text-gray-500">
                     <h2 className="text-lg font-medium">
-                      No matching jobs found.
+                      {t("no_matching_jobs_label")}
                     </h2>
                   </div>
                 )}
@@ -191,7 +193,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{jobCount}</h2>
-              <p className="text-[#767F8C]">Live Jobs</p>
+              <p className="text-[#767F8C]">{t("live_jobs_label")}</p>
             </div>
           </div>
 
@@ -207,7 +209,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{companyCount}</h2>
-              <p className="text-[#767F8C]">Companies</p>
+              <p className="text-[#767F8C]">{t("companies_label")}</p>
             </div>
           </div>
 
@@ -223,7 +225,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{candidates}</h2>
-              <p className="text-[#767F8C]">Candidates</p>
+              <p className="text-[#767F8C]">{t("candidates_label")}</p>
             </div>
           </div>
 
@@ -239,7 +241,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
             </div>
             <div>
               <h2 className="text-2xl font-bold">{successPeoples}</h2>
-              <p className="text-[#767F8C]">Successful</p>
+              <p className="text-[#767F8C]">{t("successful_label")}</p>
             </div>
           </div>
         </div>

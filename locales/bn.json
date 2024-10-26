@@ -703,5 +703,22 @@
   "notifications_count": "বিজ্ঞপ্তি",
   "mark_all_as_read": "সবগুলো পড়া হিসাবে চিহ্নিত করুন",
   "no_notifications_available": "কোন বিজ্ঞপ্তি নেই",
-  "position": "পদ"
+  "position": "পদ",
+
+  "no_categories_found": "কোনো বিভাগ পাওয়া যায়নি",
+  "find_job_interest_skills": "আপনার আগ্রহ ও দক্ষতার সাথে মিল রেখে একটি চাকরি খুঁজুন।",
+  "job_opportunity_description": "আপনার দক্ষতা এবং আগ্রহের সাথে মিলিত চাকরির সুযোগ দ্রুত খুঁজে পান নির্দিষ্ট চাকরির শিরোনাম, কীওয়ার্ড, বা অবস্থানের জন্য অনুসন্ধান করে।",
+   "job_search_placeholder": "চাকরির শিরোনাম, কোম্পানির নাম...",
+    "category_label": "শ্রেণী:",
+    "job_type_label": "কর্মের ধরন:",
+  "salary_range_label": "বেতন সীমা:",
+  "job_level_label": "কর্মের স্তর:",
+  "deadline_label": "সময়ের শেষ:",
+  "location_label": "অবস্থান:",
+
+  "posted_date_label": "পোস্টের তারিখ",
+  "expire_on_label": "মেয়াদ শেষ হচ্ছে",
+  "educational_qualification_label": "শিক্ষাগত যোগ্যতা",
+  "starting_salary_label": "শুরুর বেতন",
+  "job_location_label": "কর্মস্থল"
 }
