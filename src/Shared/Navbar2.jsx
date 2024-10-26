@@ -148,6 +148,7 @@ const Navbar2 = () => {
                 <option value="bn">{t("bangla")}</option>
                 <option value="es">{t("Español")}</option>
                 <option value="ar">{t("العربية")}</option>
+                <option value="ur">{t("اُردُو")}</option>
               </select>
             </div>
 
