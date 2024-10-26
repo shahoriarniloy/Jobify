@@ -720,5 +720,10 @@
   "expire_on_label": "মেয়াদ শেষ হচ্ছে",
   "educational_qualification_label": "শিক্ষাগত যোগ্যতা",
   "starting_salary_label": "শুরুর বেতন",
-  "job_location_label": "কর্মস্থল"
+  "job_location_label": "কর্মস্থল",
+  "category": "বিভাগ",
+
+  "testimonial_title": "প্রশংসাপত্র",
+
+  "per_page": "প্রতি পৃষ্ঠা"
 }

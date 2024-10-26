@@ -728,5 +728,11 @@
   "expire_on_label": "Expire On",
   "educational_qualification_label": "Educational Qualification",
   "starting_salary_label": "Starting Salary",
-  "job_location_label": "Job Location"
+  "job_location_label": "Job Location",
+  "category": "Category",
+
+  "testimonial_title": "Testimonial",
+
+  "per_page": "Per Page",
+  
 }

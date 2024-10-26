@@ -31,7 +31,7 @@ const RelatedJobs = ({ jobTitle }) => {
             : "text-3xl font-semibold mb-2 tracking-wider text-black text-center"
         }
       >
-        Related Jobs
+        {t("related_jobs")}
       </h1>
 
       <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
@@ -57,27 +57,27 @@ const RelatedJobs = ({ jobTitle }) => {
                 </h2>
                 <p className="font-semibold">{companyInfo?.company_name}</p>
                 <p className="text-sm tracking-wide mt-3">
-                  <span className="font-semibold">Category: </span>
+                  <span className="font-semibold">{t("category")}: </span>
                   {jobInfo?.jobCategory}
                 </p>
                 <p className="text-sm tracking-wide mt-1">
-                  <span className="font-semibold">Job Type: </span>
+                  <span className="font-semibold">{t("job_type")}: </span>
                   {jobInfo?.jobType}
                 </p>
                 <p className="text-sm mt-1">
-                  <span className="font-semibold">Salary Range : </span>
+                  <span className="font-semibold">{t("salary_range")}: </span>
                   {jobInfo?.salaryRange}
                 </p>
                 <p className="text-sm mt-1">
-                  <span className="font-semibold">Job Level : </span>
+                  <span className="font-semibold">{t("job_level")}: </span>
                   {jobInfo?.jobLevel}
                 </p>
                 <p className="text-sm mt-1">
-                  <span className="font-semibold">Deadline : </span>
+                  <span className="font-semibold">{t("deadline")}: </span>
                   {jobInfo?.deadline}
                 </p>
                 <p className="text-sm mt-1">
-                  <span className="font-semibold">Location : </span>
+                  <span className="font-semibold">{t("location")}: </span>
                   {jobInfo?.location}
                 </p>
               </div>

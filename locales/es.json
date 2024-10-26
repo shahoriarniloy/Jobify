@@ -726,5 +726,10 @@
   "expire_on_label": "Expira en",
   "educational_qualification_label": "Calificación educativa",
   "starting_salary_label": "Salario inicial",
-  "job_location_label": "Ubicación del trabajo"
+  "job_location_label": "Ubicación del trabajo",
+   "category": "Categoría",
+
+   "testimonial_title": "Testimonio",
+
+   "per_page": "Por Página"
 }
