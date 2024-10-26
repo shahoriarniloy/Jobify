@@ -154,12 +154,12 @@ const AllJobSeekers = () => {
                   </td>
                   <td className="p-3 hidden md:table-cell">{jobSeeker.role}</td>
                   <td className="p-3 flex gap-4">
-                    <button
+                    {/* <button
                       className="text-blue-600 hover:text-blue-800"
                       onClick={() => handleEdit(jobSeeker._id)}
                     >
                       <FaEdit />
-                    </button>
+                    </button> */}
                     <button
                       className="text-red-600 hover:text-red-800"
                       onClick={() => handleDelete(jobSeeker.email)}
