@@ -8,7 +8,7 @@ import useCurrentUser from './../../../Hooks/useCurrentUser';
 
 
 const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
-  const { signInWithGoogle, signInUser,loading } = useCurrentUser();
+  const { signInWithGoogle, signInUser, loading } = useCurrentUser();
   const { t } = useTranslation(); // Initialize translation
 
 
@@ -27,7 +27,10 @@ const Login = ({ setLoginModalOpen, setSignUpModalOpen }) => {
           setLoginModalOpen(false)
         }
       })
+      .catch(err => {
+        toast.warn("Email or Password incorrect!");
 
+      })
 
 
   };

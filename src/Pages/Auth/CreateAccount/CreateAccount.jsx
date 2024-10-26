@@ -35,10 +35,8 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
           updateProfile(auth.currentUser, {
             displayName: name,
           })
-
-          toast.success("Account creation successful");
           setSignUpModalOpen(false);
-          axiosSecure.post("/users", {
+          axiosSecure.post("/create-employee-account", {
             email, name, role: accountType
           })
             .then(res => {
@@ -65,7 +63,7 @@ const Register = ({ setLoginModalOpen, setSignUpModalOpen }) => {
           updateProfile(auth.currentUser, {
             displayName: companyName,
           })
-          axiosSecure.post("/users", {
+          axiosSecure.post("/create-company-account", {
             email: companyEmail, name: companyName, role: accountType
           })
             .then(res => {
