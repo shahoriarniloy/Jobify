@@ -1,10 +1,11 @@
 import axiosSecure from "./UseAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useCurrentUser from "./useCurrentUser";
+import DashboardLoader from "../Shared/DashboardLoader";
 
 const useUserRole = () => {
   const { currentUser } = useCurrentUser();
-  const { data: role, isLoading } = useQuery({
+  const { data: role={}, isLoading } = useQuery({
     queryKey: ["loadedRole"],
     queryFn: async () => {
       if (currentUser?.email) {
@@ -18,7 +19,7 @@ const useUserRole = () => {
     },
     enabled: !!currentUser?.email,
   });
-
+  if(isLoading) return <DashboardLoader/>;
   return { role, isLoading };
 };
 
