@@ -38,7 +38,7 @@ const RelatedJobs = ({ jobTitle }) => {
         {jobs?.map(({ _id, jobInfo, companyInfo }) => (
           <div
             key={_id}
-            className=" w-full relative group cursor-pointer overflow-hidden bg-white px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"
+            className={theme === "dark"? " w-full relative group cursor-pointer  overflow-hidden bg-slate-700 bg-opacity-50 px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95" : " w-full relative group cursor-pointer overflow-hidden bg-white px-6  py-8 ring-1 ring-gray-900/5 transition-all duration-300  sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10 hover:scale-95"}
           >
             <span className="absolute top-10 z-0 h-20 w-20 rounded-full  duration-300 "></span>
             <div className="relative z-10 mx-auto max-w-md">
@@ -48,10 +48,10 @@ const RelatedJobs = ({ jobTitle }) => {
                   className="h-full w-full rounded-full transition-all"
                 />
               </span>
-              <div className="pt-5 text-base  text-gray-600 transition-all duration-300 ">
+              <div className={theme === "dark"? "pt-5 text-base  text-slate-300 transition-all duration-300 ": "pt-5 text-base  text-gray-600 transition-all duration-300 "}>
                 <h2 className="text-2xl font-semibold tracking-wide flex gap-2">
                   {jobInfo?.title}
-                  <div className="p-2 rounded-full text-xs bg-[#1d4fd83a] size-[28px] flex justify-center items-center">
+                  <div className={ theme === "dark"? "p-2 rounded-full text-xs bg-[#446ad23a] size-[28px] flex justify-center items-center" : "p-2 rounded-full text-xs bg-[#1d4fd83a] size-[28px] flex justify-center items-center"}>
                     {jobInfo?.vacancy}
                   </div>
                 </h2>
@@ -84,7 +84,7 @@ const RelatedJobs = ({ jobTitle }) => {
               <div className="pt-5 text-base font-semibold leading-7">
                 <Link
                   to={`/job/${_id}`}
-                  className="text-slate-500 transition-all duration-300  flex items-center"
+                  className={theme === "dark"? "text-slate-300 transition-all duration-300  flex items-center" : "text-slate-500 transition-all duration-300  flex items-center"}
                 >
                   {t("view_details")}
                 </Link>

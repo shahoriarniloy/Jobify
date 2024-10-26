@@ -17,6 +17,9 @@ import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
 import { Helmet } from "react-helmet";
 
+
+
+
 const BookmarkedJobs = () => {
   const { t } = useTranslation();
   const { currentUser } = useCurrentUser();
@@ -24,6 +27,7 @@ const BookmarkedJobs = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchBookmarkedJobs = async () => {
@@ -103,7 +107,7 @@ const BookmarkedJobs = () => {
           return (
             <div
               key={_id}
-              className="h-fit p-6 bg-base-100 shadow-xl rounded-xl "
+              className={ theme === "dark"? "h-fit p-6 bg-slate-800 shadow-xl rounded-xl " : "h-fit p-6 bg-base-100 shadow-xl rounded-xl "}
             >
               <div className="flex lg:flex-row md:flex-row flex-col justify-between items-center">
                 <div className="flex flex-col">

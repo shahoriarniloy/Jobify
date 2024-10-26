@@ -7,12 +7,16 @@ import CareerInfo from "./Tabs/CareerInfo/CareerInfo";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
 import { useTranslation } from "react-i18next"; // Import useTranslation
 import { Helmet } from "react-helmet";
+import { useSelector} from "react-redux";
 
 const EmployeeSettings = () => {
   const { t } = useTranslation(); // Destructure useTranslation
   const [tabIndex, setTabIndex] = useState(0);
   const { currentUser } = useCurrentUser();
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const theme = useSelector((state) => state.theme.theme);
+
 
   return (
     <div>

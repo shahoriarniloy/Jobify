@@ -150,7 +150,7 @@ const CompanyDetails = () => {
 
         <div className="flex flex-col lg:flex-row  md:mb-16 gap-12 justify-between md:mt-20">
           <div className="lg:w-1/2 mt-12">
-            <h2 className="font-bold lg:mt-2 text-xl md:text-2xl lg:text-3xl">
+            <h2 className={theme === "dark"? "font-bold lg:mt-2 text-gray-300 text-xl md:text-2xl lg:text-3xl" : "font-bold lg:mt-2 text-xl md:text-2xl lg:text-3xl"}>
               {t("description")}
             </h2>
             <p className={theme === "dark"? "text-gray-300 mb-4" : "text-gray-500 mb-4"}>{company?.company_description}</p>

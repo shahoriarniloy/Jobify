@@ -89,9 +89,9 @@ const PostCard = () => {
 
       <div className="container mx-auto py-8">
         <PostStatus />
+        <div className="flex justify-between mt-16 px-4">
+          <h1 className={theme === "dark"? "text-lg text-slate-300" : "text-lg text-gray-700"}>
 
-        <div className="flex justify-between mt-4 ">
-          <h1 className="text-lg text-gray-700">
             {t("posts_from_people_you_follow")}
           </h1>
           <Link to="/find-job-seekers">
