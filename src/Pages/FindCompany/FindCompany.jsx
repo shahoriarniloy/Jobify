@@ -18,11 +18,7 @@ import DashboardLoader from "../../Shared/DashboardLoader";
 
 const FindCompany = () => {
   const { t } = useTranslation(); // Destructure useTranslation
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [location, setLocation] = useState("");
-  const [error, setError] = useState("");
-  const [filteredCompanies, setFilteredCompanies] = useState([]);
   const theme = useSelector((state) => state.theme.theme);
 
   const [totalCompanies, setTotalCompanies] = useState(0);
@@ -86,33 +82,6 @@ const FindCompany = () => {
       </Helmet>
       <div className="container mx-auto">
         <div className="flex justify-between items-center pt-12">
-          {/* <div className="flex items-center lg:gap-4 md:gap-4 gap-2 mt-4 w-1/3">
-            <label
-              htmlFor="itemsPerPage"
-              className={
-                theme === "dark"
-                  ? "text-sm font-medium text-gray-300 "
-                  : "text-sm font-medium text-blue-900 "
-              }
-            >
-              {t("number_of_companies_per_page")}
-            </label>
-            <select
-              id="itemsPerPage"
-              value={itemsPerPage}
-              onChange={handleItemsPerPage}
-              className={
-                theme === "dark"
-                  ? "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-slate-900 text-white border border-slate-500 focus:border-blue-500 focus:ring focus:ring-blue-200"
-                  : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
-              }
-            >
-              <option value="5">{t("option_5")}</option>
-              <option value="10">{t("option_10")}</option>
-              <option value="15">{t("option_15")}</option>
-            </select>
-          </div> */}
-
           <div className=" md:w-1/2">
             <form className="flex items-center gap-4" onSubmit={handleSearch}>
               <div className="relative flex-1">
@@ -192,10 +161,7 @@ const FindCompany = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {(filteredCompanies.length > 0
-                      ? filteredCompanies
-                      : companies
-                    ).map((company) => (
+                    { companies?.map((company) => (
                       <tr
                         key={company.email}
                         className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
@@ -229,7 +195,7 @@ const FindCompany = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4  gap-8 mt-16 place-items-center md:place-items-stretch">
-            {(filteredCompanies.length > 0 ? filteredCompanies : companies).map(
+            { companies?.map(
               (company) => (
                 <div
                   key={company.email}
@@ -255,7 +221,7 @@ const FindCompany = () => {
                     </div>
                     <div className="mt-14 space-y-2 text-justify">
                       <p className=" text-sm">
-                        {company.company_description.slice(0, 250)} ...
+                        {company.company_description?.slice(0, 250)} ...
                       </p>
                     </div>
                     <Link to={`/company-details/${company.email}`}>
@@ -279,7 +245,7 @@ const FindCompany = () => {
             <FaArrowLeft />
           </button>
           <div className="flex gap-2">
-            {pages.map((page) => (
+            {pages?.map((page) => (
               <button
                 key={page}
                 className={`px-4 py-2 rounded-lg ${

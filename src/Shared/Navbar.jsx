@@ -11,8 +11,8 @@ import {
 import { toast } from "react-toastify";
 import Modal from "react-responsive-modal";
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
-import { Login } from "@mui/icons-material";
 import useUserRole from "../Hooks/useUserRole";
+import Login from "../Pages/Auth/Login/Login";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -114,7 +114,7 @@ const Navbar = () => {
           {t("find_company")}
         </NavLink>
       </li>
-      <li>
+      {currentUser?.email &&<li>
         <NavLink
           to="/posts"
           className={({ isActive }) =>
@@ -123,7 +123,7 @@ const Navbar = () => {
         >
           {t("my_network")}
         </NavLink>
-      </li>
+      </li>}
       <li>
         <NavLink
           to="/about"
@@ -302,7 +302,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Login Modal */}
       <Modal
         open={loginModalOpen}
         onClose={() => setLoginModalOpen(false)}
@@ -311,7 +310,6 @@ const Navbar = () => {
         <Login />
       </Modal>
 
-      {/* SignUp Modal */}
       <Modal
         open={signUpModalOpen}
         onClose={() => setSignUpModalOpen(false)}

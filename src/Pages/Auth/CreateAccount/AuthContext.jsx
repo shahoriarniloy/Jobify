@@ -8,10 +8,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
 import auth from "../Firebase/firebase.config";
-import axiosSecure from "../../../Hooks/UseAxiosSecure";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -19,16 +16,26 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
-
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const signInUser = (email, password) => {
+  // const signInUser = (email, password) => {
+  //   setLoading(true);
+  //   return signInWithEmailAndPassword(auth, email, password);
+  // };
+  const signInUser = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      return userCredential;
+    } catch (error) {
+      console.error("Authentication error:", error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const signInWithGoogle = () => {

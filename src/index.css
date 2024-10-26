@@ -40,6 +40,24 @@
   /* make sure it's on top of everything */
 }
 
+/* 
+.react-responsive-modal-modal {
+  background-color: #1A202C !important; 
+  color: white !important;
+  border-radius: 8px;
+  padding: 20px;
+} */
+
+/* Light theme styling (use conditionally in your component) */
+/* .light-theme .react-responsive-modal-modal {
+  background-color: white !important;
+  color: black !important;
+} */
+ .custom-close-icon-dark{
+  fill: white !important;
+ }
+
+
 /* Add any additional styles for responsiveness and aesthetics */
 
 /* isActiveRoute style */

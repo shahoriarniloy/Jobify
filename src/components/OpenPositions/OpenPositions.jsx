@@ -17,10 +17,10 @@ const OpenPosition = ({ companyEmail }) => {
         `/OpenPosition?email=${companyEmail}`
       );
       return data;
-    },
-  });
-  // console.log(jobs)
-  if (isLoading) return <DashboardLoader />;
+    }
+
+  })
+  if (isLoading) return <DashboardLoader />
 
   return (
     <section className="container mx-auto">
