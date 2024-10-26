@@ -11,11 +11,13 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
 
 const Testimonial = ({ reviews }) => {
+  const { t } = useTranslation();
   const [screenWidth, setScreenWidth] = useState();
   const [slidePerPage, setSlidePerPage] = useState(null);
   const theme = useSelector((state) => state.theme.theme);
@@ -57,7 +59,7 @@ const Testimonial = ({ reviews }) => {
               : "text-3xl font-semibold mb-12 tracking-wider text-black text-center"
           }
         >
-          Testimonial
+          {t("testimonial_title")}
         </h1>
 
         <Swiper
