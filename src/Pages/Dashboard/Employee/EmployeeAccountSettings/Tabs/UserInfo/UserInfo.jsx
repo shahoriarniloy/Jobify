@@ -25,6 +25,8 @@ const UserInfo = () => {
   const [socialLinks, setSocialLinks] = useState([]);
   const { currentUser } = useCurrentUser();
 
+  const theme = useSelector((state) => state.theme.theme);
+
   const { data, isLoading } = useQuery({
     queryKey: ["load initial data for user"],
     queryFn: async () => {
@@ -33,6 +35,7 @@ const UserInfo = () => {
       );
       setSocialLinks(data?.userInfo[0]?.socialLinks || "");
       setName(data?.name || "");
+      setAbout(data?.userInfo[0]?.about);
       return data.userInfo[0];
     },
   });
@@ -105,7 +108,11 @@ const UserInfo = () => {
                     name
                   }
                   readOnly
-                  className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={
+                    theme === "dark"
+                      ? "border text-slate-300 border-gray-600 bg-slate-900 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      : "border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  }
                   disabled
                 />
               </div>
@@ -123,7 +130,13 @@ const UserInfo = () => {
               <h3 className="text-lg font-medium mb-2">
                 {t("about_yourself")}
               </h3>
-              <div className="quill-wrapper relative border rounded-lg bg-white">
+              <div
+                className={
+                  theme === "dark"
+                    ? "quill-wrapper relative border rounded-lg text-slate-300 border-gray-600"
+                    : "quill-wrapper relative border rounded-lg bg-white"
+                }
+              >
                 <ReactQuill
                   value={about}
                   onChange={handleAboutChange}
@@ -143,7 +156,11 @@ const UserInfo = () => {
                     "bullet",
                     "link",
                   ]}
-                  className="custom-quill-editor h-[600px]"
+                  className={
+                    theme === "dark"
+                      ? "custom-quill-editor text-slate-300 h-[600px]"
+                      : "custom-quill-editor h-[600px]"
+                  }
                 />
               </div>
             </section>
@@ -163,7 +180,11 @@ const UserInfo = () => {
                   required
                   value={currentUser?.email}
                   readOnly
-                  className="border border-gray-300 p-2 pl-10 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-2"
+                  className={
+                    theme === "dark"
+                      ? "border   text-slate-300 border-gray-600 bg-slate-900 p-2 pl-10 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-2"
+                      : "border border-gray-300 p-2 pl-10 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 my-2"
+                  }
                   placeholder={t("email_placeholder")}
                   disabled
                 />
@@ -179,7 +200,11 @@ const UserInfo = () => {
                   value={data?.phone}
                   required
                   onChange={(phone) => setPhone(phone)}
-                  inputClass="border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border rounded-md h-10 pl-12 my-2 w-full"
+                  inputClass={
+                    theme === "dark"
+                      ? " text-slate-300 border-gray-600 bg-slate-900 focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border rounded-md h-10 pl-12 my-2 w-full"
+                      : "border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border rounded-md h-10 pl-12 my-2 w-full"
+                  }
                 />
               </div>
             </div>

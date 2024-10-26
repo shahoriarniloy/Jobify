@@ -9,6 +9,9 @@ import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
 import { Helmet } from "react-helmet";
 
+
+
+
 const predefinedSkills = [
   // Frontend Development
   "HTML",
@@ -517,6 +520,7 @@ const ResumeForm = () => {
   const [languageInput, setLanguageInput] = useState("");
   const [languageSuggestions, setLanguageSuggestions] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -727,7 +731,7 @@ const ResumeForm = () => {
                 value={formData?.displayName || formData.name}
                 onChange={handleChange}
                 disabled
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               />
             </div>
             <div className="w-full">
@@ -741,7 +745,7 @@ const ResumeForm = () => {
                 value={currentUser?.email}
                 onChange={handleChange}
                 disabled
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               />
             </div>
 
@@ -755,7 +759,7 @@ const ResumeForm = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               />
             </div>
           </div>
@@ -771,7 +775,7 @@ const ResumeForm = () => {
                 name="linkedin"
                 value={formData.linkedin}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               />
             </div>
 
@@ -785,7 +789,7 @@ const ResumeForm = () => {
                 name="github"
                 value={formData.github}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               />
             </div>
           </div>
@@ -802,7 +806,7 @@ const ResumeForm = () => {
                 name="title"
                 value={formData?.title}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               ></textarea>
             </div>
             <div className="w-full">
@@ -814,7 +818,7 @@ const ResumeForm = () => {
                 name="objective"
                 value={formData.objective}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               ></textarea>
             </div>
 
@@ -828,7 +832,7 @@ const ResumeForm = () => {
                 value={skillInput}
                 placeholder={t("skills_placeholder")}
                 onChange={handleSkillInputChange}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               />
               {skillSuggestions.length > 0 && (
                 <ul className="suggestions list-none p-0 my-1 bg-gray-100 border border-gray-300 max-h-24 overflow-y-auto rounded z-10 absolute">
@@ -874,7 +878,7 @@ const ResumeForm = () => {
                     name="jobTitle"
                     value={experience.jobTitle}
                     onChange={(e) => handleExperienceChange(index, e)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                    className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
                   />
                 </div>
 
@@ -888,7 +892,7 @@ const ResumeForm = () => {
                     name="company"
                     value={experience.company}
                     onChange={(e) => handleExperienceChange(index, e)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                    className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
                   />
                 </div>
               </div>
@@ -904,7 +908,7 @@ const ResumeForm = () => {
                     name="startDate"
                     value={experience.startDate}
                     onChange={(e) => handleExperienceChange(index, e)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                    className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
                   />
                 </div>
 
@@ -918,7 +922,7 @@ const ResumeForm = () => {
                     name="endDate"
                     value={experience.endDate}
                     onChange={(e) => handleExperienceChange(index, e)}
-                    className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                    className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
                   />
                 </div>
               </div>
@@ -931,7 +935,7 @@ const ResumeForm = () => {
                 name="description"
                 value={experience.description}
                 onChange={(e) => handleExperienceChange(index, e)}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               ></textarea>
             </div>
           ))}
@@ -960,7 +964,7 @@ const ResumeForm = () => {
                 name="title"
                 value={project.title}
                 onChange={(e) => handleProjectChange(index, e)}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               />
 
               <label className="block mt-2">{t("project_link_label")}</label>
@@ -969,7 +973,7 @@ const ResumeForm = () => {
                 name="link"
                 value={project.link}
                 onChange={(e) => handleProjectChange(index, e)}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               />
 
               <label className="block mt-2">{t("description_label")}</label>
@@ -977,7 +981,7 @@ const ResumeForm = () => {
                 name="description"
                 value={project.description}
                 onChange={(e) => handleProjectChange(index, e)}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               ></textarea>
 
               <label className="block mt-2">{t("technologies_label")}</label>
@@ -986,7 +990,7 @@ const ResumeForm = () => {
                 name="technologies"
                 value={project.technologies}
                 onChange={(e) => handleProjectChange(index, e)}
-                className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+                className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
               />
             </div>
           ))}
@@ -1009,7 +1013,7 @@ const ResumeForm = () => {
             name="educationYear"
             value={formData.educationYear}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-4"
+            className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
           />
         </div>
 
@@ -1020,7 +1024,7 @@ const ResumeForm = () => {
             value={languageInput}
             placeholder={t("language_placeholder")}
             onChange={handleLanguageInputChange}
-            className="w-full p-2 border border-gray-300 rounded mt-1 mb-2"
+            className={theme === "dark"? "w-full p-2 border bg-gray-900 border-gray-600  rounded mt-1 mb-4" : "w-full p-2 border border-gray-300  rounded mt-1 mb-4"}
           />
 
           {languageSuggestions.length > 0 && (

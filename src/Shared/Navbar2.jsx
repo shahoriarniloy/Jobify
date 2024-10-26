@@ -18,10 +18,13 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { switchLanguage } from "../Redux/languageSlice";
 import useCurrentUser from "../Hooks/useCurrentUser";
 import { toast } from "react-toastify";
+import useConditionalDataFetch from "../Redux/UserDataSlice";
 
 const Navbar2 = () => {
   const { currentUser, logOutUser } = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
+  const { data: fetchedUser, isLoading, error } = useConditionalDataFetch();
+  const loggedUser = useSelector((state) => state.user.loggedUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -146,9 +149,6 @@ const Navbar2 = () => {
               >
                 <option value="en">{t("english")}</option>
                 <option value="bn">{t("bangla")}</option>
-                <option value="es">{t("Español")}</option>
-                <option value="ar">{t("العربية")}</option>
-                <option value="ur">{t("اُردُو")}</option>
               </select>
             </div>
 
@@ -181,22 +181,18 @@ const Navbar2 = () => {
                           : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
                       }
                     >
-                      <h2 className="text-lg font-bold mb-4">
-                        {t("notifications")}
-                      </h2>
+                      <h2 className="text-lg font-bold mb-4">Notifications</h2>
 
                       {jobNotifications.length > 0 && (
                         <div className="flex justify-between items-center mb-4">
                           <p className="text-sm">
-                            {t("you_have_notifications", {
-                              count: jobNotifications.length,
-                            })}
+                            You have {jobNotifications.length} notifications
                           </p>
                           <button
                             onClick={handleMarkAllAsRead}
                             className="text-blue-600 text-sm hover:underline"
                           >
-                            {t("mark_all_as_read")}
+                            Mark all as read
                           </button>
                         </div>
                       )}
@@ -213,10 +209,7 @@ const Navbar2 = () => {
                                 className="hover:underline"
                               >
                                 <strong>
-                                  {t("job_title_notification", {
-                                    title: notification.jobTitle,
-                                  })}{" "}
-                                  position
+                                  {notification.jobTitle} position
                                 </strong>{" "}
                                 at <strong>{notification.company}</strong>
                               </Link>
@@ -224,7 +217,7 @@ const Navbar2 = () => {
                           ))}
                         </ul>
                       ) : (
-                        <p>{t("no_notifications_available")}</p>
+                        <p>No notifications available</p>
                       )}
 
                       <div className="flex justify-end">
@@ -232,7 +225,7 @@ const Navbar2 = () => {
                           className="btn bg-[#0a65cc] text-white mt-4"
                           onClick={handleModalToggle}
                         >
-                          {t("close")}
+                          Close
                         </button>
                       </div>
                     </div>
@@ -247,7 +240,8 @@ const Navbar2 = () => {
                   <div className="relative lg:flex md:flex lg:items-center md:items-center gap-4 hidden">
                     <img
                       src={
-                        currentUser?.photoURL ||
+                        loggedUser?.photoURL ||
+                        loggedUser?.company_logo ||
                         "https://i.ibb.co.com/P6RfpHT/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
                       }
                       alt={t("user_profile")}
@@ -400,19 +394,19 @@ const Navbar2 = () => {
 
       {/* Room Modal */}
       <Modal open={roomModal} onClose={() => setRoomModal(false)} center>
-        <h2>{t("enter_room_id")}</h2>
+        <h2>Enter Room ID</h2>
         <input
           type="text"
           value={roomID}
           onChange={(e) => setRoomID(e.target.value)}
           className="border rounded-md p-2 w-full"
-          placeholder={t("room_id_placeholder")}
+          placeholder="Room ID"
         />
         <button
           className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
           onClick={handleJoinRoom}
         >
-          {t("join_room")}
+          Join Room
         </button>
       </Modal>
     </div>

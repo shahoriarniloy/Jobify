@@ -5,6 +5,9 @@ import DashboardLoader from "../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../Hooks/useCurrentUser";
 import { Helmet } from "react-helmet";
+import { useSelector} from "react-redux";
+ 
+
 
 const statusSteps = [
   { value: "Pending", label: "Pending" },
@@ -21,6 +24,7 @@ const AppliedJobs = () => {
   const [appliedJobs, setAppliedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchAppliedJobs = async () => {
@@ -60,7 +64,7 @@ const AppliedJobs = () => {
           appliedJobs.map((job) => (
             <div
               key={job._id}
-              className="h-fit p-6 bg-base-100 shadow-xl rounded-xl"
+              className={ theme === "dark" ? "h-fit p-6 bg-slate-900 shadow-xl rounded-xl" : "h-fit p-6 bg-base-100 shadow-xl rounded-xl"}
             >
               <div className="flex lg:flex-row md:flex-row flex-col justify-between items-center">
                 <div className="flex flex-col">

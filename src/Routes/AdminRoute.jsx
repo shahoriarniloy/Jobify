@@ -1,17 +1,16 @@
 import { Navigate } from "react-router-dom";
-import useCurrentUser from "../Hooks/useCurrentUser";
 import useUserRole from "../Hooks/useUserRole";
 import { toast } from "react-toastify";
 
 const AdminRoute = ({ children }) => {
-  const { currentUser } = useCurrentUser();
   const { role } = useUserRole();
 
-  if (!currentUser?.email || role !== "Admin") {
-    toast.warn("Please Login First !!!")
-    return <Navigate to="/" replace />;
+  if (!role) return;
+  if (role == "Admin") {
+    return children;
   }
-  return children;
+  toast.warn("You don't have permission for this page!!")
+  return <Navigate to="/" replace />;
 };
 
 export default AdminRoute;

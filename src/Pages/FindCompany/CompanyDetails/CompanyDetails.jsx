@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 
 
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import DashboardLoader from "../../../Shared/DashboardLoader.jsx";
 import useUserRole from "../../../Hooks/useUserRole.jsx";
 import { LuMessageCircle } from "react-icons/lu";
@@ -37,6 +37,7 @@ const CompanyDetails = () => {
   const [isMassageModalOpen, setIsMassageModalOpen] = useState(false);
   const [massage, setMassage] = useState("");
   const theme = useSelector((state) => state.theme.theme);
+  const queryClient = useQueryClient();
 
   const {
     data: company,
@@ -74,10 +75,11 @@ const CompanyDetails = () => {
   };
   // send massage
   const handelSendMassage = async () => {
-    const { data } = await axiosSecure.post(`/send-massage?senderId=${currentUser?.email}&receiverId=${company?.email}`, { massage });
+    const { data } = await axiosSecure.post(`/send-massage?senderId=${currentUser?.email}&receiverId=${company?.email}`, { massage,smsSender:currentUser?.email });
     if (data?.acknowledged) {
       toast.success("Message send successfully");
       setIsMassageModalOpen(false);
+      queryClient.invalidateQueries(["load massage"])
     }
 
   }
@@ -110,13 +112,6 @@ const CompanyDetails = () => {
                 </h3>
                 <p className="text-gray-500">{company?.industry}</p>
               </div>
-              {/* <div className="mt-4 md:mt-0 md:ml-auto">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                  <Link to={`/company/${company?.email}/jobs`}>
-                    {t("view_open_position")}
-                  </Link>
-                </button>
-              </div> */}
             </div>
           </div>
         </div>
@@ -124,12 +119,12 @@ const CompanyDetails = () => {
         <div className="lg:hidden flex justify-center mt-56 md:mt-28  mb-2">
 
 
-          <button
+          {role.role == "Job Seeker" && <button
             onClick={() => setIsMassageModalOpen(true)}
             className="bg-blue-500 text-white hover:bg-blue-400 btn">
             <LuMessageCircle />
             {t("message")}
-          </button>
+          </button>}
 
 
           {role?.role == "Job Seeker" && (
@@ -155,7 +150,7 @@ const CompanyDetails = () => {
 
         <div className="flex flex-col lg:flex-row  md:mb-16 gap-12 justify-between md:mt-20">
           <div className="lg:w-1/2 mt-12">
-            <h2 className="font-bold lg:mt-2 text-xl md:text-2xl lg:text-3xl">
+            <h2 className={theme === "dark"? "font-bold lg:mt-2 text-gray-300 text-xl md:text-2xl lg:text-3xl" : "font-bold lg:mt-2 text-xl md:text-2xl lg:text-3xl"}>
               {t("description")}
             </h2>
             <p className={theme === "dark"? "text-gray-300 mb-4" : "text-gray-500 mb-4"}>{company?.company_description}</p>
@@ -179,12 +174,12 @@ const CompanyDetails = () => {
           <div className="lg:w-1/2">
             <div className="lg:flex lg:justify-end items-center hidden gap-4 mb-4">
 
-              <button
+             {role.role == "Job Seeker" && <button
                 onClick={() => setIsMassageModalOpen(true)}
                 className="bg-blue-500 text-white hover:bg-blue-400 btn">
                 <LuMessageCircle />
                 {t("message")}
-              </button>
+              </button>}
 
 
               {role?.role == "Job Seeker" && (
