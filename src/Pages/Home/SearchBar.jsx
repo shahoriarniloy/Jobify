@@ -154,7 +154,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
                       {jobs?.map((job) => (
                         <Link key={job?._id} to={`/job/${job?._id}`}>
                           <h3 className="font-semibold link-color">
-                            {job?.title}
+                            {job?.jobInfo?.title}
                           </h3>
                         </Link>
                       ))}

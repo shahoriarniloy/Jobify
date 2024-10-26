@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { Link } from "react-router-dom";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import { t } from "i18next";
 
 const JobSeekerCard = ({ jobSeeker }) => {
   const { currentUser } = useCurrentUser();
@@ -80,10 +81,11 @@ const JobSeekerCard = ({ jobSeeker }) => {
         <div className="flex mt-4 md:mt-6">
           <button
             onClick={handleFollowToggle}
-            className={`inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none ${isFollowing
+            className={`inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none ${
+              isFollowing
                 ? "bg-red-500 hover:bg-red-600"
                 : "bg-blue-700 hover:bg-blue-800"
-              }`}
+            }`}
           >
             {isFollowing ? t("unfollow") : t("follow")}
           </button>

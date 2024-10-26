@@ -50,6 +50,12 @@ const Testimonial = ({ reviews }) => {
     return (
         <div className= { theme === "dark" ?"bg-gradient-to-r from-gray-800 to-slate-900" : "bg-secondary"}>
             <div className='container mx-auto py-24'>
+                <h1
+                    className="text-3xl font-semibold mb-16 tracking-wider text-black text-center"
+                >
+                    User Reviews
+                </h1>
+
                 <Swiper
                     slidesPerView={slidePerPage}
 

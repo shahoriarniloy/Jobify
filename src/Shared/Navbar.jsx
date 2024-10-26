@@ -2,10 +2,10 @@ import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { io } from "socket.io-client";
-import { FaBell } from "react-icons/fa";
-import Swal from "sweetalert2";
-import { PiBag } from "react-icons/pi";
+// import { io } from "socket.io-client";
+// import { FaBell } from "react-icons/fa";
+// import Swal from "sweetalert2";
+// import { PiBag } from "react-icons/pi";
 import useCurrentUser from "../Hooks/useCurrentUser";
 
 const Navbar = () => {
@@ -14,9 +14,8 @@ const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [jobNotifications, setJobNotifications] = useState([]);
   const theme = useSelector((state) => state.theme.theme);
-  const [socket, setSocket] = useState(null);
+  // const [socket, setSocket] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const navItem = (
     <>
@@ -61,16 +60,7 @@ const Navbar = () => {
           {t("my_network")}
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/favorite-company"
-          className={({ isActive }) =>
-            isActive ? "active-nav nav-link" : "nav-link"
-          }
-        >
-          {t("favorite_company")}
-        </NavLink>
-      </li>
+
       <li>
         <NavLink
           to="/about"
@@ -84,49 +74,49 @@ const Navbar = () => {
     </>
   );
 
-  useEffect(() => {
-    const socketConnection = io("https://jobify-server-ujo0.onrender.com");
-    setSocket(socketConnection);
+  // useEffect(() => {
+  //   const socketConnection = io("https://jobify-server-ujo0.onrender.com");
+  //   setSocket(socketConnection);
 
-    return () => {
-      socketConnection.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     socketConnection.disconnect();
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    if (socket) {
-      socket.emit("newUser", currentUser?.email);
+  // useEffect(() => {
+  //   if (socket) {
+  //     socket.emit("newUser", currentUser?.email);
 
-      socket.on("jobPosted", (data) => {
-        Swal.fire({
-          icon: "info",
-          title: "New Job Posted!",
-          text: `A new job "${data.jobTitle}" was posted by ${data.company}`,
-          background: "#f4f8ff",
-          color: "#333",
-          customClass: {
-            title: "swal-title",
-            content: "swal-content",
-            confirmButton: "swal-confirm",
-          },
-          confirmButtonText: "View Job",
-          confirmButtonColor: "#007bff",
-          showCancelButton: true,
-          cancelButtonText: "Close",
-          cancelButtonColor: "#dc3545",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = `/job/${data.jobId}`;
-          }
-        });
+  //     socket.on("jobPosted", (data) => {
+  //       Swal.fire({
+  //         icon: "info",
+  //         title: "New Job Posted!",
+  //         text: `A new job "${data.jobTitle}" was posted by ${data.company}`,
+  //         background: "#f4f8ff",
+  //         color: "#333",
+  //         customClass: {
+  //           title: "swal-title",
+  //           content: "swal-content",
+  //           confirmButton: "swal-confirm",
+  //         },
+  //         confirmButtonText: "View Job",
+  //         confirmButtonColor: "#007bff",
+  //         showCancelButton: true,
+  //         cancelButtonText: "Close",
+  //         cancelButtonColor: "#dc3545",
+  //       }).then((result) => {
+  //         if (result.isConfirmed) {
+  //           window.location.href = `/job/${data.jobId}`;
+  //         }
+  //       });
 
-        setJobNotifications((prevNotifications) => [
-          ...prevNotifications,
-          { title: data.jobTitle, company: data.company, jobId: data.jobId },
-        ]);
-      });
-    }
-  }, [socket, currentUser?.email]);
+  //       setJobNotifications((prevNotifications) => [
+  //         ...prevNotifications,
+  //         { title: data.jobTitle, company: data.company, jobId: data.jobId },
+  //       ]);
+  //     });
+  //   }
+  // }, [socket, currentUser?.email]);
 
   const toggleModal = () => {
     // console.log("Bell icon clicked! Modal state:", isModalOpen);
@@ -149,9 +139,11 @@ const Navbar = () => {
   return (
     <div>
       <div
-        className={`navbar shadow-sm ${isSticky ? "sticky top-0 z-50" : ""
-          } roboto-regular ${theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"
-          }`}
+        className={`navbar shadow-sm ${
+          isSticky ? "sticky top-0 z-50" : ""
+        } roboto-regular ${
+          theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"
+        }`}
       >
         <div className="navbar-start">
           <div className="dropdown">

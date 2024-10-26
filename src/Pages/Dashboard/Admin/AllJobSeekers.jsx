@@ -9,37 +9,33 @@ import {
 } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import Swal from 'sweetalert2'
+import { useQuery } from "@tanstack/react-query";
+import DashboardLoader from "../../../Shared/DashboardLoader";
 
 const AllJobSeekers = () => {
   const { t } = useTranslation(); // Destructure useTranslation
-  const [jobSeekers, setJobSeekers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [totalJobSeekers, setTotalJobSeekers] = useState(0);
   const [pages, setPages] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const fetchJobSeekers = async () => {
-    try {
-      const response = await axiosSecure.get("/job-seekers", {
-        params: {
-          page: currentPage,
-          size: itemsPerPage,
-          searchTerm,
-        },
-      });
-      setJobSeekers(response.data);
-      const totalSeekers = response.data.length;
-      setTotalJobSeekers(totalSeekers);
+  // fetch all data
+  const { data: jobSeekers, isLoading, refetch } = useQuery({
+    queryKey: ["job-seekers"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/job-seekers", { params: { page: currentPage, size: itemsPerPage, searchTerm, } });
+
+      const totalSeekers = data.length;
       const totalPages = Math.ceil(totalSeekers / itemsPerPage);
       setPages([...Array(totalPages).keys()]);
-    } catch (error) {
-      // console.error("Failed to fetch job seekers", error);
+      return data;
     }
-  };
+  })
+
 
   useEffect(() => {
-    fetchJobSeekers();
+    refetch();
   }, [currentPage, itemsPerPage, searchTerm]);
 
   const handleItemsPerPage = (e) => {
@@ -70,16 +66,32 @@ const AllJobSeekers = () => {
   };
 
   const handleDelete = async (email) => {
-    if (window.confirm(t("confirm_delete_job_seeker"))) {
-      try {
-        await axiosSecure.delete(`/deleteUser/${email}`);
-        fetchJobSeekers();
-      } catch (error) {
-        // console.error("Failed to delete job seeker", error);
-      }
-    }
-  };
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/deleteUser/${email}`)
+          .then(res => {
+            if (res.status == 200) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "User has been deleted.",
+                icon: "success"
+              });
+            }
+          })
 
+      }
+    });
+
+  };
+  if (isLoading) return <DashboardLoader />
   return (
     <div className="job-seekers-container">
       <div className="flex items-center justify-center gap-4 mt-4">
@@ -169,9 +181,8 @@ const AllJobSeekers = () => {
           {pages.map((page) => (
             <button
               key={page}
-              className={`px-4 py-2 rounded-lg ${
-                page === currentPage ? "bg-blue-200" : "bg-white"
-              } border border-blue-300`}
+              className={`px-4 py-2 rounded-lg ${page === currentPage ? "bg-blue-200" : "bg-white"
+                } border border-blue-300`}
               onClick={() => setCurrentPage(page)}
             >
               {page + 1}

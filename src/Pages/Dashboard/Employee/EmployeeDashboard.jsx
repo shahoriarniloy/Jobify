@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { FaBriefcase, FaRegHeart, FaEdit } from "react-icons/fa";
+import {
+  FaBriefcase,
+  FaRegHeart,
+  FaEdit,
+  FaBuilding,
+  FaFileAlt,
+} from "react-icons/fa";
 import { MdHome, MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import useUserRole from "../../../Hooks/useUserRole";
 import { FiLayers } from "react-icons/fi";
 import { useTranslation } from "react-i18next"; // Import useTranslation
 import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { FaBell } from "react-icons/fa6";
 
 const EmployeeDashboard = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
@@ -67,8 +74,19 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaRegHeart /> {t("favorite_jobs")}
+                  <FaRegHeart /> Bookmarked Jobs
                 </NavLink>
+                <NavLink
+                  to="/jobSeeker/favorite-company"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "isActiveRoute flex items-center pl-5 py-2 text-[#0a65cc] gap-2"
+                      : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                  }
+                >
+                  <FaBell /> Preferred Updates
+                </NavLink>
+
                 <NavLink
                   to="/jobSeeker/resume-builder"
                   className={({ isActive }) =>
@@ -77,7 +95,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaEdit /> {t("edit_resume")}
+                  <FaFileAlt /> {t("edit_resume")} {/* Updated icon */}
                 </NavLink>
                 <NavLink
                   to="/jobSeeker/career"
@@ -87,7 +105,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaEdit /> {t("career_roadmap")}
+                  <FaEdit /> Career Roadmap
                 </NavLink>
                 <NavLink
                   to="/jobSeeker/employee-settings"
@@ -97,7 +115,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <IoSettingsOutline /> {t("profile_setting")}
+                  <IoSettingsOutline /> {t("profile_settings")}
                 </NavLink>
               </div>
             </div>
