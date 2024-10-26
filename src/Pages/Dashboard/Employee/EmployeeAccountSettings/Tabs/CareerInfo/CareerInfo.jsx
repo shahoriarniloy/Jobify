@@ -15,6 +15,9 @@ const CareerInfo = () => {
   const [inputValue, setInputValue] = useState("");
   const [popUpClose, setPopUpClose] = useState(false);
   const [inputDegree, setInputDegree] = useState("");
+ 
+  const theme = useSelector((state) => state.theme.theme);
+
 
   const { data: schools, isLoading } = useQuery({
     queryKey: ["School Name", inputValue],
@@ -99,7 +102,7 @@ const CareerInfo = () => {
               type="text"
               name="schoolName"
               id="schoolName"
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              className={ theme === "dark"? "border mt-2 bg-slate-900 border-slate-600 text-slate-300 p-2 rounded w-full" : "border mt-2 border-gray-300 p-2 rounded w-full"}
               value={inputValue}
               onChange={handleInputChange}
               placeholder={t("type_a_school_name")}
@@ -130,7 +133,7 @@ const CareerInfo = () => {
             <select
               name="degree"
               required
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              className={theme === "dark"? "border mt-2 bg-slate-900 text-slate-300 border-gray-300 p-2 rounded w-full" : "border mt-2 border-gray-300 p-2 rounded w-full" }
               onChange={(e) => setInputDegree(e.target.value)}
             >
               <option value="default">{t("choose_your_degree")}</option>
@@ -150,7 +153,7 @@ const CareerInfo = () => {
             <select
               name="filedOfStudy"
               required
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              className={ theme === "dark"? "border mt-2 bg-slate-900 text-slate-300 border-gray-300  p-2 rounded w-full" : "border mt-2 border-gray-300 p-2 rounded w-full"}
             >
               <option value="">{t("choose_your_field")}</option>
 
@@ -171,7 +174,7 @@ const CareerInfo = () => {
               type="date"
               name="startDate"
               required
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              className={ theme === "dark" ? "border mt-2 bg-slate-900 text-slate-300 border-gray-300 p-2 rounded w-full" : "border mt-2 border-gray-300 p-2 rounded w-full"}
             />
           </div>
 
@@ -183,7 +186,7 @@ const CareerInfo = () => {
               type="date"
               name="endDate"
               required
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              className={ theme === "dark" ? "border mt-2 bg-slate-900 text-slate-300 border-gray-300 p-2 rounded w-full" : "border mt-2 border-gray-300 p-2 rounded w-full"}
             />
           </div>
 
@@ -196,7 +199,7 @@ const CareerInfo = () => {
                 type="text"
                 name="cgpa"
                 required
-                className="border border-gray-300 p-2 rounded w-full"
+                className={ theme === "dark" ? "border mt-2 bg-slate-900 text-slate-300 border-gray-300 p-2 rounded w-full" : "border mt-2 border-gray-300 p-2 rounded w-full"}
                 placeholder={t("enter_your_cgpa")}
               />
             </div>
@@ -221,7 +224,7 @@ const CareerInfo = () => {
                 ],
               }}
               formats={["bold", "italic", "underline", "list", "bullet", "link"]}
-              className="custom-quill-editor"
+              className="custom-quill-editor text-white"
               style={{ direction: "ltr" }}
             />
           </div>
