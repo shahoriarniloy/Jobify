@@ -23,7 +23,7 @@ const OpenPosition = ({ companyEmail }) => {
   if (isLoading) return <DashboardLoader />
 
   return (
-    <section className="container mx-auto">
+    <section className="container mx-auto py-8">
       <h1 className="text-3xl font-semibold mb-2 tracking-wider text-black text-center">
         Available Jobs
       </h1>

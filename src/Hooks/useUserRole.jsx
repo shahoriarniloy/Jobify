@@ -5,7 +5,7 @@ import useCurrentUser from "./useCurrentUser";
 const useUserRole = () => {
   const { currentUser } = useCurrentUser();
   const { data: role, isLoading } = useQuery({
-    queryKey: ["loadedRole", currentUser?.email],
+    queryKey: ["loadedRole"],
     queryFn: async () => {
       if (currentUser?.email) {
         const response = await axiosSecure.get(
@@ -17,7 +17,7 @@ const useUserRole = () => {
         return null
       };
     },
-    // enabled: !!currentUser?.email,
+    enabled: !!currentUser?.email,
   });
 
   return { role, isLoading };
