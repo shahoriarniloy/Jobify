@@ -341,6 +341,15 @@ const Navbar2 = () => {
         open={loginModalOpen}
         onClose={() => setLoginModalOpen(false)}
         center
+        styles={{
+          modal: {
+            backgroundColor: theme === "dark" ? "black" : "transparent",
+            color: theme === "dark" ? "white" : "black", // Text color for readability
+            padding: "20px",
+            borderRadius: "8px",
+            transition: "background-color 0.3s",
+          },
+        }}
       >
         <Login
           setLoginModalOpen={setLoginModalOpen}
