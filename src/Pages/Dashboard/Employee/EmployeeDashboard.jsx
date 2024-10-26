@@ -13,6 +13,8 @@ import useUserRole from "../../../Hooks/useUserRole";
 import { FiLayers } from "react-icons/fi";
 import { useTranslation } from "react-i18next"; // Import useTranslation
 import useCurrentUser from "../../../Hooks/useCurrentUser";
+import { Helmet } from "react-helmet";
+import { FaBell } from "react-icons/fa6";
 
 const EmployeeDashboard = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
@@ -27,6 +29,9 @@ const EmployeeDashboard = () => {
 
   return (
     <div className="relative">
+       <Helmet>
+        <title>Jobify - Dashboard</title>
+      </Helmet>
       <div className="lg:hidden p-4 fixed top-0 left-0 z-50">
         <button onClick={toggleSidebar} className="text-2xl">
           {isSidebarOpen ? <MdClose /> : <MdMenu />}
@@ -73,7 +78,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaRegHeart /> {t("favorite_jobs")}
+                  <FaRegHeart /> Bookmarked Jobs
                 </NavLink>
                 <NavLink
                   to="/jobSeeker/favorite-company"
@@ -83,7 +88,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaBuilding /> {t("favorite_company")} {/* Updated icon */}
+                  <FaBell /> Preferred Updates
                 </NavLink>
 
                 <NavLink
@@ -104,7 +109,7 @@ const EmployeeDashboard = () => {
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
-                  <FaEdit /> {t("career_roadmap")}
+                  <FaEdit /> Career Roadmap
                 </NavLink>
                 <NavLink
                   to="/jobSeeker/employee-settings"

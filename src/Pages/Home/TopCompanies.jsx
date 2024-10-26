@@ -11,16 +11,15 @@ const TopCompanies = () => {
   const { t } = useTranslation(); // Destructure useTranslation
   const theme = useSelector((state) => state.theme.theme);
 
-
   const { data, isLoading } = useQuery({
     queryKey: ["top-companies"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/companies")
+      const { data } = await axiosSecure.get("/companies");
       return data?.Companies;
     },
   });
   if (isLoading) return <DashboardLoader />;
-  
+
   return (
     <div>
       <div className="container mx-auto py-24">
@@ -31,9 +30,8 @@ const TopCompanies = () => {
               : "text-3xl font-semibold mb-2 tracking-wider text-black text-center"
           }
         >
-          {t("top_companies")} {/* Use translation key */}
+          {t("top_companies")}
         </h1>
-
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
           {data
@@ -52,14 +50,16 @@ const TopCompanies = () => {
                     <h2>{company_name}</h2>
                     <p className="flex items-center gap-1 text-[#939AAD]">
                       <CiLocationOn className="text-xl" />
-                      <span className="text-sm">{t("location")}: {location}</span> {/* Use translation key */}
+                      <span className="text-sm">
+                        {t("location")}: {location}
+                      </span>{" "}
+                      {/* Use translation key */}
                     </p>
                   </div>
                 </div>
                 <Link to={`/company-details/${email}`}>
                   <button className="btn bg-[#E7F0FA] rounded-sm link-color hover:bg-[#0a65cc] hover:text-white w-full">
                     {t("open_positions")} {/* Use translation key */}
-
                   </button>
                 </Link>
               </div>

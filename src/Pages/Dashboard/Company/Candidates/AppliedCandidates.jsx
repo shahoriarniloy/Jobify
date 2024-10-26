@@ -12,13 +12,14 @@ import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import DashboardLoader from "../../../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
 import { useQuery } from "@tanstack/react-query";
 
 const AppliedCandidates = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const { jobId,jobTitle } = location.state;
+  const { jobId, jobTitle } = location.state;
   const [selectedStatus, setSelectedStatus] = useState({});
   const [filterStatus, setFilterStatus] = useState("All");
   const { currentUser } = useCurrentUser();
@@ -30,7 +31,6 @@ const AppliedCandidates = () => {
   const [schedulingCandidate, setSchedulingCandidate] = useState(null);
 
   const statusOptions = [
-   
     { value: "Pending", label: "Pending" },
     { value: "Under Review", label: "Under Review" },
     { value: "Shortlisted", label: "Shortlisted" },
@@ -40,30 +40,29 @@ const AppliedCandidates = () => {
     { value: "Hired", label: "Hired" },
   ];
 
- 
+  // fetch all applied candidates
+  const {
+    data: candidates = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["load all candidates"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/appliedCandidates?job_id=${jobId}`
+      );
+      return data;
+    },
+  });
 
-// fetch all applied candidates
-const {data:candidates=[], isLoading, refetch} = useQuery({
-  queryKey:["load all candidates"],
-  queryFn: async ()=>{
-    const {data} = await  axiosSecure.get(
-      `/appliedCandidates?job_id=${jobId}`
-    );
-    return data
-  }
-})
-
- 
-// fetch company data;
-const {data:company=[]} = useQuery({
-  queryKey:["load company data"],
-  queryFn:async()=>{
-    const {data} = await axiosSecure.get(
-          `/companies/${currentUser.email}`);
-    return data;
-  }
-})
-
+  // fetch company data;
+  const { data: company = [] } = useQuery({
+    queryKey: ["load company data"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/companies/${currentUser.email}`);
+      return data;
+    },
+  });
 
   const handleStatusChange = (email, newStatus, applicationId, name) => {
     setSelectedStatus((prevStatus) => ({
@@ -85,7 +84,7 @@ const {data:company=[]} = useQuery({
       statusUpdate.interviewTime = interviewDetails.time;
       statusUpdate.roomId = interviewDetails.roomId;
 
-      console.log("Status Update Payload:", statusUpdate);
+      // console.log("Status Update Payload:", statusUpdate);
     }
 
     axiosSecure
@@ -94,10 +93,9 @@ const {data:company=[]} = useQuery({
       .then((response) => {
         refetch();
         toast.success(`Status Updated to ${statusUpdate.status}`);
-
       })
       .catch((error) => {
-        console.error("Response data:", error.response.data);
+        // console.error("Response data:", error.response.data);
       });
   };
 
@@ -132,10 +130,11 @@ const {data:company=[]} = useQuery({
     return <DashboardLoader />;
   }
 
- 
-
   return (
     <div>
+       <Helmet>
+        <title>Jobify - Job Candidates</title>
+      </Helmet>
       <div className="mb-4 flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">{t("applied_candidates")}</h1>
@@ -186,10 +185,11 @@ const {data:company=[]} = useQuery({
                 {statusOptions.map((status) => (
                   <button
                     key={status.value}
-                    className={`btn ${candidate.application.status === status.value
+                    className={`btn ${
+                      candidate.application.status === status.value
                         ? "bg-gradient-to-r from-blue-400 to-blue-500 text-white"
                         : "bg-white text-black"
-                      }`}
+                    }`}
                     onClick={() =>
                       handleStatusChange(
                         candidate?.user?.email,
@@ -214,7 +214,7 @@ const {data:company=[]} = useQuery({
                 </button>
 
                 <Link
-                state={{jobTitle}}
+                  state={{ jobTitle }}
                   to={`/dashboard/candidate-resume/${candidate?.user?.email}`}
                 >
                   <button className="btn bg-gradient-to-r from-blue-500 to-blue-700 flex items-center text-white">

@@ -5,6 +5,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import Bookmark from "../../Find Job/Bookmark";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { MdDeleteForever } from "react-icons/md";
@@ -51,6 +52,9 @@ const AllJobs = () => {
   if (isLoading) return <DashboardLoader />
   return (
     <div className="jobs-container">
+       <Helmet>
+        <title>Jobify - All Jobs</title>
+      </Helmet>
       <div className="flex items-center justify-center lg:gap-4 md:gap-4 gap-2 mt-4">
         <label
           htmlFor="itemsPerPage"

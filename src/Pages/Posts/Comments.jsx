@@ -8,6 +8,8 @@ import { HiHeart, HiOutlineEmojiHappy } from "react-icons/hi";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
 import { useTranslation } from "react-i18next"; // Importing useTranslation
+import { Helmet } from "react-helmet";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 
 const CommentsPage = () => {
   const { t } = useTranslation(); // Destructuring t from useTranslation
@@ -88,6 +90,9 @@ const CommentsPage = () => {
 
   return (
     <div className="grid lg:grid-cols-2 gap-6 lg:mx-24 mt-24">
+       <Helmet>
+        <title>Jobify - Comments</title>
+      </Helmet>
       {post && (
         <>
           <div className="relative rounded-lg border h-auto shadow-md">
@@ -138,8 +143,9 @@ const CommentsPage = () => {
                   onClick={handleLike}
                 >
                   <HiHeart
-                    className={`w-5 h-5 ${hasLiked ? "text-blue-500" : "text-gray-500"
-                      }`}
+                    className={`w-5 h-5 ${
+                      hasLiked ? "text-blue-500" : "text-gray-500"
+                    }`}
                   />
                   <span className="ml-1">{post.likes?.length || 0}</span>
                 </button>

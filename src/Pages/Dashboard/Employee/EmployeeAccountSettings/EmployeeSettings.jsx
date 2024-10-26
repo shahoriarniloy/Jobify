@@ -6,6 +6,7 @@ import UserInfo from "./Tabs/UserInfo/UserInfo";
 import CareerInfo from "./Tabs/CareerInfo/CareerInfo";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import { Helmet } from "react-helmet";
 
 const EmployeeSettings = () => {
   const { t } = useTranslation(); // Destructure useTranslation
@@ -15,6 +16,9 @@ const EmployeeSettings = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>Jobify - Employee Settings</title>
+      </Helmet>
       <h2 className="mb-4">{t("welcome")} <span className="font-bold">{currentUser?.displayName}</span></h2>
       <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
         <TabList className="flex items-center gap-4 ">

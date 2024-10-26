@@ -5,6 +5,9 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import { useSelector } from "react-redux";
+
+
 
 
 const Feedback = () => {
@@ -14,6 +17,7 @@ const Feedback = () => {
   const [feedback, setFeedback] = useState("");
   const [username, setUsername] = useState("");
   const [photoURL, setPhotoURL] = useState("");
+  const theme = useSelector((state) => state.theme.theme);
 
   const { t } = useTranslation(); // Initialize the translation function
 
@@ -60,12 +64,12 @@ const Feedback = () => {
         {t("feedback")}
       </h1>
 
-      <p className="text-base text-gray-700 md:text-sm mb-12 mt-12 text-center">
+      <p className={theme === "dark"? "text-base text-slate-300 md:text-sm mb-12 mt-12 text-center" : "text-base text-gray-700 md:text-sm mb-12 mt-12 text-center"}>
         {t("feedback_description")}
       </p>
 
       <div className="flex justify-center ">
-        <div className="p-8 shadow-sm rounded-xl bg-white">
+        <div className={theme === "dark"? "p-8 shadow-sm rounded-xl bg-slate-700 bg-opacity-50" : "p-8 shadow-sm rounded-xl bg-white"}>
           <h3>{t("your_rating")}:</h3>
           <div className="flex flex-col py-4 space-y-3 h-36">
             <div className="flex space-x-2">
@@ -99,7 +103,7 @@ const Feedback = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder={t("enter_username")}
-            className="w-3/4 rounded-md p-2 focus:ring focus:ring-opacity-75 dark:text-gray-700 focus:ring-violet-600 dark:border-gray-300 mb-4"
+            className={theme === "dark"? "w-3/4 text-slate-300 bg-slate-900 rounded-md p-2 focus:ring focus:ring-opacity-75  focus:ring-violet-600 dark:border-slate-700 mb-4" : "w-3/4 rounded-md p-2 focus:ring focus:ring-opacity-75 dark:text-gray-700 focus:ring-violet-600 dark:border-gray-300 mb-4"}
             required
           />
           <textarea
@@ -107,7 +111,7 @@ const Feedback = () => {
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
             placeholder={t("your_feedback")}
-            className="w-full rounded-md p-2 focus:ring focus:ring-opacity-75 dark:text-gray-700 focus:ring-violet-600 dark:border-gray-300"
+            className={theme === "dark"? "w-full rounded-md p-2 focus:ring focus:ring-opacity-75 text-slate-300 bg-slate-900 focus:ring-violet-600 dark:border-gray-300" : "w-full rounded-md p-2 focus:ring focus:ring-opacity-75 dark:text-gray-700 focus:ring-violet-600 dark:border-gray-300"}
             required
           ></textarea>
           <button

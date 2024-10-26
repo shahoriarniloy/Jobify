@@ -51,6 +51,9 @@ import CandidateResume from "../Pages/Dashboard/Company/Candidates/CandidateResu
 import FavoriteCompany from "../Pages/FavoriteCompany/FavoriteCompany";
 
 import Career from "../Pages/Dashboard/Employee/ResumeBuilder/Career";
+import JobseekerRoute from "./JobseekerRoute";
+import AdminRoute from "./AdminRoute";
+import EmployerRoute from "./EmployerRoute";
 
 export const router = createBrowserRouter([
   {
@@ -101,7 +104,8 @@ export const router = createBrowserRouter([
 
       {
         path: "/posts",
-        element: <Posts />,
+        element:<JobseekerRoute><Posts /></JobseekerRoute>
+        
       },
       {
         path: "/comments/:postId",
@@ -133,7 +137,11 @@ export const router = createBrowserRouter([
 
       {
         path: "/dashboard",
-        element: <DashboardLayout />,
+        element: (
+          <EmployerRoute>
+            <DashboardLayout />
+          </EmployerRoute>
+        ),
         children: [
           {
             path: "user-overview",
@@ -177,7 +185,11 @@ export const router = createBrowserRouter([
 
       {
         path: "/admin",
-        element: <AdminLayout />,
+        element: (
+          <AdminRoute>
+            <AdminLayout />
+          </AdminRoute>
+        ),
         children: [
           {
             path: "alljobs",
@@ -200,7 +212,11 @@ export const router = createBrowserRouter([
 
       {
         path: "/jobSeeker",
-        element: <EmployeeDashboard />,
+        element: (
+          <JobseekerRoute>
+            <EmployeeDashboard />
+          </JobseekerRoute>
+        ),
         children: [
           {
             path: "overview",
