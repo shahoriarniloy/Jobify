@@ -709,5 +709,24 @@
   "notifications_count": "notifications",
   "mark_all_as_read": "Mark all as read",
   "no_notifications_available": "No notifications available",
-  "position": "position"
+  "position": "position",
+
+  "no_categories_found": "No categories found",
+
+  "find_job_interest_skills": "Find a job that suits your interest & skills.",
+
+  "job_opportunity_description": "Quickly find job opportunities that match your skills and interests by searching for specific job titles, keywords, or locations.",
+  "job_search_placeholder": "Job title, Company Name...",
+  "category_label": "Category:",
+  "job_type_label": "Job Type:",
+  "salary_range_label": "Salary Range:",
+  "job_level_label": "Job Level:",
+  "deadline_label": "Deadline:",
+  "location_label": "Location:",
+
+  "posted_date_label": "Posted Date",
+  "expire_on_label": "Expire On",
+  "educational_qualification_label": "Educational Qualification",
+  "starting_salary_label": "Starting Salary",
+  "job_location_label": "Job Location"
 }
