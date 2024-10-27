@@ -9,10 +9,14 @@ import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { Helmet } from "react-helmet";
 
+ 
+
+
 const PostJob = () => {
   const { t } = useTranslation(); // Initialize useTranslation
   const { currentUser } = useCurrentUser();
   const [subCategories, setSubCategories] = useState([]);
+  const theme = useSelector((state) => state.theme.theme);
 
   const [jobData, setJobData] = useState({
     title: "",
@@ -116,10 +120,10 @@ const PostJob = () => {
         <title>Jobify - Post Job</title>
       </Helmet>
       <div>
-        <h2 className="font-semibold text-3xl text-black mb-4">
+        <h2 className={ theme === "dark"? "font-semibold text-3xl text-white mb-4" : "font-semibold text-3xl text-black mb-4"}>
           {t("post_job")}
         </h2>
-        <p className="text-stone-500 mb-6">{t("fill_form")}</p>
+        <p className={theme === "dark"? "text-slate-300 mb-6" : "text-stone-500 mb-6"}>{t("fill_form")}</p>
         <div className="rounded p-6 mb-6">
           <div className="grid gap-6 text-sm grid-cols-1 lg:grid-cols-3">
             <form className="lg:col-span-3" onSubmit={handleSubmit}>
@@ -131,7 +135,7 @@ const PostJob = () => {
                     name="company"
                     value={data?.company_name}
                     onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                     placeholder={t("company_name")}
                     disabled
                   />
@@ -143,7 +147,7 @@ const PostJob = () => {
                     name="title"
                     value={jobData.title}
                     onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                     placeholder={t("add_job_title")}
                     required
                   />
@@ -155,7 +159,7 @@ const PostJob = () => {
                     name="jobCategory"
                     value={jobData.jobCategory}
                     onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                   >
                     <option value="">{t("select_category")}</option>
                     {categories?.map((category) => (
@@ -175,7 +179,7 @@ const PostJob = () => {
                     name="jobSubCategory"
                     value={jobData?.jobSubCategory}
                     onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                     disabled={!subCategories?.length}
                   >
                     <option value="">{t("select_subcategory")}</option>
