@@ -149,6 +149,11 @@ const Navbar2 = () => {
               >
                 <option value="en">{t("english")}</option>
                 <option value="bn">{t("bangla")}</option>
+                <option value="ar">{t("العربية")}</option>
+                <option value="ur">{t(" اُردُو")}</option>
+                <option value="hi">{t("हिन्दी")}</option>
+                <option value="zh-CN">{t("中国")}</option>
+                <option value="es">{t("Español")}</option>
               </select>
             </div>
 
