@@ -760,5 +760,9 @@
   "comment_plural": "Comentarios",
   "error_updating_like_status": "Error al actualizar el estado de me gusta",
   "error_adding_comment": "Error al agregar comentario",
-  "post_button": "Publicar"
+  "post_button": "Publicar",
+
+  "type_message_here": "Escriba el mensaje aquí",
+  "send": "Enviar",
+  "select_a_conversation": "Seleccione una conversación"
 }

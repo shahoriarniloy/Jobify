@@ -769,7 +769,11 @@
   "comment_plural": "Comments",
   "error_updating_like_status": "Error updating like status",
   "error_adding_comment": "Error adding comment",
-  "post_button": "Post"
+  "post_button": "Post",
+
+  "type_message_here": "Type Message here",
+  "send": "Send",
+  "select_a_conversation": "Select a conversation"
 
   
 }

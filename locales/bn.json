@@ -759,5 +759,9 @@
   "comment_plural": "মন্তব্যগুলো",
   "error_updating_like_status": "পছন্দ আপডেট করতে সমস্যা হয়েছে",
   "error_adding_comment": "মন্তব্য যোগ করতে সমস্যা হয়েছে",
-  "post_button": "পোস্ট করুন"
+  "post_button": "পোস্ট করুন",
+
+  "type_message_here": "এখানে বার্তা টাইপ করুন",
+  "send": "পাঠান",
+  "select_a_conversation": "একটি কথোপকথন নির্বাচন করুন"
 }

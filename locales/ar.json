@@ -769,5 +769,9 @@
   "comment_plural": "تعليقات",
   "error_updating_like_status": "خطأ في تحديث حالة الإعجاب",
   "error_adding_comment": "خطأ في إضافة تعليق",
-  "post_button": "نشر"
+  "post_button": "نشر",
+
+  "type_message_here": "اكتب الرسالة هنا",
+  "send": "إرسال",
+  "select_a_conversation": "حدد محادثة"
 }

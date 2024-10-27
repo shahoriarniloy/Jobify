@@ -770,5 +770,9 @@
   "comment_plural": "تبصرے",
   "error_updating_like_status": "پسند کی حیثیت کو اپ ڈیٹ کرنے میں خرابی",
   "error_adding_comment": "تبصرہ شامل کرنے میں خرابی",
-  "post_button": "شائع کریں"
+  "post_button": "شائع کریں",
+
+  "type_message_here": "یہاں پیغام لکھیں",
+  "send": "بھجوائیں",
+  "select_a_conversation": "ایک گفتگو کا انتخاب کریں"
 }
