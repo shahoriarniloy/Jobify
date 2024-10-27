@@ -9,12 +9,16 @@ import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import { Helmet } from "react-helmet";
 import { toast } from "react-toastify";
+import { useSelector} from "react-redux";
+
+
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const{logOutUser} = useCurrentUser();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const theme = useSelector((state) => state.theme.theme);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -44,17 +48,24 @@ const DashboardLayout = () => {
           {/* Sidebar */}
           <div
             className={`${
-              isSidebarOpen ? "translate-x-0 z-40 " : "-translate-x-full"
+              isSidebarOpen ? "translate-x-0 z-40" : "-translate-x-full"
             } lg:translate-x-0 lg:block 
-        fixed top-0 left-0 w-[75%] max-w-[290px] bg-white min-h-screen p-6 lg:min-h-[60vh] transition-transform
-        duration-300 ease-in-out lg:static`}
+            fixed top-0 left-0 w-[75%] max-w-[290px] 
+            ${theme === "dark" ? "bg-slate-900 " : "bg-white"} 
+            min-h-screen p-6 lg:min-h-[60vh] transition-transform
+            duration-300 ease-in-out lg:static`}
+          
           >
             <div className="space-y-2">
               <NavLink
                 to="/dashboard/overview"
                 className={({ isActive }) =>
                   isActive
-                    ? "isActiveRoute"
+                    ? theme === "dark"
+                      ? "isActiveRouteDark"
+                      : "isActiveRoute"
+                    : theme === "dark"
+                    ? "flex items-center pl-5 py-2 text-white gap-2"
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
@@ -64,7 +75,11 @@ const DashboardLayout = () => {
                 to="/dashboard/postJob"
                 className={({ isActive }) =>
                   isActive
-                    ? "isActiveRoute"
+                    ? theme === "dark"
+                      ? "isActiveRouteDark"
+                      : "isActiveRoute"
+                    : theme === "dark"
+                    ? "flex items-center pl-5 py-2 text-white gap-2"
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
@@ -74,7 +89,11 @@ const DashboardLayout = () => {
                 to="/dashboard/myJob"
                 className={({ isActive }) =>
                   isActive
-                    ? "isActiveRoute"
+                    ? theme === "dark"
+                      ? "isActiveRouteDark"
+                      : "isActiveRoute"
+                    : theme === "dark"
+                    ? "flex items-center pl-5 py-2 text-white gap-2"
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
@@ -84,7 +103,11 @@ const DashboardLayout = () => {
                 to="/dashboard/company-settings"
                 className={({ isActive }) =>
                   isActive
-                    ? "isActiveRoute"
+                    ? theme === "dark"
+                      ? "isActiveRouteDark"
+                      : "isActiveRoute"
+                    : theme === "dark"
+                    ? "flex items-center pl-5 py-2 text-white gap-2"
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
@@ -97,7 +120,11 @@ const DashboardLayout = () => {
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? "isActiveRoute"
+                    ? theme === "dark"
+                      ? "isActiveRouteDark"
+                      : "isActiveRoute"
+                    : theme === "dark"
+                    ? "flex items-center pl-5 py-2 text-white gap-2"
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
@@ -105,7 +132,7 @@ const DashboardLayout = () => {
               </NavLink>
               <button
                 onClick={handleLogOut}
-                className="flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                className={theme === "dark"? "flex items-center pl-5 py-2 text-white gap-2" : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"}
               >
                 <MdOutlineLogout className="text-xl" /> {t("log_out")}
               </button>

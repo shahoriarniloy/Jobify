@@ -145,7 +145,7 @@ const Navbar2 = () => {
                 value={currentLanguage}
                 className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
                   theme === "dark"
-                    ? "bg-transparent text-white"
+                    ? "bg-gray-800  text-white"
                     : "bg-transparent text-black"
                 }`}
               >
