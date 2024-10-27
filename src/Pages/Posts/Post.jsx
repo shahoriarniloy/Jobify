@@ -25,7 +25,7 @@ const Post = ({ post }) => {
       }
       setIsLiked(!isLiked);
     } catch (error) {
-      console.error("Error updating like status:", error);
+      // console.error("Error updating like status:", error);
     }
   };
 
@@ -40,7 +40,7 @@ const Post = ({ post }) => {
       setComments([...comments, response.data.comment]);
       setNewComment("");
     } catch (error) {
-      console.error("Error adding comment:", error);
+      // console.error("Error adding comment:", error);
     }
   };
 

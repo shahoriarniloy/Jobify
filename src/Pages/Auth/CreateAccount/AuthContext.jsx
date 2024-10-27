@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
       );
       return userCredential;
     } catch (error) {
-      console.error("Authentication error:", error.message);
+      // console.error("Authentication error:", error.message);
       throw error;
     } finally {
       setLoading(false);

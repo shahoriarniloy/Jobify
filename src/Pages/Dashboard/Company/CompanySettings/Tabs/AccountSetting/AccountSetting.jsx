@@ -60,7 +60,7 @@ const AccountSetting = () => {
         // Reverse geocoding
         const address = await getAddressFromCoordinates(latLng.lat, latLng.lng);
 
-        console.log(address);
+        // console.log(address);
         setFormattedAddress(address);
       })
       .addTo(map);
@@ -77,7 +77,7 @@ const AccountSetting = () => {
         setLocation(userLatLng);
       },
       (error) => {
-        console.error("Error getting location: ", error);
+        // console.error("Error getting location: ", error);
       }
     );
 
@@ -100,16 +100,16 @@ const AccountSetting = () => {
         city: data.address.city,
         country: data.address.country,
       });
-      console.log(data);
+      // console.log(data);
       return data.display_name;
       // Returns the formatted address
     } catch (error) {
-      console.error("Error fetching location:", error);
+      // console.error("Error fetching location:", error);
       return null;
     }
   };
 
-  console.log(formattedLocation);
+  // console.log(formattedLocation);
 
   const onSubmit = async (data) => {
     const payload = {
@@ -120,9 +120,9 @@ const AccountSetting = () => {
 
     try {
       const response = await axiosSecure.post("/companyAccountInfo", payload);
-      console.log("Success:", response.data);
+      // console.log("Success:", response.data);
     } catch (error) {
-      console.error("Error:", error);
+      // console.error("Error:", error);
     }
   };
 

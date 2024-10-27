@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet";
 const EmployeeHome = () => {
   const { t } = useTranslation(); // Destructuring t from useTranslation
   const { currentUser } = useCurrentUser();
-  console.log(currentUser);
+  // console.log(currentUser);
   const loggedUser = useSelector((state) => state.user.loggedUser);
 
   const [appliedJobsCount, setAppliedJobsCount] = useState(0);
