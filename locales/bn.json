@@ -744,5 +744,25 @@
 
   "enter_room_id": "রুম আইডি প্রবেশ করুন",
   "room_id_placeholder": "রুম আইডি",
-  "join_room": "রুমে যোগ দিন"
+  "join_room": "রুমে যোগ দিন",
+
+  "your_posts": "আপনার পোস্টসমূহ",
+
+  "follow_people": "মানুষকে অনুসরণ করুন",
+
+  "following": "অনুসরণ করছেন",
+
+  "followers": "অনুসরণকারীরা",
+
+  "like_singular": "পছন্দ",
+  "like_plural": "পছন্দগুলো",
+  "comment_singular": "মন্তব্য",
+  "comment_plural": "মন্তব্যগুলো",
+  "error_updating_like_status": "পছন্দ আপডেট করতে সমস্যা হয়েছে",
+  "error_adding_comment": "মন্তব্য যোগ করতে সমস্যা হয়েছে",
+  "post_button": "পোস্ট করুন",
+
+  "type_message_here": "এখানে বার্তা টাইপ করুন",
+  "send": "পাঠান",
+  "select_a_conversation": "একটি কথোপকথন নির্বাচন করুন"
 }

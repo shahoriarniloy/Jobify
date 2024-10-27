@@ -7,8 +7,10 @@ import useCurrentUser from "../../Hooks/useCurrentUser";
 import useUserRole from "../../Hooks/useUserRole";
 import { FaFacebookMessenger } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const Message = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const { currentUser } = useCurrentUser();
   const [massages, setMassages] = useState();
   const [senderId, setSenderId] = useState();
@@ -152,18 +154,14 @@ const Message = () => {
                 onChange={(e) => setUserInput(e.target.value)}
                 type="text"
                 value={userInput}
-                placeholder="Type Message here"
-                className={`input input-bordered input-md w-full max-w-xs ${
-                  theme === "dark"
-                    ? "bg-gray-800 text-white border-gray-600"
-                    : "bg-white text-black"
-                }`}
+                placeholder={t("type_message_here")} // Translated
+                className="input input-bordered input-md w-full max-w-xs"
               />
               <button
                 onClick={() => handelSendMassage()}
                 className="btn bg-blue-600 text-white hover:bg-blue-500"
               >
-                send
+                {t("send")} <BsFillSendFill /> {/* Translated */}
               </button>
             </div>
           </div>
@@ -179,7 +177,7 @@ const Message = () => {
                 theme === "dark" ? "text-gray-300" : "text-blue-700"
               }`}
             >
-              Select a conversation
+              {t("select_a_conversation")}{" "}
             </h2>
           </div>
         )}
