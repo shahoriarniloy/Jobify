@@ -21,7 +21,6 @@ const PostCard = () => {
   const queryClient = useQueryClient();
   const observer = useRef();
 
-  // Fetch posts with infinite scrolling
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["loadedPost"],
     async ({ pageParam = 1 }) => {
@@ -59,7 +58,6 @@ const PostCard = () => {
       const url = `/posts/${postId}/${hasLiked ? "unlike" : "like"}`;
       await axiosSecure.put(url, { userEmail: currentUser?.email });
 
-      // Optimistically update likes
       queryClient.setQueryData(["loadedPost"], (oldData) =>
         oldData.pages.map((page) =>
           page.map((post) =>
@@ -84,7 +82,7 @@ const PostCard = () => {
   return (
     <div
       className={`container mx-auto py-8 ${
-        theme === "dark" ? " text-white" : "bg-secondary text-gray-800"
+        theme === "dark" ? "text-white" : "bg-secondary text-gray-800"
       }`}
     >
       <Helmet>
@@ -137,89 +135,102 @@ const PostCard = () => {
   );
 };
 
-const PostCardItem = React.forwardRef(({ post, hasLiked, handleLike }, ref) => {
-  const { userPhoto, userName, createdAt, imageUrl, content, likes, comments } =
-    post;
+const PostCardItem = React.forwardRef(
+  ({ post, hasLiked, handleLike, theme }, ref) => {
+    const {
+      userPhoto,
+      userName,
+      createdAt,
+      imageUrl,
+      content,
+      likes,
+      comments,
+    } = post;
 
-  const sliceContent = (text) => {
-    const words = text.split(" ");
-    return words.length > 20
-      ? words.slice(0, 20).join(" ") + "...[Read More]"
-      : text;
-  };
+    const sliceContent = (text) => {
+      const words = text.split(" ");
+      return words.length > 20
+        ? words.slice(0, 20).join(" ") + "...[Read More]"
+        : text;
+    };
 
-  return (
-    <div
-      ref={ref}
-      className="rounded-md shadow-md w-full sm:max-w-sm lg:max-w-md bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-    >
-      <div className="flex items-center justify-between p-3">
-        <div className="flex items-center space-x-2">
-          <img
-            src={userPhoto || "https://source.unsplash.com/50x50/?portrait"}
-            alt={`${userName}'s avatar`}
-            className="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-300"
-          />
-          <div className="-space-y-1">
-            <h2 className="text-sm font-semibold leading-none">{userName}</h2>
-            <span className="inline-block text-xs leading-none">
-              {new Date(createdAt).toLocaleString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              }) || t("unknown")}
-            </span>
+    return (
+      <div
+        ref={ref}
+        className={`rounded-md shadow-md w-full sm:max-w-sm lg:max-w-md ${
+          theme === "dark"
+            ? "bg-gray-800 text-gray-200"
+            : "bg-white text-gray-800"
+        }`}
+      >
+        <div className="flex items-center justify-between p-3">
+          <div className="flex items-center space-x-2">
+            <img
+              src={userPhoto || "https://source.unsplash.com/50x50/?portrait"}
+              alt={`${userName}'s avatar`}
+              className="object-cover object-center w-8 h-8 rounded-full shadow-sm"
+            />
+            <div className="-space-y-1">
+              <h2 className="text-sm font-semibold leading-none">{userName}</h2>
+              <span className="inline-block text-xs leading-none">
+                {new Date(createdAt).toLocaleString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                }) || t("unknown")}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-      <img
-        src={
-          imageUrl ||
-          "https://i.ibb.co/z73W3Cx/failed-to-load-error-page-404-concept-illustration-flat-design-eps10-modern-graphic-element-for-land.jpg"
-        }
-        alt="Post Image"
-        className="object-cover object-center w-full h-72 sm:h-56 md:h-64 lg:h-72 dark:bg-gray-500"
-      />
-      <div className="p-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <button
-              type="button"
-              title={hasLiked ? t("unlike_post") : t("like_post")}
-              className="flex items-center justify-center transition-colors duration-200 hover:text-blue-400 dark:hover:text-blue-300"
-              onClick={() => handleLike(post._id, hasLiked)}
-            >
-              <HiHeart
-                className={`w-6 h-6 ${
-                  hasLiked ? "text-blue-500" : "text-gray-500"
-                }`}
-              />
-              <span className="ml-1">{likes.length || 0}</span>
-            </button>
+        <img
+          src={
+            imageUrl ||
+            "https://i.ibb.co/z73W3Cx/failed-to-load-error-page-404-concept-illustration-flat-design-eps10-modern-graphic-element-for-land.jpg"
+          }
+          alt="Post Image"
+          className="object-cover object-center w-full h-72 sm:h-56 md:h-64 lg:h-72"
+        />
+        <div className="p-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <button
+                type="button"
+                title={hasLiked ? t("unlike_post") : t("like_post")}
+                className="flex items-center justify-center transition-colors duration-200 hover:text-blue-400"
+                onClick={() => handleLike(post._id, hasLiked)}
+              >
+                <HiHeart
+                  className={`w-6 h-6 ${
+                    hasLiked ? "text-blue-500" : "text-gray-500"
+                  }`}
+                />
+                <span className="ml-1">{likes.length || 0}</span>
+              </button>
 
-            <Link
-              to={`/comments/${post._id}`}
-              title={t("view_comments")}
-              className="flex items-center justify-center transition-colors duration-200 hover:text-blue-400 dark:hover:text-blue-300"
-            >
-              <FaComment className="w-6 h-6 text-gray-500" />
-              <span className="ml-1">{comments?.length || 0}</span>
-            </Link>
+              <Link
+                to={`/comments/${post._id}`}
+                title={t("view_comments")}
+                className="flex items-center justify-center transition-colors duration-200 hover:text-blue-400"
+              >
+                <FaComment className="w-6 h-6 text-gray-500" />
+                <span className="ml-1">{comments?.length || 0}</span>
+              </Link>
+            </div>
           </div>
+
+          <Link to={`/comments/${post._id}`}>
+            <div>
+              <p>{sliceContent(content)}</p>
+            </div>
+          </Link>
         </div>
-
-        <Link to={`/comments/${post._id}`}>
-          <div>
-            <p>{sliceContent(content)}</p>
-          </div>
-        </Link>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 PostCardItem.displayName = "PostCardItem";
 
