@@ -762,5 +762,13 @@
 
    "following": "فالو کر رہے ہیں",
 
-   "followers": "فالوورز"
+   "followers": "فالوورز",
+
+   "like_singular": "پسند",
+  "like_plural": "پسندیں",
+  "comment_singular": "تبصرہ",
+  "comment_plural": "تبصرے",
+  "error_updating_like_status": "پسند کی حیثیت کو اپ ڈیٹ کرنے میں خرابی",
+  "error_adding_comment": "تبصرہ شامل کرنے میں خرابی",
+  "post_button": "شائع کریں"
 }

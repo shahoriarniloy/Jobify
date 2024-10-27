@@ -761,5 +761,13 @@
 
   "following": "يتابع",
 
-  "followers": "متابعون"
+  "followers": "متابعون",
+
+  "like_singular": "إعجاب",
+  "like_plural": "إعجابات",
+  "comment_singular": "تعليق",
+  "comment_plural": "تعليقات",
+  "error_updating_like_status": "خطأ في تحديث حالة الإعجاب",
+  "error_adding_comment": "خطأ في إضافة تعليق",
+  "post_button": "نشر"
 }

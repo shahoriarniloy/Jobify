@@ -761,7 +761,15 @@
 
   "following": "Following",
 
-  "followers": "Followers"
+  "followers": "Followers",
+
+  "like_singular": "Like",
+  "like_plural": "Likes",
+  "comment_singular": "Comment",
+  "comment_plural": "Comments",
+  "error_updating_like_status": "Error updating like status",
+  "error_adding_comment": "Error adding comment",
+  "post_button": "Post"
 
   
 }

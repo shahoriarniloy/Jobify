@@ -752,5 +752,13 @@
 
    "following": "Siguiendo",
 
-   "followers": "Seguidores"
+   "followers": "Seguidores",
+
+   "like_singular": "Me gusta",
+  "like_plural": "Me gustas",
+  "comment_singular": "Comentario",
+  "comment_plural": "Comentarios",
+  "error_updating_like_status": "Error al actualizar el estado de me gusta",
+  "error_adding_comment": "Error al agregar comentario",
+  "post_button": "Publicar"
 }

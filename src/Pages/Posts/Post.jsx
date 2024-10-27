@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { FaHeart, FaRegHeart, FaComment } from "react-icons/fa";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
-import { useSelector } from "react-redux"; // Import useSelector
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const Post = ({ post }) => {
-  const isDarkTheme = useSelector((state) => state.theme.theme === "dark"); // Get dark theme state
+  const { t } = useTranslation(); // Import useTranslation
+  const isDarkTheme = useSelector((state) => state.theme.theme === "dark");
   const [likes, setLikes] = useState(post.likes);
   const [isLiked, setIsLiked] = useState(likes.includes(post.userEmail));
   const [comments, setComments] = useState(post.comments);
@@ -25,7 +27,7 @@ const Post = ({ post }) => {
       }
       setIsLiked(!isLiked);
     } catch (error) {
-      console.error("Error updating like status:", error);
+      console.error(t("error_updating_like_status"), error);
     }
   };
 
@@ -40,7 +42,7 @@ const Post = ({ post }) => {
       setComments([...comments, response.data.comment]);
       setNewComment("");
     } catch (error) {
-      console.error("Error adding comment:", error);
+      console.error(t("error_adding_comment"), error);
     }
   };
 
@@ -70,7 +72,7 @@ const Post = ({ post }) => {
       {post.imageUrl && (
         <img
           src={post.imageUrl}
-          alt="Post"
+          alt={t("post_image_alt")}
           className="w-full rounded-lg mb-3"
         />
       )}
@@ -80,13 +82,17 @@ const Post = ({ post }) => {
         <button onClick={handleLike} className="flex items-center text-red-500">
           {isLiked ? <FaHeart /> : <FaRegHeart />}
           <span className="ml-1">
-            {likes.length} {likes.length === 1 ? "Like" : "Likes"}
+            {likes.length}{" "}
+            {likes.length === 1 ? t("like_singular") : t("like_plural")}
           </span>
         </button>
         <button className="flex items-center text-gray-500">
           <FaComment />
           <span className="ml-1">
-            {comments.length} {comments.length === 1 ? "Comment" : "Comments"}
+            {comments.length}{" "}
+            {comments.length === 1
+              ? t("comment_singular")
+              : t("comment_plural")}
           </span>
         </button>
       </div>
@@ -112,7 +118,7 @@ const Post = ({ post }) => {
             type="text"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Add a comment..."
+            placeholder={t("add_comment_placeholder")}
             className={`border rounded-lg p-2 w-full ${
               isDarkTheme
                 ? "border-gray-600 bg-gray-900 "
@@ -127,7 +133,7 @@ const Post = ({ post }) => {
                 : "text-blue-500 hover:bg-blue-100"
             } rounded-lg p-2 transition duration-200`}
           >
-            Post
+            {t("post_button")}
           </button>
         </div>
       </div>
