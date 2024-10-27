@@ -753,5 +753,25 @@
 
   "enter_room_id": "أدخل معرف الغرفة",
   "room_id_placeholder": "معرف الغرفة",
-  "join_room": "الانضمام إلى الغرفة"
+  "join_room": "الانضمام إلى الغرفة",
+
+  "your_posts": "منشوراتك",
+
+  "follow_people": "تابع الناس",
+
+  "following": "يتابع",
+
+  "followers": "متابعون",
+
+  "like_singular": "إعجاب",
+  "like_plural": "إعجابات",
+  "comment_singular": "تعليق",
+  "comment_plural": "تعليقات",
+  "error_updating_like_status": "خطأ في تحديث حالة الإعجاب",
+  "error_adding_comment": "خطأ في إضافة تعليق",
+  "post_button": "نشر",
+
+  "type_message_here": "اكتب الرسالة هنا",
+  "send": "إرسال",
+  "select_a_conversation": "حدد محادثة"
 }

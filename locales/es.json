@@ -744,5 +744,25 @@
 
   "enter_room_id": "Ingresa el ID de la sala",
   "room_id_placeholder": "ID de la sala",
-  "join_room": "Unirse a la sala"
+  "join_room": "Unirse a la sala",
+
+   "your_posts": "Tus publicaciones",
+
+   "follow_people": "Seguir personas",
+
+   "following": "Siguiendo",
+
+   "followers": "Seguidores",
+
+   "like_singular": "Me gusta",
+  "like_plural": "Me gustas",
+  "comment_singular": "Comentario",
+  "comment_plural": "Comentarios",
+  "error_updating_like_status": "Error al actualizar el estado de me gusta",
+  "error_adding_comment": "Error al agregar comentario",
+  "post_button": "Publicar",
+
+  "type_message_here": "Escriba el mensaje aquí",
+  "send": "Enviar",
+  "select_a_conversation": "Seleccione una conversación"
 }
