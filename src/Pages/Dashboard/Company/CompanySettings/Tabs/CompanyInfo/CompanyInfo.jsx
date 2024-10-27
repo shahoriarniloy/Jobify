@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next"; // Import useTranslation
 import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
+
+
 const CompanyInfo = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
   const [companyName, setCompanyName] = useState("");
@@ -17,6 +19,8 @@ const CompanyInfo = () => {
   const [bannerFile, setBannerFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser } = useCurrentUser();
+  const theme = useSelector((state) => state.theme.theme);
+
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -144,7 +148,7 @@ const CompanyInfo = () => {
             value={companyName}
             onChange={handleChangeCompanyName}
             placeholder={t("type_here")} // Use translation key
-            className="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={ theme === "dark"? "border  bg-slate-900 text-slate-300  border-slate-400  p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" : "border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"}
           />
         </div>
 
@@ -170,7 +174,8 @@ const CompanyInfo = () => {
                 "bullet",
                 "link",
               ]}
-              className="custom-quill-editor"
+              className={ theme === "dark"? "border custom-quill-editor  bg-slate-900 text-slate-300  border-slate-400  p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" : "border custom-quill-editor border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"}
+              
             />
           </div>
         </section>
