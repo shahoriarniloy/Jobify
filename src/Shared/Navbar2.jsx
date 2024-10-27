@@ -403,19 +403,19 @@ const Navbar2 = () => {
 
       {/* Room Modal */}
       <Modal open={roomModal} onClose={() => setRoomModal(false)} center>
-        <h2>Enter Room ID</h2>
+        <h2>{t("enter_room_id")}</h2>
         <input
           type="text"
           value={roomID}
           onChange={(e) => setRoomID(e.target.value)}
           className="border rounded-md p-2 w-full"
-          placeholder="Room ID"
+          placeholder={t("room_id_placeholder")}
         />
         <button
           className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
           onClick={handleJoinRoom}
         >
-          Join Room
+          {t("join_room")}
         </button>
       </Modal>
     </div>
