@@ -744,5 +744,13 @@
 
   "enter_room_id": "Ingresa el ID de la sala",
   "room_id_placeholder": "ID de la sala",
-  "join_room": "Unirse a la sala"
+  "join_room": "Unirse a la sala",
+
+   "your_posts": "Tus publicaciones",
+
+   "follow_people": "Seguir personas",
+
+   "following": "Siguiendo",
+
+   "followers": "Seguidores"
 }

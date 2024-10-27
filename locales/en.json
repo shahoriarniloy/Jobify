@@ -753,5 +753,15 @@
 
   "enter_room_id": "Enter Room ID",
   "room_id_placeholder": "Room ID",
-  "join_room": "Join Room"
+  "join_room": "Join Room",
+
+  "your_posts": "Your Posts",
+
+  "follow_people": "Follow People",
+
+  "following": "Following",
+
+  "followers": "Followers"
+
+  
 }

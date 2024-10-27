@@ -753,5 +753,13 @@
 
   "enter_room_id": "أدخل معرف الغرفة",
   "room_id_placeholder": "معرف الغرفة",
-  "join_room": "الانضمام إلى الغرفة"
+  "join_room": "الانضمام إلى الغرفة",
+
+  "your_posts": "منشوراتك",
+
+  "follow_people": "تابع الناس",
+
+  "following": "يتابع",
+
+  "followers": "متابعون"
 }

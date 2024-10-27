@@ -743,5 +743,13 @@
 
   "enter_room_id": "রুম আইডি প্রবেশ করুন",
   "room_id_placeholder": "রুম আইডি",
-  "join_room": "রুমে যোগ দিন"
+  "join_room": "রুমে যোগ দিন",
+
+  "your_posts": "আপনার পোস্টসমূহ",
+
+  "follow_people": "মানুষকে অনুসরণ করুন",
+
+  "following": "অনুসরণ করছেন",
+
+  "followers": "অনুসরণকারীরা"
 }

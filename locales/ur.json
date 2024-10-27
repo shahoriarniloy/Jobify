@@ -754,5 +754,13 @@
 
   "enter_room_id": "کمرے کا ID درج کریں",
   "room_id_placeholder": "کمرے کا ID",
-  "join_room": "کمرے میں شامل ہوں"
+  "join_room": "کمرے میں شامل ہوں",
+
+  "your_posts": "آپ کی پوسٹس",
+
+   "follow_people": "لوگوں کو فالو کریں",
+
+   "following": "فالو کر رہے ہیں",
+
+   "followers": "فالوورز"
 }
