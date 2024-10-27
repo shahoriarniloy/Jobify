@@ -81,54 +81,58 @@ const PostCard = () => {
 
   return (
     <div
-      className={`container mx-auto py-8 ${
+      className={` py-8 ${
         theme === "dark" ? "text-white" : "bg-secondary text-gray-800"
       }`}
     >
-      <Helmet>
-        <title>Jobify - Posts</title>
-      </Helmet>
+      <div className=" container mx-auto">
+        <Helmet>
+          <title>Jobify - Posts</title>
+        </Helmet>
 
-      <PostStatus />
-      <div className="flex justify-between mt-16 px-4">
-        <h1
-          className={`text-lg ${
-            theme === "dark" ? "text-slate-300" : "text-gray-700"
-          }`}
-        >
-          {t("posts_from_people_you_follow")}
-        </h1>
-        <Link to="/find-job-seekers">
-          <button className="flex items-center gap-2">
-            <FaUserPlus
-              className={`w-6 h-6 mr-1 ${
-                theme === "dark" ? "text-blue-400" : "text-blue-500"
-              }`}
-            />
-            <span className="text-gray-700">{t("follow_people")}</span>
-          </button>
-        </Link>
-      </div>
+        <PostStatus />
+        <div className="flex justify-between mt-16 px-4">
+          <h1
+            className={`text-lg ${
+              theme === "dark" ? "text-slate-300" : "text-gray-700"
+            }`}
+          >
+            {t("posts_from_people_you_follow")}
+          </h1>
+          <Link to="/find-job-seekers">
+            <button className="flex items-center gap-2">
+              <FaUserPlus
+                className={`w-6 h-6 mr-1 ${
+                  theme === "dark" ? "text-blue-400" : "text-blue-500"
+                }`}
+              />
+              <span className="text-gray-700 lg:mr-6">
+                {t("follow_people")}
+              </span>
+            </button>
+          </Link>
+        </div>
 
-      <div className="flex flex-col justify-between items-center">
-        <div className="post-list grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-8 w-full">
-          {data?.pages?.map((page) =>
-            page.map((post, index) => {
-              const hasLiked = post.likes.includes(currentUser?.email);
-              const isLastPost = index === page.length - 1;
+        <div className="flex flex-col justify-between items-center">
+          <div className="post-list grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-8 w-full">
+            {data?.pages?.map((page) =>
+              page.map((post, index) => {
+                const hasLiked = post.likes.includes(currentUser?.email);
+                const isLastPost = index === page.length - 1;
 
-              return (
-                <PostCardItem
-                  key={post._id}
-                  post={post}
-                  hasLiked={hasLiked}
-                  handleLike={handleLike}
-                  ref={isLastPost ? lastPostElementRef : null}
-                  theme={theme}
-                />
-              );
-            })
-          )}
+                return (
+                  <PostCardItem
+                    key={post._id}
+                    post={post}
+                    hasLiked={hasLiked}
+                    handleLike={handleLike}
+                    ref={isLastPost ? lastPostElementRef : null}
+                    theme={theme}
+                  />
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
     </div>
