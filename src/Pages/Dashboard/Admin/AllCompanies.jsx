@@ -4,6 +4,9 @@ import { FaArrowLeft, FaArrowRight, FaEdit, FaTrashAlt } from "react-icons/fa";
 import axiosSecure from "../../../Hooks/UseAxiosSecure";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
+import { useSelector} from "react-redux";
+  
+
 
 const AllCompanies = () => {
   const { t } = useTranslation();
@@ -14,6 +17,7 @@ const AllCompanies = () => {
   const [pages, setPages] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
+  const theme = useSelector((state) => state.theme.theme);
 
   const fetchCompanies = async () => {
     try {
@@ -89,7 +93,7 @@ const AllCompanies = () => {
           value={searchTerm}
           onChange={handleSearch}
           placeholder={t("search_companies")}
-          className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+          className={theme === "dark"? "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-slate-900 text-slate-300 border border-slate-400 focus:border-blue-500 focus:ring focus:ring-blue-200" : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"}
         />
       </div>
 
@@ -101,7 +105,7 @@ const AllCompanies = () => {
           id="itemsPerPage"
           value={itemsPerPage}
           onChange={handleItemsPerPage}
-          className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+          className={theme === "dark"? "lg:px-4 md:px-4 px-2 py-1 rounded-lg  bg-slate-900 text-slate-300 border border-slate-400focus:border-blue-500 focus:ring focus:ring-blue-200" : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"}
         >
           <option value="10">10</option>
           <option value="20">20</option>
@@ -154,9 +158,10 @@ const AllCompanies = () => {
           {pages.map((page) => (
             <button
               key={page}
-              className={`px-4 py-2 rounded-lg ${
-                page === currentPage ? "bg-blue-200" : "bg-white"
-              } border border-blue-300`}
+              className={`px-4 py-2 rounded-lg 
+                ${page === currentPage ? (theme === "dark" ? "bg-slate-700 text-white" : "bg-blue-200") : "bg-white"}
+                border border-blue-300`}
+              
               onClick={() => setCurrentPage(page)}
             >
               {page + 1}
