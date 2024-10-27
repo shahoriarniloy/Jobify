@@ -24,6 +24,9 @@ import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
 import { toast } from "react-toastify";
 import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 
+ 
+
+
 const SocialMediaProfile = () => {
   const { currentUser } = useCurrentUser();
   const { t } = useTranslation(); // Destructuring t function for translation
@@ -41,6 +44,7 @@ const SocialMediaProfile = () => {
 
   const [fields, setFields] = useState([{ socialMedia: "", link: "" }]);
   const [submittedLinks, setSubmittedLinks] = useState([]);
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchSocialMediaLinks = async () => {
@@ -139,7 +143,7 @@ const SocialMediaProfile = () => {
                   onChange={(value) => handleSelectChange(index, value)}
                 >
                   <div className="relative md:w-2/5 w-full">
-                    <ListboxButton className="relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none">
+                    <ListboxButton className={ theme === "dark"? "relative w-full h-10 pl-10 pr-10 text-left  bg-slate-900 text-slate-300   rounded-lg cursor-default focus:outline-none" : "relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none"}>
                       <span className="block truncate">
                         {field.socialMedia
                           ? socialOptions.find(
@@ -169,15 +173,15 @@ const SocialMediaProfile = () => {
                       leaveFrom="opacity-100"
                       leaveTo="opacity-0"
                     >
-                      <ListboxOptions className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+                      <ListboxOptions className={theme === "dark"? "absolute w-full py-1 mt-1 overflow-auto  bg-slate-900 text-slate-300 rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10" : "absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10"}>
                         {getAvailableOptions(field.socialMedia).map(
                           (option) => (
                             <ListboxOption
                               key={option.value}
                               className={({ active }) =>
                                 `cursor-default select-none relative py-2 pl-10 pr-4 ${active
-                                  ? "text-blue-900 bg-blue-100"
-                                  : "text-gray-900"
+                                  ? (theme === "dark"? "text-blue-900 bg-black" : "text-blue-900 bg-blue-100" )
+                                  :  (theme === "dark"? "text-slate-300" : "text-gray-900"  )
                                 }`
                               }
                               value={option.value}
@@ -208,14 +212,14 @@ const SocialMediaProfile = () => {
                 <input
                   type="url"
                   placeholder={t("profile_link_placeholder")}
-                  className="h-10 p-2 w-full"
+                  className={theme === "dark"? "h-10 p-2 w-full  bg-slate-900 text-slate-300  " : "h-10 p-2 w-full "}
                   value={field.link}
                   onChange={(e) => handleInputChange(index, e.target.value)}
                 />
               </div>
               <button
                 type="button"
-                className="ml-3 text-xl bg-gray-100 p-3 rounded hover:bg-red-500 hover:text-white"
+                className={theme === "dark"? "ml-3 text-xl bg-gray-700 p-3 rounded hover:bg-red-500 hover:text-white" : "ml-3 text-xl bg-gray-100 p-3 rounded hover:bg-red-500 hover:text-white"}
                 onClick={() => removeField(index)}
               >
                 <MdOutlineCancel />
@@ -227,8 +231,8 @@ const SocialMediaProfile = () => {
         <button
           type="button"
           className={`flex items-center justify-center gap-2 mt-4 font-semibold p-2 rounded w-full ${fields.length === socialOptions.length
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-gray-100 hover:bg-blue-500 hover:text-white"
+              ? (theme === "dark"? "bg-gray-700 text-slate-300 cursor-not-allowed" : "bg-gray-300 text-gray-500 cursor-not-allowed") 
+              : (theme === "dark"? "bg-gray-700 hover:bg-blue-500 hover:text-white" : "bg-gray-100 hover:bg-blue-500 hover:text-white")
             }`}
           onClick={addField}
           disabled={fields.length === socialOptions.length}

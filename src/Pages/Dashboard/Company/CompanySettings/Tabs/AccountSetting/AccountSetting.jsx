@@ -7,6 +7,9 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import useCurrentUser from "../../../../../../Hooks/useCurrentUser";
 import axiosSecure from "../../../../../../Hooks/UseAxiosSecure";
+import { useSelector} from "react-redux";
+
+
 
 const AccountSetting = () => {
   const { t } = useTranslation();
@@ -14,6 +17,7 @@ const AccountSetting = () => {
   const [location, setLocation] = useState([51.505, -0.09]);
   const [formattedLocation, setFormattedLocation] = useState();
   const [formattedAddress, setFormattedAddress] = useState("");
+  const theme = useSelector((state) => state.theme.theme);
   const {
     register,
     handleSubmit,
@@ -143,12 +147,12 @@ const AccountSetting = () => {
             <label htmlFor="email" className="block mb-2">
               {t("email")}
             </label>
-            <div className="mb-4 flex items-center border-2 rounded-md ml-4">
+            <div className={ theme === "dark"? "mb-4 flex items-center border-2 border-slate-600 rounded-md ml-4" : "mb-4 flex items-center border-2 rounded-md ml-4"}>
               <input
                 type="email"
                 id="email"
                 {...register("email", { required: true })}
-                className="input"
+                className={ theme === "dark"? "input  bg-slate-900 text-slate-300   " : "input "}
                 readOnly
               />
               {errors.email && (
@@ -157,16 +161,16 @@ const AccountSetting = () => {
             </div>
           </div>
 
-          <div className="mb-4 flex items-center">
+          <div className="mb-4 flex items-center ">
             <label htmlFor="phone" className="block mb-2">
               {t("phone")}
             </label>
-            <div className="border-2 rounded-md ml-2">
+            <div className={ theme === "dark"? "mb-4 flex items-center border-2 border-slate-600 rounded-md ml-4" : "mb-4 flex items-center border-2 rounded-md ml-4"}>
               <input
                 type="tel"
                 id="phone"
                 {...register("phone", { required: true })}
-                className="input"
+                className={ theme === "dark"? "input  bg-slate-900 text-slate-300   " : "input "}
               />
               {errors.phone && (
                 <span className="text-red-500">{t("field_required")}</span>

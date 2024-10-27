@@ -18,6 +18,7 @@ const FoundingInfo = () => {
   const [industryType, setIndustryType] = useState("");
   const [teamSize, setTeamSize] = useState("");
   const [establishmentYear, setEstablishmentYear] = useState("");
+  const theme = useSelector((state) => state.theme.theme);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -87,7 +88,7 @@ const FoundingInfo = () => {
             <select
               name="organizationType"
               id="organizationType"
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
               value={organizationType}
               onChange={(e) => setOrganizationType(e.target.value)}
             >
@@ -102,7 +103,7 @@ const FoundingInfo = () => {
             <select
               name="industryType"
               id="industryType"
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
               value={industryType}
               onChange={(e) => setIndustryType(e.target.value)}
             >
@@ -189,7 +190,7 @@ const FoundingInfo = () => {
               type="number"
               name="teamSize"
               id="teamSize"
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
               value={teamSize}
               onChange={(e) => setTeamSize(e.target.value)}
               min="1"
@@ -205,7 +206,7 @@ const FoundingInfo = () => {
               type="date"
               name="establishmentYear"
               id="establishmentYear"
-              className="border mt-2 border-gray-300 p-2 rounded w-full"
+              className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
               value={establishmentYear}
               onChange={(e) => setEstablishmentYear(e.target.value)}
             />
@@ -225,7 +226,7 @@ const FoundingInfo = () => {
                 id="companyWebsite"
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
-                className="border border-gray-300 p-2 rounded w-full pl-10"
+                className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                 placeholder={t("company_website_placeholder")}
               />
             </div>
