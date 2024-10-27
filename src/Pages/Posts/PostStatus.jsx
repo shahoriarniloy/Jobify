@@ -16,7 +16,7 @@ const PostStatus = ({}) => {
   const loggedUser = useSelector((state) => state.user.loggedUser);
 
   return (
-    <div className="post-status">
+    <div className="post-status lg:w-1/2 md:w-1/2 w-full">
       <div
         className={
           theme === "dark"

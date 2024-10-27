@@ -81,17 +81,19 @@ const PostCard = () => {
 
   return (
     <div
-      className={` py-8 ${
+      className={`   ${
         theme === "dark" ? "text-white" : "bg-secondary text-gray-800"
       }`}
     >
-      <div className=" container mx-auto">
+      <div className=" container mx-auto py-8">
         <Helmet>
           <title>Jobify - Posts</title>
         </Helmet>
 
-        <PostStatus />
-        <div className="flex justify-between mt-16 px-4">
+        <div className="flex justify-center">
+          <PostStatus />
+        </div>
+        <div className="flex justify-between mt-16 ">
           <h1
             className={`text-lg ${
               theme === "dark" ? "text-slate-300" : "text-gray-700"
@@ -106,33 +108,29 @@ const PostCard = () => {
                   theme === "dark" ? "text-blue-400" : "text-blue-500"
                 }`}
               />
-              <span className="text-gray-700 lg:pr-6">
-                {t("follow_people")}
-              </span>
+              <span className="text-gray-700 ">{t("follow_people")}</span>
             </button>
           </Link>
         </div>
 
-        <div className="flex flex-col justify-between items-center">
-          <div className="post-list grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-8 w-full">
-            {data?.pages?.map((page) =>
-              page.map((post, index) => {
-                const hasLiked = post.likes.includes(currentUser?.email);
-                const isLastPost = index === page.length - 1;
+        <div className=" grid grid-flow-row-dense lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-8 w-full">
+          {data?.pages?.map((page) =>
+            page.map((post, index) => {
+              const hasLiked = post.likes.includes(currentUser?.email);
+              const isLastPost = index === page.length - 1;
 
-                return (
-                  <PostCardItem
-                    key={post._id}
-                    post={post}
-                    hasLiked={hasLiked}
-                    handleLike={handleLike}
-                    ref={isLastPost ? lastPostElementRef : null}
-                    theme={theme}
-                  />
-                );
-              })
-            )}
-          </div>
+              return (
+                <PostCardItem
+                  key={post._id}
+                  post={post}
+                  hasLiked={hasLiked}
+                  handleLike={handleLike}
+                  ref={isLastPost ? lastPostElementRef : null}
+                  theme={theme}
+                />
+              );
+            })
+          )}
         </div>
       </div>
     </div>
@@ -161,14 +159,14 @@ const PostCardItem = React.forwardRef(
     return (
       <div
         ref={ref}
-        className={`rounded-md shadow-md w-full sm:max-w-sm lg:max-w-md ${
+        className={`rounded-md shadow-md w-full  ${
           theme === "dark"
             ? "bg-gray-800 text-gray-200"
             : "bg-white text-gray-800"
         }`}
       >
         <div className="flex items-center justify-between p-3">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center ">
             <img
               src={userPhoto || "https://source.unsplash.com/50x50/?portrait"}
               alt={`${userName}'s avatar`}
