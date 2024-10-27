@@ -22,14 +22,15 @@ const OpenPosition = ({ companyEmail }) => {
       );
       return data;
     }
-
-  })
+  });
+  
   if (isLoading) return <DashboardLoader />
 
   return (
     <section className="container mx-auto">
       <h1 className={ theme === "dark"? "text-3xl font-semibold mb-2 tracking-wider text-white text-center" : "text-3xl font-semibold mb-2 tracking-wider text-black text-center"}>
-        Available Jobs
+        {t("available_jobs")}
+
       </h1>
 
       <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
@@ -55,27 +56,27 @@ const OpenPosition = ({ companyEmail }) => {
                 </h2>
                 <p className="font-semibold">{companyInfo?.company_name}</p>
                 <p className="text-sm tracking-wide mt-3">
-                  <span className="font-semibold">Category: </span>
+                  <span className="font-semibold">{t("category")}: </span>
                   {jobInfo?.jobCategory}
                 </p>
                 <p className="text-sm tracking-wide mt-1">
-                  <span className="font-semibold">Job Type: </span>
+                  <span className="font-semibold">{t("job_type")}: </span>
                   {jobInfo?.jobType}
                 </p>
                 <p className="text-sm mt-1">
-                  <span className="font-semibold">Salary Range : </span>
+                  <span className="font-semibold">{t("salary_range")}: </span>
                   {jobInfo?.salaryRange}
                 </p>
                 <p className="text-sm mt-1">
-                  <span className="font-semibold">Job Level : </span>
+                  <span className="font-semibold">{t("job_level")}: </span>
                   {jobInfo?.jobLevel}
                 </p>
                 <p className="text-sm mt-1">
-                  <span className="font-semibold">Deadline : </span>
+                  <span className="font-semibold">{t("deadline")}: </span>
                   {jobInfo?.deadline}
                 </p>
                 <p className="text-sm mt-1">
-                  <span className="font-semibold">Location : </span>
+                  <span className="font-semibold">{t("location")}: </span>
                   {jobInfo?.location}
                 </p>
               </div>

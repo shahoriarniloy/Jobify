@@ -674,6 +674,7 @@
   "no_posts_available": "কোন পোস্ট নেই",
 
   "posts_from_people_you_follow": "আপনার অনুসরণ করা লোকদের পোস্ট",
+  "follow_people": "ফলো করুন",
   "unlike_post": "পোস্টটি পছন্দ করা বন্ধ করুন",
   "like_post": "পোস্টটি পছন্দ করুন",
   "view_comments": "মন্তব্যগুলি দেখুন",
@@ -703,5 +704,65 @@
   "notifications_count": "বিজ্ঞপ্তি",
   "mark_all_as_read": "সবগুলো পড়া হিসাবে চিহ্নিত করুন",
   "no_notifications_available": "কোন বিজ্ঞপ্তি নেই",
-  "position": "পদ"
+  "position": "পদ",
+
+  "no_categories_found": "কোনো বিভাগ পাওয়া যায়নি",
+  "find_job_interest_skills": "আপনার আগ্রহ ও দক্ষতার সাথে মিল রেখে একটি চাকরি খুঁজুন।",
+  "job_opportunity_description": "আপনার দক্ষতা এবং আগ্রহের সাথে মিলিত চাকরির সুযোগ দ্রুত খুঁজে পান নির্দিষ্ট চাকরির শিরোনাম, কীওয়ার্ড, বা অবস্থানের জন্য অনুসন্ধান করে।",
+  "job_search_placeholder": "চাকরির শিরোনাম, কোম্পানির নাম...",
+  "category_label": "শ্রেণী:",
+  "job_type_label": "কর্মের ধরন:",
+  "salary_range_label": "বেতন সীমা:",
+  "job_level_label": "কর্মের স্তর:",
+  "deadline_label": "সময়ের শেষ:",
+  "location_label": "অবস্থান:",
+
+  "posted_date_label": "পোস্টের তারিখ",
+  "expire_on_label": "মেয়াদ শেষ হচ্ছে",
+  "educational_qualification_label": "শিক্ষাগত যোগ্যতা",
+  "starting_salary_label": "শুরুর বেতন",
+  "job_location_label": "কর্মস্থল",
+  "category": "বিভাগ",
+
+  "testimonial_title": "প্রশংসাপত্র",
+
+  "per_page": "প্রতি পৃষ্ঠা",
+
+  "dashboard_title": "জবিফাই - ড্যাশবোর্ড",
+  "bookmarked_jobs": "বুকমার্ককৃত চাকরি",
+  "preferred_updates": "পছন্দসই আপডেট",
+  "career_roadmap": "ক্যারিয়ার রোডম্যাপ",
+
+  "available_jobs": "উপলব্ধ চাকরিসমূহ",
+
+  "job_sub_category_label": "কাজের সাব ক্যাটাগরি",
+  "select_subcategory": "সাবক্যাটাগরি নির্বাচন করুন",
+  "job_category_label": "কাজের ক্যাটাগরি",
+  "select_category": "ক্যাটাগরি নির্বাচন করুন",
+  "you_have_notifications": "আপনার {{count}} টি বিজ্ঞপ্তি আছে",
+  "job_title_notification": "{{title}}",
+
+  "enter_room_id": "রুম আইডি প্রবেশ করুন",
+  "room_id_placeholder": "রুম আইডি",
+  "join_room": "রুমে যোগ দিন",
+
+  "your_posts": "আপনার পোস্টসমূহ",
+
+  "follow_people": "মানুষকে অনুসরণ করুন",
+
+  "following": "অনুসরণ করছেন",
+
+  "followers": "অনুসরণকারীরা",
+
+  "like_singular": "পছন্দ",
+  "like_plural": "পছন্দগুলো",
+  "comment_singular": "মন্তব্য",
+  "comment_plural": "মন্তব্যগুলো",
+  "error_updating_like_status": "পছন্দ আপডেট করতে সমস্যা হয়েছে",
+  "error_adding_comment": "মন্তব্য যোগ করতে সমস্যা হয়েছে",
+  "post_button": "পোস্ট করুন",
+
+  "type_message_here": "এখানে বার্তা টাইপ করুন",
+  "send": "পাঠান",
+  "select_a_conversation": "একটি কথোপকথন নির্বাচন করুন"
 }

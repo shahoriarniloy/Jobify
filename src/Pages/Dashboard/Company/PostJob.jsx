@@ -108,11 +108,11 @@ const PostJob = () => {
       });
     }
   };
-  if (loadingCom) return <DashboardLoader />
+  if (loadingCom) return <DashboardLoader />;
 
   return (
     <div className="container pb-6 mx-auto  w-full">
-       <Helmet>
+      <Helmet>
         <title>Jobify - Post Job</title>
       </Helmet>
       <div>
@@ -149,7 +149,7 @@ const PostJob = () => {
                   />
                 </div>
                 <div className="md:col-span-3 text-black">
-                  <label htmlFor="jobCategory">Job Category</label>
+                  <label htmlFor="jobCategory">{t("job_category_label")}</label>
                   <select
                     required
                     name="jobCategory"
@@ -157,7 +157,7 @@ const PostJob = () => {
                     onChange={handleChange}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                   >
-                    <option value="">Select Category</option>
+                    <option value="">{t("select_category")}</option>
                     {categories?.map((category) => (
                       <option key={category?.name} value={category?.name}>
                         {category?.name}
@@ -167,7 +167,9 @@ const PostJob = () => {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label htmlFor="jobSubCategory">Job Sub Category</label>
+                  <label htmlFor="jobSubCategory">
+                    {t("job_sub_category_label")}
+                  </label>
                   <select
                     required
                     name="jobSubCategory"
@@ -176,7 +178,7 @@ const PostJob = () => {
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
                     disabled={!subCategories?.length}
                   >
-                    <option value="">Select Subcategory</option>
+                    <option value="">{t("select_subcategory")}</option>
                     {subCategories?.map((subCategory, index) => (
                       <option key={index} value={subCategory.name}>
                         {subCategory.name}

@@ -6,11 +6,12 @@ import { MdVideoSettings } from "react-icons/md";
 import { IoMusicalNotesSharp } from "react-icons/io5";
 import { RiBarChartFill } from "react-icons/ri";
 import { PiFirstAidKitFill } from "react-icons/pi";
+import { t } from "i18next";
 import { useSelector } from "react-redux";
-
-
+import { useTranslation } from "react-i18next";
 
 const PopularCategory = ({ categoryCounts }) => {
+  const { t } = useTranslation();
   const iconMapping = {
     FaPaintBrush: <ImPen />,
     FaCode: <FaCode />,
@@ -27,8 +28,14 @@ const PopularCategory = ({ categoryCounts }) => {
     <div>
       <div className="container mx-auto py-24">
         {/* header */}
-        <h1 className={ theme === "dark"? "text-3xl font-semibold mb-2 tracking-wider text-white text-center " : "text-3xl font-semibold mb-2 tracking-wider text-black text-center "}>
-          Popular Categories
+        <h1
+          className={
+            theme === "dark"
+              ? "text-3xl font-semibold mb-2 tracking-wider text-white text-center "
+              : "text-3xl font-semibold mb-2 tracking-wider text-black text-center "
+          }
+        >
+          {t("popular_categories")}
         </h1>
 
         {/* carts */}

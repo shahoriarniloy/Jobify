@@ -88,7 +88,7 @@ const FindCompany = () => {
                 <AiOutlineSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#0a65cc] w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="Company Name"
+                  placeholder={t("company_name")}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className={
@@ -115,7 +115,7 @@ const FindCompany = () => {
                 htmlFor="itemsPerPage"
                 className="text-sm font-medium text-blue-900 "
               >
-                Per Page
+                {t("per_page")}
               </label>
               <select
                 id="itemsPerPage"
@@ -161,7 +161,7 @@ const FindCompany = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    { companies?.map((company) => (
+                    {companies?.map((company) => (
                       <tr
                         key={company.email}
                         className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
@@ -195,44 +195,42 @@ const FindCompany = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4  gap-8 mt-16 place-items-center md:place-items-stretch">
-            { companies?.map(
-              (company) => (
-                <div
-                  key={company.email}
-                  className={
-                    theme === "dark"
-                      ? "relative max-w-sm rounded-md    shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-slate-700 bg-opacity-50 "
-                      : "relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "
-                  }
-                >
-                  <div className="flex flex-col justify-between p-6 space-y-8 ">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={company.company_logo}
-                        alt={`${company.company_name} logo`}
-                        className="w-16 h-16 rounded-full border-4 border-blue-500"
-                      />
-                      <div>
-                        <h2 className="text-2xl font-semibold">
-                          {company.company_name}
-                        </h2>
-                        <p className="text-blue-500 h-6">{company.industry}</p>
-                      </div>
+            {companies?.map((company) => (
+              <div
+                key={company.email}
+                className={
+                  theme === "dark"
+                    ? "relative max-w-sm rounded-md    shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-slate-700 bg-opacity-50 "
+                    : "relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "
+                }
+              >
+                <div className="flex flex-col justify-between p-6 space-y-8 ">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={company.company_logo}
+                      alt={`${company.company_name} logo`}
+                      className="w-16 h-16 rounded-full border-4 border-blue-500"
+                    />
+                    <div>
+                      <h2 className="text-2xl font-semibold">
+                        {company.company_name}
+                      </h2>
+                      <p className="text-blue-500 h-6">{company.industry}</p>
                     </div>
-                    <div className="mt-14 space-y-2 text-justify">
-                      <p className=" text-sm">
-                        {company.company_description?.slice(0, 250)} ...
-                      </p>
-                    </div>
-                    <Link to={`/company-details/${company.email}`}>
-                      <button className=" text-blue-500 px-3 py-2 rounded w-full underline">
-                        Details
-                      </button>
-                    </Link>
                   </div>
+                  <div className="mt-14 space-y-2 text-justify">
+                    <p className=" text-sm">
+                      {company.company_description?.slice(0, 250)} ...
+                    </p>
+                  </div>
+                  <Link to={`/company-details/${company.email}`}>
+                    <button className=" text-blue-500 px-3 py-2 rounded w-full underline">
+                    {t("details")}
+                    </button>
+                  </Link>
                 </div>
-              )
-            )}
+              </div>
+            ))}
           </div>
         )}
 

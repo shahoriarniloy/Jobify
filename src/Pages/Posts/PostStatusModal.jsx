@@ -9,6 +9,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
   const { t } = useTranslation();
@@ -16,6 +17,8 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const loggedUser = useSelector((state) => state.user.loggedUser);
+
   const emojiPickerRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -73,9 +76,10 @@ const PostStatusModal = ({ open, onClose, currentUser, fetchPosts }) => {
       }
 
       const postData = {
-        userEmail: currentUser.email,
-        userName: currentUser.displayName,
-        userPhoto: currentUser.photoURL || "default-photo.jpg",
+        userEmail: currentUser?.email,
+        userName: loggedUser?.displayName || loggedUser.name,
+        userPhoto:
+          currentUser?.photoURL || loggedUser?.photoURL || "default-photo.jpg",
         content,
         imageUrl,
       };

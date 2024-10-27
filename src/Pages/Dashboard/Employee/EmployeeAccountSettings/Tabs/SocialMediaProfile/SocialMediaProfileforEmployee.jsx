@@ -18,9 +18,7 @@ import {
   Transition,
 } from "@headlessui/react"; // Ensure you have these imports
 import { MdAddCircleOutline, MdOutlineCancel } from "react-icons/md";
-import { useSelector} from "react-redux";
- 
-
+import { useSelector } from "react-redux";
 
 const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
   const { t } = useTranslation(); // Destructuring t from useTranslation
@@ -73,19 +71,29 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
   };
 
   return (
-    <div className="p-4 md:p-8">
+    <div
+      className={`p-4 md:p-8 ${
+        theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"
+      }`}
+    >
       <form>
         <h3 className="text-lg font-medium mb-2">
           {t("your_social_media_profile")}
         </h3>
         {fields.map((field, index) => (
-          <div key={index} className="flex  items-center mb-3">
+          <div key={index} className="flex items-center mb-3">
             <Listbox
               value={field.socialMedia}
               onChange={(value) => handleSelectChange(index, value)}
             >
               <div className="relative w-1/2">
-                <ListboxButton className={theme === "dark"? "relative w-full h-10 pl-10 pr-10 text-left text-slate-300 border-gray-600 bg-slate-900  rounded-lg cursor-default focus:outline-none" : "relative w-full h-10 pl-10 pr-10 text-left bg-white rounded-lg cursor-default focus:outline-none"}>
+                <ListboxButton
+                  className={`relative w-full h-10 pl-10 pr-10 text-left rounded-lg cursor-default focus:outline-none ${
+                    theme === "dark"
+                      ? "text-slate-300 border-gray-600 bg-slate-900"
+                      : "bg-white"
+                  }`}
+                >
                   <span className="block text-sm truncate">
                     {field.socialMedia
                       ? socialOptions.find(
@@ -100,7 +108,13 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <ListboxOptions className={theme === "dark" ? "absolute w-full py-1 mt-1 overflow-auto text-slate-300 border-gray-600 bg-slate-900 rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10" : "absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10"}>
+                  <ListboxOptions
+                    className={`absolute w-full py-1 mt-1 overflow-auto rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none z-10 ${
+                      theme === "dark"
+                        ? "bg-slate-900 text-slate-300 border-gray-600"
+                        : "bg-white"
+                    }`}
+                  >
                     {socialOptions
                       .filter(
                         (option) =>
@@ -142,13 +156,17 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
             <input
               type="url"
               placeholder={t("profile_link_placeholder")}
-              className="h-10 p-2 w-2/3 ml-2 border rounded"
+              className={`h-10 p-2 w-2/3 ml-2 border rounded ${
+                theme === "dark"
+                  ? "bg-gray-800 text-slate-300 border-gray-600"
+                  : "bg-white border-gray-300"
+              }`}
               value={field.link}
               onChange={(e) => handleInputChange(index, e.target.value)}
             />
             <button
               type="button"
-              className="ml-2 text-xl bg-gray-100 p-2 rounded hover:bg-red-500 hover:text-white"
+              className="ml-2 text-xl bg-blue-500 p-2 rounded hover:bg-red-500 hover:text-white"
               onClick={() => removeField(index)}
             >
               <MdOutlineCancel />
@@ -161,7 +179,11 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
             type="button"
             className={`flex items-center text-sm justify-center gap-2 font-semibold px-2 py-4 rounded w-full ${
               fields.length === socialOptions.length
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                ? theme === "dark"
+                  ? "bg-gray-700 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : theme === "dark"
+                ? "bg-gray-800 hover:bg-blue-600 hover:text-white"
                 : "bg-gray-100 hover:bg-blue-500 hover:text-white"
             }`}
             onClick={addField}
@@ -173,7 +195,11 @@ const SocialMediaProfileForEmployee = ({ socialLinks, setSocialLinks }) => {
 
           <button
             type="button"
-            className="btn btn-outline hover:border-none hover:bg-blue-500 hover:text-white rounded-lg w-full md:w-auto"
+            className={`${
+              theme === "dark"
+                ? "bg-gray-800 text-white hover:bg-blue-600"
+                : "btn btn-outline hover:border-none hover:bg-blue-500 hover:text-white"
+            } rounded-lg w-full md:w-auto`}
             onClick={handleSaveChanges}
           >
             {t("save_changes")}
