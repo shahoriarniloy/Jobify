@@ -106,7 +106,7 @@ const PostCard = () => {
                   theme === "dark" ? "text-blue-400" : "text-blue-500"
                 }`}
               />
-              <span className="text-gray-700 lg:mr-6">
+              <span className="text-gray-700 lg:pr-6">
                 {t("follow_people")}
               </span>
             </button>

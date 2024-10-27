@@ -103,7 +103,7 @@ const FindCompany = () => {
 
               <button
                 type="submit"
-                className="btn bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white  hover:from-blue-700 hover:to-blue-900"
+                className="btn bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white  hover:from-blue-700 hover:to-blue-900 border-none"
               >
                 {t("find_company")}
               </button>
@@ -225,7 +225,7 @@ const FindCompany = () => {
                   </div>
                   <Link to={`/company-details/${company.email}`}>
                     <button className=" text-blue-500 px-3 py-2 rounded w-full underline">
-                    {t("details")}
+                      {t("details")}
                     </button>
                   </Link>
                 </div>

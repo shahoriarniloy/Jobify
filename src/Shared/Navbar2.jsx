@@ -120,7 +120,9 @@ const Navbar2 = () => {
   return (
     <div
       className={
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-secondary text-black"
+        theme === "dark"
+          ? "bg-gray-800 text-white px-12"
+          : "bg-secondary text-black px-12"
       }
     >
       <div className="container mx-auto">

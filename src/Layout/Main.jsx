@@ -34,7 +34,7 @@ const Main = () => {
 
   return (
     <div
-      className={`roboto-regular ${
+      className={`roboto-regular  ${
         theme === "dark"
           ? "bg-gradient-to-r from-gray-800 to-slate-900 text-white"
           : "bg-white text-black"
@@ -43,7 +43,7 @@ const Main = () => {
       <Navbar2 />
       <Navbar />
 
-      <div className="min-h-[calc(100vh-240px)] relative">
+      <div className="min-h-[calc(100vh-240px)] relative px-12">
         <Outlet />
 
         <div
