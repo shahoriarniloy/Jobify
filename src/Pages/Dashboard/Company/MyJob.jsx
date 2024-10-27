@@ -14,6 +14,7 @@ import { Helmet } from "react-helmet";
 const JobTable = () => {
   const { t } = useTranslation(); // Destructure t from useTranslation
   const { currentUser } = useCurrentUser();
+  const theme = useSelector((state) => state.theme.theme);
 
   const {
     data: jobs,
@@ -62,7 +63,7 @@ const JobTable = () => {
                 <Link
                   to={`/dashboard/job-candidates`}
                   state={{ jobId: _id, jobTitle: jobInfo.title }}
-                  className="btn bg-blue-100 px-3 py-1 text-blue-700 rounded flex items-center"
+                  className={ theme === "dark"? "btn bg-slate-900  border-slate-700 px-3 py-1 text-blue-700 rounded flex items-center" : "btn bg-blue-100 px-3 py-1 text-blue-700 rounded flex items-center"}
                 >
                   <ClipboardDocumentListIcon className="h-5 w-5 mr-2" />
                   {t("view_applications")}
