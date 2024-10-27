@@ -9,7 +9,7 @@ import {
   FaTrash,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux"; // Import useSelector
 
 const FollowPosts = () => {
@@ -18,7 +18,7 @@ const FollowPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isFollowingState, setIsFollowingState] = useState({});
-
+  const { t } = useTranslation();
   const currentUser = useCurrentUser();
   const userEmail = currentUser?.currentUser?.email;
   const theme = useSelector((state) => state.theme.theme); // Access theme from Redux
@@ -125,7 +125,8 @@ const FollowPosts = () => {
               : "bg-white border-gray-200"
           }`}
         >
-          <h3 className="text-lg font-semibold mb-4">Your Posts</h3>
+          <h3 className="text-lg font-semibold mb-4">{t("your_posts")}</h3>
+
           <div className="space-y-4">
             {posts?.map((post) => (
               <div
@@ -200,7 +201,7 @@ const FollowPosts = () => {
                   theme === "dark" ? "text-gray-400" : "text-gray-500"
                 }`}
               >
-                Loading posts...
+                {t("loading")}
               </p>
             )}
           </div>
@@ -215,7 +216,7 @@ const FollowPosts = () => {
               : "bg-white border-gray-200"
           } h-[calc(50vh-1rem)] overflow-y-auto`}
         >
-          <h3 className="text-lg font-semibold mb-4">Following</h3>
+          <h3 className="text-lg font-semibold mb-4">{t("following")}</h3>
           <ul className="space-y-3">
             {following?.map((user) => (
               <li key={user?._id} className="flex flex-row items-center">
@@ -252,11 +253,12 @@ const FollowPosts = () => {
                 >
                   {isFollowingState[user.email] ? (
                     <>
-                      <FaUserMinus className="mr-1" /> <span>Unfollow</span>
+                      <FaUserMinus className="mr-1" />{" "}
+                      <span>{t("unfollow")}</span>
                     </>
                   ) : (
                     <>
-                      <FaUserPlus className="mr-1" /> <span>Follow</span>
+                      <FaUserPlus className="mr-1" /> <span>{t("follow")}</span>
                     </>
                   )}
                 </button>
@@ -272,7 +274,7 @@ const FollowPosts = () => {
               : "bg-white border-gray-200"
           } h-[calc(50vh-1rem)] overflow-y-auto`}
         >
-          <h3 className="text-lg font-semibold mb-4">Followers</h3>
+          <h3 className="text-lg font-semibold mb-4">{t("followers")}</h3>
           <ul className="space-y-3">
             {followers?.map((follower) => (
               <li key={follower?._id} className="flex flex-row items-center">

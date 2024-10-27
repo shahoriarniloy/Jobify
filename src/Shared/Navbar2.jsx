@@ -149,6 +149,11 @@ const Navbar2 = () => {
               >
                 <option value="en">{t("english")}</option>
                 <option value="bn">{t("bangla")}</option>
+                <option value="ar">{t("العربية")}</option>
+                <option value="ur">{t(" اُردُو")}</option>
+                <option value="hi">{t("हिन्दी")}</option>
+                <option value="zh-CN">{t("中国")}</option>
+                <option value="es">{t("Español")}</option>
               </select>
             </div>
 
@@ -181,18 +186,22 @@ const Navbar2 = () => {
                           : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
                       }
                     >
-                      <h2 className="text-lg font-bold mb-4">Notifications</h2>
+                      <h2 className="text-lg font-bold mb-4">
+                        {t("notifications")}
+                      </h2>
 
                       {jobNotifications.length > 0 && (
                         <div className="flex justify-between items-center mb-4">
                           <p className="text-sm">
-                            You have {jobNotifications.length} notifications
+                            {t("notifications_count", {
+                              count: jobNotifications.length,
+                            })}
                           </p>
                           <button
                             onClick={handleMarkAllAsRead}
                             className="text-blue-600 text-sm hover:underline"
                           >
-                            Mark all as read
+                            {t("mark_all_as_read")}
                           </button>
                         </div>
                       )}
@@ -217,7 +226,7 @@ const Navbar2 = () => {
                           ))}
                         </ul>
                       ) : (
-                        <p>No notifications available</p>
+                        <p>{t("no_notifications_available")}</p>
                       )}
 
                       <div className="flex justify-end">
@@ -225,7 +234,7 @@ const Navbar2 = () => {
                           className="btn bg-[#0a65cc] text-white mt-4"
                           onClick={handleModalToggle}
                         >
-                          Close
+                          {t("close")}
                         </button>
                       </div>
                     </div>
@@ -394,19 +403,19 @@ const Navbar2 = () => {
 
       {/* Room Modal */}
       <Modal open={roomModal} onClose={() => setRoomModal(false)} center>
-        <h2>Enter Room ID</h2>
+        <h2>{t("enter_room_id")}</h2>
         <input
           type="text"
           value={roomID}
           onChange={(e) => setRoomID(e.target.value)}
           className="border rounded-md p-2 w-full"
-          placeholder="Room ID"
+          placeholder={t("room_id_placeholder")}
         />
         <button
           className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
           onClick={handleJoinRoom}
         >
-          Join Room
+          {t("join_room")}
         </button>
       </Modal>
     </div>

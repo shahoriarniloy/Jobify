@@ -6,8 +6,10 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import useUserRole from "../../Hooks/useUserRole";
 import { FaFacebookMessenger } from "react-icons/fa6";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const Message = () => {
+  const { t } = useTranslation(); // Destructure useTranslation
   const { currentUser } = useCurrentUser();
   const [massages, setMassages] = useState();
   const [senderId, setSenderId] = useState();
@@ -24,7 +26,7 @@ const Message = () => {
     },
   });
   const url =
-    role.role == "Job Seeker"
+    role.role === "Job Seeker"
       ? `/send-massage?senderId=${currentUser?.email}&receiverId=${senderId}`
       : `/send-massage?senderId=${senderId}&receiverId=${currentUser?.email}`;
 
@@ -38,6 +40,7 @@ const Message = () => {
       setUserInput(" ");
     }
   };
+
   useEffect(() => {
     const result = data?.find((msg) => msg._id == ref);
     setMassages(result?.messages);
@@ -54,7 +57,7 @@ const Message = () => {
               onClick={() => {
                 setMassages(msg?.messages);
                 setSenderId(
-                  role.role == "Job Seeker" ? msg?.receiver : msg?.sender
+                  role.role === "Job Seeker" ? msg?.receiver : msg?.sender
                 );
                 setRef(msg._id);
               }}
@@ -64,7 +67,7 @@ const Message = () => {
                 <img
                   className="size-[46px] rounded-full"
                   src={
-                    role.role == "Job Seeker" ? msg.receiverImg : msg.senderImg
+                    role.role === "Job Seeker" ? msg.receiverImg : msg.senderImg
                   }
                   alt=""
                 />
@@ -72,7 +75,7 @@ const Message = () => {
 
               <div>
                 <h3>
-                  {role.role == "Job Seeker"
+                  {role.role === "Job Seeker"
                     ? msg.receiverName
                     : msg.senderName}
                 </h3>
@@ -96,7 +99,7 @@ const Message = () => {
                     />
                   </div>
 
-                  <h1>Name</h1>
+                  <h1>{t("name")}</h1> {/* Translated */}
                 </div>
 
                 <button>
@@ -109,7 +112,7 @@ const Message = () => {
               <div className="mt-4 h-[340px] overflow-y-scroll">
                 {massages?.map((sms) => (
                   <>
-                    {currentUser.email == sms.sender ? (
+                    {currentUser.email === sms.sender ? (
                       <div className="chat chat-end">
                         <div className="chat-bubble"> {sms?.massage}</div>
                       </div>
@@ -129,7 +132,7 @@ const Message = () => {
                 onChange={(e) => setUserInput(e.target.value)}
                 type="text"
                 value={userInput}
-                placeholder="Type Message here"
+                placeholder={t("type_message_here")} // Translated
                 className="input input-bordered input-md w-full max-w-xs"
               />
 
@@ -137,7 +140,7 @@ const Message = () => {
                 onClick={() => handelSendMassage()}
                 className="btn bg-blue-700 text-white hover:bg-blue-600"
               >
-                send <BsFillSendFill />
+                {t("send")} <BsFillSendFill /> {/* Translated */}
               </button>
             </div>
           </div>
@@ -145,7 +148,7 @@ const Message = () => {
           <div className="w-2/3 flex flex-col justify-center items-center gap-4 h-full">
             <FaFacebookMessenger className="text-4xl text-blue-400" />
             <h2 className="text-blue-700 font-semibold">
-              Select a conversation
+              {t("select_a_conversation")} {/* Translated */}
             </h2>
           </div>
         )}
