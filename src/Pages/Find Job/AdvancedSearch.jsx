@@ -110,8 +110,7 @@ const AdvancedSearch = () => {
     }
   };
 
-
-  if (isLoading) return <DashboardLoader />
+  if (isLoading) return <DashboardLoader />;
 
   return (
     <div className={theme === "dark" ? "" : "bg-secondary"}>
@@ -119,7 +118,7 @@ const AdvancedSearch = () => {
         <title>Jobify - Advanced Serch</title>
       </Helmet>
       <div className="container mx-auto">
-        <div className="w-full  rounded-lg  p-6 flex-1">
+        <div className="w-full  rounded-lg  py-6 flex-1">
           <form
             className="flex flex-col sm:flex-row gap-4 sm:gap-2"
             onSubmit={handleSearch}
