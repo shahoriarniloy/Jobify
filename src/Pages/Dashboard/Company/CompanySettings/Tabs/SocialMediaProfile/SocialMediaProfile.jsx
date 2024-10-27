@@ -212,14 +212,14 @@ const SocialMediaProfile = () => {
                 <input
                   type="url"
                   placeholder={t("profile_link_placeholder")}
-                  className="h-10 p-2 w-full"
+                  className={theme === "dark"? "h-10 p-2 w-full  bg-slate-900 text-slate-300  " : "h-10 p-2 w-full "}
                   value={field.link}
                   onChange={(e) => handleInputChange(index, e.target.value)}
                 />
               </div>
               <button
                 type="button"
-                className="ml-3 text-xl bg-gray-100 p-3 rounded hover:bg-red-500 hover:text-white"
+                className={theme === "dark"? "ml-3 text-xl bg-gray-700 p-3 rounded hover:bg-red-500 hover:text-white" : "ml-3 text-xl bg-gray-100 p-3 rounded hover:bg-red-500 hover:text-white"}
                 onClick={() => removeField(index)}
               >
                 <MdOutlineCancel />
@@ -231,8 +231,8 @@ const SocialMediaProfile = () => {
         <button
           type="button"
           className={`flex items-center justify-center gap-2 mt-4 font-semibold p-2 rounded w-full ${fields.length === socialOptions.length
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-gray-100 hover:bg-blue-500 hover:text-white"
+              ? (theme === "dark"? "bg-gray-700 text-slate-300 cursor-not-allowed" : "bg-gray-300 text-gray-500 cursor-not-allowed") 
+              : (theme === "dark"? "bg-gray-700 hover:bg-blue-500 hover:text-white" : "bg-gray-100 hover:bg-blue-500 hover:text-white")
             }`}
           onClick={addField}
           disabled={fields.length === socialOptions.length}
