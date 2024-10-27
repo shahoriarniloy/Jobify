@@ -13,6 +13,9 @@ import { Helmet } from "react-helmet";
 import Swal from 'sweetalert2'
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../../Shared/DashboardLoader";
+import { useSelector} from "react-redux";
+  
+
 
 
 const AllJobSeekers = () => {
@@ -21,6 +24,7 @@ const AllJobSeekers = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [pages, setPages] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const theme = useSelector((state) => state.theme.theme);
 
   // fetch all data
   const { data: jobSeekers, isLoading, refetch } = useQuery({
@@ -105,7 +109,7 @@ const AllJobSeekers = () => {
           value={searchTerm}
           onChange={handleSearch}
           placeholder={t("search_placeholder")}
-          className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+          className={theme === "dark"? "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-slate-900 text-slate-300 border border-slate-400  focus:border-blue-500 focus:ring focus:ring-blue-200" : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200" }
         />
         <FaSearch className="text-blue-500" />
       </div>
@@ -121,7 +125,7 @@ const AllJobSeekers = () => {
           id="itemsPerPage"
           value={itemsPerPage}
           onChange={handleItemsPerPage}
-          className="lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+          className={theme === "dark"? "lg:px-4 md:px-4 px-2 py-1 rounded-lg  bg-slate-900 text-slate-300 border border-slate-400  focus:border-blue-500 focus:ring focus:ring-blue-200" : "lg:px-4 md:px-4 px-2 py-1 rounded-lg bg-white text-blue-900 border border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"}
         >
           <option value="10">10</option>
           <option value="20">20</option>
@@ -186,8 +190,11 @@ const AllJobSeekers = () => {
           {pages.map((page) => (
             <button
               key={page}
-              className={`px-4 py-2 rounded-lg ${page === currentPage ? "bg-blue-200" : "bg-white"
-                } border border-blue-300`}
+              className={`px-4 py-2 rounded-lg 
+                ${page === currentPage ? (theme === "dark" ? "bg-slate-800" : "bg-blue-200") : (theme === "dark" ? "bg-slate-500" : "bg-white")} 
+                ${theme === "dark" ? "text-slate-300 border border-slate-400" : "border border-blue-300"}`}
+              
+              
               onClick={() => setCurrentPage(page)}
             >
               {page + 1}

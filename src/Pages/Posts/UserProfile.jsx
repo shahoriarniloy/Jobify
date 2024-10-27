@@ -19,7 +19,7 @@ const UserProfile = () => {
         setUserData(userRes?.data);
         setPosts(postsRes?.data);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        // console.error("Error fetching user data:", error);
       }
     };
 
