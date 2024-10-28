@@ -103,7 +103,7 @@ const Career = () => {
     <div className="p-6">
       <h1 className="text-3xl text-center font-bold mb-6">
         Career Roadmap for{" "}
-        {user?.name || loggedUser?.name || loggedUser.displayName}
+        {user?.name || loggedUser?.name || loggedUser?.displayName}
       </h1>
       <div className="text-center mb-6">
         <p

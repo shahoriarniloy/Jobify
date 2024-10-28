@@ -155,7 +155,7 @@ const Message = () => {
                 type="text"
                 value={userInput}
                 placeholder={t("type_message_here")} // Translated
-                className="input input-bordered input-md w-full max-w-xs"
+                className="input input-bordered input-md w-full max-w-xs text-gray-900"
               />
               <button
                 onClick={() => handelSendMassage()}
