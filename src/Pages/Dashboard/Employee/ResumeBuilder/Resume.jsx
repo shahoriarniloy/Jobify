@@ -61,7 +61,7 @@ const CandidateResume = () => {
         ref={contentRef}
       >
         <h1 className="text-3xl font-semibold text-blue-700">
-          {resumeData?.name || loggedUser.name || loggedUser.displayName}
+          {resumeData?.name || loggedUser?.name || loggedUser?.displayName}
         </h1>
         <p className="text-xl text-gray-800 italic">{resumeData?.title}</p>
 
@@ -112,7 +112,7 @@ const CandidateResume = () => {
           <FaProjectDiagram className="inline mr-2 text-blue-700" />{" "}
           {t("projects")}
         </h2>
-        {resumeData.projects.map((project, index) => (
+        {resumeData?.projects?.map((project, index) => (
           <div key={index} className="my-2">
             <h3 className="font-bold italic">{project?.title}</h3>
             <p>
@@ -138,7 +138,7 @@ const CandidateResume = () => {
           {resumeData?.education[0]?.schoolName}
         </p>
         <p className="text-sm text-gray-700 italic">
-          {resumeData?.education[0].degree}
+          {resumeData?.education[0]?.degree}
         </p>
         <p className="text-sm text-gray-700">
           {t("year_of_graduation")}: {resumeData?.education[0]?.endDate}
