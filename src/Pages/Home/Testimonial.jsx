@@ -53,7 +53,7 @@ const Testimonial = ({ reviews ,isLoading}) => {
           : "bg-secondary"
       }
     >
-      <div className="container mx-auto py-24">
+      <div className="container mx-auto py-[100px]">
         <h1
           className={
             theme === "dark"

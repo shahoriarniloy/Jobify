@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import Testimonial from "./Testimonial";
 import { Helmet } from "react-helmet";
+import CreateAccountSuggestion from "./CreateAccountSuggestion";
 
 const Home = () => {
   const { data, isLoading } = useQuery({
@@ -35,11 +36,7 @@ const Home = () => {
       <HowItWorks></HowItWorks>
       <TopCompanies />
       <Testimonial isLoading={isLoading} reviews={data?.reviews} />
-
-      {/* <OurTeam></OurTeam> */}
-      {/* <Feedback></Feedback> */}
-
-      {/* <TopCompanies></TopCompanies> */}
+      <CreateAccountSuggestion/>
     </div>
   );
 };
