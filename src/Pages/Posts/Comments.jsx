@@ -7,18 +7,20 @@ import { useSelector } from "react-redux";
 import { HiHeart, HiOutlineEmojiHappy } from "react-icons/hi";
 import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../Shared/DashboardLoader";
-import { useTranslation } from "react-i18next"; // Importing useTranslation
+import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 
 const CommentsPage = () => {
-  const { t } = useTranslation(); // Destructuring t from useTranslation
+  const { t } = useTranslation();
   const { postId } = useParams();
   const [newComment, setNewComment] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const { currentUser } = useCurrentUser();
   const emojiPickerRef = useRef(null);
+  const isDarkTheme = useSelector((state) => state.theme.theme === "dark");
+  const loggedUser = useSelector((state) => state.user.loggedUser);
 
   const {
     data: post,
@@ -38,9 +40,12 @@ const CommentsPage = () => {
 
     try {
       const response = await axiosSecure.post(`/posts/${postId}/comment`, {
-        userEmail: currentUser.email,
-        userName: currentUser.displayName,
-        userPhoto: currentUser.photoURL,
+        userEmail: currentUser?.email,
+        userName:
+          currentUser.displayName ||
+          loggedUser?.name ||
+          loggedUser?.displayName,
+        userPhoto: loggedUser?.photoURL,
         comment: newComment,
       });
       refetch();
@@ -89,8 +94,12 @@ const CommentsPage = () => {
   }
 
   return (
-    <div className="grid lg:grid-cols-2 gap-6 lg:mx-24 mt-24">
-       <Helmet>
+    <div
+      className={`grid lg:grid-cols-2 gap-6 lg:mx-24 mt-24 ${
+        isDarkTheme ? "bg-gray-900 text-gray-200" : "bg-white text-gray-800"
+      }`}
+    >
+      <Helmet>
         <title>Jobify - Comments</title>
       </Helmet>
       {post && (
@@ -105,7 +114,13 @@ const CommentsPage = () => {
             />
           </div>
 
-          <div className="flex flex-col justify-between p-6 overflow-auto border shadow-md rounded-lg">
+          <div
+            className={`flex flex-col justify-between p-6 overflow-auto border shadow-md rounded-lg ${
+              isDarkTheme
+                ? "border-gray-600 bg-gray-800"
+                : "border-gray-300 bg-white"
+            }`}
+          >
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
@@ -144,7 +159,11 @@ const CommentsPage = () => {
                 >
                   <HiHeart
                     className={`w-5 h-5 ${
-                      hasLiked ? "text-blue-500" : "text-gray-500"
+                      hasLiked
+                        ? "text-blue-500"
+                        : isDarkTheme
+                        ? "text-gray-300"
+                        : "text-gray-500"
                     }`}
                   />
                   <span className="ml-1">{post.likes?.length || 0}</span>
@@ -152,7 +171,11 @@ const CommentsPage = () => {
               </div>
 
               <h2 className="font-semibold mb-2">{t("comments_title")}</h2>
-              <div className="border p-4 max-h-60 overflow-auto rounded-md shadow-md">
+              <div
+                className={`border p-4 max-h-60 overflow-auto rounded-md shadow-md ${
+                  isDarkTheme ? "border-gray-600" : "border-gray-300"
+                }`}
+              >
                 {post?.comments.map((comment, index) => (
                   <div key={index} className="p-2 border-b">
                     <div className="flex items-center">
@@ -179,14 +202,22 @@ const CommentsPage = () => {
                     type="text"
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    className="border p-2 w-full rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                    className={`border p-2 w-full rounded-lg focus:ring-2 focus:ring-blue-500 outline-none ${
+                      isDarkTheme
+                        ? "border-gray-600 bg-gray-700 text-gray-200"
+                        : "border-gray-300 bg-white"
+                    }`}
                     placeholder={t("add_comment_placeholder")}
                   />
 
                   <button
                     type="button"
                     onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                    className="absolute right-2 top-2 text-gray-500 hover:text-blue-500"
+                    className={`absolute right-2 top-2 ${
+                      isDarkTheme
+                        ? "text-gray-400 hover:text-blue-500"
+                        : "text-gray-500 hover:text-blue-600"
+                    }`}
                     aria-label={t("emoji_picker_label")}
                   >
                     <HiOutlineEmojiHappy size={24} />
@@ -210,7 +241,11 @@ const CommentsPage = () => {
 
                 <button
                   type="submit"
-                  className="mt-2 bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors"
+                  className={`mt-2 p-2 rounded-lg transition-colors ${
+                    isDarkTheme
+                      ? "bg-blue-500 text-white hover:bg-blue-600"
+                      : "bg-blue-500 text-white hover:bg-blue-600"
+                  }`}
                 >
                   {t("comment_button")}
                 </button>

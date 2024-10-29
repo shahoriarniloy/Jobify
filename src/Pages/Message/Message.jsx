@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { IoSettings } from "react-icons/io5";
 import { BsFillSendFill } from "react-icons/bs";
-import { useQuery } from '@tanstack/react-query';
-import axiosSecure from '../../Hooks/UseAxiosSecure';
-import useCurrentUser from '../../Hooks/useCurrentUser';
-import useUserRole from '../../Hooks/useUserRole';
+import { useQuery } from "@tanstack/react-query";
+import axiosSecure from "../../Hooks/UseAxiosSecure";
+import useCurrentUser from "../../Hooks/useCurrentUser";
+import useUserRole from "../../Hooks/useUserRole";
 import { FaFacebookMessenger } from "react-icons/fa6";
 import { io } from "socket.io-client";
 
@@ -16,26 +16,53 @@ const Message = () => {
     const [userInput, setUserInput] = useState("");
     const [ref, setRef] = useState();
     const role = useUserRole();
-    const { data, refetch } = useQuery({
-        queryKey: ["load massage"],
-        queryFn: async () => {
-            const { data } = await axiosSecure.get(`/get-all-message?senderId=${currentUser?.email}`)
-            return data;
-        }
-    })
-    const url = role.role == "Job Seeker" ? `/send-massage?senderId=${currentUser?.email}&receiverId=${senderId}`
-        : `/send-massage?senderId=${senderId}&receiverId=${currentUser?.email}`
+    // const { data, refetch } = useQuery({
+    //     queryKey: ["load massage"],
+    //     queryFn: async () => {
+    //         const { data } = await axiosSecure.get(`/get-all-message?senderId=${currentUser?.email}`)
+    //         return data;
+    //     }
+    // })
+    // const url = role.role == "Job Seeker" ? `/send-massage?senderId=${currentUser?.email}&receiverId=${senderId}`
+    //     : `/send-massage?senderId=${senderId}&receiverId=${currentUser?.email}`
 
-    const handelSendMassage = async () => {
-        const { data } = await axiosSecure.post(url, { massage: userInput, smsSender: currentUser?.email });
-        if (data?.acknowledged) {
-            refetch();
-            setUserInput(" ");
-        }
+  const { data, refetch } = useQuery({
+    queryKey: ["load massage"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(
+        `/get-all-message?senderId=${currentUser?.email}`
+      );
+      return data;
+    },
+  });
 
+  const url =
+    role.role === "Job Seeker"
+      ? `/send-massage?senderId=${currentUser?.email}&receiverId=${senderId}`
+      : `/send-massage?senderId=${senderId}&receiverId=${currentUser?.email}`;
+
+  const handelSendMassage = async () => {
+    const { data } = await axiosSecure.post(url, {
+      massage: userInput,
+      smsSender: currentUser?.email,
+    });
+    if (data?.acknowledged) {
+      refetch();
+      setUserInput("");
     }
+  };
 
+  useEffect(() => {
+    const result = data?.find((msg) => msg._id == ref);
+    setMassages(result?.messages);
+  }, [ref, data]);
 
+  const messagingWithName = () => {
+    const currentMsg = data?.find((msg) => msg._id === ref);
+    return role.role === "Job Seeker"
+      ? currentMsg?.receiverName
+      : currentMsg?.senderName;
+  };
 
     useEffect(() => {
         // Listen for incoming messages
@@ -162,7 +189,7 @@ const Message = () => {
                 }
             </div>
         </div>
-    );
+  );
 };
 
 export default Message;

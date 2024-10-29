@@ -43,7 +43,8 @@ const Footer = () => {
       </nav>
       <aside>
         <p>
-          {t("copyright")} © {new Date().getFullYear()} - {t("all_rights_reserved")}
+          {t("copyright")} © {new Date().getFullYear()} -{" "}
+          {t("all_rights_reserved")}
         </p>
       </aside>
     </footer>

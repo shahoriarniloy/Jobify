@@ -18,6 +18,8 @@ const Navbar = () => {
   const { t } = useTranslation();
   const [isSticky, setIsSticky] = useState(false);
   const theme = useSelector((state) => state.theme.theme);
+  const loggedUser = useSelector((state) => state?.user?.loggedUser);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { currentUser, logOutUser } = useCurrentUser();
@@ -114,16 +116,18 @@ const Navbar = () => {
           {t("find_company")}
         </NavLink>
       </li>
-      {role == "Job Seeker" &&<li>
-        <NavLink
-          to="/posts"
-          className={({ isActive }) =>
-            isActive ? "active-nav nav-link" : "nav-link"
-          }
-        >
-          {t("my_network")}
-        </NavLink>
-      </li>}
+      {role == "Job Seeker" && (
+        <li>
+          <NavLink
+            to="/posts"
+            className={({ isActive }) =>
+              isActive ? "active-nav nav-link" : "nav-link"
+            }
+          >
+            {t("my_network")}
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink
           to="/about"
@@ -150,7 +154,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <div
         className={`navbar shadow-sm ${
           isSticky ? "sticky top-0 z-50" : ""
@@ -206,7 +210,8 @@ const Navbar = () => {
               <div className="relative flex lg:hidden md:hidden items-center  gap-4  ">
                 <img
                   src={
-                    currentUser?.photoURL ||
+                    loggedUser?.photoURL ||
+                    loggedUser?.company_logo ||
                     "https://i.ibb.co.com/P6RfpHT/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
                   }
                   alt={t("user_profile")}

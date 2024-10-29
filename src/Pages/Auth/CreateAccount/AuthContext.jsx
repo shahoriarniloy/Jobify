@@ -28,10 +28,14 @@ const AuthProvider = ({ children }) => {
   const signInUser = async (email, password) => {
     setLoading(true);
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       return userCredential;
     } catch (error) {
-      console.error("Authentication error:", error.message);
+      // console.error("Authentication error:", error.message);
       throw error;
     } finally {
       setLoading(false);

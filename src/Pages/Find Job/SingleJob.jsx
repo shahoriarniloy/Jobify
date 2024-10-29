@@ -187,8 +187,8 @@ const SingleJob = () => {
               <div className="my-4">
                 <h3
                   className={
-                    theme === "dark "
-                      ? "font-bold text-gray-100  mb-4"
+                    theme === "dark"
+                      ? "font-bold text-gray-300  mb-4"
                       : "font-bold text-gray-600 mb-4"
                   }
                 >
@@ -196,8 +196,8 @@ const SingleJob = () => {
                 </h3>
                 <p
                   className={
-                    theme === "dark "
-                      ? " text-gray-100 mb-4 text-justify"
+                    theme === "dark"
+                      ? " text-gray-300 mb-4 text-justify"
                       : " text-gray-600 mb-4 text-justify"
                   }
                 >
@@ -209,8 +209,8 @@ const SingleJob = () => {
             <div className="my-4">
               <h3
                 className={
-                  theme === "dark "
-                    ? "font-bold text-gray-100 mb-4"
+                  theme === "dark"
+                    ? "font-bold text-gray-300 mb-4"
                     : "font-bold text-gray-600 mb-4"
                 }
               >
@@ -223,7 +223,7 @@ const SingleJob = () => {
                     <li
                       key={index}
                       className={
-                        theme === "dark "
+                        theme === "dark"
                           ? " text-gray-100 mb-4 text-justify"
                           : " text-gray-600 mb-4 text-justify"
                       }
@@ -245,12 +245,14 @@ const SingleJob = () => {
                   <div className="flex items-center gap-3">
                     <FiCalendar className="text-2xl text-blue-500" />
                     <div>
-                      <p className="font-semibold mt-2">Posted Date</p>
+                      <p className="font-semibold mt-2">
+                        {t("posted_date_label")}
+                      </p>
                       <p
                         className={
-                          theme === "dark "
-                            ? " text-gray-900 mb-4 text-sm"
-                            : " text-gray-400 mb-4 text-sm"
+                          theme === "dark"
+                            ? "text-gray-900 mb-4 text-sm"
+                            : "text-gray-400 mb-4 text-sm"
                         }
                       >
                         {job?.jobInfo?.posted}
@@ -261,12 +263,14 @@ const SingleJob = () => {
                   <div className="flex items-center gap-3">
                     <FiCalendar className="text-2xl text-blue-500" />
                     <div>
-                      <p className="font-semibold mt-2">Expire On</p>
+                      <p className="font-semibold mt-2">
+                        {t("expire_on_label")}
+                      </p>
                       <p
                         className={
-                          theme === "dark "
-                            ? " text-gray-900 mb-4 text-sm"
-                            : " text-gray-400 mb-4 text-sm"
+                          theme === "dark"
+                            ? "text-gray-900 mb-4 text-sm"
+                            : "text-gray-400 mb-4 text-sm"
                         }
                       >
                         {job?.jobInfo?.deadline}
@@ -278,13 +282,13 @@ const SingleJob = () => {
                     <FaUserGraduate className="text-2xl text-blue-500" />
                     <div>
                       <p className="font-semibold mt-2">
-                        Educational Qualification
+                        {t("educational_qualification_label")}
                       </p>
                       <p
                         className={
-                          theme === "dark "
-                            ? " text-gray-900 mb-4 text-sm"
-                            : " text-gray-400 mb-4 text-sm"
+                          theme === "dark"
+                            ? "text-gray-900 mb-4 text-sm"
+                            : "text-gray-400 mb-4 text-sm"
                         }
                       >
                         {job?.jobInfo?.education}
@@ -297,12 +301,14 @@ const SingleJob = () => {
                   <div className="flex items-center gap-3">
                     <PiWallet className="text-2xl text-blue-500" />
                     <div>
-                      <p className="font-semibold mt-2">Starting Salary</p>
+                      <p className="font-semibold mt-2">
+                        {t("starting_salary_label")}
+                      </p>
                       <p
                         className={
-                          theme === "dark "
-                            ? " text-gray-900 mb-4 text-sm"
-                            : " text-gray-400 mb-4 text-sm"
+                          theme === "dark"
+                            ? "text-gray-900 mb-4 text-sm"
+                            : "text-gray-400 mb-4 text-sm"
                         }
                       >
                         {job?.jobInfo?.salaryRange}
@@ -313,27 +319,32 @@ const SingleJob = () => {
                   <div className="flex items-center gap-3">
                     <IoLocationOutline className="text-2xl text-blue-500" />
                     <div>
-                      <p className="font-semibold mt-2">Job Location</p>
+                      <p className="font-semibold mt-2">
+                        {t("job_location_label")}
+                      </p>
                       <p
                         className={
-                          theme === "dark "
-                            ? " text-gray-900 mb-4 text-sm"
-                            : " text-gray-400 mb-4 text-sm"
+                          theme === "dark"
+                            ? "text-gray-900 mb-4 text-sm"
+                            : "text-gray-400 mb-4 text-sm"
                         }
                       >
                         {job?.jobInfo?.location}
                       </p>
                     </div>
                   </div>
+
                   <div className="flex items-center gap-3">
                     <PiBriefcase className="text-2xl text-blue-500" />
                     <div>
-                      <p className="font-semibold mt-2">Job Type</p>
+                      <p className="font-semibold mt-2">
+                        {t("job_type_label")}
+                      </p>
                       <p
                         className={
-                          theme === "dark "
-                            ? " text-gray-900 mb-4 text-sm"
-                            : " text-gray-400 mb-4 text-sm"
+                          theme === "dark"
+                            ? "text-gray-900 mb-4 text-sm"
+                            : "text-gray-400 mb-4 text-sm"
                         }
                       >
                         {job?.jobInfo?.jobType}

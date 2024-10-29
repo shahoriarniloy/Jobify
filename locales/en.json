@@ -678,7 +678,6 @@
   "comment_button": "Comment",
 
   "no_posts_available": "No posts available",
-
   "posts_from_people_you_follow": "Posts from people you follow",
   "unlike_post": "Unlike post",
   "like_post": "Like post",
@@ -709,5 +708,69 @@
   "notifications_count": "notifications",
   "mark_all_as_read": "Mark all as read",
   "no_notifications_available": "No notifications available",
-  "position": "position"
+  "position": "position",
+
+  "no_categories_found": "No categories found",
+
+  "find_job_interest_skills": "Find a job that suits your interest & skills.",
+
+  "job_opportunity_description": "Quickly find job opportunities that match your skills and interests by searching for specific job titles, keywords, or locations.",
+  "job_search_placeholder": "Job title, Company Name...",
+  "category_label": "Category:",
+  "job_type_label": "Job Type:",
+  "salary_range_label": "Salary Range:",
+  "job_level_label": "Job Level:",
+  "deadline_label": "Deadline:",
+  "location_label": "Location:",
+
+  "posted_date_label": "Posted Date",
+  "expire_on_label": "Expire On",
+  "educational_qualification_label": "Educational Qualification",
+  "starting_salary_label": "Starting Salary",
+  "job_location_label": "Job Location",
+  "category": "Category",
+
+  "testimonial_title": "Testimonial",
+
+  "per_page": "Per Page",
+
+  "dashboard_title": "Jobify - Dashboard",
+  "bookmarked_jobs": "Bookmarked Jobs",
+  "preferred_updates": "Preferred Updates",
+  "career_roadmap": "Career Roadmap",
+
+  "available_jobs": "Available Jobs",
+
+  "job_sub_category_label": "Job Sub Category",
+  "select_subcategory": "Select Subcategory",
+  "job_category_label": "Job Category",
+  "select_category": "Select Category",
+
+  "you_have_notifications": "You have {{count}} notifications",
+
+  "job_title_notification": "{{title}}",
+
+  "enter_room_id": "Enter Room ID",
+  "room_id_placeholder": "Room ID",
+  "join_room": "Join Room",
+
+  "your_posts": "Your Posts",
+
+  "follow_people": "Follow People",
+
+  "following": "Following",
+
+  "followers": "Followers",
+
+  "like_singular": "Like",
+  "like_plural": "Likes",
+  "comment_singular": "Comment",
+  "comment_plural": "Comments",
+  "error_updating_like_status": "Error updating like status",
+  "error_adding_comment": "Error adding comment",
+  "post_button": "Post",
+
+  "type_message_here": "Type Message here",
+  "send": "Send",
+  "select_a_conversation": "Select a conversation"
 }

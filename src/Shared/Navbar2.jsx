@@ -18,10 +18,13 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { switchLanguage } from "../Redux/languageSlice";
 import useCurrentUser from "../Hooks/useCurrentUser";
 import { toast } from "react-toastify";
+import useConditionalDataFetch from "../Redux/UserDataSlice";
 
 const Navbar2 = () => {
   const { currentUser, logOutUser } = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
+  const { data: fetchedUser, isLoading, error } = useConditionalDataFetch();
+  const loggedUser = useSelector((state) => state.user.loggedUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -118,7 +121,9 @@ const Navbar2 = () => {
   return (
     <div
       className={
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-secondary text-black"
+        theme === "dark"
+          ? "bg-gray-800 text-white "
+          : "bg-secondary text-black "
       }
     >
       <div className="container mx-auto">
@@ -139,13 +144,19 @@ const Navbar2 = () => {
               <select
                 onChange={handleLanguageChange}
                 value={currentLanguage}
-                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${theme === "dark"
-                  ? "bg-transparent text-white"
-                  : "bg-transparent text-black"
-                  }`}
+                className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
+                  theme === "dark"
+                    ? "bg-gray-800  text-white"
+                    : "bg-transparent text-black"
+                }`}
               >
                 <option value="en">{t("english")}</option>
                 <option value="bn">{t("bangla")}</option>
+                <option value="ar">{t("العربية")}</option>
+                <option value="ur">{t(" اُردُو")}</option>
+                <option value="hi">{t("हिन्दी")}</option>
+                <option value="zh-CN">{t("中国")}</option>
+                <option value="es">{t("Español")}</option>
               </select>
             </div>
 
@@ -178,18 +189,22 @@ const Navbar2 = () => {
                           : "absolute top-10 right-0 bg-white p-4 shadow-lg rounded-lg max-w-xs w-80 z-50"
                       }
                     >
-                      <h2 className="text-lg font-bold mb-4">Notifications</h2>
+                      <h2 className="text-lg font-bold mb-4">
+                        {t("notifications")}
+                      </h2>
 
                       {jobNotifications.length > 0 && (
                         <div className="flex justify-between items-center mb-4">
                           <p className="text-sm">
-                            You have {jobNotifications.length} notifications
+                            {t("notifications_count", {
+                              count: jobNotifications.length,
+                            })}
                           </p>
                           <button
                             onClick={handleMarkAllAsRead}
                             className="text-blue-600 text-sm hover:underline"
                           >
-                            Mark all as read
+                            {t("mark_all_as_read")}
                           </button>
                         </div>
                       )}
@@ -214,7 +229,7 @@ const Navbar2 = () => {
                           ))}
                         </ul>
                       ) : (
-                        <p>No notifications available</p>
+                        <p>{t("no_notifications_available")}</p>
                       )}
 
                       <div className="flex justify-end">
@@ -222,7 +237,7 @@ const Navbar2 = () => {
                           className="btn bg-[#0a65cc] text-white mt-4"
                           onClick={handleModalToggle}
                         >
-                          Close
+                          {t("close")}
                         </button>
                       </div>
                     </div>
@@ -237,7 +252,8 @@ const Navbar2 = () => {
                   <div className="relative lg:flex md:flex lg:items-center md:items-center gap-4 hidden">
                     <img
                       src={
-                        currentUser?.photoURL ||
+                        loggedUser?.photoURL ||
+                        loggedUser?.company_logo ||
                         "https://i.ibb.co.com/P6RfpHT/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
                       }
                       alt={t("user_profile")}
@@ -326,7 +342,9 @@ const Navbar2 = () => {
               ) : (
                 <button
                   onClick={() => setLoginModalOpen(true)}
-                  className={`${theme == "dark" ? "bg-transparent" : "bg-white"}  rounded-lg text-blue-500 border border-blue-400 px-6 py-3 relative lg:flex md:flex lg:items-center md:items-center gap-4 hidden`}
+                  className={`${
+                    theme == "dark" ? "bg-transparent" : "bg-white"
+                  }  rounded-lg text-blue-500 border border-blue-400 px-6 py-3 relative lg:flex md:flex lg:items-center md:items-center gap-4 hidden`}
                 >
                   {t("join_us")}
                 </button>
@@ -345,23 +363,21 @@ const Navbar2 = () => {
           modal: {
             backgroundColor: theme === "dark" ? "#1A202C" : "white",
             color: theme === "dark" ? "white" : "black",
-            borderRadius:"8px"
-
+            borderRadius: "8px",
           },
-
         }}
         classNames={{
-          closeButton: theme === "dark" ? "custom-close-icon-dark" : "custom-close-icon-light",
+          closeButton:
+            theme === "dark"
+              ? "custom-close-icon-dark"
+              : "custom-close-icon-light",
         }}
-
       >
         <Login
-
           setLoginModalOpen={setLoginModalOpen}
           setSignUpModalOpen={setSignUpModalOpen}
         />
       </Modal>
-
 
       {/* Sign Up Modal */}
       <Modal
@@ -372,13 +388,14 @@ const Navbar2 = () => {
           modal: {
             backgroundColor: theme === "dark" ? "#1A202C" : "white",
             color: theme === "dark" ? "white" : "black",
-            borderRadius:"8px"
-
+            borderRadius: "8px",
           },
-
         }}
         classNames={{
-          closeButton: theme === "dark" ? "custom-close-icon-dark" : "custom-close-icon-light",
+          closeButton:
+            theme === "dark"
+              ? "custom-close-icon-dark"
+              : "custom-close-icon-light",
         }}
       >
         <Register
@@ -389,19 +406,19 @@ const Navbar2 = () => {
 
       {/* Room Modal */}
       <Modal open={roomModal} onClose={() => setRoomModal(false)} center>
-        <h2>Enter Room ID</h2>
+        <h2>{t("enter_room_id")}</h2>
         <input
           type="text"
           value={roomID}
           onChange={(e) => setRoomID(e.target.value)}
           className="border rounded-md p-2 w-full"
-          placeholder="Room ID"
+          placeholder={t("room_id_placeholder")}
         />
         <button
           className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
           onClick={handleJoinRoom}
         >
-          Join Room
+          {t("join_room")}
         </button>
       </Modal>
     </div>

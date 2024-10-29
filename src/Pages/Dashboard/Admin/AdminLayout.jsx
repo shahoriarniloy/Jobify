@@ -7,12 +7,16 @@ import { MdOutlineLogout, MdMenu, MdClose } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
+import { useSelector} from "react-redux";
+ 
+
 
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation(); // Initialize the translation 
+  const theme = useSelector((state) => state.theme.theme);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -36,11 +40,14 @@ const AdminLayout = () => {
       <div className="mb-3 border-y-2">
         <div className="container mx-auto flex flex-col lg:flex-row">
           <div
-            className={`${
-              isSidebarOpen ? "translate-x-0 z-40 " : "-translate-x-full"
-            } lg:translate-x-0 lg:block 
-        fixed top-0 left-0 w-[75%] max-w-[290px] bg-white min-h-screen p-6 lg:min-h-[60vh] transition-transform
-        duration-300 ease-in-out lg:static`}
+           className={`${ 
+            isSidebarOpen ? "translate-x-0 z-40" : "-translate-x-full"
+          } lg:translate-x-0 lg:block 
+          fixed top-0 left-0 w-[75%] max-w-[290px] 
+          ${theme === "dark" ? "bg-slate-900 text-white" : "bg-white text-black"}
+          min-h-screen p-6 lg:min-h-[60vh] transition-transform
+          duration-300 ease-in-out lg:static`}
+        
           >
             <div className="space-y-2">
               <>
@@ -48,7 +55,11 @@ const AdminLayout = () => {
                   to="/admin/overview"
                   className={({ isActive }) =>
                     isActive
-                      ? "isActiveRoute"
+                      ? theme === "dark"
+                        ? "isActiveRouteDark"
+                        : "isActiveRoute"
+                      : theme === "dark"
+                      ? "flex items-center pl-5 py-2 text-white gap-2"
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
@@ -58,7 +69,11 @@ const AdminLayout = () => {
                   to="/admin/allCompanies"
                   className={({ isActive }) =>
                     isActive
-                      ? "isActiveRoute"
+                      ? theme === "dark"
+                        ? "isActiveRouteDark"
+                        : "isActiveRoute"
+                      : theme === "dark"
+                      ? "flex items-center pl-5 py-2 text-white gap-2"
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
@@ -69,7 +84,11 @@ const AdminLayout = () => {
                   to="/admin/alljobseekers"
                   className={({ isActive }) =>
                     isActive
-                      ? "isActiveRoute"
+                      ? theme === "dark"
+                        ? "isActiveRouteDark"
+                        : "isActiveRoute"
+                      : theme === "dark"
+                      ? "flex items-center pl-5 py-2 text-white gap-2"
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
@@ -79,7 +98,11 @@ const AdminLayout = () => {
                   to="/admin/alljobs"
                   className={({ isActive }) =>
                     isActive
-                      ? "isActiveRoute"
+                      ? theme === "dark"
+                        ? "isActiveRouteDark"
+                        : "isActiveRoute"
+                      : theme === "dark"
+                      ? "flex items-center pl-5 py-2 text-white gap-2"
                       : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                   }
                 >
@@ -93,7 +116,11 @@ const AdminLayout = () => {
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? "isActiveRoute"
+                    ? theme === "dark"
+                      ? "isActiveRouteDark"
+                      : "isActiveRoute"
+                    : theme === "dark"
+                    ? "flex items-center pl-5 py-2 text-white gap-2"
                     : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"
                 }
               >
@@ -104,7 +131,7 @@ const AdminLayout = () => {
                   handelLogOut();
                   navigate("/");
                 }}
-                className="flex items-center pl-5 py-2 text-[#767F8C] gap-2"
+                className={theme === "dark"? "flex items-center pl-5 py-2 text-white gap-2" : "flex items-center pl-5 py-2 text-[#767F8C] gap-2"}
               >
                 <MdOutlineLogout className="text-xl" /> {t("log_out")}
               </NavLink>

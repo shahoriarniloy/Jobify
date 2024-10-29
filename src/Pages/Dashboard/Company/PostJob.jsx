@@ -9,10 +9,14 @@ import { useQuery } from "@tanstack/react-query";
 import DashboardLoader from "../../../Shared/DashboardLoader";
 import { Helmet } from "react-helmet";
 
+ 
+
+
 const PostJob = () => {
   const { t } = useTranslation(); // Initialize useTranslation
   const { currentUser } = useCurrentUser();
   const [subCategories, setSubCategories] = useState([]);
+  const theme = useSelector((state) => state.theme.theme);
 
   const [jobData, setJobData] = useState({
     title: "",
@@ -108,18 +112,18 @@ const PostJob = () => {
       });
     }
   };
-  if (loadingCom) return <DashboardLoader />
+  if (loadingCom) return <DashboardLoader />;
 
   return (
     <div className="container pb-6 mx-auto  w-full">
-       <Helmet>
+      <Helmet>
         <title>Jobify - Post Job</title>
       </Helmet>
       <div>
-        <h2 className="font-semibold text-3xl text-black mb-4">
+        <h2 className={ theme === "dark"? "font-semibold text-3xl text-white mb-4" : "font-semibold text-3xl text-black mb-4"}>
           {t("post_job")}
         </h2>
-        <p className="text-stone-500 mb-6">{t("fill_form")}</p>
+        <p className={theme === "dark"? "text-slate-300 mb-6" : "text-stone-500 mb-6"}>{t("fill_form")}</p>
         <div className="rounded p-6 mb-6">
           <div className="grid gap-6 text-sm grid-cols-1 lg:grid-cols-3">
             <form className="lg:col-span-3" onSubmit={handleSubmit}>
@@ -131,7 +135,7 @@ const PostJob = () => {
                     name="company"
                     value={data?.company_name}
                     onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                     placeholder={t("company_name")}
                     disabled
                   />
@@ -143,21 +147,21 @@ const PostJob = () => {
                     name="title"
                     value={jobData.title}
                     onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                     placeholder={t("add_job_title")}
                     required
                   />
                 </div>
-                <div className="md:col-span-3 text-black">
-                  <label htmlFor="jobCategory">Job Category</label>
+                <div className={theme === "dark" ? "md:col-span-3 text-white" : "md:col-span-3 text-black"}>
+                  <label htmlFor="jobCategory">{t("job_category_label")}</label>
                   <select
                     required
                     name="jobCategory"
                     value={jobData.jobCategory}
                     onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                   >
-                    <option value="">Select Category</option>
+                    <option value="">{t("select_category")}</option>
                     {categories?.map((category) => (
                       <option key={category?.name} value={category?.name}>
                         {category?.name}
@@ -167,16 +171,18 @@ const PostJob = () => {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label htmlFor="jobSubCategory">Job Sub Category</label>
+                  <label htmlFor="jobSubCategory">
+                    {t("job_sub_category_label")}
+                  </label>
                   <select
                     required
                     name="jobSubCategory"
                     value={jobData?.jobSubCategory}
                     onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                     disabled={!subCategories?.length}
                   >
-                    <option value="">Select Subcategory</option>
+                    <option value="">{t("select_subcategory")}</option>
                     {subCategories?.map((subCategory, index) => (
                       <option key={index} value={subCategory.name}>
                         {subCategory.name}
@@ -192,7 +198,7 @@ const PostJob = () => {
                     name="experience"
                     value={jobData.experience}
                     onChange={handleChange}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                   >
                     <option value="">{t("select_experience")}</option>
                     <option value="Freshers">{t("freshers")}</option>
@@ -219,7 +225,7 @@ const PostJob = () => {
                         name="salaryRange"
                         value={jobData.salaryRange}
                         onChange={handleChange}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                        className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                       >
                         <option value="">{t("select_salary_range")}</option>
                         <option value="$500-$1000">$500-$1000</option>
@@ -241,7 +247,7 @@ const PostJob = () => {
                         name="location"
                         value={jobData.location}
                         onChange={handleChange}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                        className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                         placeholder={t("location")}
                         required
                       />
@@ -254,7 +260,7 @@ const PostJob = () => {
                         name="vacancy"
                         value={jobData.vacancy}
                         onChange={handleChange}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                        className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                         placeholder={t("placeholder_number_of_vacancies")}
                         required
                         min="1"
@@ -271,7 +277,7 @@ const PostJob = () => {
                       name="jobLevel"
                       value={jobData.jobLevel}
                       onChange={handleChange}
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                      className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                     >
                       <option value="">{t("select_job_level")}</option>
                       <option value="Entry Level">{t("entry_level")}</option>
@@ -289,7 +295,7 @@ const PostJob = () => {
                       name="deadline"
                       value={jobData.deadline}
                       onChange={handleChange}
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                      className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                       required
                     />
                   </div>
@@ -304,7 +310,7 @@ const PostJob = () => {
                         name="education"
                         value={jobData.education}
                         onChange={handleChange}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                        className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                       >
                         <option value="">{t("select_education")}</option>
                         <option value="High School">{t("high_school")}</option>
@@ -328,7 +334,7 @@ const PostJob = () => {
                         name="jobType"
                         value={jobData.jobType}
                         onChange={handleChange}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                        className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                       >
                         <option value="">{t("select_job_type")}</option>
                         <option value="All">{t("all")}</option>
@@ -351,7 +357,7 @@ const PostJob = () => {
                     name="jobDescription"
                     value={jobData.jobDescription}
                     onChange={handleChange}
-                    className="h-20 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                     placeholder={t("enter_job_description")}
                     required
                   />
@@ -365,7 +371,7 @@ const PostJob = () => {
                     name="responsibilities"
                     value={jobData.responsibilities}
                     onChange={handleChange}
-                    className="h-20 border mt-1 rounded px-4 w-full bg-gray-50 p-2"
+                    className={ theme === "dark"? "h-10 border mt-1 rounded px-4 w-full  bg-slate-900 text-slate-300 border-slate-400  p-2" : "h-10 border mt-1 rounded px-4 w-full bg-gray-50 p-2"}
                     placeholder={t("enter_job_responsibilities")}
                     required
                   />
