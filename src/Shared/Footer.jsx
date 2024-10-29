@@ -33,7 +33,7 @@ const Footer = () => {
 
         <div className="flex md:justify-end">
           <div className="flex flex-col gap-5 *:text-gray-400">
-            <h3 className="text-xl font-semibold !text-white">Quick Link</h3>
+            <h3 className="font-semibold !text-white">Quick Link</h3>
             <Link>About</Link>
             <Link>Contact</Link>
             <Link>Blog</Link>
@@ -43,7 +43,7 @@ const Footer = () => {
 
         <div className="flex md:justify-end">
           <div className="flex flex-col gap-5 *:text-gray-400">
-            <h3 className="text-xl font-semibold !text-white">Navigate Now</h3>
+            <h3 className="font-semibold !text-white">Navigate Now</h3>
             <Link>Browse Jobs</Link>
             <Link>Browse Employers</Link>
             <Link>Candidate Dashboard</Link>
@@ -53,7 +53,7 @@ const Footer = () => {
 
         <div className="flex lg:justify-end">
           <div className="flex flex-col gap-5 *:text-gray-400">
-            <h3 className="text-xl font-semibold !text-white">Support</h3>
+            <h3 className="font-semibold !text-white">Support</h3>
             <Link>Faqs</Link>
             <Link>Privacy Policy</Link>
             <Link>Terms & Conditions</Link>

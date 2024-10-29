@@ -7,6 +7,7 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import Testimonial from "./Testimonial";
 import { Helmet } from "react-helmet";
 import CreateAccountSuggestion from "./CreateAccountSuggestion";
+import SuggestedJobs from "./SuggestedJobs";
 
 const Home = () => {
   const { data, isLoading } = useQuery({
@@ -33,7 +34,9 @@ const Home = () => {
         isLoading={isLoading}
       ></SearchBar>
       <PopularCategory isLoading={isLoading} categoryCounts={data?.categoryCounts} />
-      <HowItWorks></HowItWorks>
+      <hr />
+      <SuggestedJobs jobs={data?.jobs} isLoading={isLoading}/>
+      <HowItWorks />
       <TopCompanies />
       <Testimonial isLoading={isLoading} reviews={data?.reviews} />
       <CreateAccountSuggestion/>
