@@ -51,7 +51,7 @@ const TopCompanies = () => {
                     <p className="flex items-center gap-1 text-[#939AAD]">
                       <CiLocationOn className="text-xl" />
                       <span className="text-sm">
-                        {t("location")}: {location}
+                        {location?.city},{location?.country}
                       </span>{" "}
                       {/* Use translation key */}
                     </p>

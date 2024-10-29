@@ -30,12 +30,12 @@ const Home = () => {
         />
       </Helmet>
       <SearchBar
-        jobCount={data.jobCount}
-        companyCount={data.companyCount}
-        candidates={data.candidates}
-        successPeoples={data.successPeoples}
+        jobCount={data?.jobCount}
+        companyCount={data?.companyCount}
+        candidates={data?.candidates}
+        successPeoples={data?.successPeoples}
       ></SearchBar>
-      <PopularCategory categoryCounts={data.categoryCounts} />
+      <PopularCategory categoryCounts={data?.categoryCounts} />
       <HowItWorks></HowItWorks>
       <TopCompanies />
       <Testimonial reviews={data?.reviews} />

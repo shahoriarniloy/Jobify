@@ -39,7 +39,8 @@ const Navbar2 = () => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    const socket = io("https://jobify-server-ujo0.onrender.com");
+    // const socket = io("https://jobify-server-ujo0.onrender.com");
+    const socket = io("http://localhost:5000");
 
     socket.on("jobPosted", (notification) => {
       setJobNotifications((prev) => [...prev, notification]);

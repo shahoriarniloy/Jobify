@@ -6,10 +6,10 @@ import axiosSecure from '../../Hooks/UseAxiosSecure';
 import useCurrentUser from '../../Hooks/useCurrentUser';
 import useUserRole from '../../Hooks/useUserRole';
 import { FaFacebookMessenger } from "react-icons/fa6";
-import io from "socket.io-client";
+import { io } from "socket.io-client";
 
 const Message = () => {
-    const socket = io("http://localhost:5000"); 
+    const socket = io("http://localhost:5000");
     const { currentUser } = useCurrentUser();
     const [massages, setMassages] = useState();
     const [senderId, setSenderId] = useState();
@@ -38,18 +38,24 @@ const Message = () => {
 
 
     useEffect(() => {
-        // Listen for incoming messages from the server
-        socket.on("receiveMessage", (newMessage) => {
-            console.log("server connected")
-            if (newMessage.senderId === senderId || newMessage.receiverId === senderId) {
-                setMassages((prevMessages) => [...prevMessages, newMessage]);
+        // Listen for incoming messages
+        socket.on("sendMessage", (newMessage) => {
+            if (newMessage.receiverId === currentUser?.email || newMessage.senderId === currentUser?.email) {
+                setMassages((prev) => [...prev, newMessage]);
             }
+            console.log(newMessage)
         });
 
+        // Cleanup on component unmount
         return () => {
-            socket.off("receiveMessage"); // Clean up listener on component unmount
+            socket.off("sendMessage");
         };
-    }, [senderId]);
+    }, [handelSendMassage]);
+
+
+    socket.on("receiveMessage", (msg) => {
+        console.log(msg)
+    })
 
 
 
