@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import {
   MdBookmark,
   MdBookmarkBorder,
-  MdFavorite,
-  MdFavoriteBorder,
 } from "react-icons/md";
 import { FiCalendar, FiGlobe } from "react-icons/fi";
 import { BiStopwatch } from "react-icons/bi";
@@ -12,7 +10,6 @@ import { PiBriefcase, PiWallet } from "react-icons/pi";
 import { LuPhoneCall } from "react-icons/lu";
 import { TfiEmail } from "react-icons/tfi";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import OpenPosition from "../../../components/OpenPositions/OpenPositions";
 import { useTranslation } from "react-i18next";
 import axiosSecure from "../../../Hooks/UseAxiosSecure.jsx";
