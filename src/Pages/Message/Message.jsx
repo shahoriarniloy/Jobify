@@ -6,18 +6,25 @@ import axiosSecure from "../../Hooks/UseAxiosSecure";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import useUserRole from "../../Hooks/useUserRole";
 import { FaFacebookMessenger } from "react-icons/fa6";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next"; // Import useTranslation
+import { io } from "socket.io-client";
 
 const Message = () => {
-  const { t } = useTranslation(); // Destructure useTranslation
-  const { currentUser } = useCurrentUser();
-  const [massages, setMassages] = useState();
-  const [senderId, setSenderId] = useState();
-  const [userInput, setUserInput] = useState("");
-  const [ref, setRef] = useState();
-  const role = useUserRole();
-  const theme = useSelector((state) => state.theme.theme);
+    const socket = io("http://localhost:5000");
+    const { currentUser } = useCurrentUser();
+    const [massages, setMassages] = useState();
+    const [senderId, setSenderId] = useState();
+    const [userInput, setUserInput] = useState("");
+    const [ref, setRef] = useState();
+    const role = useUserRole();
+    // const { data, refetch } = useQuery({
+    //     queryKey: ["load massage"],
+    //     queryFn: async () => {
+    //         const { data } = await axiosSecure.get(`/get-all-message?senderId=${currentUser?.email}`)
+    //         return data;
+    //     }
+    // })
+    // const url = role.role == "Job Seeker" ? `/send-massage?senderId=${currentUser?.email}&receiverId=${senderId}`
+    //     : `/send-massage?senderId=${senderId}&receiverId=${currentUser?.email}`
 
   const { data, refetch } = useQuery({
     queryKey: ["load massage"],
@@ -57,132 +64,131 @@ const Message = () => {
       : currentMsg?.senderName;
   };
 
-  return (
-    <div
-      className={`h-full ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
-      }`}
-    >
-      <div className="flex h-full gap-2">
-        <div
-          className={`border-r-2 w-1/2 ${
-            theme === "dark"
-              ? "border-gray-700 bg-gray-900 text-white"
-              : "border-gray-200 bg-white text-black"
-          }`}
-        >
-          <h1 className="mb-4">Messages</h1>
-          {data?.map((msg) => (
-            <div
-              key={msg._id}
-              onClick={() => {
-                setMassages(msg?.messages);
-                setSenderId(
-                  role.role === "Job Seeker" ? msg?.receiver : msg?.sender
-                );
-                setRef(msg._id);
-              }}
-              className={`flex items-center gap-2 border-b cursor-pointer mb-2 ${
-                msg._id === ref
-                  ? `rounded-md p-1 ${
-                      theme === "dark" ? "bg-gray-800" : "bg-blue-100"
-                    }`
-                  : ""
-              } ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}
-            >
-              <div>
-                <img
-                  className="w-8 h-8 rounded-full"
-                  src={
-                    role.role === "Job Seeker" ? msg.receiverImg : msg.senderImg
-                  }
-                  alt=""
-                />
-              </div>
-              <div>
-                <h3>
-                  {role.role === "Job Seeker"
-                    ? msg.receiverName
-                    : msg.senderName}
-                </h3>
-              </div>
-            </div>
-          ))}
-        </div>
+    useEffect(() => {
+        // Listen for incoming messages
+        socket.on("sendMessage", (newMessage) => {
+            if (newMessage.receiverId === currentUser?.email || newMessage.senderId === currentUser?.email) {
+                setMassages((prev) => [...prev, newMessage]);
+            }
+            console.log(newMessage)
+        });
 
-        {massages ? (
-          <div className="w-2/3 flex flex-col justify-between h-full">
-            <div>
-              <div
-                className={`flex justify-between w-full border-2 px-2 rounded-lg ${
-                  theme === "dark"
-                    ? "bg-gray-800 border-gray-700 text-white"
-                    : "bg-blue-100 text-black"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <h1 className="py-2">{messagingWithName()}</h1>
+        // Cleanup on component unmount
+        return () => {
+            socket.off("sendMessage");
+        };
+    }, [handelSendMassage]);
+
+
+    socket.on("receiveMessage", (msg) => {
+        console.log(msg)
+    })
+
+
+
+
+
+    useEffect(() => {
+        const result = data?.find(msg => msg._id == ref);
+        setMassages(result?.messages);
+    }, [handelSendMassage])
+
+
+
+    return (
+        <div className='h-full '>
+            <div className='flex h-full gap-2'>
+                {/* connected Peoples */}
+                <div className='border-r-2 w-1/3'>
+                    {
+                        data?.map(msg =>
+                            <div
+                                key={msg._id}
+                                onClick={() => { setMassages(msg?.messages); setSenderId(role.role == "Job Seeker" ? msg?.receiver : msg?.sender); setRef(msg._id) }}
+                                className='flex items-center gap-2 border-b mb-2 cursor-pointer'>
+                                <div><img className='size-[46px] rounded-full' src={role.role == "Job Seeker" ? msg.receiverImg : msg.senderImg} alt="" /></div>
+
+                                <div>
+                                    <h3>{role.role == "Job Seeker" ? msg.receiverName : msg.senderName}</h3>
+                                </div>
+                            </div>
+                        )
+                    }
+
                 </div>
-              </div>
 
-              <div className="mt-4 h-[340px] overflow-y-scroll">
-                {massages?.map((sms) => (
-                  <div
-                    key={sms._id}
-                    className={`chat ${
-                      currentUser.email === sms.sender
-                        ? "chat-end"
-                        : "chat-start"
-                    }`}
-                  >
-                    <div
-                      className={`chat-bubble ${
-                        theme === "dark"
-                          ? "bg-blue-800 text-white"
-                          : "bg-blue-600 text-white"
-                      }`}
-                    >
-                      {sms?.massage}
+                {/* conversation details */}
+                {massages ?
+                    <div className='w-2/3 flex flex-col justify-between h-full'>
+
+                        <div>
+                            <div className='flex justify-between w-full border-2 px-2 rounded-lg'>
+                                <div className='flex items-center gap-3'>
+                                    {/* header */}
+                                    <div><img className='size-[46px] rounded-full' src="https://th.bing.com/th/id/OIP.Lpx9j83qR_cfQuaPHuvwWQHaHw?rs=1&pid=ImgDetMain" alt="" /></div>
+
+                                    <h1>Name</h1>
+                                </div>
+
+                                <button>
+                                    <IoSettings className='text-2xl' />
+                                </button>
+                            </div>
+
+                            {/* message body */}
+
+                            <div className='mt-4 h-[340px] overflow-y-scroll'>
+
+                                {
+                                    massages?.map(sms =>
+                                        <div key={sms.timestamp}>
+                                            {currentUser.email == sms.sender ?
+                                                <div className="chat chat-end">
+                                                    <div className="chat-bubble"> {sms?.massage}</div>
+                                                </div>
+                                                :
+
+                                                <div className="chat chat-start">
+                                                    <div className="chat-bubble">
+                                                        {sms?.massage}
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+
+                                    )
+                                }
+
+
+                            </div>
+
+                        </div>
+
+                        {/* send massage */}
+                        <div className='flex items-center gap-4'>
+                            <input
+                                onChange={e => setUserInput(e.target.value)}
+                                type="text"
+                                value={userInput}
+                                placeholder="Type Message here"
+                                className="input input-bordered input-md w-full max-w-xs" />
+
+                            <button
+                                onClick={() => handelSendMassage()}
+                                className='btn bg-blue-700 text-white hover:bg-blue-600'>
+                                send <BsFillSendFill />
+                            </button>
+                        </div>
+
                     </div>
-                  </div>
-                ))}
-              </div>
+                    :
+                    <div className='w-2/3 flex flex-col justify-center items-center gap-4 h-full'>
+                        <FaFacebookMessenger className='text-4xl text-blue-400' />
+                        <h2 className='text-blue-700 font-semibold'>Select a conversation</h2>
+                    </div>
+                }
             </div>
-
-            <div className="flex items-center gap-4">
-              <input
-                onChange={(e) => setUserInput(e.target.value)}
-                type="text"
-                value={userInput}
-                placeholder={t("type_message_here")} // Translated
-                className="input input-bordered input-md w-full max-w-xs text-gray-900"
-              />
-              <button
-                onClick={() => handelSendMassage()}
-                className="btn bg-blue-600 text-white hover:bg-blue-500"
-              >
-                {t("send")} <BsFillSendFill /> {/* Translated */}
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="w-2/3 flex flex-col justify-center items-center gap-4 h-full">
-            <FaFacebookMessenger
-              className={`text-4xl ${
-                theme === "dark" ? "text-blue-400" : "text-blue-600"
-              }`}
-            />
-            <h2
-              className={`font-semibold ${
-                theme === "dark" ? "text-gray-300" : "text-blue-700"
-              }`}
-            >
-              {t("select_a_conversation")}{" "}
-            </h2>
-          </div>
-        )}
-      </div>
-    </div>
+        </div>
   );
 };
 
