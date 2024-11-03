@@ -30,7 +30,7 @@ const EmployeeHome = () => {
     }
   }, [currentUser?.email]);
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <>

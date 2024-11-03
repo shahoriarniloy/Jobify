@@ -678,7 +678,6 @@
   "comment_button": "Comment",
 
   "no_posts_available": "No posts available",
-
   "posts_from_people_you_follow": "Posts from people you follow",
   "unlike_post": "Unlike post",
   "like_post": "Like post",
@@ -775,7 +774,4 @@
   "send": "Send",
   "select_a_conversation": "Select a conversation"
 
-  
-
-  
 }

@@ -154,7 +154,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <div
         className={`navbar shadow-sm ${
           isSticky ? "sticky top-0 z-50" : ""

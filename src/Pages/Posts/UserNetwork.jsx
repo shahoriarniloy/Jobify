@@ -39,7 +39,7 @@ const FollowPosts = () => {
         });
         setIsFollowingState(initialFollowState);
       } catch (error) {
-        console.error("Error fetching followers data:", error);
+        // console.error("Error fetching followers data:", error);
       }
     };
 
@@ -55,7 +55,7 @@ const FollowPosts = () => {
       );
       setPosts(postsRes?.data);
     } catch (error) {
-      console.error("Error fetching posts:", error);
+      // console.error("Error fetching posts:", error);
     } finally {
       setLoading(false);
     }
@@ -85,7 +85,7 @@ const FollowPosts = () => {
         [followedEmail]: !isFollowing,
       }));
     } catch (error) {
-      console.error("Error toggling follow status:", error);
+      // console.error("Error toggling follow status:", error);
     }
   };
 
@@ -94,7 +94,7 @@ const FollowPosts = () => {
       await axiosSecure.delete(`/posts/${postId}`);
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
     } catch (error) {
-      console.error("Error deleting post:", error);
+      // console.error("Error deleting post:", error);
     }
   };
 
@@ -107,7 +107,7 @@ const FollowPosts = () => {
         prevFollowers.filter((follower) => follower.email !== followerEmail)
       );
     } catch (error) {
-      console.error("Error removing follower:", error);
+      // console.error("Error removing follower:", error);
     }
   };
 

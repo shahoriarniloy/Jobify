@@ -12,7 +12,7 @@ const useConditionalDataFetch = () => {
   const { role, isLoading: roleLoading } = useUserRole();
   const { currentUser } = useCurrentUser();
 
-  console.log("Current User:", currentUser); // Log currentUser to check its structure and email
+  // console.log("Current User:", currentUser);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["fetchedData", role],
@@ -27,12 +27,12 @@ const useConditionalDataFetch = () => {
         return response.data;
       }
     },
-    enabled: !!role && !roleLoading && !!currentUser?.email, // Ensure currentUser.email is available
+    enabled: !!role && !roleLoading && !!currentUser?.email,
   });
 
   useEffect(() => {
     if (data) {
-      console.log("Fetched data:", data);
+      // console.log("Fetched data:", data);
       dispatch(setLoggedUser(data));
     }
   }, [data, dispatch]);

@@ -103,7 +103,7 @@ const FindCompany = () => {
 
               <button
                 type="submit"
-                className="btn bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white  hover:from-blue-700 hover:to-blue-900"
+                className="btn bg-gradient-to-r from-blue-500 to-blue-700 rounded-md text-white  hover:from-blue-700 hover:to-blue-900 border-none"
               >
                 {t("find_company")}
               </button>
@@ -200,8 +200,8 @@ const FindCompany = () => {
                 key={company.email}
                 className={
                   theme === "dark"
-                    ? "relative max-w-sm rounded-md    shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-slate-700 bg-opacity-50 "
-                    : "relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white "
+                    ? "relative max-w-sm rounded-md    shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-slate-700 bg-opacity-50 w-full "
+                    : "relative max-w-sm rounded-md   border-2 border-gray-300 shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out bg-white w-full"
                 }
               >
                 <div className="flex flex-col justify-between p-6 space-y-8 ">
@@ -225,7 +225,7 @@ const FindCompany = () => {
                   </div>
                   <Link to={`/company-details/${company.email}`}>
                     <button className=" text-blue-500 px-3 py-2 rounded w-full underline">
-                    {t("details")}
+                      {t("details")}
                     </button>
                   </Link>
                 </div>

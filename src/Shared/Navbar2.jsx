@@ -120,7 +120,9 @@ const Navbar2 = () => {
   return (
     <div
       className={
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-secondary text-black"
+        theme === "dark"
+          ? "bg-gray-800 text-white "
+          : "bg-secondary text-black "
       }
     >
       <div className="container mx-auto">
@@ -143,7 +145,7 @@ const Navbar2 = () => {
                 value={currentLanguage}
                 className={`py-1 px-2 rounded-md  transition-colors duration-300 ${
                   theme === "dark"
-                    ? "bg-transparent text-white"
+                    ? "bg-gray-800  text-white"
                     : "bg-transparent text-black"
                 }`}
               >
