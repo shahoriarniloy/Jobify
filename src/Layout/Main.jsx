@@ -73,14 +73,7 @@ const Main = () => {
 
       <Footer />
 
-      {/* <Modal
-      classNames="absolute bottom-0"
-      open={isOpenMessage}
-      onClose={()=>setIsOpenMessage(false)}
-      center
-      >
-        <h1>akane massage asbe</h1>
-      </Modal> */}
+      
     </div>
   );
 };

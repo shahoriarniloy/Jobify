@@ -21,6 +21,8 @@ const EmployeeDashboard = () => {
   const { t } = useTranslation();
   const { currentUser, logOutUser } = useCurrentUser();
   const navigate = useNavigate();
+  const loggedUser = useSelector((state) => state.user.loggedUser);
+
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -130,7 +132,7 @@ const EmployeeDashboard = () => {
                 >
                   <FaFileAlt /> {t("edit_resume")}
                 </NavLink>
-                <NavLink
+                {loggedUser?.accountType=="premium" && (<NavLink
                   to="/jobSeeker/career"
                   className={({ isActive }) =>
                     isActive
@@ -143,7 +145,8 @@ const EmployeeDashboard = () => {
                   }
                 >
                   <FaEdit /> {t("career_roadmap")}
-                </NavLink>
+                </NavLink>)}
+                
                 <NavLink
                   to="/jobSeeker/employee-settings"
                   className={({ isActive }) =>
