@@ -15,8 +15,9 @@ import { useTranslation } from "react-i18next";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
+import DashboardLoader from "../../Shared/DashboardLoader";
 
-const Testimonial = ({ reviews }) => {
+const Testimonial = ({ reviews ,isLoading}) => {
   const { t } = useTranslation();
   const [screenWidth, setScreenWidth] = useState();
   const [slidePerPage, setSlidePerPage] = useState(null);
@@ -42,6 +43,7 @@ const Testimonial = ({ reviews }) => {
       return setSlidePerPage(3);
     }
   }, [screenWidth]);
+  if(isLoading) return <DashboardLoader/>
 
   return (
     <div
@@ -51,7 +53,7 @@ const Testimonial = ({ reviews }) => {
           : "bg-secondary"
       }
     >
-      <div className="container mx-auto py-24">
+      <div className="container mx-auto py-[100px]">
         <h1
           className={
             theme === "dark"

@@ -13,6 +13,7 @@ import Modal from "react-responsive-modal";
 import Register from "../Pages/Auth/CreateAccount/CreateAccount";
 import useUserRole from "../Hooks/useUserRole";
 import Login from "../Pages/Auth/Login/Login";
+import logo from '../assets/logo/logo.png'
 
 const Navbar = () => {
   const { t } = useTranslation();

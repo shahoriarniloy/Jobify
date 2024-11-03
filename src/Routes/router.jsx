@@ -56,6 +56,7 @@ import AdminRoute from "./AdminRoute";
 import EmployerRoute from "./EmployerRoute";
 import UserNetwork from "../Pages/Posts/UserNetwork";
 import UserProfile from "../Pages/Posts/UserProfile";
+import Plans from "../Pages/PremiumAccount/Plans";
 
 export const router = createBrowserRouter([
   {
@@ -127,6 +128,10 @@ export const router = createBrowserRouter([
       {
         path: "/userProfile/:userEmail",
         element: <UserProfile />,
+      },
+      {
+        path: "/premium-plan",
+        element: <Plans />,
       },
     ],
   },
@@ -266,6 +271,7 @@ export const router = createBrowserRouter([
             path: "myNetwork",
             element: <UserNetwork />,
           },
+          
         ],
       },
     ],

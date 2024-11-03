@@ -8,7 +8,7 @@ const Career = () => {
   const [roadmap, setRoadmap] = useState([]);
   const [jobCategories, setJobCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingJobCategories, setLoadingJobCategories] = useState(false); // New state for job categories loading
+  const [loadingJobCategories, setLoadingJobCategories] = useState(false); 
   const { currentUser } = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
   const loggedUser = useSelector((state) => state.user.loggedUser);
@@ -38,7 +38,7 @@ const Career = () => {
       try {
         if (!user || !user.skills) return;
 
-        setLoadingJobCategories(true); // Set loading for job categories
+        setLoadingJobCategories(true);
         const response = await axiosSecure.post(`/getCareerSuggestions`, {
           skills: user.skills,
         });
@@ -47,13 +47,13 @@ const Career = () => {
 
         const careerRoadmap = generateCareerRoadmap(
           user.skills,
-          response.data // Use updated job categories here
+          response.data 
         );
         setRoadmap(careerRoadmap);
       } catch (error) {
         // console.error("Error fetching job categories:", error);
       } finally {
-        setLoadingJobCategories(false); // Ensure loading ends
+        setLoadingJobCategories(false); 
       }
     };
 

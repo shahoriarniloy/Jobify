@@ -19,6 +19,10 @@ import { switchLanguage } from "../Redux/languageSlice";
 import useCurrentUser from "../Hooks/useCurrentUser";
 import { toast } from "react-toastify";
 import useConditionalDataFetch from "../Redux/UserDataSlice";
+import { CardGiftcardTwoTone } from "@mui/icons-material";
+import { GiCrown } from "react-icons/gi";
+import logo from '../assets/logo/logo.png'
+
 
 const Navbar2 = () => {
   const { currentUser, logOutUser } = useCurrentUser();
@@ -42,7 +46,8 @@ const Navbar2 = () => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    const socket = io("https://jobify-server-ujo0.onrender.com");
+    // const socket = io("https://jobify-server-ujo0.onrender.com");
+    const socket = io("http://localhost:5000");
 
     socket.on("jobPosted", (notification) => {
       setJobNotifications((prev) => [...prev, notification]);
@@ -128,12 +133,11 @@ const Navbar2 = () => {
       <div className="container mx-auto">
         <div className="navbar pt-2">
           <div className="navbar-start ">
-            <div className="flex items-center gap-2 text-[#0a65cc]">
-              <PiBag className="w-6 h-6" />
+            <div className="flex flex-row items-center gap-2 text-[#0a65cc]">
               <Link
                 to="/"
-                className="text-xl border-none outline-none font-bold"
-              >
+                className="text-xl border-none outline-none font-bold h-12 w-12 flex items-center"
+              ><img  src={logo} alt="" />
                 {t("Jobify")}
               </Link>
             </div>
@@ -249,16 +253,22 @@ const Navbar2 = () => {
               {currentUser ? (
                 <>
                   <div className="relative lg:flex md:flex lg:items-center md:items-center gap-4 hidden">
-                    <img
-                      src={
-                        loggedUser?.photoURL ||
-                        loggedUser?.company_logo ||
-                        "https://i.ibb.co.com/P6RfpHT/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
-                      }
-                      alt={t("user_profile")}
-                      className="w-10 h-10 rounded-full cursor-pointer"
-                      onClick={toggleMenu}
-                    />
+                  <img
+  src={
+    loggedUser?.photoURL ||
+    loggedUser?.company_logo ||
+    "https://i.ibb.co.com/P6RfpHT/stylish-default-user-profile-photo-avatar-vector-illustration-664995-353.jpg"
+  }
+  alt={t("user_profile")}
+  className="w-10 h-10 rounded-full cursor-pointer"
+  style={{
+    border: loggedUser?.accountType === 'premium' ? '4px solid #3B82F7' : 'none' 
+  }}
+  onClick={toggleMenu}
+/>
+
+
+
                     {isMenuOpen && (
                       <div
                         ref={menuRef}
@@ -276,7 +286,8 @@ const Navbar2 = () => {
                           }
                         >
                           {role === "Job Seeker" && (
-                            <li>
+                            <div>
+                              <li>
                               <Link
                                 to="jobSeeker/overview"
                                 className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
@@ -286,8 +297,24 @@ const Navbar2 = () => {
                                 {t("dashboard")}
                               </Link>
                             </li>
+                            {
+                              loggedUser?.accountType !=="premium" &&(
+                                <Link
+                                to="/premium-plan"
+                                className="px-4 py-2 hover:bg-gray-100 hover:text-[#0a65cc] flex items-center gap-2"
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                <GiCrown />
+                                {t("Premium Account")}
+                              </Link>
+                              )
+                            }
+                            
+                            </div>
+                            
                           )}
                           {role === "Employer" && (
+                            
                             <li>
                               <Link
                                 to="/dashboard/overview"
@@ -298,6 +325,7 @@ const Navbar2 = () => {
                                 {t("dashboard")}
                               </Link>
                             </li>
+                           
                           )}
 
                           {role === "Admin" && (

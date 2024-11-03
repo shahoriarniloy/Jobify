@@ -5,10 +5,14 @@ import TopCompanies from "./TopCompanies";
 import { useQuery } from "@tanstack/react-query";
 import axiosSecure from "../../Hooks/UseAxiosSecure";
 import Testimonial from "./Testimonial";
-import DashboardLoader from "../../Shared/DashboardLoader";
 import { Helmet } from "react-helmet";
+import CreateAccountSuggestion from "./CreateAccountSuggestion";
+import SuggestedJobs from "./SuggestedJobs";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const loggedUser = useSelector((state) => state.user.loggedUser);
+
   const { data, isLoading } = useQuery({
     queryKey: ["all-info"],
     queryFn: async () => {
@@ -16,7 +20,6 @@ const Home = () => {
       return result.data;
     },
   });
-  if (isLoading) return <DashboardLoader />;
   return (
     <div>
       <Helmet>
@@ -27,20 +30,20 @@ const Home = () => {
         />
       </Helmet>
       <SearchBar
-        jobCount={data.jobCount}
-        companyCount={data.companyCount}
-        candidates={data.candidates}
-        successPeoples={data.successPeoples}
+        jobCount={data?.jobCount}
+        companyCount={data?.companyCount}
+        candidates={data?.candidates}
+        successPeoples={data?.successPeoples}
+        isLoading={isLoading}
       ></SearchBar>
-      <PopularCategory categoryCounts={data.categoryCounts} />
-      <HowItWorks></HowItWorks>
+      <PopularCategory isLoading={isLoading} categoryCounts={data?.categoryCounts} />
+      <hr />
+      <SuggestedJobs jobs={data?.jobs} isLoading={isLoading}/>
+      <HowItWorks />
       <TopCompanies />
-      <Testimonial reviews={data?.reviews} />
-
-      {/* <OurTeam></OurTeam> */}
-      {/* <Feedback></Feedback> */}
-
-      {/* <TopCompanies></TopCompanies> */}
+      <Testimonial isLoading={isLoading} reviews={data?.reviews} />
+      {!loggedUser && (      <CreateAccountSuggestion/>
+)}
     </div>
   );
 };
