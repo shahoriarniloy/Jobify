@@ -21,6 +21,8 @@ import { toast } from "react-toastify";
 import useConditionalDataFetch from "../Redux/UserDataSlice";
 import { CardGiftcardTwoTone } from "@mui/icons-material";
 import { GiCrown } from "react-icons/gi";
+import logo from '../assets/logo/logo.png'
+
 
 const Navbar2 = () => {
   const { currentUser, logOutUser } = useCurrentUser();
@@ -44,7 +46,8 @@ const Navbar2 = () => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    const socket = io("https://jobify-server-ujo0.onrender.com");
+    // const socket = io("https://jobify-server-ujo0.onrender.com");
+    const socket = io("http://localhost:5000");
 
     socket.on("jobPosted", (notification) => {
       setJobNotifications((prev) => [...prev, notification]);
@@ -130,12 +133,11 @@ const Navbar2 = () => {
       <div className="container mx-auto">
         <div className="navbar pt-2">
           <div className="navbar-start ">
-            <div className="flex items-center gap-2 text-[#0a65cc]">
-              <PiBag className="w-6 h-6" />
+            <div className="flex flex-row items-center gap-2 text-[#0a65cc]">
               <Link
                 to="/"
-                className="text-xl border-none outline-none font-bold"
-              >
+                className="text-xl border-none outline-none font-bold h-12 w-12 flex items-center"
+              ><img  src={logo} alt="" />
                 {t("Jobify")}
               </Link>
             </div>

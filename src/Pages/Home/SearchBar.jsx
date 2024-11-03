@@ -10,8 +10,9 @@ import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import DashboardLoader from "../../Shared/DashboardLoader";
 
-const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
+const SearchBar = ({ jobCount, companyCount, candidates, successPeoples ,isLoading}) => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
@@ -30,6 +31,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
     e.preventDefault();
     refetch();
   };
+
 
   return (
     <div
@@ -192,7 +194,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
               <FaBriefcase className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{jobCount}</h2>
+              <h2 className="text-2xl font-bold">{ isLoading? "...":jobCount}</h2>
               <p className="text-[#767F8C]">{t("live_jobs_label")}</p>
             </div>
           </div>
@@ -208,7 +210,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
               <FaBuilding className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{companyCount}</h2>
+              <h2 className="text-2xl font-bold">{isLoading? "...":companyCount}</h2>
               <p className="text-[#767F8C]">{t("companies_label")}</p>
             </div>
           </div>
@@ -224,7 +226,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
               <IoPeopleSharp className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{candidates}</h2>
+              <h2 className="text-2xl font-bold">{isLoading? "...":candidates}</h2>
               <p className="text-[#767F8C]">{t("candidates_label")}</p>
             </div>
           </div>
@@ -240,7 +242,7 @@ const SearchBar = ({ jobCount, companyCount, candidates, successPeoples }) => {
               <RiPoliceBadgeFill className="text-4xl text-[#0a65cc]" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{successPeoples}</h2>
+              <h2 className="text-2xl font-bold">{isLoading? "...":successPeoples}</h2>
               <p className="text-[#767F8C]">{t("successful_label")}</p>
             </div>
           </div>
