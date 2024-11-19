@@ -761,5 +761,26 @@
 
   "type_message_here": "यहाँ संदेश टाइप करें",
   "send": "भेजें",
-  "select_a_conversation": "एक बातचीत चुनें"
+  "select_a_conversation": "एक बातचीत चुनें",
+
+  "altLogoText": "जॉबिफ़ाई लोगो",
+  "Call Now": "अभी कॉल करें",
+  "E-mail": "ईमेल",
+  "AddressLine1": "कुरीग्राम सदर, कुरीग्राम",
+  "AddressLine2": "रंगपुर, बांग्लादेश",
+  "Quick Link": "त्वरित लिंक",
+  "About": "हमारे बारे में",
+  "Contact": "संपर्क करें",
+  "Blog": "ब्लॉग",
+  "Pricing": "मूल्य निर्धारण",
+  "Navigate Now": "अभी नेविगेट करें",
+  "Browse Jobs": "नौकरियां देखें",
+  "Browse Employers": "नियोक्ताओं को ब्राउज़ करें",
+  "Candidate Dashboard": "उम्मीदवार डैशबोर्ड",
+  "Saved Jobs": "सहेजी गई नौकरियां",
+  "Support": "सहायता",
+  "Faqs": "सामान्य प्रश्न",
+  "Privacy Policy": "गोपनीयता नीति",
+  "Terms & Conditions": "नियम व शर्तें",
+  "Footer Rights Text": "@ 2024 जॉबिफ़ाई - जॉब पोर्टल। सभी अधिकार सुरक्षित।"
 }

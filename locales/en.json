@@ -772,6 +772,27 @@
 
   "type_message_here": "Type Message here",
   "send": "Send",
-  "select_a_conversation": "Select a conversation"
+  "select_a_conversation": "Select a conversation",
+
+  "altLogoText": "Jobify Logo",
+  "Call Now": "Call Now",
+  "E-mail": "E-mail",
+  "AddressLine1": "Kurigram Sodor, Kurigram",
+  "AddressLine2": "Rangpur, Bangladesh",
+  "Quick Link": "Quick Link",
+  "About": "About",
+  "Contact": "Contact",
+  "Blog": "Blog",
+  "Pricing": "Pricing",
+  "Navigate Now": "Navigate Now",
+  "Browse Jobs": "Browse Jobs",
+  "Browse Employers": "Browse Employers",
+  "Candidate Dashboard": "Candidate Dashboard",
+  "Saved Jobs": "Saved Jobs",
+  "Support": "Support",
+  "Faqs": "Faqs",
+  "Privacy Policy": "Privacy Policy",
+  "Terms & Conditions": "Terms & Conditions",
+  "Footer Rights Text": "@ 2024 Jobify - Job Portal. All rights Reserved"
 
 }

@@ -764,5 +764,26 @@
 
   "type_message_here": "এখানে বার্তা টাইপ করুন",
   "send": "পাঠান",
-  "select_a_conversation": "একটি কথোপকথন নির্বাচন করুন"
+  "select_a_conversation": "একটি কথোপকথন নির্বাচন করুন",
+
+  "altLogoText": "জবিফাই লোগো",
+  "Call Now": "এখন কল করুন",
+  "E-mail": "ইমেইল",
+  "AddressLine1": "কুড়িগ্রাম সদর, কুড়িগ্রাম",
+  "AddressLine2": "রংপুর, বাংলাদেশ",
+  "Quick Link": "দ্রুত লিঙ্ক",
+  "About": "আমাদের সম্পর্কে",
+  "Contact": "যোগাযোগ",
+  "Blog": "ব্লগ",
+  "Pricing": "মূল্য তালিকা",
+  "Navigate Now": "এখন নেভিগেট করুন",
+  "Browse Jobs": "চাকরি ব্রাউজ করুন",
+  "Browse Employers": "নিয়োগকর্তা ব্রাউজ করুন",
+  "Candidate Dashboard": "প্রার্থীর ড্যাশবোর্ড",
+  "Saved Jobs": "সংরক্ষিত চাকরি",
+  "Support": "সহায়তা",
+  "Faqs": "প্রশ্নাবলী",
+  "Privacy Policy": "গোপনীয়তা নীতি",
+  "Terms & Conditions": "শর্তাবলী",
+  "Footer Rights Text": "@ ২০২৪ জবিফাই - জব পোর্টাল। সকল অধিকার সংরক্ষিত।"
 }

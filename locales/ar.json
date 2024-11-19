@@ -773,5 +773,26 @@
 
   "type_message_here": "اكتب الرسالة هنا",
   "send": "إرسال",
-  "select_a_conversation": "حدد محادثة"
+  "select_a_conversation": "حدد محادثة",
+
+  "altLogoText": "شعار جوبيفاي",
+  "Call Now": "اتصل الآن",
+  "E-mail": "البريد الإلكتروني",
+  "AddressLine1": "كوريرام سودور، كوريرام",
+  "AddressLine2": "رانجبور، بنغلاديش",
+  "Quick Link": "روابط سريعة",
+  "About": "معلومات عنا",
+  "Contact": "تواصل",
+  "Blog": "مدونة",
+  "Pricing": "الأسعار",
+  "Navigate Now": "التنقل الآن",
+  "Browse Jobs": "تصفح الوظائف",
+  "Browse Employers": "تصفح أصحاب العمل",
+  "Candidate Dashboard": "لوحة تحكم المرشح",
+  "Saved Jobs": "الوظائف المحفوظة",
+  "Support": "الدعم",
+  "Faqs": "الأسئلة الشائعة",
+  "Privacy Policy": "سياسة الخصوصية",
+  "Terms & Conditions": "الشروط والأحكام",
+  "Footer Rights Text": "@ 2024 جوبيفاي - بوابة الوظائف. جميع الحقوق محفوظة."
 }

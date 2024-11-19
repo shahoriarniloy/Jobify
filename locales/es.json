@@ -764,5 +764,26 @@
 
   "type_message_here": "Escriba el mensaje aquí",
   "send": "Enviar",
-  "select_a_conversation": "Seleccione una conversación"
+  "select_a_conversation": "Seleccione una conversación",
+
+  "altLogoText": "Logo de Jobify",
+  "Call Now": "Llama ahora",
+  "E-mail": "Correo electrónico",
+  "AddressLine1": "Kurigram Sodor, Kurigram",
+  "AddressLine2": "Rangpur, Bangladesh",
+  "Quick Link": "Enlace rápido",
+  "About": "Acerca de",
+  "Contact": "Contacto",
+  "Blog": "Blog",
+  "Pricing": "Precios",
+  "Navigate Now": "Navegar ahora",
+  "Browse Jobs": "Explorar empleos",
+  "Browse Employers": "Explorar empleadores",
+  "Candidate Dashboard": "Panel del candidato",
+  "Saved Jobs": "Empleos guardados",
+  "Support": "Soporte",
+  "Faqs": "Preguntas frecuentes",
+  "Privacy Policy": "Política de privacidad",
+  "Terms & Conditions": "Términos y condiciones",
+  "Footer Rights Text": "@ 2024 Jobify - Portal de empleos. Todos los derechos reservados."
 }

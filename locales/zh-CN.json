@@ -757,5 +757,26 @@
 
   "type_message_here": "在此输入消息",
   "send": "发送",
-  "select_a_conversation": "选择对话"
+  "select_a_conversation": "选择对话",
+
+  "altLogoText": "Jobify 标志",
+  "Call Now": "立即拨打",
+  "E-mail": "电子邮件",
+  "AddressLine1": "库里格拉姆区, 库里格拉姆",
+  "AddressLine2": "朗布尔, 孟加拉国",
+  "Quick Link": "快速链接",
+  "About": "关于我们",
+  "Contact": "联系我们",
+  "Blog": "博客",
+  "Pricing": "价格",
+  "Navigate Now": "立即导航",
+  "Browse Jobs": "浏览职位",
+  "Browse Employers": "浏览雇主",
+  "Candidate Dashboard": "候选人仪表板",
+  "Saved Jobs": "已保存职位",
+  "Support": "支持",
+  "Faqs": "常见问题",
+  "Privacy Policy": "隐私政策",
+  "Terms & Conditions": "条款和条件",
+  "Footer Rights Text": "@ 2024 Jobify - 求职门户。版权所有。"
 }
