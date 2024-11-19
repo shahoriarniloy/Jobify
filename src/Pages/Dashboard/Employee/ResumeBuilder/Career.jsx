@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import axiosSecure from "../../../../Hooks/UseAxiosSecure";
 import { useSelector } from "react-redux";
 import useCurrentUser from "../../../../Hooks/useCurrentUser";
+import { useTranslation } from "react-i18next";
 
 const Career = () => {
+  const { t } = useTranslation();
   const [user, setUser] = useState(null);
   const [roadmap, setRoadmap] = useState([]);
   const [jobCategories, setJobCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingJobCategories, setLoadingJobCategories] = useState(false); 
+  const [loadingJobCategories, setLoadingJobCategories] = useState(false);
   const { currentUser } = useCurrentUser();
   const theme = useSelector((state) => state.theme.theme);
   const loggedUser = useSelector((state) => state.user.loggedUser);
@@ -47,13 +49,13 @@ const Career = () => {
 
         const careerRoadmap = generateCareerRoadmap(
           user.skills,
-          response.data 
+          response.data
         );
         setRoadmap(careerRoadmap);
       } catch (error) {
         // console.error("Error fetching job categories:", error);
       } finally {
-        setLoadingJobCategories(false); 
+        setLoadingJobCategories(false);
       }
     };
 
@@ -90,19 +92,19 @@ const Career = () => {
   if (loading || loadingJobCategories) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p className="text-xl font-semibold text-gray-600">Loading...</p>
+        <p className="text-xl font-semibold text-gray-600">{t("loading")}</p>
       </div>
     );
   }
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <div>{t("loading")}</div>;
   }
 
   return (
     <div className="p-6">
       <h1 className="text-3xl text-center font-bold mb-6">
-        Career Roadmap for{" "}
+        {t("careerRoadmap")}{" "}
         {user?.name || loggedUser?.name || loggedUser?.displayName}
       </h1>
       <div className="text-center mb-6">
@@ -113,8 +115,7 @@ const Career = () => {
               : "text-lg text-gray-700 mb-4"
           }
         >
-          Based on your skills, here are the most suitable career fields for
-          you.
+          {t("basedOnSkills")}
         </p>
       </div>
 
@@ -126,7 +127,7 @@ const Career = () => {
               : "text-center text-lg text-gray-700 border-2"
           }
         >
-          <p>No suitable job categories found.</p>
+          <p>{t("noJobCategoriesFound")}</p>
         </div>
       ) : (
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -140,23 +141,23 @@ const Career = () => {
               key={category.jobTitle}
             >
               <h2 className="text-xl font-semibold mb-2">
-                Job Title: {category.jobTitle}
+                {t("jobTitle")}: {category.jobTitle}
               </h2>
               <p className="mb-2">
-                <span className="font-semibold">Required Skills:</span>{" "}
+                <span className="font-semibold">{t("requiredSkills")}:</span>{" "}
                 {category.requiredSkills.join(", ")}
               </p>
               <p className="mb-2">
                 <span className="font-semibold">
-                  Additional Skills to Learn:
+                  {t("additionalSkillsToLearn")}:
                 </span>{" "}
                 {category.additionalSkills.length > 0
                   ? category.additionalSkills.join(", ")
-                  : "None"}
+                  : t("none")}
               </p>
               <p className="mb-2">
-                <span className="font-semibold">Time to Learn:</span>{" "}
-                {category.timeToLearn} months
+                <span className="font-semibold">{t("timeToLearn")}:</span>{" "}
+                {category.timeToLearn} {t("months")}
               </p>
             </div>
           ))}
@@ -171,7 +172,7 @@ const Career = () => {
               : "text-lg text-gray-700 mb-2"
           }
         >
-          Explore these fields and prepare for the best possible career outcome.
+          {t("exploreFields")}
         </p>
         <p
           className={
@@ -180,7 +181,7 @@ const Career = () => {
               : "text-lg text-gray-700 mb-2"
           }
         >
-          We've also provided additional skills to help you reach your goals.
+          {t("additionalSkills")}
         </p>
       </div>
     </div>

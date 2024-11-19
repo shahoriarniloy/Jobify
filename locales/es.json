@@ -746,15 +746,15 @@
   "room_id_placeholder": "ID de la sala",
   "join_room": "Unirse a la sala",
 
-   "your_posts": "Tus publicaciones",
+  "your_posts": "Tus publicaciones",
 
-   "follow_people": "Seguir personas",
+  "follow_people": "Seguir personas",
 
-   "following": "Siguiendo",
+  "following": "Siguiendo",
 
-   "followers": "Seguidores",
+  "followers": "Seguidores",
 
-   "like_singular": "Me gusta",
+  "like_singular": "Me gusta",
   "like_plural": "Me gustas",
   "comment_singular": "Comentario",
   "comment_plural": "Comentarios",
@@ -785,5 +785,15 @@
   "Faqs": "Preguntas frecuentes",
   "Privacy Policy": "Política de privacidad",
   "Terms & Conditions": "Términos y condiciones",
-  "Footer Rights Text": "@ 2024 Jobify - Portal de empleos. Todos los derechos reservados."
+  "Footer Rights Text": "@ 2024 Jobify - Portal de empleos. Todos los derechos reservados.",
+
+  "careerRoadmap": "Hoja de ruta de carrera para",
+  "basedOnSkills": "Basado en tus habilidades, aquí están los campos de carrera más adecuados para ti.",
+  "noSuitableCategories": "No se encontraron categorías de trabajo adecuadas.",
+  "jobTitle": "Título del trabajo: ",
+  "requiredSkills": "Habilidades requeridas: ",
+  "additionalSkills": "Habilidades adicionales para aprender: ",
+  "timeToLearn": "Tiempo para aprender: ",
+  "exploreFields": "Explora estos campos y prepárate para el mejor resultado profesional posible.",
+  "additionalSkillsHelp": "También hemos proporcionado habilidades adicionales para ayudarte a alcanzar tus metas."
 }

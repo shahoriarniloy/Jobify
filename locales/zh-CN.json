@@ -778,5 +778,15 @@
   "Faqs": "常见问题",
   "Privacy Policy": "隐私政策",
   "Terms & Conditions": "条款和条件",
-  "Footer Rights Text": "@ 2024 Jobify - 求职门户。版权所有。"
+  "Footer Rights Text": "@ 2024 Jobify - 求职门户。版权所有。",
+
+  "careerRoadmap": "为您定制的职业发展路线图",
+  "basedOnSkills": "根据您的技能，以下是最适合您的职业领域。",
+  "noSuitableCategories": "没有找到合适的职位类别。",
+  "jobTitle": "职位名称：",
+  "requiredSkills": "所需技能：",
+  "additionalSkills": "需要学习的额外技能：",
+  "timeToLearn": "学习时间：",
+  "exploreFields": "探索这些领域，并为最佳职业成果做好准备。",
+  "additionalSkillsHelp": "我们还提供了额外的技能，帮助您实现目标。"
 }

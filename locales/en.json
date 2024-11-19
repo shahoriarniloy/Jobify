@@ -793,6 +793,17 @@
   "Faqs": "Faqs",
   "Privacy Policy": "Privacy Policy",
   "Terms & Conditions": "Terms & Conditions",
-  "Footer Rights Text": "@ 2024 Jobify - Job Portal. All rights Reserved"
+  "Footer Rights Text": "@ 2024 Jobify - Job Portal. All rights Reserved",
 
+  "careerRoadmap": "Career Roadmap for",
+  "basedOnSkills": "Based on your skills, here are the most suitable career fields for you.",
+  "noJobCategoriesFound": "No suitable job categories found.",
+  "jobTitle": "Job Title",
+  "requiredSkills": "Required Skills",
+  "additionalSkillsToLearn": "Additional Skills to Learn",
+  "timeToLearn": "Time to Learn",
+  "none": "None",
+  "months": "months",
+  "exploreFields": "Explore these fields and prepare for the best possible career outcome.",
+  "additionalSkills": "We've also provided additional skills to help you reach your goals."
 }
